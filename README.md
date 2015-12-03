@@ -54,6 +54,8 @@ $ ember exam --split=<num>
 
 The `split` option allows you to specify a number of files greater than one to spread your tests across. Ember will then proceed to run only the first bacth of tests.
 
+The split will attempt to weight your test modules (by type of test module and number of tests) so that each group runs in roughly the same amount of time.
+
 ```bash
 $ ember exam --split=<num> --split-file=<num>
 ```
