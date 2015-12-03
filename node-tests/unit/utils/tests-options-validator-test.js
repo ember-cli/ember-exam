@@ -98,10 +98,10 @@ describe('TestOptionsValidator', function() {
       assert.equal(validator.shouldRandomize, true);
     });
 
-    it('should default `random` to \'tests\' if used without a value', function() {
+    it('should default `random` to \'modules\' if used without a value', function() {
       var validator = new TestOptionsValidator({ random: '' });
       assert.equal(validator.shouldRandomize, true);
-      assert.equal(validator.options.random, 'tests');
+      assert.equal(validator.options.random, 'modules');
     });
 
     it('should throw an error if `random` is a non-supported value', function() {

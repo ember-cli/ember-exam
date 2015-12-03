@@ -36,9 +36,9 @@ The `distill` option filters the tests after build so that you only load and par
 $ ember exam --random=<''|'tests'|'modules'>
 ```
 
-By default, the `random` option allows you to run your tests in a random order within their modules. This means that the test modules will be randomly ordered and then the tests within them will be randomly ordered. You can also use `--random=tests` to get the same effect more explicitly.
+By default, the `random` option allows you to run your test modules in a random order. This is essentially the same as if you were you to randomize the structure of your test directory. You can also use `--random=modules` to achieve the same effect more explicitly.
 
-If you specify `--random=modules`, it will only randomize the test modules and leave the individual tests in place.
+If you specify `--random=tests`, it will randomizes test modules and the tests within those modules. This means that the test modules will be randomly ordered and then the tests within them will be randomly ordered as well.
 
 ```bash
 $ ember exam --random --seed=<num>
