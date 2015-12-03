@@ -1,5 +1,7 @@
 # Ember Exam
 
+[![Build Status](https://travis-ci.org/trentmwillis/ember-exam.svg)](https://travis-ci.org/trentmwillis/ember-exam)
+
 Ember Exam is an addon to allow you more control over how you run your tests. It provides the ability to randomize, split, distill, and parallelize* your test suite by adding a more robust CLI command.
 
 It started as a way to help reduce flaky tests and encourage healthy test driven development. It's like [Head & Shoulders](http://www.headandshoulders.com/) for your tests!
