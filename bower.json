@@ -1,5 +1,5 @@
 {
-  "name": "ember-scatter",
+  "name": "ember-exam",
   "dependencies": {
     "ember": "2.0.0",
     "ember-cli-shims": "ember-cli/ember-cli-shims#0.0.5",

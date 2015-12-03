@@ -1,8 +1,9 @@
 /* jshint node: true */
+
 'use strict';
 
 module.exports = {
-  name: 'ember-scatter',
+  name: 'ember-exam',
 
   includedCommands: function() {
     return require('./lib/commands');

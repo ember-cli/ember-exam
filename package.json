@@ -1,7 +1,7 @@
 {
-  "name": "ember-scatter",
-  "version": "0.0.0",
-  "description": "The default blueprint for ember-cli addons.",
+  "name": "ember-exam",
+  "version": "1.0.0",
+  "description": "Run your tests with better filtering, randomization, splitting, and parallelization for beautiful tests.",
   "directories": {
     "doc": "doc",
     "test": "tests"
@@ -42,7 +42,6 @@
     "ember-addon"
   ],
   "dependencies": {
-    "babel-core": "^5.8.25",
     "ember-cli-babel": "^5.1.3",
     "recast": "^0.10.33",
     "rsvp": "^3.1.0"
