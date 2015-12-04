@@ -52,6 +52,56 @@ describe('ArrayUtils', function() {
     });
   });
 
+  describe('weightedSplit', function() {
+    it('should attempt to split an array such that all columns are similar weight', function() {
+      var array = [
+        { weight: 150 },
+        { weight: 20 },
+        { weight: 100 },
+        { weight: 10 },
+        { weight: 20 },
+        { weight: 10 },
+        { weight: 1 },
+        { weight: 100 }
+      ];
+
+      var splits = ArrayUtils.weightedSplit(array, 2);
+
+      var expectedOne = [
+        { weight: 150 },
+        { weight: 10 }
+      ];
+      var expectedTwo = [
+        { weight: 20 },
+        { weight: 100 },
+        { weight: 10 },
+        { weight: 20 },
+        { weight: 1 },
+        { weight: 100 }
+      ];
+
+      assert.deepEqual(splits, [ expectedOne, expectedTwo ]);
+
+      var array = [
+        { weight: 100 },
+        { weight: 10 },
+        { weight: 100 }
+      ];
+
+      var splits = ArrayUtils.weightedSplit(array, 2);
+
+      var expectedOne = [
+        { weight: 100 }
+      ];
+      var expectedTwo = [
+        { weight: 10 },
+        { weight: 100 }
+      ];
+
+      assert.deepEqual(splits, [ expectedOne, expectedTwo ]);
+    });
+  });
+
   describe('moveElement', function() {
     it('should properly rearrange elements in place', function() {
       var array = [ 'a', 'b', 'c' ];

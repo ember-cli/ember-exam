@@ -66,6 +66,11 @@ describe('TestOptionsValidator', function() {
       assert.throws(function() { validator.shouldSplit; }, /You must specify a 'split-file' value that is less than or equal to your 'split' value/);
     });
 
+    it('should throw an error if `weighted` is being used without `split`', function() {
+      var validator = new TestOptionsValidator({ weighted: true });
+      assert.throws(function() { validator.shouldSplit; }, /You used the 'weighted' option but are not splitting your tests/);
+    });
+
     it('should throw an error if `parallel` is being used', function() {
       var validator = new TestOptionsValidator({ split: 2, parallel: true });
       assert.throws(function() { validator.shouldSplit; }, /Sorry, the 'parallel' option is not yet supported. Pull requests welcome/);

@@ -64,6 +64,12 @@ $ ember exam --split=<num> --split-file=<num>
 
 The `split-file` options allows you to specify which test file to run after using the `split` option. It is one-indexed, so if you specifiy a split of 3, the highest file you could run is 3 as well.
 
+```bash
+$ ember exam --split=<num> --weighted
+```
+
+The `weighted` option splits tests by weighting them according to type; `acceptance` tests weigh more than `unit` tests weigh more than `jshint` tests. This helps make sure the various test groupings run in similar amounts of time.
+
 **FEATURE IN PROGRESS**
 
 ```bash
