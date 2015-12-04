@@ -6,6 +6,8 @@ Ember Exam is an addon to allow you more control over how you run your tests. It
 
 It started as a way to help reduce flaky tests and encourage healthy test driven development. It's like [Head & Shoulders](http://www.headandshoulders.com/) for your tests!
 
+**Note: this addon is only compatible with Ember-CLI v1.13.10 and up.**
+
 _*As of v1.0.0 parallelization isn't ready, but it is being worked on!_
 
 ## How To Use
@@ -46,7 +48,7 @@ If you specify `--random=tests`, it will randomizes test modules and the tests w
 $ ember exam --random --seed=<num>
 ```
 
-The `seed` option allows you to specify a starting value from which to randomize your test/module order. This allows reproduction of issues that occurred when running randomly. There are no bounds on what the seed value can be.
+The `seed` option allows you to specify a starting value from which to randomize your test/module order. This allows reproduction of issues that occurred when running randomly. There are no bounds on what the seed value can be, though generated seeds are within the range of [0, 10000).
 
 ### Splitting
 
@@ -77,3 +79,15 @@ $ ember exam --split=<num> --parallel
 ```
 
 The `parallel` option allows you to run your split tests across multiple child processes. It can only be used when you also split your tests.
+
+## Usage Constraints
+
+Since Ember Exam performs many of its functions by inspecting the Abstract Syntax Tree of your tests, it is bound by some constraints. Specifically, any task that involves identifying individual tests (e.g., distilling and randomizing tests) are currently limited to tests that follow a structure similar to:
+
+```javascript
+import { module, test } from 'qunit';
+module('Some Module');
+test('Some Test');
+```
+
+This is because identifying a call to `test` that is actually for creating a test, does not have a 100% foolproof heuristic. So Ember Exam looks for calls that get compiled to either: `QUnit.test`, `_qunit.test`, or `_emberQunit.test`, since this covers the large majority of Ember tests and lines up with the examples given in the [Ember testing guides](http://guides.emberjs.com/v2.2.0/testing/).

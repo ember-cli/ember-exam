@@ -15,7 +15,7 @@ describe('TestOptionsValidator', function() {
     });
 
     it('returns true if shouldFilter is true', function() {
-      var validator = new TestOptionsValidator({ hardFilter: 'filter' });
+      var validator = new TestOptionsValidator({ distill: 'filter' });
       assert.equal(validator.needsAST, true);
     });
 
@@ -25,17 +25,17 @@ describe('TestOptionsValidator', function() {
     });
 
     it('returns true if shouldSplit and shouldFilter are true', function() {
-      var validator = new TestOptionsValidator({ split: 2, hardFilter: 'filter' });
+      var validator = new TestOptionsValidator({ split: 2, distill: 'filter' });
       assert.equal(validator.needsAST, true);
     });
 
     it('returns true if shouldRandomize and shouldFilter are true', function() {
-      var validator = new TestOptionsValidator({ random: '', hardFilter: 'filter' });
+      var validator = new TestOptionsValidator({ random: '', distill: 'filter' });
       assert.equal(validator.needsAST, true);
     });
 
     it('returns true if shouldSplit, shouldRandomize, and shouldFilter are true', function() {
-      var validator = new TestOptionsValidator({ split: 2, random: '', hardFilter: 'filter' });
+      var validator = new TestOptionsValidator({ split: 2, random: '', distill: 'filter' });
       assert.equal(validator.needsAST, true);
     });
 
@@ -111,7 +111,7 @@ describe('TestOptionsValidator', function() {
 
     it('should throw an error if `random` is a non-supported value', function() {
       var validator = new TestOptionsValidator({ random: 'herp' });
-      assert.throws(function() { validator.shouldRandomize }, /Valid options for 'random' are 'tests', 'modules', or nothing/);
+      assert.throws(function() { validator.shouldRandomize; }, /Valid options for 'random' are 'tests', 'modules', or nothing/);
     });
 
     it('should return true if `random` is used with `seed`', function() {
@@ -121,7 +121,7 @@ describe('TestOptionsValidator', function() {
 
     it('should throw an error if `seed` is used without `random`', function() {
       var validator = new TestOptionsValidator({ seed: 10 });
-      assert.throws(function() { validator.shouldRandomize }, /You specified a 'seed' value but are not using 'random' as well/);
+      assert.throws(function() { validator.shouldRandomize; }, /You specified a 'seed' value but are not using 'random' as well/);
     });
 
     it('should return false if `random` is not used', function() {
@@ -131,17 +131,17 @@ describe('TestOptionsValidator', function() {
   });
 
   describe('shouldFilter', function() {
-    it('should return true if using `hard-filter`', function() {
-      var validator = new TestOptionsValidator({ hardFilter: 'filter' });
+    it('should return true if using `distill`', function() {
+      var validator = new TestOptionsValidator({ distill: '/some.*regex/' });
       assert.equal(validator.shouldFilter, true);
     });
 
-    it('should return true if using `regex-filter`', function() {
-      var validator = new TestOptionsValidator({ regexFilter: '/filter/' });
-      assert.equal(validator.shouldFilter, true);
+    it('should throw an error if using `distill` with a falsy value', function() {
+      var validator = new TestOptionsValidator({ distill: '' });
+      assert.throws(function() { validator.shouldFilter; }, /You must specify either a normal string or a regex pattern for 'distill'/);
     });
 
-    it('should return false if not using `hard-filter` or `regex-filter`', function() {
+    it('should return false if not using `distill`', function() {
       var validator = new TestOptionsValidator({});
       assert.equal(validator.shouldFilter, false);
     });
