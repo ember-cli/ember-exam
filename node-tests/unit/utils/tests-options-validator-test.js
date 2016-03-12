@@ -71,11 +71,6 @@ describe('TestOptionsValidator', function() {
       assert.throws(function() { validator.shouldSplit; }, /You used the 'weighted' option but are not splitting your tests/);
     });
 
-    it('should throw an error if `parallel` is being used', function() {
-      var validator = new TestOptionsValidator({ split: 2, parallel: true });
-      assert.throws(function() { validator.shouldSplit; }, /Sorry, the 'parallel' option is not yet supported. Pull requests welcome/);
-    });
-
     it('should return true if using `split`', function() {
       var validator = new TestOptionsValidator({ split: 2 });
       assert.equal(validator.shouldSplit, true);
@@ -144,6 +139,37 @@ describe('TestOptionsValidator', function() {
     it('should return false if not using `distill`', function() {
       var validator = new TestOptionsValidator({});
       assert.equal(validator.shouldFilter, false);
+    });
+  });
+
+  describe('shouldParallelize', function() {
+    it('should throw an error if `split` is not being used', function() {
+      var validator = new TestOptionsValidator({ parallel: true });
+      assert.throws(function() { validator.shouldParallelize; }, /You must specify the `split` option in order to run your tests in parallel/);
+    });
+
+    it('should log a warning if used with the `split-file` option', function() {
+      var lastWarning = '';
+      var originalWarn = console.warn;
+      console.warn = function(str) {
+        lastWarning = str;
+      };
+
+      var validator = new TestOptionsValidator({ split: 2, splitFile: 1, parallel: true });
+      assert.equal(validator.shouldParallelize, true);
+      assert.equal(lastWarning, 'Ignoring `split-file` option due to running split tests in parallel.');
+
+      console.warn = originalWarn;
+    });
+
+    it('should return false', function() {
+      var validator = new TestOptionsValidator({ parallel: false });
+      assert.equal(validator.shouldParallelize, false);
+    });
+
+    it('should return true', function() {
+      var validator = new TestOptionsValidator({ split: 2, parallel: true });
+      assert.equal(validator.shouldParallelize, true);
     });
   });
 });

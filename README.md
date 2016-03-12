@@ -2,13 +2,11 @@
 
 [![Build Status](https://travis-ci.org/trentmwillis/ember-exam.svg)](https://travis-ci.org/trentmwillis/ember-exam)
 
-Ember Exam is an addon to allow you more control over how you run your tests. It provides the ability to randomize, split, distill, and parallelize* your test suite by adding a more robust CLI command.
+Ember Exam is an addon to allow you more control over how you run your tests. It provides the ability to randomize, split, distill, and parallelize your test suite by adding a more robust CLI command.
 
 It started as a way to help reduce flaky tests and encourage healthy test driven development. It's like [Head & Shoulders](http://www.headandshoulders.com/) for your tests!
 
 **Note: this addon is only compatible with Ember-CLI v1.13.10 and up.**
-
-_*As of v1.0.0 parallelization isn't ready, but it is being worked on!_
 
 ## How To Use
 
@@ -72,13 +70,17 @@ $ ember exam --split=<num> --weighted
 
 The `weighted` option splits tests by weighting them according to type; `acceptance` tests weigh more than `unit` tests weigh more than `jshint` tests. This helps make sure the various test groupings run in similar amounts of time.
 
-**FEATURE IN PROGRESS**
+#### Split Test Parallelization
 
 ```bash
 $ ember exam --split=<num> --parallel
 ```
 
-The `parallel` option allows you to run your split tests across multiple child processes. It can only be used when you also split your tests.
+The `parallel` option allows you to run your tests across multiple test pages in parallel in [Testem](https://github.com/testem/testem). It can only be used when you also split your tests.
+
+Ember Exam will respect the `parallel` setting of your [Testem config file](https://github.com/testem/testem/blob/master/docs/config_file.md#config-level-options) while running tests in parallel. _Note that the default value for `parallel` in Testem is 1, which means you'll need a non-default value to actually see parallel behavior._
+
+_Note: You must be using Testem version `1.5.0` or greater for this feature to work properly._
 
 ## Usage Constraints
 
