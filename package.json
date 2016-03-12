@@ -9,7 +9,10 @@
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "ember try:testall"
+    "test": "mocha --recursive node-tests/",
+    "test:ember": "ember try:testall",
+    "test:all": "npm test && npm run test:ember",
+    "test:ci": "npm test && ember try $EMBER_TRY_SCENARIO test"
   },
   "repository": {
     "type": "git",
