@@ -1,6 +1,6 @@
 {
   "name": "ember-exam",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "description": "Run your tests with better filtering, randomization, splitting, and parallelization for beautiful tests.",
   "directories": {
     "doc": "doc",
