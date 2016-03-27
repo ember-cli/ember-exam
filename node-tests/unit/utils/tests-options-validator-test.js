@@ -14,32 +14,12 @@ describe('TestOptionsValidator', function() {
       assert.equal(validator.needsAST, true);
     });
 
-    it('returns true if shouldFilter is true', function() {
-      var validator = new TestOptionsValidator({ distill: 'filter' });
-      assert.equal(validator.needsAST, true);
-    });
-
     it('returns true if shouldSplit and shouldRandomize are true', function() {
       var validator = new TestOptionsValidator({ split: 2, random: '' });
       assert.equal(validator.needsAST, true);
     });
 
-    it('returns true if shouldSplit and shouldFilter are true', function() {
-      var validator = new TestOptionsValidator({ split: 2, distill: 'filter' });
-      assert.equal(validator.needsAST, true);
-    });
-
-    it('returns true if shouldRandomize and shouldFilter are true', function() {
-      var validator = new TestOptionsValidator({ random: '', distill: 'filter' });
-      assert.equal(validator.needsAST, true);
-    });
-
-    it('returns true if shouldSplit, shouldRandomize, and shouldFilter are true', function() {
-      var validator = new TestOptionsValidator({ split: 2, random: '', distill: 'filter' });
-      assert.equal(validator.needsAST, true);
-    });
-
-    it('returns false if shouldSplit, shouldRandomize, and shouldFilter are false', function() {
+    it('returns false if shouldSplit and shouldRandomize are false', function() {
       var validator = new TestOptionsValidator({});
       assert.equal(validator.needsAST, false);
     });
@@ -122,23 +102,6 @@ describe('TestOptionsValidator', function() {
     it('should return false if `random` is not used', function() {
       var validator = new TestOptionsValidator({});
       assert.equal(validator.shouldRandomize, false);
-    });
-  });
-
-  describe('shouldFilter', function() {
-    it('should return true if using `distill`', function() {
-      var validator = new TestOptionsValidator({ distill: '/some.*regex/' });
-      assert.equal(validator.shouldFilter, true);
-    });
-
-    it('should throw an error if using `distill` with a falsy value', function() {
-      var validator = new TestOptionsValidator({ distill: '' });
-      assert.throws(function() { validator.shouldFilter; }, /You must specify either a normal string or a regex pattern for 'distill'/);
-    });
-
-    it('should return false if not using `distill`', function() {
-      var validator = new TestOptionsValidator({});
-      assert.equal(validator.shouldFilter, false);
     });
   });
 
