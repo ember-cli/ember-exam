@@ -9,17 +9,7 @@ describe('TestOptionsValidator', function() {
       assert.equal(validator.needsAST, true);
     });
 
-    it('returns true if shouldRandomize is true', function() {
-      var validator = new TestOptionsValidator({ random: '' });
-      assert.equal(validator.needsAST, true);
-    });
-
-    it('returns true if shouldSplit and shouldRandomize are true', function() {
-      var validator = new TestOptionsValidator({ split: 2, random: '' });
-      assert.equal(validator.needsAST, true);
-    });
-
-    it('returns false if shouldSplit and shouldRandomize are false', function() {
+    it('returns false if shouldSplit is false', function() {
       var validator = new TestOptionsValidator({});
       assert.equal(validator.needsAST, false);
     });
@@ -68,35 +58,19 @@ describe('TestOptionsValidator', function() {
   });
 
   describe('shouldRandomize', function() {
-    it('should return true if `random` is set to \'tests\'', function() {
-      var validator = new TestOptionsValidator({ random: 'tests' });
-      assert.equal(validator.shouldRandomize, true);
-    });
-
-    it('should return true if `random` is set to \'modules\'', function() {
-      var validator = new TestOptionsValidator({ random: 'modules' });
-      assert.equal(validator.shouldRandomize, true);
-    });
-
-    it('should default `random` to \'modules\' if used without a value', function() {
+    it('should return true if `random` is an empty string', function() {
       var validator = new TestOptionsValidator({ random: '' });
       assert.equal(validator.shouldRandomize, true);
-      assert.equal(validator.options.random, 'modules');
     });
 
-    it('should throw an error if `random` is a non-supported value', function() {
-      var validator = new TestOptionsValidator({ random: 'herp' });
-      assert.throws(function() { validator.shouldRandomize; }, /Valid options for 'random' are 'tests', 'modules', or nothing/);
-    });
-
-    it('should return true if `random` is used with `seed`', function() {
-      var validator = new TestOptionsValidator({ random: '', seed: 10 });
+    it('should return true if `random` is set to a string', function() {
+      var validator = new TestOptionsValidator({ random: '1337' });
       assert.equal(validator.shouldRandomize, true);
     });
 
-    it('should throw an error if `seed` is used without `random`', function() {
-      var validator = new TestOptionsValidator({ seed: 10 });
-      assert.throws(function() { validator.shouldRandomize; }, /You specified a 'seed' value but are not using 'random' as well/);
+    it('should return false if `random` is a non-string', function() {
+      var validator = new TestOptionsValidator({ random: true });
+      assert.equal(validator.shouldRandomize, false);
     });
 
     it('should return false if `random` is not used', function() {

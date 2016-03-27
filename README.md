@@ -23,18 +23,20 @@ $ ember exam --server
 ### Randomization
 
 ```bash
-$ ember exam --random=<''|'tests'|'modules'>
+$ ember exam --random[=<seed>]
 ```
 
-By default, the `random` option allows you to run your test modules in a random order. This is essentially the same as if you were you to randomize the structure of your test directory. You can also use `--random=modules` to achieve the same effect more explicitly.
-
-If you specify `--random=tests`, it will randomizes test modules and the tests within those modules. This means that the test modules will be randomly ordered and then the tests within them will be randomly ordered as well.
+The `random` option allows you to randomize the order in which your tests run. You can optionally specify a "seed" value from which to randomize your tests in order to reproduce results. The seed can be any string value. Regardless of whether you specify a seed or not, Ember Exam will log the seed value used for the randomization at the beginning of the test run:
 
 ```bash
-$ ember exam --random --seed=<num>
+$ ember exam --random
+$ Randomizing tests with seed: liv5d1ixkco6qlatl6o7mbo6r
+
+$ ember exam --random=this_is1337
+$ Randomizing tests with seed: this_is1337
 ```
 
-The `seed` option allows you to specify a starting value from which to randomize your test/module order. This allows reproduction of issues that occurred when running randomly. There are no bounds on what the seed value can be, though generated seeds are within the range of [0, 10000).
+_Note: You must be using QUnit version `1.23.0` or greater for this feature to work properly._
 
 ### Splitting
 
