@@ -28,7 +28,10 @@ describe('ExamCommand', function() {
 
       command = new ExamCommand({
         project: project,
-        tasks: tasks
+        tasks: tasks,
+        ui: {
+          writeLine: function() {}
+        }
       });
 
       superCall = { called: false };
@@ -73,7 +76,7 @@ describe('ExamCommand', function() {
       });
     });
 
-    it('should set \'splitFile\' to the query option', function() {
+    it('should set \'splitFile\' on the query option', function() {
       command.run({ split: 2, splitFile: 2 });
 
       assert.equal(superCall.options.query, 'splitFile=2');
@@ -84,6 +87,20 @@ describe('ExamCommand', function() {
       command.run({ split: 2, splitFile: 2, query: 'someQuery=derp&hidepassed' });
 
       assert.equal(superCall.options.query, 'someQuery=derp&hidepassed&splitFile=2');
+      assert.equal(superCall.called, true);
+    });
+
+    it('should set \'seed=1337\' on the query option', function() {
+      command.run({ random: '1337' });
+
+      assert.equal(superCall.options.query, 'seed=1337');
+      assert.equal(superCall.called, true);
+    });
+
+    it('should append \'seed=1337\' to the query option', function() {
+      command.run({ random: '1337', query: 'someQuery=derp&hidepassed' });
+
+      assert.equal(superCall.options.query, 'someQuery=derp&hidepassed&seed=1337');
       assert.equal(superCall.called, true);
     });
   });

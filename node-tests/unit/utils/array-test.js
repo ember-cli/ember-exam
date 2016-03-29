@@ -3,23 +3,6 @@ var assert = require('assert');
 var ArrayUtils = require('../../../lib/utils/array');
 
 describe('ArrayUtils', function() {
-  describe('randomize', function() {
-    it('should randomize an array with a passed in seed', function() {
-      var array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 ];
-      var seed = ArrayUtils.randomize(array, 10);
-
-      assert.deepEqual(array, [ 3, 1, 2, 5, 7, 4, 8, 0, 9, 6 ]);
-      assert.equal(seed, 10);
-    });
-
-    it('should randomize an array with a generated seed', function() {
-      var array = [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 ];
-      var seed = ArrayUtils.randomize(array);
-
-      assert.equal(typeof seed === 'number', true);
-    });
-  });
-
   describe('split', function() {
     it('should generate equal sized arrays with a nice fraction', function() {
       var array = [ 'a', 'b' ];
