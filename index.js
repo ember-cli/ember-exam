@@ -7,5 +7,9 @@ module.exports = {
 
   includedCommands: function() {
     return require('./lib/commands');
+  },
+
+  included: function(app) {
+    app.import('vendor/ember-exam/test-loader.js', { type: 'test' });
   }
 };

@@ -51,7 +51,7 @@ describe('ExamCommand', function() {
     });
 
     it('should defer to super after patching the build task', function() {
-      command.run({ split: 2 });
+      command.run({ split: 2, useAst: true });
 
       assert.notEqual(originalBuildRun, command.tasks.Build.prototype.run);
       assert.equal(superCall.called, true);
@@ -67,7 +67,7 @@ describe('ExamCommand', function() {
         };
       };
 
-      command.run({ split: 2 });
+      command.run({ split: 2, useAst: true });
 
       var build = new command.tasks.Build();
       build.run({ outputPath: 'dist' }).then(function() {
@@ -79,14 +79,14 @@ describe('ExamCommand', function() {
     it('should set \'splitFile\' on the query option', function() {
       command.run({ split: 2, splitFile: 2 });
 
-      assert.equal(superCall.options.query, 'splitFile=2');
+      assert.equal(superCall.options.query, 'splitFile=2&split=2');
       assert.equal(superCall.called, true);
     });
 
     it('should append \'splitFile\' to the query option', function() {
       command.run({ split: 2, splitFile: 2, query: 'someQuery=derp&hidepassed' });
 
-      assert.equal(superCall.options.query, 'someQuery=derp&hidepassed&splitFile=2');
+      assert.equal(superCall.options.query, 'someQuery=derp&hidepassed&splitFile=2&split=2');
       assert.equal(superCall.called, true);
     });
 
@@ -129,7 +129,8 @@ describe('ExamCommand', function() {
     it('should modify the config to have multiple test pages', function() {
       var config = generateConfig({
         parallel: true,
-        split: 2
+        split: 2,
+        useAst: true
       });
 
       assert.deepEqual(config.testPage, [
@@ -152,7 +153,8 @@ describe('ExamCommand', function() {
         parallel: true,
         split: 2,
         query: 'foo=bar',
-        'test-page': 'tests.html'
+        'test-page': 'tests.html',
+        useAst: true
       });
 
       assert.deepEqual(config.testPage, [
