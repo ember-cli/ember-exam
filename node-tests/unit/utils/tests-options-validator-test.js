@@ -4,8 +4,8 @@ var TestOptionsValidator = require('../../../lib/utils/tests-options-validator')
 
 describe('TestOptionsValidator', function() {
   describe('needsAST', function() {
-    it('returns true if shouldSplit is true', function() {
-      var validator = new TestOptionsValidator({ split: 2 });
+    it('returns true if shouldSplit and useAst are true', function() {
+      var validator = new TestOptionsValidator({ split: 2, useAst: true });
       assert.equal(validator.needsAST, true);
     });
 
