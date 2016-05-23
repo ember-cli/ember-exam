@@ -4,7 +4,6 @@ var MockProject = require('ember-cli/tests/helpers/mock-project');
 var Task = require('ember-cli/lib/models/task');
 
 var ExamCommand = require('../../../lib/commands/exam');
-var TestsProcessor = require('../../../lib/utils/tests-processor');
 var TestOptionsValidator = require('../../../lib/utils/tests-options-validator');
 
 describe('ExamCommand', function() {
@@ -50,43 +49,17 @@ describe('ExamCommand', function() {
       assert.equal(superCall.called, true);
     });
 
-    it('should defer to super after patching the build task', function() {
-      command.run({ split: 2, useAst: true });
+    it('should set \'partition\' on the query option', function() {
+      command.run({ split: 2, partition: 2 });
 
-      assert.notEqual(originalBuildRun, command.tasks.Build.prototype.run);
+      assert.equal(superCall.options.query, '_split=2&_partition=2');
       assert.equal(superCall.called, true);
     });
 
-    it('should run a test processor after the build runs', function(done) {
-      var processorCalled = false;
+    it('should append \'partition\' to the query option', function() {
+      command.run({ split: 2, partition: 2, query: 'someQuery=derp&hidepassed' });
 
-      command.utils.Processor = function ProcessorStub() {
-        processorCalled = true;
-        this.write = function() {
-          return RSVP.Promise.resolve();
-        };
-      };
-
-      command.run({ split: 2, useAst: true });
-
-      var build = new command.tasks.Build();
-      build.run({ outputPath: 'dist' }).then(function() {
-        assert.equal(processorCalled, true);
-        done();
-      });
-    });
-
-    it('should set \'splitFile\' on the query option', function() {
-      command.run({ split: 2, splitFile: 2 });
-
-      assert.equal(superCall.options.query, 'splitFile=2&split=2');
-      assert.equal(superCall.called, true);
-    });
-
-    it('should append \'splitFile\' to the query option', function() {
-      command.run({ split: 2, splitFile: 2, query: 'someQuery=derp&hidepassed' });
-
-      assert.equal(superCall.options.query, 'someQuery=derp&hidepassed&splitFile=2&split=2');
+      assert.equal(superCall.options.query, 'someQuery=derp&hidepassed&_split=2&_partition=2');
       assert.equal(superCall.called, true);
     });
 
@@ -134,8 +107,8 @@ describe('ExamCommand', function() {
       });
 
       assert.deepEqual(config.testPage, [
-        "tests/index.html?hidepassed&splitFile=1",
-        "tests/index.html?hidepassed&splitFile=2"
+        "tests/index.html?hidepassed&_split=2&_partition=1",
+        "tests/index.html?hidepassed&_split=2&_partition=2"
       ]);
     });
 
@@ -158,8 +131,8 @@ describe('ExamCommand', function() {
       });
 
       assert.deepEqual(config.testPage, [
-        "tests.html?foo=bar&splitFile=1",
-        "tests.html?foo=bar&splitFile=2"
+        "tests.html?foo=bar&_split=2&_partition=1",
+        "tests.html?foo=bar&_split=2&_partition=2"
       ]);
     });
   })

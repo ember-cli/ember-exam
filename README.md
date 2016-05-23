@@ -2,11 +2,9 @@
 
 [![Build Status](https://travis-ci.org/trentmwillis/ember-exam.svg)](https://travis-ci.org/trentmwillis/ember-exam)
 
-Ember Exam is an addon to allow you more control over how you run your tests. It provides the ability to randomize, split, and parallelize your test suite by adding a more robust CLI command.
+Ember Exam is an addon to allow you more control over how you run your tests when used in conjunction with [Ember CLI QUnit](https://github.com/ember-cli/ember-cli-qunit). It provides the ability to randomize, split, and parallelize your test suite by adding a more robust CLI command.
 
 It started as a way to help reduce flaky tests and encourage healthy test driven development. It's like [Head & Shoulders](http://www.headandshoulders.com/) for your tests!
-
-**Note: this addon is only compatible with Ember-CLI v1.13.10 and up.**
 
 ## How To Use
 
@@ -44,15 +42,13 @@ _Note: You must be using QUnit version `1.23.0` or greater for this feature to w
 $ ember exam --split=<num>
 ```
 
-The `split` option allows you to specify a number of files greater than one to spread your tests across. Ember will then proceed to run only the first bacth of tests.
-
-The split will attempt to weight your test modules (by type of test module and number of tests) so that each group runs in roughly the same amount of time.
+The `split` option allows you to specify a number of partitions greater than one to spread your tests across. Ember Exam will then proceed to run the first batch of tests.
 
 ```bash
-$ ember exam --split=<num> --split-file=<num>
+$ ember exam --split=<num> --partition=<num>
 ```
 
-The `split-file` options allows you to specify which test file to run after using the `split` option. It is one-indexed, so if you specifiy a split of 3, the highest file you could run is 3 as well.
+The `partition` option allows you to specify which test group to run after using the `split` option. It is one-indexed, so if you specifiy a split of 3, the last group you could run is 3 as well.
 
 ```bash
 $ ember exam --split=<num> --weighted
@@ -66,20 +62,14 @@ The `weighted` option splits tests by weighting them according to type; `accepta
 $ ember exam --split=<num> --parallel
 ```
 
-The `parallel` option allows you to run your tests across multiple test pages in parallel in [Testem](https://github.com/testem/testem). It can only be used when you also split your tests.
+The `parallel` option allows you to run your split tests across multiple test pages in parallel in [Testem](https://github.com/testem/testem). It will use a separate browser instance for each group of tests. So, if you specify a split of 3, then 3 browser instances will be spawned with the output looking something like:
+
+```bash
+ok 1 PhantomJS 1.9 - Exam Partition #1 - some test
+ok 2 PhantomJS 1.9 - Exam Partition #3 - some other other test
+ok 3 PhantomJS 1.9 - Exam Partition #2 - some other test
+```
 
 Ember Exam will respect the `parallel` setting of your [Testem config file](https://github.com/testem/testem/blob/master/docs/config_file.md#config-level-options) while running tests in parallel. _Note that the default value for `parallel` in Testem is 1, which means you'll need a non-default value to actually see parallel behavior._
 
 _Note: You must be using Testem version `1.5.0` or greater for this feature to work properly._
-
-## Usage Constraints
-
-Since Ember Exam performs many of its functions by inspecting the Abstract Syntax Tree of your tests, it is bound by some constraints. Specifically, any task that involves identifying individual tests (e.g., randomizing individual tests) are currently limited to tests that follow a structure similar to:
-
-```javascript
-import { module, test } from 'qunit';
-module('Some Module');
-test('Some Test');
-```
-
-This is because identifying a call to `test` that is actually for creating a test, does not have a 100% foolproof heuristic. So Ember Exam looks for calls that get compiled to either: `QUnit.test`, `_qunit.test`, or `_emberQunit.test`, since this covers the large majority of Ember tests and lines up with the examples given in the [Ember testing guides](http://guides.emberjs.com/v2.2.0/testing/).
