@@ -36,15 +36,16 @@ jQuery(document).ready(function() {
   TestLoader.prototype.unsee = function _unsee() {};
 
   TestLoader.prototype.loadModules = function _loadSplitModules() {
-    this._testModules = [];
+    var testLoader = this;
 
-    _super.loadModules.apply(this, arguments);
+    testLoader._testModules = [];
+    _super.loadModules.apply(testLoader, arguments);
 
-    var splitModules = splitTestModules(this._testModules);
+    var splitModules = splitTestModules(testLoader._testModules);
 
     splitModules.forEach(function(moduleName) {
-      _super.require.call(this, moduleName);
-      _super.unsee.call(this, moduleName);
+      _super.require.call(testLoader, moduleName);
+      _super.unsee.call(testLoader, moduleName);
     });
   };
 
