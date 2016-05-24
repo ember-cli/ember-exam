@@ -3,37 +3,25 @@ var assert = require('assert');
 var TestOptionsValidator = require('../../../lib/utils/tests-options-validator');
 
 describe('TestOptionsValidator', function() {
-  describe('needsAST', function() {
-    it('returns true if shouldSplit and useAst are true', function() {
-      var validator = new TestOptionsValidator({ split: 2, useAst: true });
-      assert.equal(validator.needsAST, true);
-    });
-
-    it('returns false if shouldSplit is false', function() {
-      var validator = new TestOptionsValidator({});
-      assert.equal(validator.needsAST, false);
-    });
-  });
-
   describe('shouldSplit', function() {
     it('should throw an error if `split` is less than 2', function() {
       var validator = new TestOptionsValidator({ split: 1 });
       assert.throws(function() { validator.shouldSplit; }, /You must specify a number of files greater than 1 to split your tests across/);
     });
 
-    it('should throw an error if `split-file` is used without `split`', function() {
-      var validator = new TestOptionsValidator({ splitFile: 1 });
-      assert.throws(function() { validator.shouldSplit; }, /You must specify a 'split' value in order to use 'split-file'/);
+    it('should throw an error if `partition` is used without `split`', function() {
+      var validator = new TestOptionsValidator({ partition: 1 });
+      assert.throws(function() { validator.shouldSplit; }, /You must specify a 'split' value in order to use 'partition'/);
     });
 
-    it('should throw an error if `split-file` is less than 1', function() {
-      var validator = new TestOptionsValidator({ split: 2, splitFile: 0 });
-      assert.throws(function() { validator.shouldSplit; }, /Split files are one-indexed, so you must specify a split-file greater than or equal to 1/);
+    it('should throw an error if `partition` is less than 1', function() {
+      var validator = new TestOptionsValidator({ split: 2, partition: 0 });
+      assert.throws(function() { validator.shouldSplit; }, /Split tests are one-indexed, so you must specify a partition greater than or equal to 1/);
     });
 
-    it('should throw an error if `split-file` is greater than `split`', function() {
-      var validator = new TestOptionsValidator({ split: 2, splitFile: 3 });
-      assert.throws(function() { validator.shouldSplit; }, /You must specify a 'split-file' value that is less than or equal to your 'split' value/);
+    it('should throw an error if `partition` is greater than `split`', function() {
+      var validator = new TestOptionsValidator({ split: 2, partition: 3 });
+      assert.throws(function() { validator.shouldSplit; }, /You must specify a 'partition' value that is less than or equal to your 'split' value/);
     });
 
     it('should throw an error if `weighted` is being used without `split`', function() {
@@ -46,8 +34,8 @@ describe('TestOptionsValidator', function() {
       assert.equal(validator.shouldSplit, true);
     });
 
-    it('should return true if using `split` and `split-file`', function() {
-      var validator = new TestOptionsValidator({ split: 2, splitFile: 1 });
+    it('should return true if using `split` and `partition`', function() {
+      var validator = new TestOptionsValidator({ split: 2, partition: 1 });
       assert.equal(validator.shouldSplit, true);
     });
 
@@ -85,16 +73,16 @@ describe('TestOptionsValidator', function() {
       assert.throws(function() { validator.shouldParallelize; }, /You must specify the `split` option in order to run your tests in parallel/);
     });
 
-    it('should log a warning if used with the `split-file` option', function() {
+    it('should log a warning if used with the `partition` option', function() {
       var lastWarning = '';
       var originalWarn = console.warn;
       console.warn = function(str) {
         lastWarning = str;
       };
 
-      var validator = new TestOptionsValidator({ split: 2, splitFile: 1, parallel: true });
+      var validator = new TestOptionsValidator({ split: 2, partition: 1, parallel: true });
       assert.equal(validator.shouldParallelize, true);
-      assert.equal(lastWarning, 'Ignoring `split-file` option due to running split tests in parallel.');
+      assert.equal(lastWarning, 'Ignoring `partition` option due to running split tests in parallel.');
 
       console.warn = originalWarn;
     });

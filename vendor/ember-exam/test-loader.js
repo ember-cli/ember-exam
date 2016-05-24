@@ -2,12 +2,21 @@
 
 jQuery(document).ready(function() {
   var params = QUnit.urlParams;
-  var split = params.split;
-  var file = params.splitFile;
+  var split = params._split;
+  var partition = params._partition;
 
-  if (!split || !file) {
+  if (!split) {
     return;
   }
+
+  if (!partition) {
+    partition = 1;
+  }
+
+  // Add the partition number for better debugging when reading the reporter
+  Testem.on('test-result', function prependPartition(test) {
+    test.name = 'Exam Partition #' + partition + ' - ' + test.name;
+  });
 
   var TestLoaderModule = require('ember-cli/test-loader');
   var TestLoader = TestLoaderModule['default'];
@@ -39,18 +48,31 @@ jQuery(document).ready(function() {
     });
   };
 
+  function isLintTest(name) {
+    return name.match(/\.(jshint|(es)?lint-test)$/);
+  }
+
+  function isNotLintTest(name) {
+    return !isLintTest(name);
+  }
+
   function splitTestModules(modules) {
-    var length = modules.length;
+    var lintTests = modules.filter(isLintTest);
+    var otherTests = modules.filter(isNotLintTest);
     var groups = [];
 
-    for (var i = 0; i < length; i++) {
+    for (var i = 0; i < lintTests.length; i++) {
       if (i < split) {
         groups[i] = [];
       }
 
-      groups[i % split].push(modules[i]);
+      groups[i % split].push(lintTests[i]);
     }
 
-    return groups[file-1];
+    for (var i = 0; i < otherTests.length; i++) {
+      groups[i % split].push(otherTests[i]);
+    }
+
+    return groups[partition-1];
   }
 });
