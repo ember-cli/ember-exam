@@ -57,23 +57,29 @@ jQuery(document).ready(function() {
     return !isLintTest(name);
   }
 
+  function createGroups(num) {
+    var groups = new Array(num);
+    for (var i = 0; i < num; i++) {
+      groups[i] = [];
+    }
+    return groups;
+  }
+
+  function filterIntoGroups(arr, filter, numGroups) {
+    var filtered = arr.filter(filter);
+    var groups = createGroups(numGroups);
+
+    for (var i = 0; i < filtered.length; i++) {
+      groups[i % numGroups].push(filtered[i]);
+    }
+
+    return groups;
+  }
+
   function splitTestModules(modules) {
-    var lintTests = modules.filter(isLintTest);
-    var otherTests = modules.filter(isNotLintTest);
-    var groups = [];
-
-    for (var i = 0; i < lintTests.length; i++) {
-      if (i < split) {
-        groups[i] = [];
-      }
-
-      groups[i % split].push(lintTests[i]);
-    }
-
-    for (var i = 0; i < otherTests.length; i++) {
-      groups[i % split].push(otherTests[i]);
-    }
-
-    return groups[partition-1];
+    var lintTestGroups = filterIntoGroups(modules, isLintTest, split);
+    var otherTestGroups = filterIntoGroups(modules, isNotLintTest, split);
+    var group = partition - 1;
+    return lintTestGroups[group].concat(otherTestGroups[group]);
   }
 });
