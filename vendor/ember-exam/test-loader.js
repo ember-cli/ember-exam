@@ -1,22 +1,12 @@
-/* globals jQuery, QUnit, require, requirejs */
+/* globals jQuery, QUnit, Testem, require, requirejs */
 
 jQuery(document).ready(function() {
-  var params = QUnit.urlParams;
-  var split = params._split;
-  var partition = params._partition;
-
-  if (!split) {
-    return;
-  }
-
-  if (!partition) {
-    partition = 1;
-  }
-
   // Add the partition number for better debugging when reading the reporter
-  Testem.on('test-result', function prependPartition(test) {
-    test.name = 'Exam Partition #' + partition + ' - ' + test.name;
-  });
+  if (window.Testem) {
+    Testem.on('test-result', function prependPartition(test) {
+      test.name = 'Exam Partition #' + partition + ' - ' + test.name;
+    });
+  }
 
   var TestLoaderModule = require('ember-cli/test-loader');
   var TestLoader = TestLoaderModule['default'];
@@ -36,12 +26,16 @@ jQuery(document).ready(function() {
   TestLoader.prototype.unsee = function _unsee() {};
 
   TestLoader.prototype.loadModules = function _loadSplitModules() {
+    var params = QUnit.urlParams;
+    var split = typeof params._split === 'number' ? params._split : 1;
+    var partition = typeof params._partition === 'number' ? params._partition : 1;
+
     var testLoader = this;
 
     testLoader._testModules = [];
     _super.loadModules.apply(testLoader, arguments);
 
-    var splitModules = splitTestModules(testLoader._testModules);
+    var splitModules = splitTestModules(testLoader._testModules, split, partition);
 
     splitModules.forEach(function(moduleName) {
       _super.require.call(testLoader, moduleName);
@@ -49,20 +43,27 @@ jQuery(document).ready(function() {
     });
   };
 
+  function splitTestModules(modules, split, partition) {
+    if (split < 1) {
+      throw new Error('You must specify a split greater than 0');
+    } else if (split < partition) {
+      throw new Error('You must specify a partition less than or equal to your split value of ' + split);
+    } else  if (partition < 1) {
+      throw new Error('You must specify a partition greater than 0');
+    }
+
+    var lintTestGroups = filterIntoGroups(modules, isLintTest, split);
+    var otherTestGroups = filterIntoGroups(modules, isNotLintTest, split);
+    var group = partition - 1;
+    return lintTestGroups[group].concat(otherTestGroups[group]);
+  }
+
   function isLintTest(name) {
     return name.match(/\.(jshint|(es)?lint-test)$/);
   }
 
   function isNotLintTest(name) {
     return !isLintTest(name);
-  }
-
-  function createGroups(num) {
-    var groups = new Array(num);
-    for (var i = 0; i < num; i++) {
-      groups[i] = [];
-    }
-    return groups;
   }
 
   function filterIntoGroups(arr, filter, numGroups) {
@@ -76,10 +77,13 @@ jQuery(document).ready(function() {
     return groups;
   }
 
-  function splitTestModules(modules) {
-    var lintTestGroups = filterIntoGroups(modules, isLintTest, split);
-    var otherTestGroups = filterIntoGroups(modules, isNotLintTest, split);
-    var group = partition - 1;
-    return lintTestGroups[group].concat(otherTestGroups[group]);
+  function createGroups(num) {
+    var groups = new Array(num);
+
+    for (var i = 0; i < num; i++) {
+      groups[i] = [];
+    }
+
+    return groups;
   }
 });
