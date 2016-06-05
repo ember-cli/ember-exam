@@ -27,8 +27,11 @@ jQuery(document).ready(function() {
 
   TestLoader.prototype.loadModules = function _loadSplitModules() {
     var params = QUnit.urlParams;
-    var split = typeof params._split === 'number' ? params._split : 1;
-    var partition = typeof params._partition === 'number' ? params._partition : 1;
+    var split = parseInt(params._split, 10);
+    var partition = parseInt(params._partition, 10);
+
+    split = isNaN(split) ? 1 : split;
+    partition = isNaN(partition) ? 1 : partition;
 
     var testLoader = this;
 

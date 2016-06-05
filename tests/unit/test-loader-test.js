@@ -74,6 +74,20 @@ test('loads modules from the first partition by default', function(assert) {
   ]);
 });
 
+test('handles params as strings', function(assert) {
+  QUnit.urlParams = {
+    _partition: '3',
+    _split: '4',
+  };
+
+  this.TestLoader.load();
+
+  assert.deepEqual(this.requiredModules, [
+    'test-3-test.jshint',
+    'test-3-test',
+  ]);
+});
+
 test('throws an error if splitting less than one', function(assert) {
   QUnit.urlParams = {
     _split: 0,
