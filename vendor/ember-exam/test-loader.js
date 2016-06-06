@@ -4,7 +4,10 @@ jQuery(document).ready(function() {
   // Add the partition number for better debugging when reading the reporter
   if (window.Testem) {
     Testem.on('test-result', function prependPartition(test) {
-      test.name = 'Exam Partition #' + QUnit.urlParams._partition + ' - ' + test.name;
+      var partition = QUnit.urlParams._partition;
+      if (partition) {
+        test.name = 'Exam Partition #' + QUnit.urlParams._partition + ' - ' + test.name;
+      }
     });
   }
 
