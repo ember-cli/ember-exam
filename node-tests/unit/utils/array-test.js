@@ -65,18 +65,18 @@ describe('ArrayUtils', function() {
 
       assert.deepEqual(splits, [ expectedOne, expectedTwo ]);
 
-      var array = [
+      array = [
         { weight: 100 },
         { weight: 10 },
         { weight: 100 }
       ];
 
-      var splits = ArrayUtils.weightedSplit(array, 2);
+      splits = ArrayUtils.weightedSplit(array, 2);
 
-      var expectedOne = [
+      expectedOne = [
         { weight: 100 }
       ];
-      var expectedTwo = [
+      expectedTwo = [
         { weight: 10 },
         { weight: 100 }
       ];
