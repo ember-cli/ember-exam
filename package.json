@@ -12,7 +12,9 @@
     "test": "mocha --recursive node-tests/",
     "test:ember": "ember try:testall",
     "test:all": "npm run test:ember && npm test",
-    "test:ci": "ember try $EMBER_TRY_SCENARIO test && npm test"
+    "test:ci": "ember try $EMBER_TRY_SCENARIO test && npm test",
+    "test:cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- --recursive node-tests/",
+    "test:ci:cover": "ember try $EMBER_TRY_SCENARIO test && npm run test:cover"
   },
   "repository": {
     "type": "git",
@@ -41,6 +43,7 @@
     "ember-load-initializers": "^0.5.0",
     "ember-resolver": "^2.0.3",
     "ember-try": "~0.2.0",
+    "istanbul": "^0.4.3",
     "loader.js": "^4.0.0",
     "mocha": "^2.3.4"
   },

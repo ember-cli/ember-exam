@@ -10,15 +10,10 @@ describe('ExamCommand', function() {
   describe('run', function() {
     var command;
     var superCall;
-    var originalBuildRun;
 
     beforeEach(function() {
       var tasks = {
         Build: Task.extend()
-      };
-
-      originalBuildRun = tasks.Build.prototype.run = function() {
-        return RSVP.Promise.resolve();
       };
 
       var project = new MockProject();
@@ -45,7 +40,6 @@ describe('ExamCommand', function() {
     it('should defer to super with normal build task', function() {
       command.run({});
 
-      assert.equal(originalBuildRun, command.tasks.Build.prototype.run);
       assert.equal(superCall.called, true);
     });
 
