@@ -3,6 +3,8 @@
 [![Build Status](https://travis-ci.org/trentmwillis/ember-exam.svg?branch=master)](https://travis-ci.org/trentmwillis/ember-exam)
 [![NPM Version](https://badge.fury.io/js/ember-exam.svg)](https://badge.fury.io/js/ember-exam)
 [![Ember Observer Score](https://emberobserver.com/badges/ember-exam.svg)](https://emberobserver.com/addons/ember-exam)
+[![Code Climate](https://codeclimate.com/github/trentmwillis/ember-exam/badges/gpa.svg)](https://codeclimate.com/github/trentmwillis/ember-exam)
+[![Node Test Coverage](https://codeclimate.com/github/trentmwillis/ember-exam/badges/coverage.svg)](https://codeclimate.com/github/trentmwillis/ember-exam/coverage)
 
 Ember Exam is an addon to allow you more control over how you run your tests when used in conjunction with [Ember CLI QUnit](https://github.com/ember-cli/ember-cli-qunit). It provides the ability to randomize, split, and parallelize your test suite by adding a more robust CLI command.
 
