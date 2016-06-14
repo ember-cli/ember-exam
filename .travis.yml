@@ -31,4 +31,8 @@ install:
   - bower install
 
 script:
-  - npm run test:ci
+  - npm run test:ci:cover
+
+after_script:
+  - npm install codeclimate-test-reporter
+  - cat coverage/lcov.info | node_modules/.bin/codeclimate-test-reporter
