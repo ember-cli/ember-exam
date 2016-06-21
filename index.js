@@ -2,13 +2,11 @@
 
 'use strict';
 
-var Commands = require('./lib/commands');
-
 module.exports = {
   name: 'ember-exam',
 
   includedCommands: function() {
-    return Commands;
+    return require('./lib/commands');
   },
 
   included: function(app) {
