@@ -51,9 +51,7 @@
     "ember-addon"
   ],
   "dependencies": {
-    "ember-cli-babel": "^5.1.5",
-    "recast": "^0.10.33",
-    "rsvp": "^3.1.0"
+    "ember-cli-babel": "^5.1.5"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

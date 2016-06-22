@@ -1,5 +1,4 @@
 var assert = require('assert');
-var RSVP = require('rsvp');
 var MockProject = require('ember-cli/tests/helpers/mock-project');
 var Task = require('ember-cli/lib/models/task');
 
