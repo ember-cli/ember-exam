@@ -77,3 +77,40 @@ ok 3 PhantomJS 1.9 - Exam Partition #2 - some other test
 Ember Exam will respect the `parallel` setting of your [Testem config file](https://github.com/testem/testem/blob/master/docs/config_file.md#config-level-options) while running tests in parallel. _Note that the default value for `parallel` in Testem is 1, which means you'll need a non-default value to actually see parallel behavior._
 
 _Note: You must be using Testem version `1.5.0` or greater for this feature to work properly._
+
+## Ember Try & CI Integration
+
+Integrating ember-exam with [ember-try](https://github.com/ember-cli/ember-try) is remarkably easy. Simply define a [`command` in your `ember-try.js` config](https://github.com/ember-cli/ember-try#configuration-files) that leverages the `exam` command:
+
+```js
+// config/ember-try.js
+module.exports = {
+  command: 'ember exam --split 3 --parallel',
+  // ...
+};
+```
+
+Using environmental variables gives you flexibility in how you run your tests, for instance you could also distribute your tests across processes instead of parallelizing them:
+
+```js
+module.exports = {
+  command: 'ember exam --split 20 --partition ' + process.env.PARTITION,
+  // ...
+};
+```
+
+If you are working with [Travis CI](https://travis-ci.org/) then you can also easily set up seeded-random runs based on PRs. Similar to the following:
+
+```js
+var command = [ 'ember', 'exam', '--random' ];
+var pr = process.env.TRAVIS_PULL_REQUEST;
+
+if (pr) {
+  command.push(pr);
+}
+
+module.exports = {
+  command: command.join(' '),
+  // ...
+};
+```
