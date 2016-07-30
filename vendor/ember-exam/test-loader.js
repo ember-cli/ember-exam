@@ -11,7 +11,13 @@ jQuery(document).ready(function() {
     });
   }
 
-  var TestLoaderModule = require('ember-cli/test-loader');
+  var testLoaderModulePath = 'ember-cli-test-loader/test-support/index';
+
+  if (!requirejs.entries[testLoaderModulePath]) {
+    testLoaderModulePath = 'ember-cli/test-loader';
+  }
+
+  var TestLoaderModule = require(testLoaderModulePath);
   var TestLoader = TestLoaderModule['default'];
 
   var _super = {
