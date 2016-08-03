@@ -2,8 +2,7 @@ import QUnit, { module, test } from 'qunit';
 
 module('Unit | test-loader', {
   beforeEach() {
-    this.TestLoader = window.require('ember-cli/test-loader').default;
-
+    this.TestLoader = window.require('ember-cli-test-loader/test-support/index').default;
     this.originalRequire = window.require;
     this.requiredModules = [];
     window.require = (name) => {
