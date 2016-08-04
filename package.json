@@ -44,10 +44,10 @@
     "ember-export-application-global": "^1.0.5",
     "ember-load-initializers": "^0.5.1",
     "ember-resolver": "^2.0.3",
-    "ember-try": "~0.2.4",
     "istanbul": "^0.4.3",
     "loader.js": "^4.0.1",
-    "mocha": "^2.3.4"
+    "mocha": "^2.3.4",
+    "rsvp": "^3.2.1"
   },
   "keywords": [
     "ember-addon"

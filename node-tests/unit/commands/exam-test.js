@@ -1,6 +1,7 @@
 var assert = require('assert');
 var MockProject = require('ember-cli/tests/helpers/mock-project');
 var Task = require('ember-cli/lib/models/task');
+var RSVP = require('rsvp');
 
 var ExamCommand = require('../../../lib/commands/exam');
 var TestOptionsValidator = require('../../../lib/utils/tests-options-validator');
@@ -8,11 +9,12 @@ var TestOptionsValidator = require('../../../lib/utils/tests-options-validator')
 describe('ExamCommand', function() {
   describe('run', function() {
     var command;
-    var superCall;
+    var called;
 
     beforeEach(function() {
       var tasks = {
-        Build: Task.extend()
+        Build: Task.extend(),
+        Test: Task.extend()
       };
 
       var project = new MockProject();
@@ -27,47 +29,49 @@ describe('ExamCommand', function() {
         }
       });
 
-      superCall = { called: false };
-      command._super.run = function(options) {
-        superCall = {
-          called: true,
-          options: options
-        }
+      called = {};
+
+      tasks.Test.prototype.run = function(options) {
+        called.testRun = true;
+        called.testRunOptions = options;
+        return RSVP.resolve();
+      };
+
+      tasks.Build.prototype.run = function() {
+        called.buildRun = true;
+        return RSVP.resolve();
       };
     });
 
     it('should defer to super with normal build task', function() {
-      command.run({});
-
-      assert.equal(superCall.called, true);
+      return command.run({}).then(function() {
+        assert.equal(called.testRun, true);
+        assert.equal(called.buildRun, true);
+      });
     });
 
     it('should set \'partition\' on the query option', function() {
-      command.run({ split: 2, partition: 2 });
-
-      assert.equal(superCall.options.query, '_split=2&_partition=2');
-      assert.equal(superCall.called, true);
+      return command.run({ split: 2, partition: 2 }).then(function() {
+        assert.equal(called.testRunOptions.query, '_split=2&_partition=2');
+      });
     });
 
     it('should append \'partition\' to the query option', function() {
-      command.run({ split: 2, partition: 2, query: 'someQuery=derp&hidepassed' });
-
-      assert.equal(superCall.options.query, 'someQuery=derp&hidepassed&_split=2&_partition=2');
-      assert.equal(superCall.called, true);
+      return command.run({ split: 2, partition: 2, query: 'someQuery=derp&hidepassed' }).then(function() {
+        assert.equal(called.testRunOptions.query, 'someQuery=derp&hidepassed&_split=2&_partition=2');
+      });
     });
 
     it('should set \'seed=1337\' on the query option', function() {
-      command.run({ random: '1337' });
-
-      assert.equal(superCall.options.query, 'seed=1337');
-      assert.equal(superCall.called, true);
+      return command.run({ random: '1337' }).then(function() {
+        assert.equal(called.testRunOptions.query, 'seed=1337');
+      });
     });
 
     it('should append \'seed=1337\' to the query option', function() {
-      command.run({ random: '1337', query: 'someQuery=derp&hidepassed' });
-
-      assert.equal(superCall.options.query, 'someQuery=derp&hidepassed&seed=1337');
-      assert.equal(superCall.called, true);
+      return command.run({ random: '1337', query: 'someQuery=derp&hidepassed' }).then(function() {
+        assert.equal(called.testRunOptions.query, 'someQuery=derp&hidepassed&seed=1337');
+      });
     });
   });
 
