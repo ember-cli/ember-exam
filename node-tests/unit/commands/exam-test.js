@@ -2,6 +2,7 @@ var assert = require('assert');
 var MockProject = require('ember-cli/tests/helpers/mock-project');
 var Task = require('ember-cli/lib/models/task');
 var RSVP = require('rsvp');
+var sinon = require('sinon');
 
 var ExamCommand = require('../../../lib/commands/exam');
 var TestOptionsValidator = require('../../../lib/utils/tests-options-validator');
@@ -73,6 +74,20 @@ describe('ExamCommand', function() {
         assert.equal(called.testRunOptions.query, 'someQuery=derp&hidepassed&seed=1337');
       });
     });
+
+    it('should set \'seed=random_seed\' on the query option', function() {
+      var randomStub = sinon.stub(Math, 'random').returns('  random_seed');
+      return command.run({ random: '' }).then(function() {
+        assert.equal(called.testRunOptions.query, 'seed=random_seed');
+        randomStub.restore();
+      });
+    });
+
+    it('should set \'weighted\' on the query option', function() {
+      return command.run({ split: 2, partition: 2, weighted: true }).then(function() {
+        assert.equal(called.testRunOptions.query, '_split=2&_partition=2&_weighted');
+      });
+    });
   });
 
   describe('_generateCustomConfigs', function() {
@@ -90,7 +105,7 @@ describe('ExamCommand', function() {
       return command._generateCustomConfigs(options);
     }
 
-    it('should have a null test page', function() {
+    it('should have a null test page when not parallelizing', function() {
       var config = generateConfig({});
 
       assert.deepEqual(config.testPage, undefined);
@@ -99,13 +114,27 @@ describe('ExamCommand', function() {
     it('should modify the config to have multiple test pages', function() {
       var config = generateConfig({
         parallel: true,
-        split: 2,
-        useAst: true
+        split: 2
       });
 
       assert.deepEqual(config.testPage, [
-        "tests/index.html?hidepassed&_split=2&_partition=1",
-        "tests/index.html?hidepassed&_split=2&_partition=2"
+        "tests/index.html?hidepassed&derp=herp&_split=2&_partition=1",
+        "tests/index.html?hidepassed&derp=herp&_split=2&_partition=2"
+      ]);
+    });
+
+    it('should modify the config to have multiple test pages for each test_page in the config file', function() {
+      var config = generateConfig({
+        parallel: true,
+        split: 2,
+        configFile: 'testem.multiple-test-page.js'
+      });
+
+      assert.deepEqual(config.testPage, [
+        "tests/index.html?hidepassed&derp=herp&_split=2&_partition=1",
+        "tests/index.html?hidepassed&derp=herp&_split=2&_partition=2",
+        "tests/index.html?hidepassed&foo=bar&_split=2&_partition=1",
+        "tests/index.html?hidepassed&foo=bar&_split=2&_partition=2"
       ]);
     });
 
@@ -123,14 +152,33 @@ describe('ExamCommand', function() {
         parallel: true,
         split: 2,
         query: 'foo=bar',
-        'test-page': 'tests.html',
-        useAst: true
+        'test-page': 'tests.html'
       });
 
       assert.deepEqual(config.testPage, [
         "tests.html?foo=bar&_split=2&_partition=1",
         "tests.html?foo=bar&_split=2&_partition=2"
       ]);
+    });
+
+    it('should warn if no test_page is defined but use a default', function() {
+      var warnStub = sinon.stub(console, 'warn');
+
+      var config = generateConfig({
+        parallel: true,
+        split: 2,
+        configFile: 'testem.no-test-page.js'
+      });
+
+      assert.deepEqual(config.testPage, [
+        "tests/index.html?hidepassed&_split=2&_partition=1",
+        "tests/index.html?hidepassed&_split=2&_partition=2"
+      ]);
+
+      sinon.assert.calledOnce(warnStub);
+      sinon.assert.calledWithExactly(warnStub, 'No test_page value found in the config. Defaulting to "tests/index.html?hidepassed"');
+
+      warnStub.restore();
     });
   })
 });

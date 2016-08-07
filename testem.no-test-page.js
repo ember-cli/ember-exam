@@ -1,6 +1,5 @@
-{
+module.exports = {
   "framework": "qunit",
-  "test_page": "tests/index.html?hidepassed&derp=herp",
   "disable_watching": true,
   "launch_in_ci": [
     "PhantomJS"
@@ -10,4 +9,4 @@
     "Chrome"
   ],
   "parallel": -1
-}
+};
