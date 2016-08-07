@@ -78,7 +78,11 @@ Ember Exam will respect the `parallel` setting of your [Testem config file](http
 
 _Note: You must be using Testem version `1.5.0` or greater for this feature to work properly._
 
-## Ember Try & CI Integration
+## Advanced Configuration
+
+Ember Exam does its best to allow you to run your test suite in a way that is effective for your individual needs. To that end, there are lots of advanced ways to configure your setup by integrating with other aspects of the Ember testing environment. The following sections will cover a few of the more common scenarios.
+
+### Ember Try & CI Integration
 
 Integrating ember-exam with [ember-try](https://github.com/ember-cli/ember-try) is remarkably easy. Simply define a [`command` in your `ember-try.js` config](https://github.com/ember-cli/ember-try#configuration-files) that leverages the `exam` command:
 
@@ -90,7 +94,7 @@ module.exports = {
 };
 ```
 
-Using environmental variables gives you flexibility in how you run your tests, for instance you could also distribute your tests across processes instead of parallelizing them:
+Using [environmental variables](https://nodejs.org/api/process.html#process_process_env) gives you flexibility in how you run your tests. For instance, you could distribute your tests across processes instead of parallelizing them by specifying a `PARTITION` variable in your process environment and then consuming it like so:
 
 ```js
 module.exports = {
@@ -114,3 +118,20 @@ module.exports = {
   // ...
 };
 ```
+
+You can refer to [Travis' default environment variables](https://docs.travis-ci.com/user/environment-variables/#Default-Environment-Variables) to see what else you could possibly leverage for your test setup.
+
+### Test Suite Segmentation
+
+Some test suites like to segment which tests run based on various facets such as type of test, feature being tested, and so on. This can be accomplished by leveraging Testem's ability to have multiple test pages:
+
+```json
+{
+  "test_page": [
+    "tests/index.html?filter=acceptance",
+    "tests/index.html?filter=!acceptance"
+  ]
+}
+```
+
+You can use this feature in conjunction with Ember Exam's features, which will allow you to segment your test suite but still gain benefits from randomization and splitting.
