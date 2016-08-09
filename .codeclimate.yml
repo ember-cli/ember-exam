@@ -4,7 +4,9 @@ engines:
     enabled: true
     config:
       languages:
-      - javascript
+        javascript:
+          mass_threshold: 50
+
   eslint:
     enabled: true
   fixme:

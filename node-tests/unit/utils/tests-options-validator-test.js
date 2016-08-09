@@ -81,18 +81,18 @@ describe('TestOptionsValidator', function() {
       shouldThrow('Parallelize', { parallel: true }, /You must specify the `split` option in order to run your tests in parallel/);
     });
 
-    it('should log a warning if used with the `partition` option', function() {
-      var lastWarning = '';
-      var originalWarn = console.warn;
-      console.warn = function(str) {
-        lastWarning = str;
+    it('should log a message about ignoring the `partition` option', function() {
+      var lastLog = '';
+      var originalLog = console.info;
+      console.info = function(str) {
+        lastLog = str;
       };
 
       var validator = new TestOptionsValidator({ split: 2, partition: 1, parallel: true });
       assert.equal(validator.shouldParallelize, true);
-      assert.equal(lastWarning, 'Ignoring `partition` option due to running split tests in parallel.');
+      assert.equal(lastLog, 'Ignoring `partition` option due to running split tests in parallel.');
 
-      console.warn = originalWarn;
+      console.info = originalLog;
     });
 
     it('should return false', function() {
