@@ -1,14 +1,19 @@
 bower_components/
+config/
 tests/
+node-tests/
 tmp/
 dist/
 
 .bowerrc
 .editorconfig
 .ember-cli
+.codeclimate.yml
 .travis.yml
 .npmignore
 **/.gitkeep
 bower.json
-Brocfile.js
+ember-cli-build.js
 testem.json
+testem.multiple-test-page.js
+testem..no-test-page.js
