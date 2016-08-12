@@ -52,7 +52,7 @@ The `split` option allows you to specify a number of partitions greater than one
 $ ember exam --split=<num> --partition=<num>
 ```
 
-The `partition` option allows you to specify which test group to run after using the `split` option. It is one-indexed, so if you specifiy a split of 3, the last group you could run is 3 as well.
+The `partition` option allows you to specify which test group to run after using the `split` option. It is one-indexed, so if you specify a split of 3, the last group you could run is 3 as well.
 
 <!--```bash
 $ ember exam --split=<num> --weighted
@@ -103,7 +103,7 @@ module.exports = {
 };
 ```
 
-If you are working with [Travis CI](https://travis-ci.org/) then you can also easily set up seeded-random runs based on PRs. Similar to the following:
+If you are working with [Travis CI](https://travis-ci.org/) then you can also easily set up seeded-random runs based on PR numbers. Similar to the following:
 
 ```js
 var command = [ 'ember', 'exam', '--random' ];
