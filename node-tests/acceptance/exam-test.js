@@ -13,7 +13,7 @@ function getNumberOfTests(str) {
 
 var TOTAL_NUM_TESTS = 40;
 
-describe('Acceptance', function() {
+describe('Acceptance | Exam Command', function() {
   this.timeout(300000);
 
   before(function(done) {
