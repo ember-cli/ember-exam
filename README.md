@@ -76,6 +76,8 @@ $ ember exam --split=<num> --partition=<num>
 
 The `partition` option allows you to specify which test group to run after using the `split` option. It is one-indexed, so if you specify a split of 3, the last group you could run is 3 as well.
 
+_Note: Ember Exam splits test by modifying the Ember-CLI `TestLoader`, which means that tests are split up according to AMD modules, so it is possible to have unbalanced partitions. For more info, see [issue #60](https://github.com/trentmwillis/ember-exam/issues/60)._
+
 <!--```bash
 $ ember exam --split=<num> --weighted
 ```
