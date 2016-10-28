@@ -11,7 +11,7 @@ function getNumberOfTests(str) {
   return match ? parseInt(match[1], 10) : 0;
 }
 
-var TOTAL_NUM_TESTS = 40;
+var TOTAL_NUM_TESTS = 44;
 
 describe('Acceptance | Exam Command', function() {
   this.timeout(300000);
@@ -30,11 +30,11 @@ describe('Acceptance | Exam Command', function() {
 
   function assertPartitions(output, good, bad) {
     good.forEach(function(partition) {
-      assert.ok(contains(output, 'Exam Partition #' + partition), 'output has partition #' + partition);
+      assert.ok(contains(output, 'Exam Partition #' + partition + ' '), 'output has partition #' + partition);
     });
 
     (bad || []).forEach(function(partition) {
-      assert.ok(!contains(output, 'Exam Partition #' + partition), 'output does not have partition #' + partition);
+      assert.ok(!contains(output, 'Exam Partition #' + partition + ' '), 'output does not have partition #' + partition);
     });
   }
 
@@ -79,10 +79,17 @@ describe('Acceptance | Exam Command', function() {
         });
       });
 
+      it('splits the test suite and runs multiple specified partitions', function(done) {
+        exec('ember exam --split 3 --partition 1 --partition 3 --path acceptance-dist', function(_, stdout) {
+          assertSomePartitions(stdout, [ '1,3' ], [ 1, 2, 3 ]);
+          done();
+        });
+      });
+
       it('errors when running an invalid partition', function(done) {
         execError(
           'ember exam --split 3 --partition 4 --path acceptance-dist',
-          'You must specify a \'partition\' value that is less than or equal to your \'split\' value.',
+          'You must specify \'partition\' values that are less than or equal to your \'split\' value.',
           done
         );
       });
@@ -104,10 +111,9 @@ describe('Acceptance | Exam Command', function() {
         });
       });
 
-      it('ignores the partition number', function(done) {
-        exec('ember exam --split 3 --parallel --partition 2 --path acceptance-dist', function(_, stdout) {
-          assert.ok(contains(stdout, 'Ignoring `partition` option due to running split tests in parallel.'), 'lets user know that partition is being ignored');
-          assertAllPartitions(stdout);
+      it('runs multiple specified partitions in parallel', function(done) {
+        exec('ember exam --split 3 --parallel --partition 1 --partition 3 --path acceptance-dist', function(_, stdout) {
+          assertSomePartitions(stdout, [ 1, 3 ], [ 2 ]);
           done();
         });
       });

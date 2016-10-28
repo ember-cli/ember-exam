@@ -1,12 +1,12 @@
 /* globals jQuery, QUnit, Testem, require, requirejs */
 
 jQuery(document).ready(function() {
-  // Add the partition number for better debugging when reading the reporter
+  // Add the partition number(s) for better debugging when reading the reporter
   if (window.Testem) {
     Testem.on('test-result', function prependPartition(test) {
       var split = QUnit.urlParams._split;
       if (split) {
-        test.name = 'Exam Partition #' + (QUnit.urlParams._partition || 1) + ' - ' + test.name;
+        test.name = 'Exam Partition #' + (QUnit.urlParams._partitions || 1) + ' - ' + test.name;
       }
     });
   }
@@ -37,17 +37,23 @@ jQuery(document).ready(function() {
   TestLoader.prototype.loadModules = function _loadSplitModules() {
     var params = QUnit.urlParams;
     var split = parseInt(params._split, 10);
-    var partition = parseInt(params._partition, 10);
+    var partitions = params._partitions;
 
     split = isNaN(split) ? 1 : split;
-    partition = isNaN(partition) ? 1 : partition;
+
+    if (typeof partitions === 'string') {
+      partitions = partitions.split(',');
+    } else {
+      partitions = parseInt(partitions, 10);
+      partitions = [isNaN(partitions) ? 1 : partitions];
+    }
 
     var testLoader = this;
 
     testLoader._testModules = [];
     _super.loadModules.apply(testLoader, arguments);
 
-    var splitModules = splitTestModules(testLoader._testModules, split, partition);
+    var splitModules = splitTestModules(testLoader._testModules, split, partitions);
 
     splitModules.forEach(function(moduleName) {
       _super.require.call(testLoader, moduleName);
@@ -55,19 +61,31 @@ jQuery(document).ready(function() {
     });
   };
 
-  function splitTestModules(modules, split, partition) {
+  function splitTestModules(modules, split, partitions) {
     if (split < 1) {
       throw new Error('You must specify a split greater than 0');
-    } else if (split < partition) {
-      throw new Error('You must specify a partition less than or equal to your split value of ' + split);
-    } else  if (partition < 1) {
-      throw new Error('You must specify a partition greater than 0');
     }
 
     var lintTestGroups = filterIntoGroups(modules, isLintTest, split);
     var otherTestGroups = filterIntoGroups(modules, isNotLintTest, split);
-    var group = partition - 1;
-    return lintTestGroups[group].concat(otherTestGroups[group]);
+    var tests = [];
+
+    for (var i = 0; i < partitions.length; i++) {
+      var partition = parseInt(partitions[i], 10);
+      if (isNaN(partition)) {
+        throw new Error('You must specify numbers for partitions (you specified \'' + partitions + '\')');
+      }
+
+      if (split < partition) {
+        throw new Error('You must specify partitions numbered less than or equal to your split value of ' + split);
+      } else  if (partition < 1) {
+        throw new Error('You must specify partitions numbered greater than 0');
+      }
+
+      var group = partition - 1;
+      tests = tests.concat(lintTestGroups[group]).concat(otherTestGroups[group]);
+    }
+    return tests;
   }
 
   function isLintTest(name) {
