@@ -6,7 +6,7 @@ jQuery(document).ready(function() {
     Testem.on('test-result', function prependPartition(test) {
       var split = QUnit.urlParams._split;
       if (split) {
-        test.name = 'Exam Partition #' + (QUnit.urlParams._partitions || 1) + ' - ' + test.name;
+        test.name = 'Exam Partition #' + (QUnit.urlParams._partition || 1) + ' - ' + test.name;
       }
     });
   }
@@ -37,15 +37,14 @@ jQuery(document).ready(function() {
   TestLoader.prototype.loadModules = function _loadSplitModules() {
     var params = QUnit.urlParams;
     var split = parseInt(params._split, 10);
-    var partitions = params._partitions;
+    var partitions = params._partition;
 
     split = isNaN(split) ? 1 : split;
 
-    if (typeof partitions === 'string') {
-      partitions = partitions.split(',');
-    } else {
-      partitions = parseInt(partitions, 10);
-      partitions = [isNaN(partitions) ? 1 : partitions];
+    if (partitions === undefined) {
+      partitions = [1];
+    } else if (typeof partitions === 'number') {
+      partitions = [partitions];
     }
 
     var testLoader = this;
@@ -73,7 +72,7 @@ jQuery(document).ready(function() {
     for (var i = 0; i < partitions.length; i++) {
       var partition = parseInt(partitions[i], 10);
       if (isNaN(partition)) {
-        throw new Error('You must specify numbers for partitions (you specified \'' + partitions + '\')');
+        throw new Error('You must specify numbers for partition (you specified \'' + partitions + '\')');
       }
 
       if (split < partition) {

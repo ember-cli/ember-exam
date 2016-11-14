@@ -48,7 +48,7 @@ test('loads all test modules by default', function(assert) {
 
 test('loads modules from a specified partition', function(assert) {
   QUnit.urlParams = {
-    _partitions: 3,
+    _partition: 3,
     _split: 4,
   };
 
@@ -62,7 +62,7 @@ test('loads modules from a specified partition', function(assert) {
 
 test('loads modules from multiple specified partitions', function(assert) {
   QUnit.urlParams = {
-    _partitions: '1,3',
+    _partition: [1, 3],
     _split: 4,
   };
 
@@ -91,7 +91,7 @@ test('loads modules from the first partition by default', function(assert) {
 
 test('handles params as strings', function(assert) {
   QUnit.urlParams = {
-    _partitions: '3',
+    _partition: '3',
     _split: '4',
   };
 
@@ -116,29 +116,29 @@ test('throws an error if splitting less than one', function(assert) {
 test('throws an error if partition isn\'t a number', function(assert) {
   QUnit.urlParams = {
     _split: 2,
-    _partitions: "foo",
+    _partition: "foo",
   };
 
   assert.throws(() => {
     this.TestLoader.load();
-  }, /You must specify numbers for partitions \(you specified 'foo'\)/);
+  }, /You must specify numbers for partition \(you specified 'foo'\)/);
 });
 
 test('throws an error if partition isn\'t a number with multiple partitions', function(assert) {
   QUnit.urlParams = {
     _split: 2,
-    _partitions: "1,foo",
+    _partition: [1, "foo"],
   };
 
   assert.throws(() => {
     this.TestLoader.load();
-  }, /You must specify numbers for partitions \(you specified '1,foo'\)/);
+  }, /You must specify numbers for partition \(you specified '1,foo'\)/);
 });
 
 test('throws an error if loading partition greater than split number', function(assert) {
   QUnit.urlParams = {
     _split: 2,
-    _partitions: 3,
+    _partition: 3,
   };
 
   assert.throws(() => {
@@ -149,7 +149,7 @@ test('throws an error if loading partition greater than split number', function(
 test('throws an error if loading partition greater than split number with multiple partitions', function(assert) {
   QUnit.urlParams = {
     _split: 2,
-    _partitions: '2,3',
+    _partition: [2, 3],
   };
 
   assert.throws(() => {
@@ -160,7 +160,7 @@ test('throws an error if loading partition greater than split number with multip
 test('throws an error if loading partition less than one', function(assert) {
   QUnit.urlParams = {
     _split: 2,
-    _partitions: 0,
+    _partition: 0,
   };
 
   assert.throws(() => {
@@ -171,7 +171,7 @@ test('throws an error if loading partition less than one', function(assert) {
 test('load works without lint tests', function(assert) {
   QUnit.urlParams = {
     nolint: true,
-    _partitions: 4,
+    _partition: 4,
     _split: 4,
   };
 
@@ -191,7 +191,7 @@ test('load works without non-lint tests', function(assert) {
   };
 
   QUnit.urlParams = {
-    _partitions: 4,
+    _partition: 4,
     _split: 4,
   };
 
