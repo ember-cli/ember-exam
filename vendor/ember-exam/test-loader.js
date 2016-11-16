@@ -82,8 +82,9 @@ jQuery(document).ready(function() {
       }
 
       var group = partition - 1;
-      tests = tests.concat(lintTestGroups[group]).concat(otherTestGroups[group]);
+      tests = tests.concat(lintTestGroups[group], otherTestGroups[group]);
     }
+
     return tests;
   }
 
