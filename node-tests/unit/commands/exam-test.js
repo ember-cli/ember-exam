@@ -51,14 +51,20 @@ describe('ExamCommand', function() {
       });
     });
 
-    it('should set \'partition\' on the query option', function() {
-      return command.run({ split: 2, partition: 2 }).then(function() {
+    it('should set \'partition\' on the query option with one partition', function() {
+      return command.run({ split: 2, partition: [ 2 ] }).then(function() {
         assert.equal(called.testRunOptions.query, '_split=2&_partition=2');
       });
     });
 
+    it('should set \'partition\' on the query option with multiple partitions', function() {
+      return command.run({ split: 2, partition: [ 1, 2 ] }).then(function() {
+        assert.equal(called.testRunOptions.query, '_split=2&_partition=1&_partition=2');
+      });
+    });
+
     it('should append \'partition\' to the query option', function() {
-      return command.run({ split: 2, partition: 2, query: 'someQuery=derp&hidepassed' }).then(function() {
+      return command.run({ split: 2, partition: [ 2 ], query: 'someQuery=derp&hidepassed' }).then(function() {
         assert.equal(called.testRunOptions.query, 'someQuery=derp&hidepassed&_split=2&_partition=2');
       });
     });
@@ -84,7 +90,7 @@ describe('ExamCommand', function() {
     });
 
     it('should set \'weighted\' on the query option', function() {
-      return command.run({ split: 2, partition: 2, weighted: true }).then(function() {
+      return command.run({ split: 2, partition: [ 2 ], weighted: true }).then(function() {
         assert.equal(called.testRunOptions.query, '_split=2&_partition=2&_weighted');
       });
     });
@@ -111,7 +117,7 @@ describe('ExamCommand', function() {
       assert.deepEqual(config.testPage, undefined);
     });
 
-    it('should modify the config to have multiple test pages', function() {
+    it('should modify the config to have multiple test pages with no partitions specified', function() {
       var config = generateConfig({
         parallel: true,
         split: 2
@@ -123,7 +129,20 @@ describe('ExamCommand', function() {
       ]);
     });
 
-    it('should modify the config to have multiple test pages for each test_page in the config file', function() {
+    it('should modify the config to have multiple test pages with specified partitions', function() {
+      var config = generateConfig({
+        parallel: true,
+        split: 4,
+        partition: [ 3, 4 ]
+      });
+
+      assert.deepEqual(config.testPage, [
+        "tests/index.html?hidepassed&derp=herp&_split=4&_partition=3",
+        "tests/index.html?hidepassed&derp=herp&_split=4&_partition=4"
+      ]);
+    });
+
+    it('should modify the config to have multiple test pages for each test_page in the config file with no partitions specified', function() {
       var config = generateConfig({
         parallel: true,
         split: 2,
@@ -135,6 +154,22 @@ describe('ExamCommand', function() {
         "tests/index.html?hidepassed&derp=herp&_split=2&_partition=2",
         "tests/index.html?hidepassed&foo=bar&_split=2&_partition=1",
         "tests/index.html?hidepassed&foo=bar&_split=2&_partition=2"
+      ]);
+    });
+
+    it('should modify the config to have multiple test pages for each test_page in the config file with partitions specified', function() {
+      var config = generateConfig({
+        parallel: true,
+        split: 4,
+        partition: [ 3, 4 ],
+        configFile: 'testem.multiple-test-page.js'
+      });
+
+      assert.deepEqual(config.testPage, [
+        "tests/index.html?hidepassed&derp=herp&_split=4&_partition=3",
+        "tests/index.html?hidepassed&derp=herp&_split=4&_partition=4",
+        "tests/index.html?hidepassed&foo=bar&_split=4&_partition=3",
+        "tests/index.html?hidepassed&foo=bar&_split=4&_partition=4"
       ]);
     });
 

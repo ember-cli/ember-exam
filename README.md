@@ -74,7 +74,11 @@ The `split` option allows you to specify a number of partitions greater than one
 $ ember exam --split=<num> --partition=<num>
 ```
 
-The `partition` option allows you to specify which test group to run after using the `split` option. It is one-indexed, so if you specify a split of 3, the last group you could run is 3 as well.
+The `partition` option allows you to specify which test group to run after using the `split` option. It is one-indexed, so if you specify a split of 3, the last group you could run is 3 as well. You can also run multiple partitions, e.g.:
+
+```bash
+$ ember exam --split=4 --partition=1 --partition=2
+```
 
 _Note: Ember Exam splits test by modifying the Ember-CLI `TestLoader`, which means that tests are split up according to AMD modules, so it is possible to have unbalanced partitions. For more info, see [issue #60](https://github.com/trentmwillis/ember-exam/issues/60)._
 
@@ -96,6 +100,20 @@ The `parallel` option allows you to run your split tests across multiple test pa
 ok 1 PhantomJS 1.9 - Exam Partition #1 - some test
 ok 2 PhantomJS 1.9 - Exam Partition #3 - some other other test
 ok 3 PhantomJS 1.9 - Exam Partition #2 - some other test
+```
+
+You can also combine the `parallel` option with the `partition` option to split tests, and then recombine partitions into parallel runs. This would, for example, allow you to run tests in multiple CI containers and have each CI container parallelize its list of tests.
+
+For example, if you wanted to run your tests across two containers, but have one of them run twice as many tests as the other, and run them in parallel, you could do this:
+
+```bash
+# container 1
+ember exam --split=3 --partition=1 --partition=2 --parallel
+```
+
+```bash
+# container 2
+ember exam --split=3 --partition=3
 ```
 
 Ember Exam will respect the `parallel` setting of your [Testem config file](https://github.com/testem/testem/blob/master/docs/config_file.md#config-level-options) while running tests in parallel. _Note that the default value for `parallel` in Testem is 1, which means you'll need a non-default value to actually see parallel behavior._

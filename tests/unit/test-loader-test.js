@@ -60,6 +60,22 @@ test('loads modules from a specified partition', function(assert) {
   ]);
 });
 
+test('loads modules from multiple specified partitions', function(assert) {
+  QUnit.urlParams = {
+    _partition: [1, 3],
+    _split: 4,
+  };
+
+  this.TestLoader.load();
+
+  assert.deepEqual(this.requiredModules, [
+    'test-1-test.jshint',
+    'test-1-test',
+    'test-3-test.jshint',
+    'test-3-test',
+  ]);
+});
+
 test('loads modules from the first partition by default', function(assert) {
   QUnit.urlParams = {
     _split: 4,
@@ -97,6 +113,28 @@ test('throws an error if splitting less than one', function(assert) {
   }, /You must specify a split greater than 0/);
 });
 
+test('throws an error if partition isn\'t a number', function(assert) {
+  QUnit.urlParams = {
+    _split: 2,
+    _partition: "foo",
+  };
+
+  assert.throws(() => {
+    this.TestLoader.load();
+  }, /You must specify numbers for partition \(you specified 'foo'\)/);
+});
+
+test('throws an error if partition isn\'t a number with multiple partitions', function(assert) {
+  QUnit.urlParams = {
+    _split: 2,
+    _partition: [1, "foo"],
+  };
+
+  assert.throws(() => {
+    this.TestLoader.load();
+  }, /You must specify numbers for partition \(you specified '1,foo'\)/);
+});
+
 test('throws an error if loading partition greater than split number', function(assert) {
   QUnit.urlParams = {
     _split: 2,
@@ -105,7 +143,18 @@ test('throws an error if loading partition greater than split number', function(
 
   assert.throws(() => {
     this.TestLoader.load();
-  }, /You must specify a partition less than or equal to your split value/);
+  }, /You must specify partitions numbered less than or equal to your split value/);
+});
+
+test('throws an error if loading partition greater than split number with multiple partitions', function(assert) {
+  QUnit.urlParams = {
+    _split: 2,
+    _partition: [2, 3],
+  };
+
+  assert.throws(() => {
+    this.TestLoader.load();
+  }, /You must specify partitions numbered less than or equal to your split value/);
 });
 
 test('throws an error if loading partition less than one', function(assert) {
@@ -116,7 +165,7 @@ test('throws an error if loading partition less than one', function(assert) {
 
   assert.throws(() => {
     this.TestLoader.load();
-  }, /You must specify a partition greater than 0/);
+  }, /You must specify partitions numbered greater than 0/);
 });
 
 test('load works without lint tests', function(assert) {
