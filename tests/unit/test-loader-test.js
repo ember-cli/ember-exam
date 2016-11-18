@@ -201,3 +201,29 @@ test('load works without non-lint tests', function(assert) {
     'test-4-test.jshint',
   ]);
 });
+
+test('load works with a double-digit single partition', function(assert) {
+  window.requirejs.entries = {
+    'test-1-test': true,
+    'test-2-test': true,
+    'test-3-test': true,
+    'test-4-test': true,
+    'test-5-test': true,
+    'test-6-test': true,
+    'test-7-test': true,
+    'test-8-test': true,
+    'test-9-test': true,
+    'test-10-test': true,
+  };
+
+  QUnit.urlParams = {
+    _partition: '10',
+    _split: 10,
+  };
+
+  this.TestLoader.load();
+
+  assert.deepEqual(this.requiredModules, [
+    'test-10-test',
+  ]);
+});
