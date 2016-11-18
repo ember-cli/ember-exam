@@ -18,6 +18,14 @@ module('Unit | test-loader', {
       'test-3-test.jshint': true,
       'test-4-test': true,
       'test-4-test.jshint': true,
+      'acceptance/test-1-test': true,
+      'acceptance/test-1-test.jshint': true,
+      'acceptance/test-2-test': true,
+      'acceptance/test-2-test.jshint': true,
+      'myapp/acceptance/test-3-test': true,
+      'myapp/acceptance/test-3-test.jshint': true,
+      'myapp/acceptance/test-4-test': true,
+      'myapp/acceptance/test-4-test.jshint': true,
     };
 
     this.originalURLParams = QUnit.urlParams;
@@ -39,10 +47,18 @@ test('loads all test modules by default', function(assert) {
     'test-2-test.jshint',
     'test-3-test.jshint',
     'test-4-test.jshint',
+    'acceptance/test-1-test.jshint',
+    'acceptance/test-2-test.jshint',
+    'myapp/acceptance/test-3-test.jshint',
+    'myapp/acceptance/test-4-test.jshint',
     'test-1-test',
     'test-2-test',
     'test-3-test',
     'test-4-test',
+    'acceptance/test-1-test',
+    'acceptance/test-2-test',
+    'myapp/acceptance/test-3-test',
+    'myapp/acceptance/test-4-test',
   ]);
 });
 
@@ -56,7 +72,9 @@ test('loads modules from a specified partition', function(assert) {
 
   assert.deepEqual(this.requiredModules, [
     'test-3-test.jshint',
+    'myapp/acceptance/test-3-test.jshint',
     'test-3-test',
+    'myapp/acceptance/test-3-test',
   ]);
 });
 
@@ -70,9 +88,13 @@ test('loads modules from multiple specified partitions', function(assert) {
 
   assert.deepEqual(this.requiredModules, [
     'test-1-test.jshint',
+    'acceptance/test-1-test.jshint',
     'test-1-test',
+    'acceptance/test-1-test',
     'test-3-test.jshint',
+    'myapp/acceptance/test-3-test.jshint',
     'test-3-test',
+    'myapp/acceptance/test-3-test',
   ]);
 });
 
@@ -85,7 +107,9 @@ test('loads modules from the first partition by default', function(assert) {
 
   assert.deepEqual(this.requiredModules, [
     'test-1-test.jshint',
+    'acceptance/test-1-test.jshint',
     'test-1-test',
+    'acceptance/test-1-test',
   ]);
 });
 
@@ -99,7 +123,9 @@ test('handles params as strings', function(assert) {
 
   assert.deepEqual(this.requiredModules, [
     'test-3-test.jshint',
+    'myapp/acceptance/test-3-test.jshint',
     'test-3-test',
+    'myapp/acceptance/test-3-test',
   ]);
 });
 
@@ -179,15 +205,20 @@ test('load works without lint tests', function(assert) {
 
   assert.deepEqual(this.requiredModules, [
     'test-4-test',
+    'myapp/acceptance/test-4-test',
   ]);
 });
 
-test('load works without non-lint tests', function(assert) {
+test('load works with only lint tests', function(assert) {
   window.requirejs.entries = {
     'test-1-test.jshint': true,
     'test-2-test.jshint': true,
     'test-3-test.jshint': true,
     'test-4-test.jshint': true,
+    'acceptance/test-1-test.jshint': true,
+    'acceptance/test-2-test.jshint': true,
+    'myapp/acceptance/test-3-test.jshint': true,
+    'myapp/acceptance/test-4-test.jshint': true,
   };
 
   QUnit.urlParams = {
@@ -199,5 +230,6 @@ test('load works without non-lint tests', function(assert) {
 
   assert.deepEqual(this.requiredModules, [
     'test-4-test.jshint',
+    'myapp/acceptance/test-4-test.jshint',
   ]);
 });
