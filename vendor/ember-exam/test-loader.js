@@ -43,7 +43,7 @@ jQuery(document).ready(function() {
 
     if (partitions === undefined) {
       partitions = [1];
-    } else if (typeof partitions === 'number') {
+    } else if (!Array.isArray(partitions)) {
       partitions = [partitions];
     }
 
