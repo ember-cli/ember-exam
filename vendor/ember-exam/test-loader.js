@@ -1,12 +1,42 @@
-/* globals jQuery, QUnit, Testem, require, requirejs */
+/* globals jQuery, Testem, require, requirejs */
 
 jQuery(document).ready(function() {
+  function getUrlParams() {
+    var i, param, name, value;
+    var urlParams = Object.create( null );
+    var params = location.search.slice( 1 ).split( "&" );
+    var length = params.length;
+
+    for ( i = 0; i < length; i++ ) {
+      if ( params[ i ] ) {
+        param = params[ i ].split( "=" );
+        name = decodeQueryParam( param[ 0 ] );
+
+        // Allow just a key to turn on a flag, e.g., test.html?noglobals
+        value = param.length === 1 ||
+          decodeQueryParam( param.slice( 1 ).join( "=" ) );
+        if ( name in urlParams ) {
+          urlParams[ name ] = [].concat( urlParams[ name ], value );
+        } else {
+          urlParams[ name ] = value;
+        }
+      }
+    }
+
+    return urlParams;
+  }
+
+  function decodeQueryParam( param ) {
+    return decodeURIComponent( param.replace( /\+/g, "%20" ) );
+  }
+
   // Add the partition number(s) for better debugging when reading the reporter
   if (window.Testem) {
     Testem.on('test-result', function prependPartition(test) {
-      var split = QUnit.urlParams._split;
+      var urlParams = TestLoader._urlParams;
+      var split = urlParams._split;
       if (split) {
-        test.name = 'Exam Partition #' + (QUnit.urlParams._partition || 1) + ' - ' + test.name;
+        test.name = 'Exam Partition #' + (urlParams._partition || 1) + ' - ' + test.name;
       }
     });
   }
@@ -19,6 +49,8 @@ jQuery(document).ready(function() {
 
   var TestLoaderModule = require(testLoaderModulePath);
   var TestLoader = TestLoaderModule['default'];
+
+  TestLoader._urlParams = getUrlParams();
 
   var _super = {
     require: TestLoader.prototype.require,
@@ -35,9 +67,9 @@ jQuery(document).ready(function() {
   TestLoader.prototype.unsee = function _unsee() {};
 
   TestLoader.prototype.loadModules = function _loadSplitModules() {
-    var params = QUnit.urlParams;
-    var split = parseInt(params._split, 10);
-    var partitions = params._partition;
+    var urlParams = TestLoader._urlParams;
+    var split = parseInt(urlParams._split, 10);
+    var partitions = urlParams._partition;
 
     split = isNaN(split) ? 1 : split;
 
