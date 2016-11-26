@@ -98,7 +98,8 @@ jQuery(document).ready(function() {
     }
 
     var lintTestGroups = filterIntoGroups(modules, isLintTest, split);
-    var otherTestGroups = filterIntoGroups(modules, isNotLintTest, split);
+    var acceptanceTestGroups = filterIntoGroups(modules, isAcceptanceTest, split);
+    var otherTestGroups = filterIntoGroups(modules, isOtherTest, split);
     var tests = [];
 
     for (var i = 0; i < partitions.length; i++) {
@@ -114,7 +115,7 @@ jQuery(document).ready(function() {
       }
 
       var group = partition - 1;
-      tests = tests.concat(lintTestGroups[group], otherTestGroups[group]);
+      tests = tests.concat(lintTestGroups[group], acceptanceTestGroups[group], otherTestGroups[group]);
     }
 
     return tests;
@@ -124,8 +125,12 @@ jQuery(document).ready(function() {
     return name.match(/\.(jshint|(es)?lint-test)$/);
   }
 
-  function isNotLintTest(name) {
-    return !isLintTest(name);
+  function isAcceptanceTest(name) {
+    return !isLintTest(name) && name.match(/[^\/]acceptance\//);
+  }
+
+  function isOtherTest(name) {
+    return !isLintTest(name) && !isAcceptanceTest(name);
   }
 
   function filterIntoGroups(arr, filter, numGroups) {
