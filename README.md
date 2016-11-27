@@ -6,7 +6,7 @@
 [![Code Climate](https://codeclimate.com/github/trentmwillis/ember-exam/badges/gpa.svg)](https://codeclimate.com/github/trentmwillis/ember-exam)
 [![Node Test Coverage](https://codeclimate.com/github/trentmwillis/ember-exam/badges/coverage.svg)](https://codeclimate.com/github/trentmwillis/ember-exam/coverage)
 
-Ember Exam is an addon to allow you more control over how you run your tests when used in conjunction with [Ember CLI QUnit](https://github.com/ember-cli/ember-cli-qunit). It provides the ability to randomize, split, and parallelize your test suite by adding a more robust CLI command.
+Ember Exam is an addon to allow you more control over how you run your tests when used in conjunction with [Ember CLI QUnit](https://github.com/ember-cli/ember-cli-qunit) or [Ember CLI Mocha](https://github.com/ember-cli/ember-cli-mocha). It provides the ability to randomize, split, and parallelize your test suite by adding a more robust CLI command.
 
 It started as a way to help reduce flaky tests and encourage healthy test driven development. It's like [Head & Shoulders](http://www.headandshoulders.com/) for your tests!
 
@@ -38,7 +38,7 @@ $ ember exam --random=this_is1337
 $ Randomizing tests with seed: this_is1337
 ```
 
-_Note: You must be using QUnit version `1.23.0` or greater for this feature to work properly._
+_Note: You must be using QUnit version `1.23.0` or greater for this feature to work properly. This feature is not currently supported by Mocha._
 
 #### Randomization Iterator
 
@@ -61,6 +61,8 @@ $ ember exam:iterate <num> --options <options>
 ```
 
 The `options` should be a string matching what you would use via the CLI.
+
+_Note: This feature is not currently supported by Mocha._
 
 ### Splitting
 
