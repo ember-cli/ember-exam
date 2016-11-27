@@ -73,6 +73,18 @@ describe('ExamCommand', function() {
       });
     });
 
+    it('should not append \'partition\' to the query option when parallelizing', function() {
+      return command.run({ split: 2, partition: [ 1, 2 ], parallel: true }).then(function() {
+        assert.equal(called.testRunOptions.query, '_split=2');
+      });
+    });
+
+    it('should not append \'partition\' to the query option when not parallelizing without partitions', function() {
+      return command.run({ split: 2 }).then(function() {
+        assert.equal(called.testRunOptions.query, '_split=2');
+      });
+    });
+
     it('should set \'seed=1337\' on the query option', function() {
       return command.run({ random: '1337' }).then(function() {
         assert.equal(called.testRunOptions.query, 'seed=1337');
