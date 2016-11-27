@@ -8,37 +8,41 @@ var ExamCommand = require('../../../lib/commands/exam');
 var TestOptionsValidator = require('../../../lib/utils/tests-options-validator');
 
 describe('ExamCommand', function() {
+  function createCommand() {
+    var tasks = {
+      Build: Task.extend(),
+      Test: Task.extend()
+    };
+
+    var project = new MockProject();
+
+    project.isEmberCLIProject = function() { return true; };
+
+    return new ExamCommand({
+      project: project,
+      tasks: tasks,
+      ui: {
+        writeLine: function() {}
+      }
+    });
+  }
+
   describe('run', function() {
     var command;
     var called;
 
     beforeEach(function() {
-      var tasks = {
-        Build: Task.extend(),
-        Test: Task.extend()
-      };
-
-      var project = new MockProject();
-
-      project.isEmberCLIProject = function() { return true; };
-
-      command = new ExamCommand({
-        project: project,
-        tasks: tasks,
-        ui: {
-          writeLine: function() {}
-        }
-      });
+      command = createCommand();
 
       called = {};
 
-      tasks.Test.prototype.run = function(options) {
+      command.tasks.Test.prototype.run = function(options) {
         called.testRun = true;
         called.testRunOptions = options;
         return RSVP.resolve();
       };
 
-      tasks.Build.prototype.run = function() {
+      command.tasks.Build.prototype.run = function() {
         called.buildRun = true;
         return RSVP.resolve();
       };
@@ -215,5 +219,36 @@ describe('ExamCommand', function() {
 
       warnStub.restore();
     });
-  })
+  });
+
+  describe('_getTestFramework', function() {
+    var command;
+
+    function assertFramework(command, name) {
+      assert.equal(command._getTestFramework(), name);
+    }
+
+    beforeEach(function() {
+      command = createCommand();
+    });
+
+    it('returns mocha if ember-cli-mocha is a dependency', function() {
+      command.project.pkg.dependencies = {
+        'ember-cli-mocha': '*'
+      };
+      assertFramework(command, 'mocha');
+    });
+
+    it('returns mocha if ember-cli-mocha is a dev-dependency', function() {
+      command.project.pkg.devDependencies = {
+        'ember-cli-mocha': '*'
+      };
+      assertFramework(command, 'mocha');
+    });
+
+    it('returns qunit if ember-cli-mocha is not a dependency of any kind', function() {
+      var command = createCommand();
+      assertFramework(command, 'qunit');
+    });
+  });
 });
