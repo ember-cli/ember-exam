@@ -8,7 +8,7 @@ function contains(str, value) {
 
 function getNumberOfTests(str) {
   var match = str.match(/# tests ([0-9]+)/);
-  return match ? parseInt(match[1], 10) : 0;
+  return match && parseInt(match[1], 10);
 }
 
 var TOTAL_NUM_TESTS = 44;
