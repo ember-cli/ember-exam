@@ -10,10 +10,14 @@ cache:
     - node_modules
 
 env:
-  - EMBER_TRY_SCENARIO=default
-  - EMBER_TRY_SCENARIO=ember-release
-  - EMBER_TRY_SCENARIO=ember-beta
-  - EMBER_TRY_SCENARIO=ember-canary
+  - TEST_FRAMEWORK=ember-cli-qunit EMBER_TRY_SCENARIO=default
+  - TEST_FRAMEWORK=ember-cli-qunit EMBER_TRY_SCENARIO=ember-release
+  - TEST_FRAMEWORK=ember-cli-qunit EMBER_TRY_SCENARIO=ember-beta
+  - TEST_FRAMEWORK=ember-cli-qunit EMBER_TRY_SCENARIO=ember-canary
+  - TEST_FRAMEWORK=ember-cli-mocha EMBER_TRY_SCENARIO=default
+  - TEST_FRAMEWORK=ember-cli-mocha EMBER_TRY_SCENARIO=ember-release
+  - TEST_FRAMEWORK=ember-cli-mocha EMBER_TRY_SCENARIO=ember-beta
+  - TEST_FRAMEWORK=ember-cli-mocha EMBER_TRY_SCENARIO=ember-canary
 
 matrix:
   fast_finish: true
@@ -33,6 +37,7 @@ install:
   - npm install -g bower
   - npm install
   - bower install
+  - ./bin/install-test-framework.sh
 
 script:
   - npm run test:ci:cover
