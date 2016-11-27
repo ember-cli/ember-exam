@@ -13,6 +13,23 @@ describe('TestOptionsValidator', function() {
     assert.equal(validator['should' + prop], value);
   }
 
+  function shouldWarn(prop, options, value) {
+    var originalWarn = console.warn;
+    var warnCalled = 0;
+    var warnMessage = '';
+    console.warn = function(message) {
+      warnCalled++;
+      warnMessage = message;
+    };
+
+    var validator = new TestOptionsValidator(options, options.framework);
+    assert.notEqual(validator['should' + prop], undefined);
+    assert.equal(warnCalled, 1);
+    assert.equal(warnMessage, value);
+
+    console.warn = originalWarn;
+  }
+
   describe('shouldSplit', function() {
     function shouldSplitThrows(options, message) {
       shouldThrow('Split', options, message);
@@ -63,6 +80,7 @@ describe('TestOptionsValidator', function() {
     function shouldRandomizeEqual(options, message) {
       shouldEqual('Randomize', options, message);
     }
+
     it('should return true if `random` is an empty string', function() {
       shouldRandomizeEqual({ random: '' }, true);
     });
@@ -77,6 +95,10 @@ describe('TestOptionsValidator', function() {
 
     it('should return false if `random` is not used', function() {
       shouldRandomizeEqual({}, false);
+    });
+
+    it('should warn that randomization is not supported in mocha', function() {
+      shouldWarn('Randomize', { random: '', framework: 'mocha' }, 'Mocha does not currently support randomizing test order, so tests will run in normal order. Please see https://github.com/mochajs/mocha/issues/902 for more info.');
     });
   });
 
