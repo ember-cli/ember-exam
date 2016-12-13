@@ -123,7 +123,7 @@ describe('Acceptance | Exam Command', function() {
   describe('Random', function() {
     it('runs tests with the passed in seeds', function(done) {
       exec('ember exam --random 1337 --path acceptance-dist', function(_, stdout) {
-        assert.ok(contains(stdout, 'Randomizing test with seed: 1337'), 'logged the seed value');
+        assert.ok(contains(stdout, 'Randomizing tests with seed: 1337'), 'logged the seed value');
         assert.equal(getNumberOfTests(stdout), TOTAL_NUM_TESTS, 'ran all of the tests in the suite');
         done();
       });

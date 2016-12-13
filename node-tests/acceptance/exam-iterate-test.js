@@ -21,7 +21,7 @@ describe('Acceptance | Exam Iterate Command', function() {
       assert.ok(contains(stdout, 'Running iteration #1.'), 'Logs first iteration');
       assert.ok(contains(stdout, 'Running iteration #2.'), 'Logs second iteration');
 
-      var seedRE = /Randomizing test with seed: (.*)/g;
+      var seedRE = /Randomizing tests with seed: (.*)/g;
 
       var firstSeed = seedRE.exec(stdout)[1];
       var secondSeed = seedRE.exec(stdout)[1];
@@ -65,7 +65,7 @@ describe('Acceptance | Exam Iterate Command', function() {
       assert.ok(contains(stdout, 'Running iteration #1.'), 'Logs first iteration');
       assert.ok(contains(stdout, 'Running iteration #2.'), 'Logs second iteration');
 
-      var seedRE = /Randomizing test with seed: (.*)/g;
+      var seedRE = /Randomizing tests with seed: (.*)/g;
 
       var firstSeed = seedRE.exec(stdout)[1];
       var secondSeed = seedRE.exec(stdout)[1];
