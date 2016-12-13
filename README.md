@@ -38,6 +38,18 @@ $ ember exam --random=this_is1337
 $ Randomizing tests with seed: this_is1337
 ```
 
+If you use `random` without specifying a seed, it must be the last argument you pass. Otherwise, Ember Exam will attempt to interpret any following arguments as the seed value. In other words:
+
+```bash
+# don't do this
+ember exam --random --split=2
+Randomizing tests with seed: --split=2 # this is not what we wanted
+
+# do this instead
+ember exam --split=2 --random
+Randomizing tests with seed: hwr74nkk55vzpvi
+```
+
 _Note: You must be using QUnit version `1.23.0` or greater for this feature to work properly. This feature is not currently supported by Mocha._
 
 #### Randomization Iterator
