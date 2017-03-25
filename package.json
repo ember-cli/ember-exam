@@ -9,11 +9,11 @@
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "mocha --recursive node-tests/",
+    "test": "mocha node-tests/**/*-test.js",
     "test:ember": "ember try:each",
     "test:all": "npm run test:ember && npm test",
     "test:ci": "ember try:one $EMBER_TRY_SCENARIO && npm test",
-    "test:cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- --recursive node-tests/",
+    "test:cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- node-tests/**/*-test.js",
     "test:ci:cover": "ember try:one $EMBER_TRY_SCENARIO && npm run test:cover"
   },
   "repository": {
