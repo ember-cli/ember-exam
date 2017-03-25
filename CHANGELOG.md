@@ -1,19 +1,11 @@
-
-n.n.n / 2017-03-25
-==================
-
-  * Add changelog
-
 v0.6.1 / 2017-03-25
 ===================
 
-  * Release v0.6.1
-  * Merge pull request #80 from trentmwillis/iterator-exit
   * Ensure iterate exits with proper code
-  * Merge pull request #77 from samselikoff/patch-1
   * Add Ember Exam video link to Readme
   * Add note about using random with a seed
   * Fix seed logging message for random option
+
 v0.6.0 / 2016-11-27
 ===================
 
