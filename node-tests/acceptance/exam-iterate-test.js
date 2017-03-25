@@ -3,7 +3,7 @@ var child_process = require('child_process');
 var exec = child_process.exec;
 var execSync = child_process.execSync;
 var rimraf = require('rimraf');
-var fs = require('fs');
+var fs = require('fs-extra');
 var path = require('path');
 
 function contains(str, value) {
@@ -86,6 +86,26 @@ describe('Acceptance | Exam Iterate Command', function() {
       rimraf.sync(buildDir);
 
       done();
+    });
+  });
+
+  describe('Exit Code', function() {
+    var destPath = path.join( __dirname, '..', '..', 'tests', 'unit', 'failing-test.js');
+
+    beforeEach(function() {
+      var failingTestPath = path.join( __dirname, '..', 'fixtures', 'failure.js');
+      fs.copySync(failingTestPath, destPath);
+    });
+
+    afterEach(function() {
+      fs.removeSync(destPath);
+    });
+
+    it('should have an exitCode of 1 when a test fails', function(done) {
+      exec('ember exam:iterate 1', function(error, stdout, stderr) {
+        assert.equal(error.code, 1);
+        done();
+      });
     });
   });
 });
