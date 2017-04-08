@@ -39,8 +39,8 @@ describe('TestOptionsValidator', function() {
       shouldEqual('Split', options, message);
     }
 
-    it('should throw an error if `split` is less than 2', function() {
-      shouldSplitThrows({ split: 1 }, /You must specify a number of files greater than 1 to split your tests across/);
+    it('should log a warning if `split` is less than 2', function() {
+      shouldWarn('Split', { split: 1 }, 'You should specify a number of files greater than 1 to split your tests across. Defaulting to 1 split which is the same as not using `--split`.');
     });
 
     it('should throw an error if `partition` is used without `split`', function() {
