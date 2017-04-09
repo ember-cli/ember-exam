@@ -1,3 +1,10 @@
+v0.6.2 / 2017-04-09
+==================
+
+* Downgrade split < 2 error to warning
+* Fix mocha test commands
+
+
 v0.6.1 / 2017-03-25
 ===================
 
