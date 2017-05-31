@@ -1,7 +1,9 @@
 ---
 language: node_js
 node_js:
-  - "0.12"
+  - "4"
+  - "6"
+  - "stable"
 
 sudo: false
 
@@ -10,14 +12,8 @@ cache:
     - node_modules
 
 env:
-  - TEST_FRAMEWORK=ember-cli-qunit EMBER_TRY_SCENARIO=default
-  - TEST_FRAMEWORK=ember-cli-qunit EMBER_TRY_SCENARIO=ember-release
-  - TEST_FRAMEWORK=ember-cli-qunit EMBER_TRY_SCENARIO=ember-beta
-  - TEST_FRAMEWORK=ember-cli-qunit EMBER_TRY_SCENARIO=ember-canary
-  - TEST_FRAMEWORK=ember-cli-mocha EMBER_TRY_SCENARIO=default
-  - TEST_FRAMEWORK=ember-cli-mocha EMBER_TRY_SCENARIO=ember-release
-  - TEST_FRAMEWORK=ember-cli-mocha EMBER_TRY_SCENARIO=ember-beta
-  - TEST_FRAMEWORK=ember-cli-mocha EMBER_TRY_SCENARIO=ember-canary
+  - TEST_FRAMEWORK=ember-cli-qunit
+  - TEST_FRAMEWORK=ember-cli-mocha
 
 matrix:
   fast_finish: true
