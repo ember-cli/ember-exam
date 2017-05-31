@@ -9,12 +9,10 @@
   "scripts": {
     "build": "ember build",
     "start": "ember server",
-    "test": "mocha 'node-tests/**/*-test.js'",
+    "test": "npm run test:ember && npm run test:node",
+    "test:node": "nyc mocha 'node-tests/**/*-test.js'",
     "test:ember": "ember try:each",
-    "test:all": "npm run test:ember && npm test",
-    "test:ci": "npm run test:ember && npm test",
-    "test:cover": "istanbul cover ./node_modules/mocha/bin/_mocha -- 'node-tests/**/*-test.js'",
-    "test:ci:cover": "npm run test:ember && npm run test:cover"
+    "coverage": "nyc report --reporter=text-lcov | codeclimate-test-reporter"
   },
   "repository": {
     "type": "git",
@@ -27,6 +25,7 @@
   "license": "MIT",
   "devDependencies": {
     "broccoli-asset-rev": "^2.4.0",
+    "codeclimate-test-reporter": "^0.4.1",
     "ember-ajax": "2.0.1",
     "ember-cli": "2.7.0",
     "ember-cli-app-version": "^1.0.0",
@@ -48,6 +47,7 @@
     "loader.js": "^4.0.1",
     "mocha": "^2.3.4",
     "mocha-eslint": "^3.0.1",
+    "nyc": "^10.3.2",
     "rsvp": "^3.2.1",
     "sinon": "^1.17.5"
   },
@@ -64,5 +64,13 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
+  },
+  "nyc": {
+    "exclude": [
+      "bower_components",
+      "config",
+      "node-tests",
+      "tests"
+    ]
   }
 }

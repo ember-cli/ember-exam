@@ -35,8 +35,7 @@ install:
   - ./bin/install-test-framework.sh
 
 script:
-  - npm run test:ci:cover
+  - npm test
 
 after_script:
-  - npm install codeclimate-test-reporter
-  - cat coverage/lcov.info | node_modules/.bin/codeclimate-test-reporter
+  - npm run coverage
