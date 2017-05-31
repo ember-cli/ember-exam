@@ -10,5 +10,13 @@
     "node": true
   },
   "rules": {
+    "quotes": [ "error", "single" ],
+    "prefer-const": "error",
+    "no-var": "error",
+    "no-use-before-define": "error",
+    "space-in-parens": [ "error", "never" ],
+    "array-bracket-spacing": "error",
+    "computed-property-spacing": "error",
+    "indent": [ "error", 2 ]
   }
 }
