@@ -32,6 +32,7 @@ module.exports = {
     },
     {
       name: 'ember-canary',
+      allowedToFail: true,
       dependencies: {
         'ember': 'components/ember#canary'
       },
