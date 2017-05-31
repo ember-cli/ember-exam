@@ -14,6 +14,7 @@ describe('TestOptionsValidator', function() {
   }
 
   function shouldWarn(prop, options, value) {
+    /* eslint-disable no-console */
     var originalWarn = console.warn;
     var warnCalled = 0;
     var warnMessage = '';
@@ -28,6 +29,7 @@ describe('TestOptionsValidator', function() {
     assert.equal(warnMessage, value);
 
     console.warn = originalWarn;
+    /* eslint-enable no-console */
   }
 
   describe('shouldSplit', function() {

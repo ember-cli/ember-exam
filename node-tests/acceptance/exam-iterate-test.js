@@ -102,7 +102,7 @@ describe('Acceptance | Exam Iterate Command', function() {
     });
 
     it('should have an exitCode of 1 when a test fails', function(done) {
-      exec('ember exam:iterate 1', function(error, stdout, stderr) {
+      exec('ember exam:iterate 1', function(error) {
         assert.equal(error.code, 1);
         done();
       });
