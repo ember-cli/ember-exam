@@ -11,7 +11,7 @@ function getNumberOfTests(str) {
   return match && parseInt(match[1], 10);
 }
 
-var TOTAL_NUM_TESTS = 44;
+var TOTAL_NUM_TESTS = 48;
 
 describe('Acceptance | Exam Command', function() {
   this.timeout(300000);

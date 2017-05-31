@@ -1,0 +1,11 @@
+{
+  "env": {
+    "embertest": true,
+    "mocha": true,
+    "browser": true,
+    "node": false
+  },
+  "globals": {
+    "expect": true
+  }
+}
