@@ -39,7 +39,7 @@ describe('Acceptance | Exam Command', function() {
   }
 
   function assertAllPartitions(output) {
-    assertPartitions(output, [ 1, 2, 3 ]);
+    assertPartitions(output, [1, 2, 3]);
     assert.equal(getNumberOfTests(output), TOTAL_NUM_TESTS, 'ran all of the tests in the suite');
   }
 
@@ -59,7 +59,7 @@ describe('Acceptance | Exam Command', function() {
   describe('Split', function() {
     it('splits the test suite but only runs the first partition', function(done) {
       exec('ember exam --split 3 --path acceptance-dist', function(_, stdout) {
-        assertSomePartitions(stdout, [ 1 ], [ 2, 3 ]);
+        assertSomePartitions(stdout, [1], [2, 3]);
         done();
       });
     });
@@ -74,14 +74,14 @@ describe('Acceptance | Exam Command', function() {
 
       it('splits the test suite and runs a specified partition', function(done) {
         exec('ember exam --split 3 --partition 2 --path acceptance-dist', function(_, stdout) {
-          assertSomePartitions(stdout, [ 2 ], [ 1, 3 ]);
+          assertSomePartitions(stdout, [2], [1, 3]);
           done();
         });
       });
 
       it('splits the test suite and runs multiple specified partitions', function(done) {
         exec('ember exam --split 3 --partition 1 --partition 3 --path acceptance-dist', function(_, stdout) {
-          assertSomePartitions(stdout, [ '1,3' ], [ 1, 2, 3 ]);
+          assertSomePartitions(stdout, ['1,3'], [1, 2, 3]);
           done();
         });
       });
@@ -113,7 +113,7 @@ describe('Acceptance | Exam Command', function() {
 
       it('runs multiple specified partitions in parallel', function(done) {
         exec('ember exam --split 3 --parallel --partition 1 --partition 3 --path acceptance-dist', function(_, stdout) {
-          assertSomePartitions(stdout, [ 1, 3 ], [ 2 ]);
+          assertSomePartitions(stdout, [1, 3], [2]);
           done();
         });
       });
