@@ -1,8 +1,23 @@
+v0.7.0 / 2017-06-01
+==================
+
+  * Document load API for version 0.7.0
+  * Fix eslint errors for node-land code
+  * Refactor core functionality
+  * Extract TestLoader mods into utility function
+  * Simplify and revamp code coverage
+  * Fix tests from ESLint migration
+  * Replace JSHint with ESLint
+  * Tweak CI configs
+  * Change ember try:one -> ember try:each
+  * Remove Node 0.12 from Travis
+  * Add Node LTS versions 4.x, 6.x, and stable to Travis
+
 v0.6.2 / 2017-04-09
 ==================
 
-* Downgrade split < 2 error to warning
-* Fix mocha test commands
+  * Downgrade split < 2 error to warning
+  * Fix mocha test commands
 
 
 v0.6.1 / 2017-03-25
