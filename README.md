@@ -26,7 +26,7 @@ The idea is that you should be able to replace `ember test` with `ember exam` an
 
 ### Note On Version `>=0.7.0`
 
-Starting with version `0.7.0`, Ember Exam provides an explicit interface to load its functionality. This is done to remove some "magic" from the system and takes a cue from the [changes in `ember-cli-qunit@0.4.0`](https://github.com/ember-cli/ember-cli-qunit#upgrading).
+Starting with version `0.7.0`, Ember Exam provides an explicit interface to load its functionality. This is done to remove some "magic" from the system and takes a cue from the [changes in `ember-cli-qunit@4`](https://github.com/ember-cli/ember-cli-qunit#upgrading).
 
 ```js
 // test-helper.js
@@ -35,7 +35,7 @@ import loadEmberExam from 'ember-exam/test-support/load';
 loadEmberExam();
 ```
 
-If you don't invoke `loadEmberExam`, by the time the document is fully loaded, then Ember Exam will continue to load itself, though it may not be in time to perform its functionality.
+If you don't invoke `loadEmberExam`, by the time the document is fully loaded, then Ember Exam will continue to load itself, though it may not be in time to perform its functionality. If you are using `ember-cli-qunit@4`, you need to call `loadEmberExam` before the call to `start`.
 
 ### Randomization
 
