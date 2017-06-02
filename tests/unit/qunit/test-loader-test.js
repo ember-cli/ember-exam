@@ -116,7 +116,7 @@ test('throws an error if splitting less than one', function(assert) {
 test('throws an error if partition isn\'t a number', function(assert) {
   TestLoader._urlParams = {
     _split: 2,
-    _partition: "foo",
+    _partition: 'foo',
   };
 
   assert.throws(() => {
@@ -127,7 +127,7 @@ test('throws an error if partition isn\'t a number', function(assert) {
 test('throws an error if partition isn\'t a number with multiple partitions', function(assert) {
   TestLoader._urlParams = {
     _split: 2,
-    _partition: [1, "foo"],
+    _partition: [1, 'foo'],
   };
 
   assert.throws(() => {

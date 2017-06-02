@@ -115,7 +115,7 @@ describe('Unit | test-loader', function() {
   it('throws an error if partition isn\'t a number', function() {
     TestLoader._urlParams = {
       _split: 2,
-      _partition: "foo",
+      _partition: 'foo',
     };
 
     expect(() => {
@@ -126,7 +126,7 @@ describe('Unit | test-loader', function() {
   it('throws an error if partition isn\'t a number with multiple partitions', function() {
     TestLoader._urlParams = {
       _split: 2,
-      _partition: [1, "foo"],
+      _partition: [1, 'foo'],
     };
 
     expect(() => {

@@ -90,10 +90,10 @@ describe('Acceptance | Exam Iterate Command', function() {
   });
 
   describe('Exit Code', function() {
-    var destPath = path.join( __dirname, '..', '..', 'tests', 'unit', 'failing-test.js');
+    var destPath = path.join(__dirname, '..', '..', 'tests', 'unit', 'failing-test.js');
 
     beforeEach(function() {
-      var failingTestPath = path.join( __dirname, '..', 'fixtures', 'failure.js');
+      var failingTestPath = path.join(__dirname, '..', 'fixtures', 'failure.js');
       fs.copySync(failingTestPath, destPath);
     });
 
