@@ -1,3 +1,4 @@
+/* eslint-env node */
 var lint = require('mocha-eslint');
 
 lint([

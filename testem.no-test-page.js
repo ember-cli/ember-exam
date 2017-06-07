@@ -1,3 +1,4 @@
+/* eslint-env node */
 module.exports = {
   'disable_watching': true,
   'launch_in_ci': [
