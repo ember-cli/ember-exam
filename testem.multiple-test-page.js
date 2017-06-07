@@ -1,5 +1,4 @@
 module.exports = {
-  'framework': 'qunit',
   'test_page': [
     'tests/index.html?hidepassed&derp=herp',
     'tests/index.html?hidepassed&foo=bar'

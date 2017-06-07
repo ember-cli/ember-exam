@@ -1,5 +1,6 @@
-var command = [ 'ember', 'exam', '--split', '3', '--parallel', '--random' ];
-var pr = process.env.TRAVIS_PULL_REQUEST;
+/* eslint-env node */
+const command = ['ember', 'exam', '--split', '3', '--parallel', '--random'];
+const pr = process.env.TRAVIS_PULL_REQUEST;
 
 if (pr) {
   command.push(pr);
@@ -14,30 +15,51 @@ module.exports = {
     },
     {
       name: 'ember-release',
-      dependencies: {
-        'ember': 'components/ember#release'
+      bower: {
+        dependencies: {
+          'ember': 'components/ember#release'
+        },
+        resolutions: {
+          'ember': 'release'
+        }
       },
-      resolutions: {
-        'ember': 'release'
+      npm: {
+        devDependencies: {
+          'ember-source': null
+        }
       }
     },
     {
       name: 'ember-beta',
-      dependencies: {
-        'ember': 'components/ember#beta'
+      bower: {
+        dependencies: {
+          'ember': 'components/ember#beta'
+        },
+        resolutions: {
+          'ember': 'beta'
+        }
       },
-      resolutions: {
-        'ember': 'beta'
+      npm: {
+        devDependencies: {
+          'ember-source': null
+        }
       }
     },
     {
       name: 'ember-canary',
       allowedToFail: true,
-      dependencies: {
-        'ember': 'components/ember#canary'
+      bower: {
+        dependencies: {
+          'ember': 'components/ember#canary'
+        },
+        resolutions: {
+          'ember': 'canary'
+        }
       },
-      resolutions: {
-        'ember': 'canary'
+      npm: {
+        devDependencies: {
+          'ember-source': null
+        }
       }
     }
   ]

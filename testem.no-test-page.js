@@ -1,5 +1,4 @@
 module.exports = {
-  'framework': 'qunit',
   'disable_watching': true,
   'launch_in_ci': [
     'PhantomJS'
