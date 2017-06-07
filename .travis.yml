@@ -31,7 +31,6 @@ before_install:
 install:
   - npm install -g bower
   - npm install
-  - bower install
   - ./bin/install-test-framework.sh
 
 script:
