@@ -12,6 +12,14 @@ It started as a way to help reduce flaky tests and encourage healthy test driven
 
 [![Introduction to Ember Exam](https://cloud.githubusercontent.com/assets/2922250/22800360/157ad67c-eed7-11e6-8d33-d2c59238c7f1.png)](https://embermap.com/video/ember-exam)
 
+## Installation
+
+Installation is as easy as running:
+
+```bash
+$ ember install ember-exam
+```
+
 ## How To Use
 
 Using Ember Exam is fairly straightforward as it extends directly from the default Ember-CLI `test` command. So, by default, it will work exactly the same as `ember test`.
