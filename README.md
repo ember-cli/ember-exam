@@ -153,9 +153,9 @@ ember exam --split=3 --partition=1 --partition=2 --parallel
 ember exam --split=3 --partition=3
 ```
 
-Ember Exam will respect the `parallel` setting of your [Testem config file](https://github.com/testem/testem/blob/master/docs/config_file.md#config-level-options) while running tests in parallel. _Note that the default value for `parallel` in Testem is 1, which means you'll need a non-default value to actually see parallel behavior._
+**Note 1**: _Ember Exam will respect the `parallel` setting of your [Testem config file](https://github.com/testem/testem/blob/master/docs/config_file.md#config-level-options) while running tests in parallel. The default value for `parallel` in Testem is 1, which means you'll need a non-default value to actually see parallel behavior._
 
-_Note: You must be using Testem version `1.5.0` or greater for this feature to work properly._
+**Note 2**: _You must be using Testem version `1.5.0` or greater for this feature to work properly._
 
 ## Advanced Configuration
 
