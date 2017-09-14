@@ -1,3 +1,14 @@
+v0.7.1 / 2017-09-14
+==================
+
+  * Make notes about turning on parallelization more visible
+  * Move note on >= 0.7.0 into installation section
+  * Add installation instructions
+  * Remove jQuery usage
+  * Specify when to call loadEmberExam when using ember-cli-qunit@4
+  * fix version range
+  * Add release process notes
+
 v0.7.0 / 2017-06-01
 ==================
 
