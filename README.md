@@ -20,19 +20,7 @@ Installation is as easy as running:
 $ ember install ember-exam
 ```
 
-## How To Use
-
-Using Ember Exam is fairly straightforward as it extends directly from the default Ember-CLI `test` command. So, by default, it will work exactly the same as `ember test`.
-
-```bash
-$ ember exam
-$ ember exam --filter='acceptance'
-$ ember exam --server
-```
-
-The idea is that you should be able to replace `ember test` with `ember exam` and never look back.
-
-### Note On Version `>=0.7.0`
+### Version `>=0.7.0`
 
 Starting with version `0.7.0`, Ember Exam provides an explicit interface to load its functionality. This is done to remove some "magic" from the system and takes a cue from the [changes in `ember-cli-qunit@4`](https://github.com/ember-cli/ember-cli-qunit#upgrading).
 
@@ -44,6 +32,18 @@ loadEmberExam();
 ```
 
 If you don't invoke `loadEmberExam`, by the time the document is fully loaded, then Ember Exam will continue to load itself, though it may not be in time to perform its functionality. If you are using `ember-cli-qunit@4`, you need to call `loadEmberExam` before the call to `start`.
+
+## How To Use
+
+Using Ember Exam is fairly straightforward as it extends directly from the default Ember-CLI `test` command. So, by default, it will work exactly the same as `ember test`.
+
+```bash
+$ ember exam
+$ ember exam --filter='acceptance'
+$ ember exam --server
+```
+
+The idea is that you should be able to replace `ember test` with `ember exam` and never look back.
 
 ### Randomization
 
@@ -153,9 +153,9 @@ ember exam --split=3 --partition=1 --partition=2 --parallel
 ember exam --split=3 --partition=3
 ```
 
-Ember Exam will respect the `parallel` setting of your [Testem config file](https://github.com/testem/testem/blob/master/docs/config_file.md#config-level-options) while running tests in parallel. _Note that the default value for `parallel` in Testem is 1, which means you'll need a non-default value to actually see parallel behavior._
+**Note 1**: _Ember Exam will respect the `parallel` setting of your [Testem config file](https://github.com/testem/testem/blob/master/docs/config_file.md#config-level-options) while running tests in parallel. The default value for `parallel` in Testem is 1, which means you'll need a non-default value to actually see parallel behavior._
 
-_Note: You must be using Testem version `1.5.0` or greater for this feature to work properly._
+**Note 2**: _You must be using Testem version `1.5.0` or greater for this feature to work properly._
 
 ## Advanced Configuration
 
