@@ -57,7 +57,7 @@ describe('Acceptance | Exam Iterate Command', function() {
     var buildDir = path.join(process.cwd(), 'dist');
 
     rimraf.sync(buildDir);
-    execSync('ember build');
+    execSync('./node_modules/.bin/ember build');
     exec('ember exam:iterate 2 --path "dist"', function(_, stdout) {
       assert.ok(!contains(stdout, 'Building app for test iterations.'), 'No logged building message from command');
       assert.ok(!contains(stdout, 'Built project successfully.'), 'Not built successfully according to Ember-CLI');
