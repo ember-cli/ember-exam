@@ -1,3 +1,4 @@
+/* eslint-env node */
 var assert = require('assert');
 var exec = require('child_process').exec;
 var rimraf = require('rimraf');

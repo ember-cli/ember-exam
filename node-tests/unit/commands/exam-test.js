@@ -1,3 +1,4 @@
+/* eslint-env node */
 var assert = require('assert');
 var MockProject = require('ember-cli/tests/helpers/mock-project');
 var Task = require('ember-cli/lib/models/task');

@@ -1,5 +1,5 @@
-{
-  "framework": "qunit",
+/* eslint-env node */
+module.exports = {
   "test_page": "tests/index.html?hidepassed&derp=herp",
   "disable_watching": true,
   "launch_in_ci": [
@@ -10,4 +10,4 @@
     "Chrome"
   ],
   "parallel": -1
-}
+};

@@ -1,3 +1,4 @@
+/* eslint-env node */
 var assert = require('assert');
 
 var TestOptionsValidator = require('../../../lib/utils/tests-options-validator');
