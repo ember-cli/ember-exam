@@ -40,6 +40,7 @@ before_install:
   - npm --version
 
 install:
+  - npm install
   - ./bin/install-test-framework.sh
 
 script:
