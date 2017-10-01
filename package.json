@@ -2,9 +2,18 @@
   "name": "ember-exam",
   "version": "0.7.1",
   "description": "Run your tests with randomization, splitting, and parallelization for beautiful tests.",
+  "keywords": [
+    "ember-addon"
+  ],
+  "license": "MIT",
+  "author": "",
   "directories": {
     "doc": "doc",
     "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/trentmwillis/ember-exam.git"
   },
   "scripts": {
     "build": "ember build",
@@ -14,53 +23,43 @@
     "test:ember": "ember try:each",
     "coverage": "nyc report --reporter=text-lcov | codeclimate-test-reporter"
   },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/trentmwillis/ember-exam.git"
-  },
-  "engines": {
-    "node": ">= 0.10.0"
-  },
-  "author": "",
-  "license": "MIT",
-  "devDependencies": {
-    "broccoli-asset-rev": "^2.4.0",
-    "codeclimate-test-reporter": "^0.4.1",
-    "ember-ajax": "2.0.1",
-    "ember-cli": "2.7.0",
-    "ember-cli-app-version": "^1.0.0",
-    "ember-cli-dependency-checker": "^1.2.0",
-    "ember-cli-eslint": "3.1.0",
-    "ember-cli-htmlbars": "^1.0.3",
-    "ember-cli-htmlbars-inline-precompile": "^0.3.1",
-    "ember-cli-inject-live-reload": "^1.4.0",
-    "ember-cli-qunit": "^2.0.0",
-    "ember-cli-release": "0.2.9",
-    "ember-cli-sri": "^2.1.0",
-    "ember-cli-test-loader": "^1.1.0",
-    "ember-cli-uglify": "^1.2.0",
-    "ember-disable-proxy-controllers": "^1.0.1",
-    "ember-export-application-global": "^1.0.5",
-    "ember-load-initializers": "^0.5.1",
-    "ember-resolver": "^2.0.3",
-    "istanbul": "^0.4.3",
-    "loader.js": "^4.0.1",
-    "mocha": "^2.3.4",
-    "mocha-eslint": "^3.0.1",
-    "nyc": "^10.3.2",
-    "rsvp": "^3.2.1",
-    "sinon": "^1.17.5"
-  },
-  "keywords": [
-    "ember-addon"
-  ],
   "dependencies": {
     "chalk": "^1.1.3",
     "cli-table2": "^0.2.0",
     "debug": "^2.2.0",
-    "ember-cli-babel": "^5.1.6",
+    "ember-cli-babel": "^6.3.0",
     "fs-extra": "^0.30.0",
     "rimraf": "^2.5.4"
+  },
+  "devDependencies": {
+    "broccoli-asset-rev": "^2.4.5",
+    "codeclimate-test-reporter": "^0.4.1",
+    "ember-cli": "~2.15.1",
+    "ember-cli-dependency-checker": "^2.0.0",
+    "ember-cli-eslint": "^4.0.0",
+    "ember-cli-htmlbars": "^2.0.1",
+    "ember-cli-htmlbars-inline-precompile": "^1.0.0",
+    "ember-cli-inject-live-reload": "^1.4.1",
+    "ember-cli-qunit": "^4.0.0",
+    "ember-cli-shims": "^1.1.0",
+    "ember-cli-sri": "^2.1.0",
+    "ember-cli-uglify": "^1.2.0",
+    "ember-disable-prototype-extensions": "^1.1.2",
+    "ember-export-application-global": "^2.0.0",
+    "ember-load-initializers": "^1.0.0",
+    "ember-resolver": "^4.0.0",
+    "ember-source": "~2.15.0",
+    "istanbul": "^0.4.3",
+    "loader.js": "^4.2.3",
+    "mocha": "^2.3.4",
+    "mocha-eslint": "^3.0.1",
+    "nyc": "^10.3.2",
+    "rsvp": "^3.2.1",
+    "sinon": "^1.17.5",
+    "testdouble": "^3.2.6"
+  },
+  "engines": {
+    "node": "^4.5 || 6.* || >= 7.*"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"

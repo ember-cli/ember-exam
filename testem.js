@@ -1,10 +1,12 @@
+/* eslint-env node */
 module.exports = {
-  'framework': 'qunit',
-  'disable_watching': true,
-  'launch_in_ci': [
+  framework: 'qunit',
+  test_page: 'tests/index.html?hidepassed&derp=herp',
+  disable_watching: true,
+  launch_in_ci: [
     'Chrome'
   ],
-  'launch_in_dev': [
+  launch_in_dev: [
     'Chrome'
   ],
   browser_args: {
@@ -15,5 +17,5 @@ module.exports = {
       '--window-size=1440,900'
     ]
   },
-  'parallel': -1
+  parallel: -1
 };
