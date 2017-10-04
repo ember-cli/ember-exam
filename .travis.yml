@@ -6,11 +6,14 @@ node_js:
   - "stable"
 
 sudo: false
+dist: trusty
+
+addons:
+  chrome: stable
 
 cache:
   directories:
-    - node_modules
-    - bower_components
+    - $HOME/.npm
 
 env:
   - TEST_FRAMEWORK=ember-cli-qunit
@@ -24,14 +27,12 @@ branches:
     - master
 
 before_install:
-  - export PATH=/usr/local/phantomjs-2.0.0/bin:$PATH
-  - "npm config set spin false"
-  - "npm install -g npm@^2"
+  - npm config set spin false
+  - npm install -g npm@4
+  - npm --version
 
 install:
-  - npm install -g bower
   - npm install
-  - bower install
   - ./bin/install-test-framework.sh
 
 script:

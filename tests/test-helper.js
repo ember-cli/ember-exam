@@ -1,6 +1,7 @@
 /* globals require */
 
 import resolver from './helpers/resolver';
+import loadEmberExam from 'ember-exam/test-support/load';
 
 const framework = require.has('ember-qunit') ? 'qunit' : 'mocha';
 const oppositeFramework = !require.has('ember-qunit') ? 'qunit' : 'mocha';
@@ -12,3 +13,11 @@ Object.keys(require.entries).forEach((entry) => {
 });
 
 require(`ember-${framework}`).default.setResolver(resolver);
+loadEmberExam();
+
+// ember-cli-qunit >= v4 support
+if (framework === 'qunit') {
+  // Use string literal to prevent Babel to transpile this into ES6 import
+  // that would break when tests run with Mocha framework.
+  require(`ember-cli-${framework}`).start();
+}
