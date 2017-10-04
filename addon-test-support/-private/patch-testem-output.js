@@ -8,7 +8,7 @@ export default function patchTestemOutput(TestLoader) {
 
     if (split) {
       const partition = urlParams._partition || 1;
-      test.name = `Exam Partition #${partition} - ${test.name}`;
+      test.name = `Exam Partition ${partition} - ${test.name}`;
     }
   });
 }

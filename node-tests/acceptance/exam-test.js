@@ -30,11 +30,11 @@ describe('Acceptance | Exam Command', function() {
 
   function assertPartitions(output, good, bad) {
     good.forEach(function(partition) {
-      assert.ok(contains(output, 'Exam Partition #' + partition + ' '), 'output has partition #' + partition);
+      assert.ok(contains(output, 'Exam Partition ' + partition + ' '), 'output has Partition ' + partition);
     });
 
     (bad || []).forEach(function(partition) {
-      assert.ok(!contains(output, 'Exam Partition #' + partition + ' '), 'output does not have partition #' + partition);
+      assert.ok(!contains(output, 'Exam Partition ' + partition + ' '), 'output does not have Partition ' + partition);
     });
   }
 

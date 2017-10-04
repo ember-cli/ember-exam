@@ -134,9 +134,9 @@ $ ember exam --split=<num> --parallel
 The `parallel` option allows you to run your split tests across multiple test pages in parallel in [Testem](https://github.com/testem/testem). It will use a separate browser instance for each group of tests. So, if you specify a split of 3, then 3 browser instances will be spawned with the output looking something like:
 
 ```bash
-ok 1 PhantomJS 1.9 - Exam Partition #1 - some test
-ok 2 PhantomJS 1.9 - Exam Partition #3 - some other other test
-ok 3 PhantomJS 1.9 - Exam Partition #2 - some other test
+ok 1 PhantomJS 1.9 - Exam Partition 1 - some test
+ok 2 PhantomJS 1.9 - Exam Partition 3 - some other other test
+ok 3 PhantomJS 1.9 - Exam Partition 2 - some other test
 ```
 
 You can also combine the `parallel` option with the `partition` option to split tests, and then recombine partitions into parallel runs. This would, for example, allow you to run tests in multiple CI containers and have each CI container parallelize its list of tests.
