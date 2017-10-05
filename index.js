@@ -6,6 +6,9 @@ module.exports = {
   name: 'ember-exam',
 
   includedCommands: function() {
+    var emberCliQunitCompatCheck = require('./lib/utils/ember-cli-qunit-compat-check');
+    emberCliQunitCompatCheck(this);
+
     return require('./lib/commands');
   },
 
