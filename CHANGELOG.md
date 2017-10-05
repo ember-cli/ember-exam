@@ -1,3 +1,13 @@
+v0.8.0 / 2017-10-04
+==================
+
+  * Removed EMBER_TRY_SCENARIO's from .travis.yml file
+  * Fix ESLint warning
+  * Fix mocha integration
+  * Revert `npm install` command in .travis.yml
+  * Upgrade all dependencies version
+  * Upgrade Ember CLI to version 2.15 and align with default blueprint
+
 v0.7.2 / 2017-10-01
 ==================
 
