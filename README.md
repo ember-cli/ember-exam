@@ -20,19 +20,6 @@ Installation is as easy as running:
 $ ember install ember-exam
 ```
 
-### Version `>=0.7.0`
-
-Starting with version `0.7.0`, Ember Exam provides an explicit interface to load its functionality. This is done to remove some "magic" from the system and takes a cue from the [changes in `ember-cli-qunit@4`](https://github.com/ember-cli/ember-cli-qunit#upgrading).
-
-```js
-// test-helper.js
-import loadEmberExam from 'ember-exam/test-support/load';
-
-loadEmberExam();
-```
-
-If you don't invoke `loadEmberExam`, by the time the document is fully loaded, then Ember Exam will continue to load itself, though it may not be in time to perform its functionality. If you are using `ember-cli-qunit@4`, you need to call `loadEmberExam` before the call to `start`.
-
 ## How To Use
 
 Using Ember Exam is fairly straightforward as it extends directly from the default Ember-CLI `test` command. So, by default, it will work exactly the same as `ember test`.
@@ -44,6 +31,21 @@ $ ember exam --server
 ```
 
 The idea is that you should be able to replace `ember test` with `ember exam` and never look back.
+
+However, to get the unique features of Ember Exam (described in-depth below), you will need to load Ember Exam before your test suite runs. This is done by invoking the `loadEmberExam` function, usually from within `test-helper.js` but it can be done anywhere that executes prior to your tests loading.
+
+```js
+// test-helper.js
+import loadEmberExam from 'ember-exam/test-support/load';
+
+loadEmberExam();
+```
+
+If you are using `ember-cli-qunit@>=4`, you need to call `loadEmberExam` before the call to `start`.
+
+### Version `>=0.7.0`
+
+Starting with version `0.7.0`, Ember Exam must be loaded explicitly by calling `loadEmberExam`. Prior to this release, Ember Exam would load its functionality automatically when the document loaded. This change was made to remove some "magic" from the system and takes a cue from the [changes in `ember-cli-qunit@4`](https://github.com/ember-cli/ember-cli-qunit#upgrading). For more details on how to load Ember Exam, see the _How To Use_ section above.
 
 ### Randomization
 
