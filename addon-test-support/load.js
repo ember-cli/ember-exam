@@ -4,9 +4,12 @@ import patchTestemOutput from './-private/patch-testem-output';
 
 let loaded = false;
 
+const ALREADY_LOADED = 1;
+const LOAD_SUCCESS = 0;
+
 export default function loadEmberExam() {
   if (loaded) {
-    return;
+    return ALREADY_LOADED;
   }
 
   loaded = true;
@@ -17,4 +20,6 @@ export default function loadEmberExam() {
   if (window.Testem) {
     patchTestemOutput(TestLoader);
   }
+
+  return LOAD_SUCCESS;
 }
