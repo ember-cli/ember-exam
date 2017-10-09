@@ -1,3 +1,9 @@
+v0.8.1 / 2017-10-08
+==================
+
+  * Warn when auto-loading (deprecation)
+  * Remove `#` from test output.
+
 v0.8.0 / 2017-10-04
 ==================
 
