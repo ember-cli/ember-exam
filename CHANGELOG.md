@@ -1,3 +1,9 @@
+v1.0.0 / 2017-11-02
+==================
+
+  * Remove auto-loading functionality
+  * Update readme to better emphasize explicit loading
+
 v0.8.1 / 2017-10-08
 ==================
 
