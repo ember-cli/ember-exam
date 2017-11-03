@@ -4,12 +4,11 @@ import patchTestemOutput from './-private/patch-testem-output';
 
 let loaded = false;
 
-const ALREADY_LOADED = 1;
-const LOAD_SUCCESS = 0;
-
 export default function loadEmberExam() {
   if (loaded) {
-    return ALREADY_LOADED;
+    // eslint-disable-next-line no-console
+    console.warn('Attempted to load Ember Exam more than once.');
+    return;
   }
 
   loaded = true;
@@ -20,6 +19,4 @@ export default function loadEmberExam() {
   if (window.Testem) {
     patchTestemOutput(TestLoader);
   }
-
-  return LOAD_SUCCESS;
 }
