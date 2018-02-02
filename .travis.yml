@@ -36,6 +36,7 @@ install:
   - ./bin/install-test-framework.sh
 
 script:
+  - npm run lint:js
   - npm test
 
 after_script:

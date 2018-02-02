@@ -1,6 +1,5 @@
 /* eslint-env node */
 module.exports = {
-  framework: 'qunit',
   test_page: 'tests/index.html?hidepassed&derp=herp',
   disable_watching: true,
   launch_in_ci: [
@@ -10,12 +9,18 @@ module.exports = {
     'Chrome'
   ],
   browser_args: {
-    Chrome: [
-      '--disable-gpu',
-      '--headless',
-      '--remote-debugging-port=9222',
-      '--window-size=1440,900'
-    ]
+    Chrome: {
+      mode: 'ci',
+      args: [
+        // --no-sandbox is needed when running Chrome inside a container
+        process.env.TRAVIS ? '--no-sandbox' : null,
+
+        '--disable-gpu',
+        '--headless',
+        '--remote-debugging-port=0',
+        '--window-size=1440,900'
+      ].filter(Boolean)
+    }
   },
   parallel: -1
 };

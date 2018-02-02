@@ -1,7 +1,12 @@
 /* globals require */
+import Application from '../app';
+import config from '../config/environment';
+import { setApplication } from '@ember/test-helpers';
 
 import resolver from './helpers/resolver';
 import loadEmberExam from 'ember-exam/test-support/load';
+
+setApplication(Application.create(config.APP));
 
 const framework = require.has('ember-qunit') ? 'qunit' : 'mocha';
 const oppositeFramework = !require.has('ember-qunit') ? 'qunit' : 'mocha';

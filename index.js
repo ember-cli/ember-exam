@@ -1,11 +1,9 @@
-/* eslint-env node */
-
 'use strict';
 
 module.exports = {
   name: 'ember-exam',
 
-  includedCommands: function() {
+  includedCommands() {
     return require('./lib/commands');
   }
 };
