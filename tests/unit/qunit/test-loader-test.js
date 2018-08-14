@@ -227,5 +227,142 @@ test('load works with a double-digit single partition', function(assert) {
 
   assert.deepEqual(this.requiredModules, [
     'test-10-test',
+  ]); 
+});
+
+test('load works from sorted order by weight', function(assert) {
+  window.requirejs.entries = {
+    '/jshint/test-1-test': true,
+    '/acceptance/test-1-test': true,
+    '/unit/test-1-test': true,
+    '/integration/test-1-test': true,
+    'test-1-test': true,
+  };
+
+  TestLoader._urlParams = {
+    _weighted: true,
+  };
+
+  TestLoader.load();
+
+  assert.deepEqual(this.requiredModules, [
+    '/acceptance/test-1-test',
+    'test-1-test',
+    '/integration/test-1-test',
+    '/unit/test-1-test',
+    '/jshint/test-1-test',
+  ]);
+});
+
+test('load works from sorted order by weight and alphbet', function(assert) {
+  window.requirejs.entries = {
+    'test-b-test': true,
+    'test-a-test': true,
+    '/jshint/test-b-test': true,
+    '/integration/test-b-test': true,
+    '/integration/test-a-test': true,
+    '/unit/test-b-test': true,
+    '/acceptance/test-b-test': true,
+    '/acceptance/test-a-test': true,
+    '/unit/test-a-test': true,
+    '/jshint/test-a-test': true,
+  };
+
+  TestLoader._urlParams = {
+    _weighted: true,
+  };
+
+  TestLoader.load();
+
+  assert.deepEqual(this.requiredModules, [
+    '/acceptance/test-a-test',
+    '/acceptance/test-b-test',
+    'test-a-test',
+    'test-b-test',
+    '/integration/test-a-test',
+    '/integration/test-b-test',
+    '/unit/test-a-test',
+    '/unit/test-b-test',
+    '/jshint/test-a-test',
+    '/jshint/test-b-test',
+  ]);
+});
+
+test('load works from the first partition by default from sorted order by weight and alphbet', function(assert) {
+  window.requirejs.entries = {
+    'test-b-test': true,
+    'test-a-test': true,
+    '/integration/test-b-test': true,
+    '/integration/test-a-test': true,
+    '/unit/test-b-test': true,
+    '/acceptance/test-b-test': true,
+    '/acceptance/test-a-test': true,
+    '/unit/test-a-test': true,
+  };
+
+  TestLoader._urlParams = {
+    _weighted: true,
+    _split: 4,
+  };
+
+  TestLoader.load();
+
+  assert.deepEqual(this.requiredModules, [
+    '/acceptance/test-a-test',
+    '/integration/test-a-test',
+  ]);
+});
+
+test('load works from a specified partition from sorted order by weight and alphbet', function(assert) {
+  window.requirejs.entries = {
+    'test-b-test': true,
+    'test-a-test': true,
+    '/integration/test-b-test': true,
+    '/integration/test-a-test': true,
+    '/unit/test-b-test': true,
+    '/acceptance/test-b-test': true,
+    '/acceptance/test-a-test': true,
+    '/unit/test-a-test': true,
+  };
+
+  TestLoader._urlParams = {
+    _weighted: true,
+    _split: 4,
+    _partition: 2,
+  };
+
+  TestLoader.load();
+
+  assert.deepEqual(this.requiredModules, [
+    '/acceptance/test-b-test',
+    '/integration/test-b-test',
+  ]);
+});
+
+test('load works from multiple partitions from sorted order by weight and alphbet', function(assert) {
+  window.requirejs.entries = {
+    'test-b-test': true,
+    'test-a-test': true,
+    '/integration/test-b-test': true,
+    '/integration/test-a-test': true,
+    '/unit/test-b-test': true,
+    '/acceptance/test-b-test': true,
+    '/acceptance/test-a-test': true,
+    '/unit/test-a-test': true,
+  };
+
+  TestLoader._urlParams = {
+    _weighted: true,
+    _split: 4,
+    _partition: [2, 4],
+  };
+
+  TestLoader.load();
+
+  assert.deepEqual(this.requiredModules, [
+    '/acceptance/test-b-test',
+    '/integration/test-b-test',
+    'test-b-test',
+    '/unit/test-b-test',
   ]);
 });

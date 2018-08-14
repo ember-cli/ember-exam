@@ -61,10 +61,6 @@ describe('TestOptionsValidator', function() {
       shouldSplitThrows({ split: 2, partition: [1, 2, 1] }, /You cannot specify the same partition twice./);
     });
 
-    it('should throw an error if `weighted` is being used without `split`', function() {
-      shouldSplitThrows({ weighted: true }, /You used the 'weighted' option but are not splitting your tests/);
-    });
-
     it('should return true if using `split`', function() {
       shouldSplitEqual({ split: 2 }, true);
     });
