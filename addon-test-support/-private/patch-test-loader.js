@@ -38,9 +38,24 @@ export default function patchTestLoader(TestLoader) {
 
     const splitModules = splitTestModules(testLoader._testModules, split, partitions);
 
-    splitModules.forEach((moduleName) => {
-      _super.require.call(testLoader, moduleName);
-      _super.unsee.call(testLoader, moduleName);
+    splitModules.forEach((modulePath) => {
+      _super.require.call(testLoader, modulePath);
+      _super.unsee.call(testLoader, modulePath);
     });
   };
+
+  /**
+   * Require and unsee a given module path in order to load the moudle path onto processingQueue
+   * 
+   * @param {String} modulePath 
+   */
+  TestLoader.prototype.loadIndividualModule = function _emberExamLoadIndividualModule(modulePath) {
+    const testLoader = this;
+    if (modulePath) {
+      _super.require.call(testLoader, modulePath);
+      _super.unsee.call(testLoader, modulePath);
+      return modulePath;
+    }
+    return null;
+  }
 }
