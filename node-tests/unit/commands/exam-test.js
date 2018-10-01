@@ -55,6 +55,12 @@ describe('ExamCommand', function() {
       });
     });
 
+    it('should set \'weighted\' on the query option with weighted flag', function() {
+      return command.run({ weighted: true }).then(function() {
+        assert.equal(called.testRunOptions.query, '_weighted');
+      });
+    });
+
     it('should set \'partition\' on the query option with one partition', function() {
       return command.run({ split: 2, partition: [2] }).then(function() {
         assert.equal(called.testRunOptions.query, '_split=2&_partition=2');
@@ -107,7 +113,7 @@ describe('ExamCommand', function() {
 
     it('should set \'weighted\' on the query option', function() {
       return command.run({ split: 2, partition: [2], weighted: true }).then(function() {
-        assert.equal(called.testRunOptions.query, '_split=2&_partition=2&_weighted');
+        assert.equal(called.testRunOptions.query, '_weighted&_split=2&_partition=2');
       });
     });
   });
