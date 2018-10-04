@@ -1,4 +1,4 @@
-import TestLoader from 'ember-cli-test-loader/test-support/index';
+import TestLoader from 'ember-cli-test-loader/test-support';
 import { describe, it, beforeEach, afterEach } from 'mocha';
 import { expect } from 'chai';
 

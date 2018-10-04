@@ -22,10 +22,10 @@ describe('Acceptance | Exam Iterate Command', function() {
       assert.ok(stdout.includes('Running iteration #1.'), 'Logs first iteration');
       assert.ok(stdout.includes('Running iteration #2.'), 'Logs second iteration');
 
-      var seedRE = /Randomizing tests with seed: (.*)/g;
+      const seedRE = /Randomizing tests with seed: (.*)/g;
 
-      var firstSeed = seedRE.exec(stdout)[1];
-      var secondSeed = seedRE.exec(stdout)[1];
+      const firstSeed = seedRE.exec(stdout)[1];
+      const secondSeed = seedRE.exec(stdout)[1];
 
       assert.ok(firstSeed, 'first seed exists');
       assert.ok(secondSeed, 'second seed exists');
@@ -38,7 +38,6 @@ describe('Acceptance | Exam Iterate Command', function() {
 
   it('should test the app with additional options passed in and catch failure cases', function() {
     const execution = execa('ember', ['exam:iterate', '2' ,'--options' ,'--parallel']);
-
     return execution.then(assertExpectRejection, error => {
       const splitErrorRE = /You must specify the `split` option in order to run your tests in parallel./g;
 
@@ -66,10 +65,10 @@ describe('Acceptance | Exam Iterate Command', function() {
         assert.ok(stdout.includes('Running iteration #1.'), 'Logs first iteration');
         assert.ok(stdout.includes('Running iteration #2.'), 'Logs second iteration');
 
-        var seedRE = /Randomizing tests with seed: (.*)/g;
+        const seedRE = /Randomizing tests with seed: (.*)/g;
 
-        var firstSeed = seedRE.exec(stdout)[1];
-        var secondSeed = seedRE.exec(stdout)[1];
+        const firstSeed = seedRE.exec(stdout)[1];
+        const secondSeed = seedRE.exec(stdout)[1];
 
         assert.ok(firstSeed, 'first seed exists');
         assert.ok(secondSeed, 'second seed exists');

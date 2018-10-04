@@ -1,20 +1,22 @@
-var assert = require('assert');
-var MockProject = require('ember-cli/tests/helpers/mock-project');
-var Task = require('ember-cli/lib/models/task');
-var RSVP = require('rsvp');
-var sinon = require('sinon');
+'use strict';
 
-var ExamCommand = require('../../../lib/commands/exam');
-var TestOptionsValidator = require('../../../lib/utils/tests-options-validator');
+const assert = require('assert');
+const MockProject = require('ember-cli/tests/helpers/mock-project');
+const Task = require('ember-cli/lib/models/task');
+const RSVP = require('rsvp');
+const sinon = require('sinon');
+
+const ExamCommand = require('../../../lib/commands/exam');
+const TestOptionsValidator = require('../../../lib/utils/tests-options-validator');
 
 describe('ExamCommand', function() {
   function createCommand() {
-    var tasks = {
+    const tasks = {
       Build: Task.extend(),
       Test: Task.extend()
     };
 
-    var project = new MockProject();
+    const project = new MockProject();
 
     project.isEmberCLIProject = function() { return true; };
 
@@ -28,8 +30,8 @@ describe('ExamCommand', function() {
   }
 
   describe('run', function() {
-    var command;
-    var called;
+    let command;
+    let called;
 
     beforeEach(function() {
       command = createCommand();
@@ -55,37 +57,43 @@ describe('ExamCommand', function() {
       });
     });
 
-    it('should set \'partition\' on the query option with one partition', function() {
+    it('should set \'partition\' in the query option with one partition', function() {
       return command.run({ split: 2, partition: [2] }).then(function() {
-        assert.equal(called.testRunOptions.query, '_split=2&_partition=2');
+        assert.equal(called.testRunOptions.query, 'split=2&partition=2');
       });
     });
 
-    it('should set \'partition\' on the query option with multiple partitions', function() {
+    it('should set \'load-balance\' in the query option', function() {
+      return command.run({ 'loadBalance': 1 }).then(function() {
+        assert.equal(called.testRunOptions.query, 'loadBalance=1');
+      });
+    });
+
+    it('should set \'partition\' in the query option with multiple partitions', function() {
       return command.run({ split: 2, partition: [1, 2] }).then(function() {
-        assert.equal(called.testRunOptions.query, '_split=2&_partition=1&_partition=2');
+        assert.equal(called.testRunOptions.query, 'split=2&partition=1&partition=2');
       });
     });
 
     it('should append \'partition\' to the query option', function() {
       return command.run({ split: 2, partition: [2], query: 'someQuery=derp&hidepassed' }).then(function() {
-        assert.equal(called.testRunOptions.query, 'someQuery=derp&hidepassed&_split=2&_partition=2');
+        assert.equal(called.testRunOptions.query, 'someQuery=derp&hidepassed&split=2&partition=2');
       });
     });
 
     it('should not append \'partition\' to the query option when parallelizing', function() {
       return command.run({ split: 2, partition: [1, 2], parallel: true }).then(function() {
-        assert.equal(called.testRunOptions.query, '_split=2');
+        assert.equal(called.testRunOptions.query, 'split=2');
       });
     });
 
     it('should not append \'partition\' to the query option when not parallelizing without partitions', function() {
       return command.run({ split: 2 }).then(function() {
-        assert.equal(called.testRunOptions.query, '_split=2');
+        assert.equal(called.testRunOptions.query, 'split=2');
       });
     });
 
-    it('should set \'seed=1337\' on the query option', function() {
+    it('should set \'seed=1337\' in the query option', function() {
       return command.run({ random: '1337' }).then(function() {
         assert.equal(called.testRunOptions.query, 'seed=1337');
       });
@@ -97,18 +105,46 @@ describe('ExamCommand', function() {
       });
     });
 
-    it('should set \'seed=random_seed\' on the query option', function() {
-      var randomStub = sinon.stub(Math, 'random').returns('  random_seed');
+    it('should set \'seed=random_seed\' in the query option', function() {
+      const randomStub = sinon.stub(Math, 'random').returns('  random_seed');
       return command.run({ random: '' }).then(function() {
         assert.equal(called.testRunOptions.query, 'seed=random_seed');
         randomStub.restore();
       });
     });
+  });
 
-    it('should set \'weighted\' on the query option', function() {
-      return command.run({ split: 2, partition: [2], weighted: true }).then(function() {
-        assert.equal(called.testRunOptions.query, '_split=2&_partition=2&_weighted');
+  describe('_getCustomBaseUrl', function() {
+    function getCustomBaseUrl(config, options) {
+      const project = new MockProject();
+      project.isEmberCLIProject = function() { return true; };
+
+      const command = new ExamCommand({
+        project: project,
+        tasks: {}
       });
+
+      command.validator = new TestOptionsValidator(options);
+
+      return command._getCustomBaseUrl(config, options)
+    }
+
+    it('should add `loadBalance` to a base url with load-balance', function() {
+      const baseUrl = getCustomBaseUrl({ testPage: 'tests/index.html?hidepassed' }, { loadBalance: 3 });
+
+      assert.deepEqual(baseUrl, 'tests/index.html?hidepassed&loadBalance');
+    });
+
+    it('should add `split` to a base url with split and parallelizing.', function() {
+      const baseUrl = getCustomBaseUrl({ testPage: 'tests/index.html?hidepassed' }, { parallel: true, split: 2 });
+
+      assert.deepEqual(baseUrl, 'tests/index.html?hidepassed&split=2');
+    });
+
+    it('should add `split` and `loadBalance` to a base url with split and load-balance.', function() {
+      const baseUrl = getCustomBaseUrl({ testPage: 'tests/index.html?hidepassed' }, { loadBalance: 3, split: 2 });
+
+      assert.deepEqual(baseUrl, 'tests/index.html?hidepassed&split=2&loadBalance');
     });
 
     it('should set split env var', function() {
@@ -120,12 +156,13 @@ describe('ExamCommand', function() {
 
   describe('_generateCustomConfigs', function() {
     function generateConfig(options) {
-      var project = new MockProject();
+      const project = new MockProject();
 
       project.isEmberCLIProject = function() { return true; };
 
-      var command = new ExamCommand({
-        project: project
+      const command = new ExamCommand({
+        project: project,
+        tasks: {}
       });
 
       command.validator = new TestOptionsValidator(options);
@@ -134,53 +171,53 @@ describe('ExamCommand', function() {
     }
 
     it('should have a null test page when not parallelizing', function() {
-      var config = generateConfig({});
+      const config = generateConfig({});
 
       assert.deepEqual(config.testPage, undefined);
     });
 
     it('should modify the config to have multiple test pages with no partitions specified', function() {
-      var config = generateConfig({
+      const config = generateConfig({
         parallel: true,
         split: 2
       });
 
       assert.deepEqual(config.testPage, [
-        'tests/index.html?hidepassed&_split=2&_partition=1',
-        'tests/index.html?hidepassed&_split=2&_partition=2'
+        'tests/index.html?hidepassed&split=2&partition=1',
+        'tests/index.html?hidepassed&split=2&partition=2'
       ]);
     });
 
     it('should modify the config to have multiple test pages with specified partitions', function() {
-      var config = generateConfig({
+      const config = generateConfig({
         parallel: true,
         split: 4,
         partition: [3, 4]
       });
 
       assert.deepEqual(config.testPage, [
-        'tests/index.html?hidepassed&_split=4&_partition=3',
-        'tests/index.html?hidepassed&_split=4&_partition=4'
+        'tests/index.html?hidepassed&split=4&partition=3',
+        'tests/index.html?hidepassed&split=4&partition=4'
       ]);
     });
 
     it('should modify the config to have multiple test pages for each test_page in the config file with no partitions specified', function() {
-      var config = generateConfig({
+      const config = generateConfig({
         parallel: true,
         split: 2,
         configFile: 'testem.multiple-test-page.js'
       });
 
       assert.deepEqual(config.testPage, [
-        'tests/index.html?hidepassed&derp=herp&_split=2&_partition=1',
-        'tests/index.html?hidepassed&derp=herp&_split=2&_partition=2',
-        'tests/index.html?hidepassed&foo=bar&_split=2&_partition=1',
-        'tests/index.html?hidepassed&foo=bar&_split=2&_partition=2'
+        'tests/index.html?hidepassed&derp=herp&split=2&partition=1',
+        'tests/index.html?hidepassed&derp=herp&split=2&partition=2',
+        'tests/index.html?hidepassed&foo=bar&split=2&partition=1',
+        'tests/index.html?hidepassed&foo=bar&split=2&partition=2'
       ]);
     });
 
     it('should modify the config to have multiple test pages for each test_page in the config file with partitions specified', function() {
-      var config = generateConfig({
+      const config = generateConfig({
         parallel: true,
         split: 4,
         partition: [3, 4],
@@ -188,15 +225,95 @@ describe('ExamCommand', function() {
       });
 
       assert.deepEqual(config.testPage, [
-        'tests/index.html?hidepassed&derp=herp&_split=4&_partition=3',
-        'tests/index.html?hidepassed&derp=herp&_split=4&_partition=4',
-        'tests/index.html?hidepassed&foo=bar&_split=4&_partition=3',
-        'tests/index.html?hidepassed&foo=bar&_split=4&_partition=4'
+        'tests/index.html?hidepassed&derp=herp&split=4&partition=3',
+        'tests/index.html?hidepassed&derp=herp&split=4&partition=4',
+        'tests/index.html?hidepassed&foo=bar&split=4&partition=3',
+        'tests/index.html?hidepassed&foo=bar&split=4&partition=4'
       ]);
     });
 
     it('should have a custom test page', function() {
-      var config = generateConfig({
+      const config = generateConfig({
+        query: 'foo=bar',
+        'test-page': 'tests.html'
+      });
+
+      assert.equal(config.testPage, 'tests.html?foo=bar');
+    });
+
+    it('should modify the config to have a test page with \'loadBalance\' when no specified number of browser', function() {
+      const config = generateConfig({
+        'loadBalance': 1
+      });
+
+      assert.deepEqual(config.testPage, [
+        'tests/index.html?hidepassed&loadBalance&browser=1'
+      ])
+    });
+
+    it('should modify the config to have a test page with \'loadBalance\' with splitting when no specified number of browser', function() {
+      const config = generateConfig({
+        'loadBalance': 1,
+        split: 2,
+      });
+
+      assert.deepEqual(config.testPage, [
+        'tests/index.html?hidepassed&split=2&loadBalance&browser=1'
+      ])
+    });
+
+    it('should modify the config to have multiple test pages with test loading balanced, no specified partitions and no splitting ', function(){
+      const config = generateConfig({
+        'loadBalance': 2,
+      });
+
+      assert.deepEqual(config.testPage, [
+        'tests/index.html?hidepassed&loadBalance&browser=1',
+        'tests/index.html?hidepassed&loadBalance&browser=2'
+      ])
+    });
+
+    it('should modify the config to have multiple test pages with splitting when loading test load-balanced', function(){
+      const config = generateConfig({
+        'loadBalance': 2,
+        split: 2,
+      });
+
+      assert.deepEqual(config.testPage, [
+        'tests/index.html?hidepassed&split=2&loadBalance&browser=1',
+        'tests/index.html?hidepassed&split=2&loadBalance&browser=2'
+      ])
+    });
+
+    it('should modify the config to have multiple test pages with specified partitions when loading test balanced', function(){
+      const config = generateConfig({
+        'loadBalance': 2,
+        split: 3,
+        partition: [2, 3],
+      });
+
+      assert.deepEqual(config.testPage, [
+        'tests/index.html?hidepassed&split=3&loadBalance&partition=2&partition=3&browser=1',
+        'tests/index.html?hidepassed&split=3&loadBalance&partition=2&partition=3&browser=2'
+      ])
+    });
+
+    it('should modify the config to have multiple test pages for each test_page in the config file with partitions specified and test loading balanced', function() {
+      const config = generateConfig({
+        'loadBalance': 1,
+        split: 4,
+        partition: [3, 4],
+        configFile: 'testem.multiple-test-page.js'
+      });
+
+      assert.deepEqual(config.testPage, [
+        'tests/index.html?hidepassed&derp=herp&split=4&loadBalance&partition=3&partition=4&browser=1',
+        'tests/index.html?hidepassed&foo=bar&split=4&loadBalance&partition=3&partition=4&browser=1'
+      ]);
+    });
+
+    it('should have a custom test page', function() {
+      const config = generateConfig({
         query: 'foo=bar',
         'test-page': 'tests.html'
       });
@@ -205,7 +322,7 @@ describe('ExamCommand', function() {
     });
 
     it('should modify the config to have multiple test pages with a custom base url', function() {
-      var config = generateConfig({
+      const config = generateConfig({
         parallel: true,
         split: 2,
         query: 'foo=bar',
@@ -213,23 +330,23 @@ describe('ExamCommand', function() {
       });
 
       assert.deepEqual(config.testPage, [
-        'tests.html?foo=bar&_split=2&_partition=1',
-        'tests.html?foo=bar&_split=2&_partition=2'
+        'tests.html?foo=bar&split=2&partition=1',
+        'tests.html?foo=bar&split=2&partition=2'
       ]);
     });
 
     it('should warn if no test_page is defined but use a default', function() {
-      var warnStub = sinon.stub(console, 'warn');
+      const warnStub = sinon.stub(console, 'warn');
 
-      var config = generateConfig({
+      const config = generateConfig({
         parallel: true,
         split: 2,
         configFile: 'testem.no-test-page.js'
       });
 
       assert.deepEqual(config.testPage, [
-        'tests/index.html?hidepassed&_split=2&_partition=1',
-        'tests/index.html?hidepassed&_split=2&_partition=2'
+        'tests/index.html?hidepassed&split=2&partition=1',
+        'tests/index.html?hidepassed&split=2&partition=2'
       ]);
 
       sinon.assert.calledOnce(warnStub);
@@ -240,7 +357,7 @@ describe('ExamCommand', function() {
   });
 
   describe('_getTestFramework', function() {
-    var command;
+    let command;
 
     function assertFramework(command, name) {
       assert.equal(command._getTestFramework(), name);
@@ -265,7 +382,7 @@ describe('ExamCommand', function() {
     });
 
     it('returns qunit if ember-cli-mocha is not a dependency of any kind', function() {
-      var command = createCommand();
+      command = createCommand();
       assertFramework(command, 'qunit');
     });
   });

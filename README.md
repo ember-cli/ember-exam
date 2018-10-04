@@ -188,8 +188,8 @@ module.exports = {
 If you are working with [Travis CI](https://travis-ci.org/) then you can also easily set up seeded-random runs based on PR numbers. Similar to the following:
 
 ```js
-var command = [ 'ember', 'exam', '--random' ];
-var pr = process.env.TRAVIS_PULL_REQUEST;
+const command = [ 'ember', 'exam', '--random' ];
+const pr = process.env.TRAVIS_PULL_REQUEST;
 
 if (pr) {
   command.push(pr);

@@ -1,4 +1,6 @@
-var lint = require('mocha-eslint');
+'use strict';
+
+const lint = require('mocha-eslint');
 
 lint([
   'lib',

@@ -48,8 +48,8 @@ test('loads all test modules by default', function(assert) {
 
 test('loads modules from a specified partition', function(assert) {
   TestLoader._urlParams = {
-    _partition: 3,
-    _split: 4,
+    partition: 3,
+    split: 4,
   };
 
   TestLoader.load();
@@ -62,8 +62,8 @@ test('loads modules from a specified partition', function(assert) {
 
 test('loads modules from multiple specified partitions', function(assert) {
   TestLoader._urlParams = {
-    _partition: [1, 3],
-    _split: 4,
+    partition: [1, 3],
+    split: 4,
   };
 
   TestLoader.load();
@@ -78,7 +78,7 @@ test('loads modules from multiple specified partitions', function(assert) {
 
 test('loads modules from the first partition by default', function(assert) {
   TestLoader._urlParams = {
-    _split: 4,
+    split: 4,
   };
 
   TestLoader.load();
@@ -91,8 +91,8 @@ test('loads modules from the first partition by default', function(assert) {
 
 test('handles params as strings', function(assert) {
   TestLoader._urlParams = {
-    _partition: '3',
-    _split: '4',
+    partition: '3',
+    split: '4',
   };
 
   TestLoader.load();
@@ -105,7 +105,7 @@ test('handles params as strings', function(assert) {
 
 test('throws an error if splitting less than one', function(assert) {
   TestLoader._urlParams = {
-    _split: 0,
+    split: 0,
   };
 
   assert.throws(() => {
@@ -115,8 +115,8 @@ test('throws an error if splitting less than one', function(assert) {
 
 test('throws an error if partition isn\'t a number', function(assert) {
   TestLoader._urlParams = {
-    _split: 2,
-    _partition: 'foo',
+    split: 2,
+    partition: 'foo',
   };
 
   assert.throws(() => {
@@ -126,8 +126,8 @@ test('throws an error if partition isn\'t a number', function(assert) {
 
 test('throws an error if partition isn\'t a number with multiple partitions', function(assert) {
   TestLoader._urlParams = {
-    _split: 2,
-    _partition: [1, 'foo'],
+    split: 2,
+    partition: [1, 'foo'],
   };
 
   assert.throws(() => {
@@ -137,8 +137,8 @@ test('throws an error if partition isn\'t a number with multiple partitions', fu
 
 test('throws an error if loading partition greater than split number', function(assert) {
   TestLoader._urlParams = {
-    _split: 2,
-    _partition: 3,
+    split: 2,
+    partition: 3,
   };
 
   assert.throws(() => {
@@ -148,8 +148,8 @@ test('throws an error if loading partition greater than split number', function(
 
 test('throws an error if loading partition greater than split number with multiple partitions', function(assert) {
   TestLoader._urlParams = {
-    _split: 2,
-    _partition: [2, 3],
+    split: 2,
+    partition: [2, 3],
   };
 
   assert.throws(() => {
@@ -159,8 +159,8 @@ test('throws an error if loading partition greater than split number with multip
 
 test('throws an error if loading partition less than one', function(assert) {
   TestLoader._urlParams = {
-    _split: 2,
-    _partition: 0,
+    split: 2,
+    partition: 0,
   };
 
   assert.throws(() => {
@@ -171,8 +171,8 @@ test('throws an error if loading partition less than one', function(assert) {
 test('load works without lint tests', function(assert) {
   QUnit.urlParams.nolint = true;
   TestLoader._urlParams = {
-    _partition: 4,
-    _split: 4,
+    partition: 4,
+    split: 4,
   };
 
   TestLoader.load();
@@ -193,8 +193,8 @@ test('load works without non-lint tests', function(assert) {
   };
 
   TestLoader._urlParams = {
-    _partition: 4,
-    _split: 4,
+    partition: 4,
+    split: 4,
   };
 
   TestLoader.load();
@@ -219,13 +219,13 @@ test('load works with a double-digit single partition', function(assert) {
   };
 
   TestLoader._urlParams = {
-    _partition: '10',
-    _split: 10,
+    partition: '10',
+    split: 10,
   };
 
   TestLoader.load();
 
   assert.deepEqual(this.requiredModules, [
     'test-10-test',
-  ]);
+  ]); 
 });

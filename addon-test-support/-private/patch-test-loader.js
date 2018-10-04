@@ -1,5 +1,7 @@
+/* globals Testem */
 import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
+import weightTestModules from './weight-test-modules';
 
 export default function patchTestLoader(TestLoader) {
   TestLoader._urlParams = getUrlParams();
@@ -20,8 +22,9 @@ export default function patchTestLoader(TestLoader) {
 
   TestLoader.prototype.loadModules = function _emberExamLoadModules() {
     const urlParams = TestLoader._urlParams;
-    let partitions = urlParams._partition;
-    let split = parseInt(urlParams._split, 10);
+    const loadBalance = urlParams.loadBalance;
+    let partitions = urlParams.partition;
+    let split = parseInt(urlParams.split, 10);
 
     split = isNaN(split) ? 1 : split;
 
@@ -33,14 +36,32 @@ export default function patchTestLoader(TestLoader) {
 
     const testLoader = this;
 
-    testLoader._testModules = [];
+    this.modules = testLoader._testModules = [];
     _super.loadModules.apply(testLoader, arguments);
 
-    const splitModules = splitTestModules(testLoader._testModules, split, partitions);
+    if (loadBalance) {
+      this.modules = weightTestModules(this.modules);
+    }
 
-    splitModules.forEach((moduleName) => {
+    this.modules = splitTestModules(this.modules, split, partitions);
+
+    if (loadBalance) {
+      Testem.emit('set-modules-queue', this.modules);
+    } else {
+      this.modules.forEach((moduleName) => {
+        _super.require.call(testLoader, moduleName);
+        _super.unsee.call(testLoader, moduleName);
+      });
+    }
+  };
+
+  TestLoader.prototype.loadIndividualModule = function _emberExamLoadIndividualModule(moduleName) {
+    const testLoader = this;
+    if (moduleName) {
       _super.require.call(testLoader, moduleName);
       _super.unsee.call(testLoader, moduleName);
-    });
-  };
+      return moduleName;
+    }
+    return null;
+  }
 }

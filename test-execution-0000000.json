@@ -1,0 +1,11 @@
+{
+  "numberOfBrowsers": 2,
+  "executionMapping":{
+    "1":[
+      "/tests/integration/components/my-component-test"
+    ],
+    "2":[
+      "/tests/integration/components/navigating-component-test"
+    ]
+  }
+} 
