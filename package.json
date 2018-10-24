@@ -55,7 +55,7 @@
     "mocha-eslint": "^4.1.0",
     "nyc": "^11.2.1",
     "rsvp": "^4.0.2",
-    "sinon": "^4.0.0",
+    "sinon": "^7.0.0",
     "testdouble": "^3.2.6"
   },
   "engines": {
