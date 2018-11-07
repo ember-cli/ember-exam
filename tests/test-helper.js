@@ -19,7 +19,5 @@ loadEmberExam();
 if (framework === 'qunit') {
   // Use string literal to prevent Babel to transpile this into ES6 import
   // that would break when tests run with Mocha framework.
-  // In ember-qunit 3.4.0, this new check was added: https://github.com/emberjs/ember-qunit/commit/a7e93c4b4b535dae62fed992b46c00b62bfc83f4
-	// which adds this Ember.onerror validation test. As this is a test suite for the tests, it's not needed to run ember.OnerrorValidation tests.
-  require(`ember-${framework}`).start({ setupEmberOnerrorValidation: false });
+  require(`ember-${framework}`).start();
 }
