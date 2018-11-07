@@ -6,7 +6,7 @@
 [![Code Climate](https://codeclimate.com/github/trentmwillis/ember-exam/badges/gpa.svg)](https://codeclimate.com/github/trentmwillis/ember-exam)
 [![Node Test Coverage](https://codeclimate.com/github/trentmwillis/ember-exam/badges/coverage.svg)](https://codeclimate.com/github/trentmwillis/ember-exam/coverage)
 
-Ember Exam is an addon to allow you more control over how you run your tests when used in conjunction with [Ember CLI QUnit](https://github.com/ember-cli/ember-cli-qunit) or [Ember CLI Mocha](https://github.com/ember-cli/ember-cli-mocha). It provides the ability to randomize, split, and parallelize your test suite by adding a more robust CLI command.
+Ember Exam is an addon to allow you more control over how you run your tests when used in conjunction with [Ember QUnit](https://github.com/emberjs/ember-qunit) or [Ember CLI Mocha](https://github.com/ember-cli/ember-cli-mocha). It provides the ability to randomize, split, and parallelize your test suite by adding a more robust CLI command.
 
 It started as a way to help reduce flaky tests and encourage healthy test driven development. It's like [Head & Shoulders](http://www.headandshoulders.com/) for your tests!
 
@@ -41,11 +41,11 @@ import loadEmberExam from 'ember-exam/test-support/load';
 loadEmberExam();
 ```
 
-If you are using `ember-cli-qunit@>=4`, you need to call `loadEmberExam` before the call to `start`.
+If you are using `ember-qunit@>=3`, you need to call `loadEmberExam` before the call to `start`.
 
 ### Version `>=0.7.0`
 
-Starting with version `0.7.0`, Ember Exam must be loaded explicitly by calling `loadEmberExam`. Prior to this release, Ember Exam would load its functionality automatically when the document loaded. This change was made to remove some "magic" from the system and takes a cue from the [changes in `ember-cli-qunit@4`](https://github.com/ember-cli/ember-cli-qunit#upgrading). For more details on how to load Ember Exam, see the _How To Use_ section above.
+Starting with version `0.7.0`, Ember Exam must be loaded explicitly by calling `loadEmberExam`. Prior to this release, Ember Exam would load its functionality automatically when the document loaded. This change was made to remove some "magic" from the system and takes a cue from the [changes in `ember-qunit@3`](https://github.com/emberjs/ember-qunit#upgrading). For more details on how to load Ember Exam, see the _How To Use_ section above.
 
 ### Randomization
 

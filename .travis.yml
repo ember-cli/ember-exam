@@ -16,7 +16,7 @@ cache:
     - $HOME/.npm
 
 env:
-  - TEST_FRAMEWORK=ember-cli-qunit
+  - TEST_FRAMEWORK=ember-qunit
   - TEST_FRAMEWORK=ember-cli-mocha
 
 matrix:
