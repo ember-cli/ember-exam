@@ -13,6 +13,14 @@ function getNumberOfTests(str) {
 
 var TOTAL_NUM_TESTS = 50;
 
+function getTotalNumberOfTests(output) {
+  // In ember-qunit 3.4.0, this new check was added: https://github.com/emberjs/ember-qunit/commit/a7e93c4b4b535dae62fed992b46c00b62bfc83f4
+  // which adds this Ember.onerror validation test.
+  // As Ember.onerror validation test is added per browser the total number of tests executed should be the sum of TOTAL_NUM_TESTS defined and a number of browsers.
+  const emberOnerror = output.match(/ember-qunit: Ember.onerror validation: Ember.onerror is functioning properly/g)
+  return TOTAL_NUM_TESTS + (emberOnerror? emberOnerror.length : 0);
+}
+
 describe('Acceptance | Exam Command', function() {
   this.timeout(300000);
 
@@ -40,18 +48,18 @@ describe('Acceptance | Exam Command', function() {
 
   function assertAllPartitions(output) {
     assertPartitions(output, [1, 2, 3]);
-    assert.equal(getNumberOfTests(output), TOTAL_NUM_TESTS, 'ran all of the tests in the suite');
+    assert.equal(getNumberOfTests(output), getTotalNumberOfTests(output), 'ran all of the tests in the suite');
   }
 
   function assertSomePartitions(output, good, bad) {
     assertPartitions(output, good, bad);
-    assert.ok(getNumberOfTests(output) < TOTAL_NUM_TESTS, 'did not run all of the tests in the suite');
+    assert.ok(getNumberOfTests(output) < getTotalNumberOfTests(output), 'did not run all of the tests in the suite');
   }
 
   it('runs all tests normally', function(done) {
     exec('ember exam --path acceptance-dist', function(_, stdout) {
       assert.ok(!contains(stdout, 'Exam Partition'), 'does not add any sort of partition info');
-      assert.equal(getNumberOfTests(stdout), TOTAL_NUM_TESTS, 'ran all of the tests in the suite');
+      assert.equal(getNumberOfTests(stdout), getTotalNumberOfTests(stdout), 'ran all of the tests in the suite');
       done();
     });
   });
@@ -124,7 +132,7 @@ describe('Acceptance | Exam Command', function() {
     it('runs tests with the passed in seeds', function(done) {
       exec('ember exam --random 1337 --path acceptance-dist', function(_, stdout) {
         assert.ok(contains(stdout, 'Randomizing tests with seed: 1337'), 'logged the seed value');
-        assert.equal(getNumberOfTests(stdout), TOTAL_NUM_TESTS, 'ran all of the tests in the suite');
+        assert.equal(getNumberOfTests(stdout), getTotalNumberOfTests(stdout), 'ran all of the tests in the suite');
         done();
       });
     });
