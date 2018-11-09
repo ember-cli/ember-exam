@@ -15,9 +15,9 @@ Object.keys(require.entries).forEach((entry) => {
 require(`ember-${framework}`).default.setResolver(resolver);
 loadEmberExam();
 
-// ember-cli-qunit >= v4 support
+// ember-qunit >= v3 support
 if (framework === 'qunit') {
   // Use string literal to prevent Babel to transpile this into ES6 import
   // that would break when tests run with Mocha framework.
-  require(`ember-cli-${framework}`).start();
+  require(`ember-${framework}`).start();
 }
