@@ -48,7 +48,7 @@
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^2.0.0",
     "ember-resolver": "^5.0.1",
-    "ember-source": "~2.15.0",
+    "ember-source": "~3.5.1",
     "istanbul": "^0.4.3",
     "loader.js": "^4.2.3",
     "mocha": "^3.5.3",
