@@ -48,7 +48,7 @@
     "ember-source": "~3.5.1",
     "istanbul": "^0.4.3",
     "loader.js": "^4.2.3",
-    "mocha": "^3.5.3",
+    "mocha": "^5.2.0",
     "mocha-eslint": "^4.1.0",
     "nyc": "^11.2.1",
     "rsvp": "^4.0.2",
