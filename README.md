@@ -1,6 +1,5 @@
 # Ember Exam
-
-[![Build Status](https://travis-ci.org/trentmwillis/ember-exam.svg?branch=master)](https://travis-ci.org/trentmwillis/ember-exam)
+[![Build Status](https://travis-ci.org/ember-cli/ember-exam.svg?branch=master)](https://travis-ci.org/ember-cli/ember-exam)
 [![NPM Version](https://badge.fury.io/js/ember-exam.svg)](https://badge.fury.io/js/ember-exam)
 [![Ember Observer Score](https://emberobserver.com/badges/ember-exam.svg)](https://emberobserver.com/addons/ember-exam)
 [![Code Climate](https://codeclimate.com/github/trentmwillis/ember-exam/badges/gpa.svg)](https://codeclimate.com/github/trentmwillis/ember-exam)
