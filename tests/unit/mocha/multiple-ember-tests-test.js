@@ -1,4 +1,5 @@
 import { describeModule, it } from 'ember-mocha';
+import { expect } from 'chai';
 
 describeModule('component:herp-derp', '#1: Module-For With Multiple Tests', function() {
   it('#1', function() { expect(true).to.be.ok; });
