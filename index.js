@@ -3,7 +3,7 @@
 'use strict';
 
 module.exports = {
-  name: 'ember-exam',
+  name: require('./package').name,
 
   includedCommands: function() {
     return require('./lib/commands');

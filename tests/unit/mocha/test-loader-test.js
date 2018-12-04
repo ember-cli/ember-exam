@@ -1,5 +1,6 @@
 import TestLoader from 'ember-cli-test-loader/test-support/index';
 import { describe, it, beforeEach, afterEach } from 'mocha';
+import { expect } from 'chai';
 
 describe('Unit | test-loader', function() {
   beforeEach(function() {
