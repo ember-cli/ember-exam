@@ -1,4 +1,14 @@
+v2.0.0 / 2018-12-04
+===================
+
+  * Bump Node support to: ^6.14.0 || ^8.10.0 || >= 10.*
+  * Update/Modernize all dependencies
+  * Update/Modernize codebase
+  * tranisition from ember-cli-qunit to ember-qunit
+
 v1.0.0 / 2017-11-02
+==================
+
 ==================
 
   * Remove auto-loading functionality
