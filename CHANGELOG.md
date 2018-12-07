@@ -1,3 +1,9 @@
+
+v2.0.1 / 2018-12-07
+===================
+
+  * ember-exam now sets `process.env.EMBER_EXAM_SPLIT_COUNT`, this allows testem scripts to pick up this configuration via `parallel: process.env.EMBER_EXAM_SPLIT_COUNT`
+
 v2.0.0 / 2018-12-04
 ===================
 
