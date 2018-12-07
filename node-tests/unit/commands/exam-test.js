@@ -110,6 +110,12 @@ describe('ExamCommand', function() {
         assert.equal(called.testRunOptions.query, '_split=2&_partition=2&_weighted');
       });
     });
+
+    it('should set split env var', function() {
+      return command.run({ split: 5 }).then(function() {
+        assert.equal(process.env.EMBER_EXAM_SPLIT_COUNT, '5');
+      });
+    });
   });
 
   describe('_generateCustomConfigs', function() {
