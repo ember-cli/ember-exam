@@ -114,6 +114,52 @@ describe('ExamCommand', function() {
     });
   });
 
+  describe('_appendParamToBaseUrl', function() {
+    function appendParamToBaseUrl(commandOptions, baseUrl) {
+      const project = new MockProject();
+      project.isEmberCLIProject = function() { return true; };
+
+      const command = new ExamCommand({
+        project: project,
+        tasks: {}
+      });
+
+      command.validator = new TestOptionsValidator(commandOptions);
+
+      return command._appendParamToBaseUrl(commandOptions, baseUrl);
+    }
+
+    it('should add `split` when `split` option is used.', function() {
+      const appendedUrl = appendParamToBaseUrl({ split: 3 }, 'tests/index.html?hidepassed');
+
+      assert.deepEqual(appendedUrl, 'tests/index.html?hidepassed&split=3');
+    });
+
+    it('should add `split` when `split` and `parallel` option are used.', function() {
+      const appendedUrl = appendParamToBaseUrl({ split: 5, parallel: true }, 'tests/index.html?hidepassed');
+
+      assert.deepEqual(appendedUrl, 'tests/index.html?hidepassed&split=5');
+    });
+
+    it('should add `loadBalance` when `load-balance` option is used.', function() {
+      const appendedUrl = appendParamToBaseUrl({ loadBalance: 2 }, 'tests/index.html?hidepassed');
+
+      assert.deepEqual(appendedUrl, 'tests/index.html?hidepassed&loadBalance');
+    });
+
+    it('should add `split`, `loadBalance`, and `partition` when `split`, `loadBalance`, and `partition` are used.', function() {
+      const appendedUrl = appendParamToBaseUrl({ split: 5, partition: [1,2,3], loadBalance: 2 }, 'tests/index.html?hidepassed');
+
+      assert.deepEqual(appendedUrl, 'tests/index.html?hidepassed&split=5&loadBalance&partition=1&partition=2&partition=3');
+    });
+
+    it('should add `loadBalance` when `replay-execution` and `replay-browser` are used.', function() {
+      const appendedUrl = appendParamToBaseUrl({ replayExecution: 'test-execution-0000000.json', replayBrowser: [1, 2] }, 'tests/index.html?hidepassed');
+
+      assert.deepEqual(appendedUrl, 'tests/index.html?hidepassed&loadBalance');
+    });
+  })
+
   describe('_getCustomBaseUrl', function() {
     function getCustomBaseUrl(config, options) {
       const project = new MockProject();
@@ -147,12 +193,18 @@ describe('ExamCommand', function() {
       assert.deepEqual(baseUrl, 'tests/index.html?hidepassed&split=2&loadBalance');
     });
 
-    it('should set split env var', function() {
-      return command.run({ split: 5 }).then(function() {
-        assert.equal(process.env.EMBER_EXAM_SPLIT_COUNT, '5');
-      });
+    it('should add `split`, `loadBalance`, and `partitions` to a base url with split, partition, and load-balance', function() {
+      const baseUrl = getCustomBaseUrl({ testPage: 'tests/index.html?hidepassed' }, { loadBalance: 3, split: 3, partition: [2, 3] });
+
+      assert.deepEqual(baseUrl, 'tests/index.html?hidepassed&split=3&loadBalance&partition=2&partition=3');
     });
-  });
+
+    it('should add `loadBalance` to a base url with replay-execution', function() {
+      const baseUrl = getCustomBaseUrl({ testPage: 'tests/index.html?hidepassed' }, { replayExecution: 'test-execution-0000000.json', replayBrowser: [1, 2] });
+
+      assert.deepEqual(baseUrl, 'tests/index.html?hidepassed&loadBalance');
+    });
+  })
 
   describe('_generateCustomConfigs', function() {
     function generateConfig(options) {

@@ -1,21 +1,30 @@
 /* globals Testem */
 
-// Add the partition number for better debugging when reading the reporter
-export default function patchTestemOutput(TestLoader) {
-  Testem.on('test-result', function prependPartition(test) {
-    const urlParams = TestLoader._urlParams;
-    const split = urlParams.split;
-    const loadBalance = urlParams.loadBalance;
+function updateTestName(urlParams, testName) {
+  const split = urlParams.split;
+  const loadBalance = urlParams.loadBalance;
 
-    const partition = urlParams.partition || 1;
-    const browser = urlParams.browser || 1;
+  const partition = urlParams.partition || 1;
+  const browser = urlParams.browser || 1;
 
-    if (split && loadBalance) {
-      test.name = `Exam Partition ${partition} - Browser Id ${browser} - ${test.name}`
-    } else if (split) {
-      test.name = `Exam Partition ${partition} - ${test.name}`;
-    } else if (loadBalance) {
-      test.name = `Browser Id ${browser} - ${test.name}`;
-    }
+  if (split && loadBalance) {
+    testName = `Exam Partition ${partition} - Browser Id ${browser} - ${testName}`
+  } else if (split) {
+    testName = `Exam Partition ${partition} - ${testName}`;
+  } else if (loadBalance) {
+    testName = `Browser Id ${browser} - ${testName}`;
+  }
+
+  return testName;
+}
+
+function patchTestemOutput(urlParams) {
+  Testem.on('test-result', (test) => {
+    test.name = updateTestName(urlParams, test.name);
   });
 }
+
+export default {
+  updateTestName,
+  patchTestemOutput
+};

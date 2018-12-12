@@ -1,4 +1,5 @@
-const TEST_TYPE_WEIGHT = {jshint:1, eslint:1, unit:10, integration:20, acceptance:150};
+const TEST_TYPE_WEIGHT = {eslint:1, unit:10, integration:20, acceptance:150};
+const WEIGHT_REGEX = /\/(eslint|unit|integration|acceptance)\//
 const DEFAULT_WEIGHT = 50;
 
 /**
@@ -11,14 +12,18 @@ const DEFAULT_WEIGHT = 50;
 * @param {*} modulePath File path to a module
  */
 function getWeight(modulePath) {
-  const [, key] = /\/(jshint|unit|integration|acceptance)\//.exec(modulePath) || [];
-  return TEST_TYPE_WEIGHT[key] || DEFAULT_WEIGHT;
+  const [, key] = WEIGHT_REGEX.exec(modulePath) || [];
+  if (typeof TEST_TYPE_WEIGHT[key] === 'number') {
+    return TEST_TYPE_WEIGHT[key] ;
+  } else {
+    return DEFAULT_WEIGHT;
+  }
 }
 
 export default function weightTestModules(modules) {
-  const groups = {};
+  const groups = Object.create(null);
 
-  modules.forEach(function(module) {
+  modules.forEach((module) => {
     const moduleWeight = getWeight(module);
 
     if (!groups[moduleWeight]) {
@@ -29,8 +34,8 @@ export default function weightTestModules(modules) {
 
   // returns modules sorted by weight and alphabetically within its weighted groups
   return Object.keys(groups)
-    .sort(function(a, b){return b-a})
-    .reduce(function(accumulatedArray, weight) {
+    .sort((a, b) => { return b-a })
+    .reduce((accumulatedArray, weight) => {
       const sortedModuleArr = groups[weight].sort();
       return accumulatedArray.concat(sortedModuleArr);
     }, []);

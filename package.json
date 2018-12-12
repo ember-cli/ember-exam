@@ -32,7 +32,6 @@
     "ember-cli-babel": "^7.5.0",
     "execa": "^1.0.0",
     "fs-extra": "^7.0.1",
-    "moment": "^2.22.2",
     "rimraf": "^2.6.2"
   },
   "devDependencies": {

@@ -13,11 +13,7 @@ function getNumberOfTests(str) {
   return match && parseInt(match[1], 10);
 }
 
-<<<<<<< HEAD
-const TOTAL_NUM_TESTS = 33; // Total Number of tests without the global "Ember.onerror validation tests"
-=======
-const TOTAL_NUM_TESTS = 35; // Total Number of tests without the global "Ember.onerror validation tests"
->>>>>>> [Feature] Test Load Balancing
+const TOTAL_NUM_TESTS = 39; // Total Number of tests without the global "Ember.onerror validation tests"
 
 function getTotalNumberOfTests(output) {
   // In ember-qunit 3.4.0, this new check was added: https://github.com/emberjs/ember-qunit/commit/a7e93c4b4b535dae62fed992b46c00b62bfc83f4

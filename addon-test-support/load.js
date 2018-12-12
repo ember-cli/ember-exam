@@ -1,8 +1,7 @@
 /* globals Testem */
 
-import patchTestLoader from './-private/patch-test-loader';
-import patchTestemOutput from './-private/patch-testem-output';
-import getTestLoader from './-private/get-test-loader';
+import TestemOutput from './-private/patch-testem-output';
+import EmberExamTestLoader from './-private/patch-test-loader';
 
 let loaded = false;
 let testLoader;
@@ -16,14 +15,11 @@ function loadEmberExam() {
 
   loaded = true;
 
-  const TestLoader = getTestLoader();
-  patchTestLoader(TestLoader);
+  testLoader = new EmberExamTestLoader();
 
   if (window.Testem) {
-    patchTestemOutput(TestLoader);
+    TestemOutput.patchTestemOutput(testLoader.urlParams);
   }
-
-  testLoader = new TestLoader();
 }
 
 // loadTests() is equivalent to ember-qunit's loadTest() except this does not create a new TestLoader instance
@@ -40,55 +36,46 @@ function setupQUnitCallbacks(qunit) {
   if (!location.search.includes('loadBalance')) {
     return;
   }
-  qunit.begin(function() {
-    return new self.Promise(function(resolve) {
-      Testem.on('testem:next-module-response', function getTestModule(moduleName) {
-        if (moduleName !== undefined) {
-          loadIndividualModule(moduleName);
-        }
+
+  const nextModuleHandler = (resolve , reject) => {
+    const moduleComplete = () => {
+      Testem.removeEventCallbacks('testem:next-module-response', getTestModule);
+      resolve();
+    }
+    const getTestModule = (moduleName) => {
+      try {
+        testLoader.loadIndividualModule(moduleName);
 
         // if no tests were added, request the next module
         if (qunit.config.queue.length === 0) {
-          Testem.emit('get-next-module');
-        } else {
-          Testem.removeEventCallbacks('testem:next-module-response', getTestModule);
-          resolve();
-        }
-      });
-      Testem.emit('get-next-module');
-    });
-  });
-  qunit.moduleDone(function() {
-    return new self.Promise(function(resolve) {
-      Testem.on('testem:next-module-response', function getTestModule(moduleName) {
-        if (moduleName !== undefined) {
-          loadIndividualModule(moduleName);
-        }
-
-        // if no tests were added, request the next module
-        if (qunit.config.queue.length === 0) {
-          Testem.emit('get-next-module');
+          Testem.emit('testem:get-next-module');
         } else {
           // `removeCallback` removes if the event queue contains the same callback for an event.
           Testem.removeEventCallbacks('testem:next-module-response', getTestModule);
-          Testem.removeEventCallbacks('testem:module-queue-complete', resolve);
+          Testem.removeEventCallbacks('testem:module-queue-complete', moduleComplete);
           resolve();
         }
-      });
-      Testem.on('testem:module-queue-complete', resolve);
-      Testem.emit('get-next-module');
-    });
-  });
-}
+      } catch (err) {
+        reject(err);
+      }
+    }
 
-// loadIndividualModule() executes loadIndividualModule() defined in patch-test-loader. It enables to load an AMD module one by one.
-function loadIndividualModule(moduleName) {
-  testLoader.loadIndividualModule(moduleName);
+    Testem.on('testem:next-module-response', getTestModule);
+    Testem.on('testem:module-queue-complete', moduleComplete);
+    Testem.emit('testem:get-next-module');
+  }
+
+  qunit.begin(() => {
+    return new self.Promise(nextModuleHandler);
+  });
+
+  qunit.moduleDone(() =>{
+    return new self.Promise(nextModuleHandler);
+  });
 }
 
 export default {
   loadEmberExam,
   loadTests,
-  setupQUnitCallbacks,
-  loadIndividualModule,
+  setupQUnitCallbacks
 };

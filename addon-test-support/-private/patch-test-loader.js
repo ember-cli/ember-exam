@@ -2,29 +2,41 @@
 import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
 import weightTestModules from './weight-test-modules';
+import getTestLoader from './get-test-loader';
 
-export default function patchTestLoader(TestLoader) {
-  TestLoader._urlParams = getUrlParams();
+const TestLoader = getTestLoader();
 
-  const _super = {
-    require: TestLoader.prototype.require,
-    unsee: TestLoader.prototype.unsee,
-    loadModules: TestLoader.prototype.loadModules,
-  };
+TestLoader.prototype.actualRequire = TestLoader.prototype.require;
+TestLoader.prototype.actualUnsee = TestLoader.prototype.unsee;
 
-  // "Require" the module by adding it to the array of test modules to load
-  TestLoader.prototype.require = function _emberExamRequire(name) {
-    this._testModules.push(name);
-  };
+export default class EmberExamTestLoader extends TestLoader {
 
-  // Make unsee a no-op to avoid any unwanted resets
-  TestLoader.prototype.unsee = function _emberExamUnsee() {};
+  constructor() {
+    super();
+    this._testModules = [];
+    this._urlParams = getUrlParams();
+  }
 
-  TestLoader.prototype.loadModules = function _emberExamLoadModules() {
-    const urlParams = TestLoader._urlParams;
-    const loadBalance = urlParams.loadBalance;
-    let partitions = urlParams.partition;
-    let split = parseInt(urlParams.split, 10);
+  get urlParams() {
+    return this._urlParams;
+  }
+
+  static load() {
+    throw new Error('`EmberExamTestLoader` doesn\'t support `load()`.');
+  }
+
+  // EmberExamTestLoader requires and unsees modules after splitting or sorting a list of modules instead of
+  // requiring and unseeing as loading modules.
+  require(moduleName) {
+    this._testModules.push(moduleName);
+  }
+
+  unsee() {}
+
+  loadModules() {
+    const loadBalance = this._urlParams.loadBalance;
+    let partitions = this._urlParams.partition;
+    let split = parseInt(this._urlParams.split, 10);
 
     split = isNaN(split) ? 1 : split;
 
@@ -34,34 +46,30 @@ export default function patchTestLoader(TestLoader) {
       partitions = [partitions];
     }
 
-    const testLoader = this;
-
-    this.modules = testLoader._testModules = [];
-    _super.loadModules.apply(testLoader, arguments);
+    super.loadModules();
 
     if (loadBalance) {
-      this.modules = weightTestModules(this.modules);
+      this._testModules = weightTestModules(this._testModules);
     }
 
-    this.modules = splitTestModules(this.modules, split, partitions);
+    this._testModules = splitTestModules(this._testModules, split, partitions);
 
     if (loadBalance) {
-      Testem.emit('set-modules-queue', this.modules);
+      Testem.emit('testem:set-modules-queue', this._testModules);
     } else {
-      this.modules.forEach((moduleName) => {
-        _super.require.call(testLoader, moduleName);
-        _super.unsee.call(testLoader, moduleName);
+      this._testModules.forEach((moduleName) => {
+        this.actualRequire(moduleName);
+        this.actualUnsee(moduleName);
       });
     }
-  };
+  }
 
-  TestLoader.prototype.loadIndividualModule = function _emberExamLoadIndividualModule(moduleName) {
-    const testLoader = this;
-    if (moduleName) {
-      _super.require.call(testLoader, moduleName);
-      _super.unsee.call(testLoader, moduleName);
-      return moduleName;
+  // enables to load a module one at a time.
+  loadIndividualModule(moduleName) {
+    if (moduleName === undefined) {
+      throw new Error('Failed to load a test module. `moduleName` is undefined in `loadIndividualModule`.')
     }
-    return null;
+    this.actualRequire(moduleName);
+    this.actualUnsee(moduleName);
   }
 }

@@ -5,7 +5,7 @@ import { expect } from 'chai';
 describe('Unit | weight-test-modules', () => {
   it('should sort a list of file paths by weight', function() {
     const listOfModules = [
-      '/jshint/test-1-test',
+      '/eslint/test-1-test',
       '/acceptance/test-1-test',
       '/unit/test-1-test',
       '/integration/test-1-test',
@@ -16,7 +16,7 @@ describe('Unit | weight-test-modules', () => {
       'test-1-test',
       '/integration/test-1-test',
       '/unit/test-1-test',
-      '/jshint/test-1-test'
+      '/eslint/test-1-test'
     ]);
   });
 
@@ -24,14 +24,14 @@ describe('Unit | weight-test-modules', () => {
     const listOfModules = [
       'test-b-test',
       'test-a-test',
-      '/jshint/test-b-test',
+      '/eslint/test-b-test',
       '/integration/test-b-test',
       '/integration/test-a-test',
       '/unit/test-b-test',
       '/acceptance/test-b-test',
       '/acceptance/test-a-test',
       '/unit/test-a-test',
-      '/jshint/test-a-test'];
+      '/eslint/test-a-test'];
 
     expect(weightTestModules(listOfModules)).to.deep.equal([
       '/acceptance/test-a-test',
@@ -42,8 +42,8 @@ describe('Unit | weight-test-modules', () => {
       '/integration/test-b-test',
       '/unit/test-a-test',
       '/unit/test-b-test',
-      '/jshint/test-a-test',
-      '/jshint/test-b-test'
+      '/eslint/test-a-test',
+      '/eslint/test-b-test'
     ]);
   });
 });
