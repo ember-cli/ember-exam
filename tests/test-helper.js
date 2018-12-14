@@ -1,5 +1,6 @@
 /* globals require */
 
+import { setResolver } from '@ember/test-helpers';
 import resolver from './helpers/resolver';
 import loadEmberExam from 'ember-exam/test-support/load';
 
@@ -12,7 +13,8 @@ Object.keys(require.entries).forEach((entry) => {
   }
 });
 
-require(`ember-${framework}`).default.setResolver(resolver);
+setResolver(resolver);
+
 loadEmberExam();
 
 // ember-qunit >= v3 support
