@@ -57,7 +57,7 @@
     "istanbul": "^0.4.3",
     "loader.js": "^4.7.0",
     "mocha": "^5.2.0",
-    "mocha-eslint": "^4.1.0",
+    "mocha-eslint": "^5.0.0",
     "nyc": "^13.1.0",
     "rsvp": "^4.0.2",
     "sinon": "^7.1.1",
