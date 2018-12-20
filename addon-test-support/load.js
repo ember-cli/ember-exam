@@ -15,7 +15,7 @@ function loadEmberExam() {
 
   loaded = true;
 
-  testLoader = new EmberExamTestLoader();
+  testLoader = new EmberExamTestLoader(Testem);
 
   if (window.Testem) {
     TestemOutput.patchTestemOutput(testLoader.urlParams);

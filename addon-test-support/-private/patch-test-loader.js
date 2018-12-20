@@ -1,4 +1,3 @@
-/* globals Testem */
 import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
 import weightTestModules from './weight-test-modules';
@@ -11,16 +10,20 @@ TestLoader.prototype.actualUnsee = TestLoader.prototype.unsee;
 
 export default class EmberExamTestLoader extends TestLoader {
 
-  constructor() {
+  constructor(testem, urlParams) {
     super();
     this._testModules = [];
-    this._urlParams = getUrlParams();
+    // testem can't be null. needs to throw an error if testem is null saying you can't construct the object without passing testem
+    this._testem = testem;
+    this._urlParams = urlParams || getUrlParams();
   }
 
   get urlParams() {
     return this._urlParams;
   }
 
+  // ember-cli-test-loaer instanciates new TestLoader instance and loadModules. As a purpose of
+  // having EmberExamTestLoader is not to create an instance as loading modules. EmberExamTestLoader does not support load().
   static load() {
     throw new Error('`EmberExamTestLoader` doesn\'t support `load()`.');
   }
@@ -55,7 +58,7 @@ export default class EmberExamTestLoader extends TestLoader {
     this._testModules = splitTestModules(this._testModules, split, partitions);
 
     if (loadBalance) {
-      Testem.emit('testem:set-modules-queue', this._testModules);
+      this._testem.emit('testem:set-modules-queue', this._testModules);
     } else {
       this._testModules.forEach((moduleName) => {
         this.actualRequire(moduleName);

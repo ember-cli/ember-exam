@@ -1,6 +1,6 @@
 {
   "numberOfBrowsers": 2,
-  "executionMapping":{
+  "browserToModuleMap":{
     "1":[
       "/tests/integration/components/my-component-test"
     ],
@@ -8,4 +8,4 @@
       "/tests/integration/components/navigating-component-test"
     ]
   }
-} 
+}
