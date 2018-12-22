@@ -22,7 +22,7 @@
     "build": "ember build",
     "test": "ember test",
     "test:all": "ember try:each && yarn test:node",
-    "test:node": "nyc mocha 'node-tests/**/*-test.js",
+    "test:node": "nyc mocha 'node-tests/**/*-test.js'",
     "coverage": "nyc report --reporter=text-lcov | codeclimate-test-reporter"
   },
   "dependencies": {

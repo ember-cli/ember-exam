@@ -146,8 +146,8 @@ describe('ExamCommand', function() {
       });
 
       assert.deepEqual(config.testPage, [
-        'tests/index.html?hidepassed&derp=herp&_split=2&_partition=1',
-        'tests/index.html?hidepassed&derp=herp&_split=2&_partition=2'
+        'tests/index.html?hidepassed&_split=2&_partition=1',
+        'tests/index.html?hidepassed&_split=2&_partition=2'
       ]);
     });
 
@@ -159,8 +159,8 @@ describe('ExamCommand', function() {
       });
 
       assert.deepEqual(config.testPage, [
-        'tests/index.html?hidepassed&derp=herp&_split=4&_partition=3',
-        'tests/index.html?hidepassed&derp=herp&_split=4&_partition=4'
+        'tests/index.html?hidepassed&_split=4&_partition=3',
+        'tests/index.html?hidepassed&_split=4&_partition=4'
       ]);
     });
 
