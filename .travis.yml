@@ -25,11 +25,11 @@ jobs:
         - ./bin/install-test-framework.sh
       script:
         - yarn lint:js
-        - yarn test
+        - yarn test:all
 
     - name: "Floating Dependencies"
       script:
-        - yarn test
+        - yarn test:all
 
     # we recommend new addons test the current and previous LTS
     # as well as latest stable release (bonus points to beta/canary)
