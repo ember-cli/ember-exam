@@ -1,7 +1,7 @@
 /* globals Testem */
 
 import TestemOutput from './-private/patch-testem-output';
-import EmberExamTestLoader from './-private/patch-test-loader';
+import EmberExamTestLoader from './-private/ember-exam-test-loader';
 
 let loaded = false;
 let testLoader;
@@ -25,7 +25,7 @@ function loadEmberExam() {
 // loadTests() is equivalent to ember-qunit's loadTest() except this does not create a new TestLoader instance
 function loadTests() {
   if (testLoader === undefined) {
-    new Error('testLoader is not defined. It must call `loadEmberExam()` before calling `loadTest()`.')
+    throw new Error('testLoader is not defined. It must call `loadEmberExam()` before calling `loadTest()`.')
   }
 
   testLoader.loadModules();
@@ -50,7 +50,7 @@ function setupQUnitCallbacks(qunit) {
         if (qunit.config.queue.length === 0) {
           Testem.emit('testem:get-next-module');
         } else {
-          // `removeCallback` removes if the event queue contains the same callback for an event.
+          // `removeEventCallbacks` removes if the event queue contains the same callback for an event.
           Testem.removeEventCallbacks('testem:next-module-response', getTestModule);
           Testem.removeEventCallbacks('testem:module-queue-complete', moduleComplete);
           resolve();

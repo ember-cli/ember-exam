@@ -10,7 +10,7 @@ const DEFAULT_WEIGHT = 50;
 * If the test type is not identifiable from the modulePath, weight default to 50 (ordered after acceptance, but before integration)
 *
 * @param {*} modulePath File path to a module
- */
+*/
 function getWeight(modulePath) {
   const [, key] = WEIGHT_REGEX.exec(modulePath) || [];
   if (typeof TEST_TYPE_WEIGHT[key] === 'number') {

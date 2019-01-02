@@ -1,4 +1,4 @@
-import EmberExamTestLoader from 'ember-exam/test-support/-private/patch-test-loader';
+import EmberExamTestLoader from 'ember-exam/test-support/-private/ember-exam-test-loader';
 import { describe, it, beforeEach, afterEach } from 'mocha';
 import { expect } from 'chai';
 

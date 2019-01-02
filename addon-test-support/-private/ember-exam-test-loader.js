@@ -1,19 +1,22 @@
 import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
 import weightTestModules from './weight-test-modules';
-import getTestLoader from './get-test-loader';
+import { TestLoader as EmberQUnitTestLoader } from 'ember-qunit/test-loader';
 
-const TestLoader = getTestLoader();
+EmberQUnitTestLoader.prototype.actualRequire = EmberQUnitTestLoader.prototype.require;
+EmberQUnitTestLoader.prototype.actualUnsee = EmberQUnitTestLoader.prototype.unsee;
 
-TestLoader.prototype.actualRequire = TestLoader.prototype.require;
-TestLoader.prototype.actualUnsee = TestLoader.prototype.unsee;
-
-export default class EmberExamTestLoader extends TestLoader {
+/**
+ * EmberExamTestLoader allows delayed requiring of test modules to enable test load balancing
+ * It extends ember-cli-test-loader/test-support/index which is also used by `ember test`
+ * @class EmberExamTestLoader
+ * @extends {EmberQUnitTestLoader}
+ */
+export default class EmberExamTestLoader extends EmberQUnitTestLoader {
 
   constructor(testem, urlParams) {
     super();
     this._testModules = [];
-    // testem can't be null. needs to throw an error if testem is null saying you can't construct the object without passing testem
     this._testem = testem;
     this._urlParams = urlParams || getUrlParams();
   }
@@ -22,14 +25,14 @@ export default class EmberExamTestLoader extends TestLoader {
     return this._urlParams;
   }
 
-  // ember-cli-test-loaer instanciates new TestLoader instance and loadModules. As a purpose of
-  // having EmberExamTestLoader is not to create an instance as loading modules. EmberExamTestLoader does not support load().
+  // ember-cli-test-loader instanciates a new TestLoader instance and calls loadModules.
+  // EmberExamTestLoader does not support load() in favor of loadModules().
   static load() {
     throw new Error('`EmberExamTestLoader` doesn\'t support `load()`.');
   }
 
-  // EmberExamTestLoader requires and unsees modules after splitting or sorting a list of modules instead of
-  // requiring and unseeing as loading modules.
+  // EmberExamTestLoader collects the full list of modules before requiring each module with
+  // actualRequire(), instead of requiring and unseeing a module when each gets loaded.
   require(moduleName) {
     this._testModules.push(moduleName);
   }
@@ -52,14 +55,10 @@ export default class EmberExamTestLoader extends TestLoader {
     super.loadModules();
 
     if (loadBalance) {
-      this._testModules = weightTestModules(this._testModules);
-    }
-
-    this._testModules = splitTestModules(this._testModules, split, partitions);
-
-    if (loadBalance) {
+      this._testModules = splitTestModules(weightTestModules(this._testModules), split, partitions);
       this._testem.emit('testem:set-modules-queue', this._testModules);
     } else {
+      this._testModules = splitTestModules(this._testModules, split, partitions);
       this._testModules.forEach((moduleName) => {
         this.actualRequire(moduleName);
         this.actualUnsee(moduleName);

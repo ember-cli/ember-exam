@@ -5,12 +5,12 @@ const { convertOptionValueToArray, getTestUrlFromTestemConfig, getCustomBaseUrl,
 
 describe('TestPageHelper', function() {
   describe('convertOptionValueToArray', function() {
-    it('should return `null` when no optionValue specified', function() {
-      assert.deepEqual(convertOptionValueToArray(), null);
+    it('should return empty array when no optionValue specified', function() {
+      assert.deepEqual(convertOptionValueToArray(), []);
     });
 
     it('should have a specified option number when the option is number', function() {
-      assert.deepEqual(convertOptionValueToArray(3), 3);
+      assert.deepEqual(convertOptionValueToArray(3), [3]);
     });
 
     it('should have a number of array when a specified option is string', function() {
@@ -27,10 +27,6 @@ describe('TestPageHelper', function() {
 
     it('should have a number of array when a specified option is a combination of number and string in range', function() {
       assert.deepEqual(convertOptionValueToArray([1, '3..6']), [1,3, 4, 5, 6]);
-    });
-
-    it('should return `null` when no pamarater specified', function() {
-      assert.deepEqual(convertOptionValueToArray(), null);
     });
   });
 

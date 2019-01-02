@@ -1,4 +1,4 @@
-import EmberExamTestLoader from 'ember-exam/test-support/-private/patch-test-loader';
+import EmberExamTestLoader from 'ember-exam/test-support/-private/ember-exam-test-loader';
 import QUnit, { module, test } from 'qunit';
 
 module('Unit | test-loader', {

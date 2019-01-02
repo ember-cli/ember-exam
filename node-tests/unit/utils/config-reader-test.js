@@ -1,7 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const { readTestemConfig } = require('../../../lib/utils/config-reader');
+const readTestemConfig = require('../../../lib/utils/config-reader');
 
 describe('ConfigReader | readTestemConfig', function() {
   it('should find `testem.js` file by default and return `true` when no file name and no potential files specified', function() {

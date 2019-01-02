@@ -1,20 +1,51 @@
 'use strict';
 
 const assert = require('assert');
+const fixturify = require('fixturify');
+const fs = require('fs-extra');
 const TestOptionsValidator = require('../../../lib/utils/tests-options-validator');
+const TestExecutionJson = {
+  "numberOfBrowsers": 2,
+  "browserToModuleMap":{
+    "1":[
+      "/tests/integration/components/my-component-test"
+    ],
+    "2":[
+      "/tests/integration/components/navigating-component-test"
+    ]
+  }
+};
+
 
 describe('TestOptionsValidator', function() {
-  function shouldThrow(prop, options, message) {
-    const validator = new TestOptionsValidator(options);
-    assert.throws(() => validator['should' + prop], message);
+  function validateCommand(validator, cmd) {
+    switch (cmd) {
+      case 'Split':
+        return validator.validateSplit();
+      case 'Random':
+        return validator.validateRandom();
+      case 'Parallel':
+        return validator.validateParallel();
+      case 'LoadBalance':
+        return validator.validateLoadBalance();
+      case 'ReplayExecution':
+        return validator.validateReplayExecution();
+      default:
+        throw new Error('invalid command passed');
+    }
   }
 
-  function shouldEqual(prop, options, value) {
+  function shouldThrow(cmd, options, message) {
     const validator = new TestOptionsValidator(options);
-    assert.equal(validator['should' + prop], value);
+    assert.throws(() => validateCommand(validator, cmd), message);
   }
 
-  function shouldWarn(prop, options, value) {
+  function shouldEqual(cmd, options, value) {
+    const validator = new TestOptionsValidator(options);
+    assert.equal(validateCommand(validator, cmd), value);
+  }
+
+  function shouldWarn(cmd, options, value) {
     /* eslint-disable no-console */
     let originalWarn = console.warn;
     let warnCalled = 0;
@@ -25,7 +56,7 @@ describe('TestOptionsValidator', function() {
     };
 
     const validator = new TestOptionsValidator(options, options.framework);
-    assert.notEqual(validator['should' + prop], undefined);
+    assert.notEqual(validateCommand(validator, cmd), undefined);
     assert.equal(warnCalled, 1);
     assert.equal(warnMessage, value);
 
@@ -77,7 +108,7 @@ describe('TestOptionsValidator', function() {
 
   describe('shouldRandomize', function() {
     function shouldRandomizeEqual(options, message) {
-      shouldEqual('Randomize', options, message);
+      shouldEqual('Random', options, message);
     }
 
     it('should return true if `random` is an empty string', function() {
@@ -97,25 +128,25 @@ describe('TestOptionsValidator', function() {
     });
 
     it('should warn that randomization is not supported in mocha', function() {
-      shouldWarn('Randomize', { random: '', framework: 'mocha' }, 'Mocha does not currently support randomizing test order, so tests will run in normal order. Please see https://github.com/mochajs/mocha/issues/902 for more info.');
+      shouldWarn('Random', { random: '', framework: 'mocha' }, 'Mocha does not currently support randomizing test order, so tests will run in normal order. Please see https://github.com/mochajs/mocha/issues/902 for more info.');
     });
   });
 
   describe('shouldParallelize', function() {
     it('should throw an error if `split` is not being used', function() {
-      shouldThrow('Parallelize', { parallel: true }, /You must specify the `split` option in order to run your tests in parallel/);
+      shouldThrow('Parallel', { parallel: true }, /You must specify the `split` option in order to run your tests in parallel/);
     });
 
     it('it should throw an error if `parallel` is being used with `load-balance`', function() {
-      shouldThrow('Parallelize', { parallel: true, loadBalance: 1, split:2 }, /You must not use the `load-balance` option with the `parallel` option/);
+      shouldThrow('Parallel', { parallel: true, loadBalance: 1, split:2 }, /You must not use the `load-balance` option with the `parallel` option/);
     })
 
     it('should return false', function() {
-      shouldEqual('Parallelize', { parallel: false }, false);
+      shouldEqual('Parallel', { parallel: false }, false);
     });
 
     it('should return true', function() {
-      shouldEqual('Parallelize', { split: 2, parallel: true }, true);
+      shouldEqual('Parallel', { split: 2, parallel: true }, true);
     });
   });
 
@@ -134,6 +165,14 @@ describe('TestOptionsValidator', function() {
   });
 
   describe('shouldReplayExecution', function() {
+    before(function() {
+      fixturify.writeSync(process.cwd(), {
+        'test-execution-0000000.json': JSON.stringify(TestExecutionJson)
+      });
+    });
+    after(function() {
+      fs.unlink('test-execution-0000000.json');
+    });
     it('should throw an error if `replay-execution` is being used without `replay-browser`', function() {
       shouldThrow('ReplayExecution', { replayExecution: 'test-execution-0000000.json'}, /You must specify the `replay-browser` option in order to use `replay-execution` option./);
     });
