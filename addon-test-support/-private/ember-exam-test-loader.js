@@ -1,18 +1,20 @@
 import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
 import weightTestModules from './weight-test-modules';
-import { TestLoader as EmberQUnitTestLoader } from 'ember-qunit/test-loader';
+import getTestLoader from './get-test-loader';
 
-EmberQUnitTestLoader.prototype.actualRequire = EmberQUnitTestLoader.prototype.require;
-EmberQUnitTestLoader.prototype.actualUnsee = EmberQUnitTestLoader.prototype.unsee;
+let TestLoader = getTestLoader();
+
+TestLoader.prototype.actualRequire = TestLoader.prototype.require;
+TestLoader.prototype.actualUnsee = TestLoader.prototype.unsee;
 
 /**
  * EmberExamTestLoader allows delayed requiring of test modules to enable test load balancing
- * It extends ember-cli-test-loader/test-support/index which is also used by `ember test`
+ * It extends ember-qunit or ember-mocha used by `ember test`
  * @class EmberExamTestLoader
- * @extends {EmberQUnitTestLoader}
+ * @extends {TestLoader}
  */
-export default class EmberExamTestLoader extends EmberQUnitTestLoader {
+export default class EmberExamTestLoader extends TestLoader {
 
   constructor(testem, urlParams) {
     super();
