@@ -27,6 +27,16 @@ function isNotLintTest(name) {
   return !isLintTest(name);
 }
 
+/**
+ * splits the list of modules into unique subset of modules
+ * return the subset indexed by the partition
+ *
+ * @export
+ * @param {Array<string>} modules
+ * @param {number} split
+ * @param {number} partitions
+ * @returns {Array<string>} tests
+ */
 export default function splitTestModules(modules, split, partitions) {
   if (split < 1) {
     throw new Error('You must specify a split greater than 0');

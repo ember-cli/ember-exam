@@ -6,7 +6,7 @@ import EmberExamTestLoader from './-private/ember-exam-test-loader';
 let loaded = false;
 let testLoader;
 
-function loadEmberExam() {
+function loadEmberExam(qunit) {
   if (loaded) {
     // eslint-disable-next-line no-console
     console.warn('Attempted to load Ember Exam more than once.');
@@ -19,6 +19,10 @@ function loadEmberExam() {
 
   if (window.Testem) {
     TestemOutput.patchTestemOutput(testLoader.urlParams);
+  }
+
+  if (location.search.includes('loadBalance') && qunit) {
+    setupQUnitCallbacks(qunit);
   }
 }
 
@@ -33,10 +37,6 @@ function loadTests() {
 
 // setupQUnitCallBacks() registers QUnit callbacks neeeded for the load-balance option.
 function setupQUnitCallbacks(qunit) {
-  if (!location.search.includes('loadBalance')) {
-    return;
-  }
-
   const nextModuleHandler = (resolve , reject) => {
     const moduleComplete = () => {
       Testem.removeEventCallbacks('testem:next-module-response', getTestModule);

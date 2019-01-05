@@ -1,8 +1,11 @@
 'use strict';
 
 const assert = require('assert');
-const rimraf = require('rimraf');
 const execa = require('execa');
+const fixturify = require('fixturify');
+const fs = require('fs-extra');
+const path = require('path');
+const rimraf = require('rimraf');
 
 function assertExpectRejection() {
   assert.ok(false, 'Expected promise to reject, but it fullfilled');
@@ -38,23 +41,23 @@ describe('Acceptance | Exam Command', function() {
     rimraf.sync('acceptance-dist');
   });
 
-  function assertPartitions(output, good, bad) {
+  function assertOutput(output, text, good, bad) {
     good.forEach(function(partition) {
-      assert.ok(output.includes('Exam Partition ' + partition + ' '), 'output has Partition ' + partition);
+      assert.ok(output.includes(`${text} ${partition} `), `output has ${text} ${partition}`);
     });
 
     (bad || []).forEach(function(partition) {
-      assert.ok(!output.includes('Exam Partition ' + partition + ' '), 'output does not have Partition ' + partition);
+      assert.ok(!output.includes(`${text} ${partition} `), `output does not have ${text} ${partition}`);
     });
   }
 
   function assertAllPartitions(output) {
-    assertPartitions(output, [1, 2, 3]);
+    assertOutput(output, 'Exam Partition', [1, 2, 3]);
     assert.equal(getNumberOfTests(output), getTotalNumberOfTests(output), 'ran all of the tests in the suite');
   }
 
   function assertSomePartitions(output, good, bad) {
-    assertPartitions(output, good, bad);
+    assertOutput(output, 'Exam Partition', good, bad);
     assert.ok(getNumberOfTests(output) < getTotalNumberOfTests(output), 'did not run all of the tests in the suite');
   }
 
@@ -120,6 +123,114 @@ describe('Acceptance | Exam Command', function() {
         const stdout = child.stdout;
         assert.ok(stdout.includes('Randomizing tests with seed: 1337'), 'logged the seed value');
         assert.equal(getNumberOfTests(stdout), getTotalNumberOfTests(stdout), 'ran all of the tests in the suite');
+      });
+    });
+  });
+
+  describe('Load Balance', function() {
+    const unlinkFiles = [];
+
+    function assertTestExecutionJson(output) {
+      let testExecutionJsonPath = path.join(process.cwd(), output.match(/test-execution-([0-9]*).json/g)[0]);
+      assert.ok(fs.existsSync(testExecutionJsonPath), 'test execution json written to root');
+      unlinkFiles.push(testExecutionJsonPath);
+    }
+
+    afterEach(() => {
+      unlinkFiles.forEach((path) => {
+        fs.unlinkSync(path);
+      });
+
+      unlinkFiles.length = 0;
+    });
+
+    it('load balances the test suite with 3 browsers', function() {
+      return execa('ember', ['exam', '--load-balance', '3', '--path', 'acceptance-dist']).then(child => {
+        const output = child.stdout;
+        assertTestExecutionJson(output);
+        assertOutput(output, 'Browser Id', [1, 2, 3]);
+        assert.equal(getNumberOfTests(output), getTotalNumberOfTests(output), 'ran all of the tests in the suite');
+      });
+    });
+
+    it('load balances partition 1\'s test suite with 3 browsers', function() {
+      return execa('ember', ['exam', '--split', '2', '--load-balance', '3', '--path', 'acceptance-dist']).then(child => {
+        const output = child.stdout;
+        assertTestExecutionJson(output);
+        assertOutput(output, 'Exam Partition', [1], [2]);
+        assertOutput(output, 'Browser Id', [1, 2, 3]);
+        assert.ok(getNumberOfTests(output) < getTotalNumberOfTests(output), 'did not run all of the tests in the suite');
+      });
+    });
+  });
+
+  describe('Replay Execution', function() {
+    let testExecutionJson = {}
+
+    beforeEach(() => {
+      testExecutionJson = {
+        "numberOfBrowsers": 2,
+        "failedBrowsers": [],
+        "executionMapping": {
+            "1": [
+                "ember-test",
+                "dummy/tests/unit/qunit/test-loader-test",
+                "dummy/tests/unit/qunit/multiple-edge-cases-test",
+                "dummy/tests/unit/qunit/multiple-ember-tests-test"
+            ],
+            "2": [
+                "dummy/tests/unit/qunit/multiple-tests-test",
+                "dummy/tests/unit/qunit/testem-output-test",
+                "dummy/tests/unit/qunit/weight-test-modules-test"
+            ]
+        }
+      };
+    });
+
+    afterEach(() => {
+      fs.unlinkSync(path.join(process.cwd(), 'test-execution-123.json'));
+    });
+
+    it('replay only the failed browsers defined in failedBrowsers array', function() {
+      testExecutionJson.failedBrowsers.push(1);
+      fixturify.writeSync(process.cwd(), {
+        'test-execution-123.json': JSON.stringify(testExecutionJson)
+      });
+
+      return execa('ember', ['exam', '--replay-execution', 'test-execution-123.json', '--path', 'acceptance-dist']).then(child => {
+        const output = child.stdout;
+        assert.equal(output.match(/test-execution-([0-9]*).json/g), null, 'no test execution json should be written');
+
+        assertOutput(output, 'Browser Id', [1]);
+        assert.equal(getNumberOfTests(output), 25, 'ran all of the tests for browser one');
+      });
+    });
+
+    it('replay the full execution if failedBrowsers is empty', function() {
+      fixturify.writeSync(process.cwd(), {
+        'test-execution-123.json': JSON.stringify(testExecutionJson)
+      });
+
+      return execa('ember', ['exam', '--replay-execution', 'test-execution-123.json', '--path', 'acceptance-dist']).then(child => {
+        const output = child.stdout;
+        assert.equal(output.match(/test-execution-([0-9]*).json/g), null, 'no test execution json should be written');
+
+        assertOutput(output, 'Browser Id', [1, 2]);
+        assert.equal(getNumberOfTests(output), getTotalNumberOfTests(output), 'ran all of the tests in the suite');
+      });
+    });
+
+    it('replay only the specified execution by --replay-browser', function() {
+      fixturify.writeSync(process.cwd(), {
+        'test-execution-123.json': JSON.stringify(testExecutionJson)
+      });
+
+      return execa('ember', ['exam', '--replay-execution', 'test-execution-123.json', '--replay-browser', '2', '--path', 'acceptance-dist']).then(child => {
+        const output = child.stdout;
+        assert.equal(output.match(/test-execution-([0-9]*).json/g), null, 'no test execution json should be written');
+
+        assertOutput(output, 'Browser Id', [2]);
+        assert.equal(getNumberOfTests(output), 16, 'ran all of the tests for browser two');
       });
     });
   });

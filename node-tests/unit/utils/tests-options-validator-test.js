@@ -173,9 +173,6 @@ describe('TestOptionsValidator', function() {
     after(function() {
       fs.unlink('test-execution-0000000.json');
     });
-    it('should throw an error if `replay-execution` is being used without `replay-browser`', function() {
-      shouldThrow('ReplayExecution', { replayExecution: 'test-execution-0000000.json'}, /You must specify the `replay-browser` option in order to use `replay-execution` option./);
-    });
 
     it('should throw an error if `replay-browser` contains a value less than 1', function() {
       shouldThrow('ReplayExecution', { replayExecution: 'test-execution-0000000.json', replayBrowser: [1, 0]}, /You must specify replay-browser values greater than or equal to 1./);

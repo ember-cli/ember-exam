@@ -10,12 +10,13 @@ TestLoader.prototype.actualUnsee = TestLoader.prototype.unsee;
 
 /**
  * EmberExamTestLoader allows delayed requiring of test modules to enable test load balancing
- * It extends ember-qunit or ember-mocha used by `ember test`
+ * It extends ember-qunit or ember-mocha used by `ember test`, this is important since the
+ * test-loader from each of these dependency overrides moduleLoadFailure to log a test
+ * failure when a module fails to load
  * @class EmberExamTestLoader
  * @extends {TestLoader}
  */
 export default class EmberExamTestLoader extends TestLoader {
-
   constructor(testem, urlParams) {
     super();
     this._testModules = [];
@@ -68,7 +69,7 @@ export default class EmberExamTestLoader extends TestLoader {
     }
   }
 
-  // enables to load a module one at a time.
+  // allow loading one module at a time.
   loadIndividualModule(moduleName) {
     if (moduleName === undefined) {
       throw new Error('Failed to load a test module. `moduleName` is undefined in `loadIndividualModule`.')

@@ -1,5 +1,11 @@
 /* globals require, requirejs */
 
+/**
+ * Returns ember-qunit or ember-mocha's test loader
+ *
+ * @export
+ * @returns {Object}
+ */
 export default function getTestLoader() {
   let testLoaderModulePath = 'ember-qunit/test-loader';
 

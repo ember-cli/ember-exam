@@ -10,6 +10,7 @@ const fixtureDir = 'tmp/fixture';
 const testExecutionJsonPath = path.join(fixtureDir, 'test-execution-123.json');
 const testExecutionJson = {
   numberOfBrowsers: 1,
+  failedBrowsers: [],
   executionMapping: {
     1: ['path/to/testmodule', 'path/to/another/testmodule']
   }
@@ -49,6 +50,13 @@ describe('TestemEvents', function() {
 
     it('set browserModuleQueue for replay-execution mode', function() {
       this.testemEvents.setReplayExecutionMap(testExecutionJsonPath, [1]);
+      this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true, 'ci');
+
+      assert.deepEqual(this.testemEvents.stateManager.getBrowserModuleQueue(1), testExecutionJson.executionMapping[1]);
+    });
+
+    it('set browserModuleQueue for replay-execution mode when replay-browser is undefined', function() {
+      this.testemEvents.setReplayExecutionMap(testExecutionJsonPath);
       this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true, 'ci');
 
       assert.deepEqual(this.testemEvents.stateManager.getBrowserModuleQueue(1), testExecutionJson.executionMapping[1]);

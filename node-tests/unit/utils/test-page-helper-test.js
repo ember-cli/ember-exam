@@ -191,7 +191,7 @@ describe('TestPageHelper', function() {
     it('should have a test page with \'loadBalance\' when no specified number of browser', function() {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { 'loadBalance': 1 });
+        { loadBalance: 1 });
 
       assert.deepEqual(testPages, ['tests/index.html?hidepassed&loadBalance&browser=1']);
     });
@@ -199,7 +199,7 @@ describe('TestPageHelper', function() {
     it('should have multiple test page with \'loadBalance\' with splitting when no specified number of browser', function() {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { 'loadBalance': 1,
+        { loadBalance: 1,
           split: 2 });
 
       assert.deepEqual(testPages, [
@@ -210,7 +210,7 @@ describe('TestPageHelper', function() {
     it('should have multiple test pages with test loading balanced, no specified partitions and no splitting', function() {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { 'loadBalance': 2 });
+        { loadBalance: 2 });
 
       assert.deepEqual(testPages, [
         'tests/index.html?hidepassed&loadBalance&browser=1',
@@ -221,7 +221,7 @@ describe('TestPageHelper', function() {
     it('should have multiple test pages with test loading balanced, no specified partitions and no splitting', function() {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { 'loadBalance': 2,
+        { loadBalance: 2,
           split: 3,
           partition: [2, 3] });
 
@@ -234,7 +234,7 @@ describe('TestPageHelper', function() {
     it('should have multiple test pages for each test_page in the config file with partitions specified and test loading balanced', function() {
       const testPages = getMultipleTestPages(
         { configFile: 'testem.multiple-test-page.js' },
-        { 'loadBalance': 1,
+        { loadBalance: 1,
           split: 4,
           partition: [3, 4] });
 
