@@ -177,6 +177,27 @@ describe('Acceptance | Exam Command', function() {
         assert.ok(getNumberOfTests(output) < getTotalNumberOfTests(output), 'did not run all of the tests in the suite');
       });
     });
+
+    describe('Failure Cases', function() {
+      const destPath = path.join(__dirname, '..', '..', 'tests', 'unit', 'browser-exit-test.js');
+      beforeEach(function() {
+        const failingTestPath = path.join(__dirname, '..', 'fixtures', 'browser-exit.js');
+        fs.copySync(failingTestPath, destPath);
+        return execa('ember', ['build', '--output-path', 'failure-dist']);
+      });
+
+      afterEach(function() {
+        rimraf.sync('failure-dist');
+        fs.removeSync(destPath);
+      });
+
+      it('should write test-execution json when browser exits', function() {
+        return execa('ember', ['exam', '--path', 'failure-dist', '--load-balance', '--parallel', '2']).then(assertExpectRejection, error => {
+          assert.ok(error.message.includes('Error: Browser exited on request from test driver'), `browser exited during the test execution:\n${error.message}`);
+          assertTestExecutionJson(error.message);
+        });
+      });
+    });
   });
 
   describe('Replay Execution', function() {

@@ -133,30 +133,16 @@ describe('TestemEvents', function() {
 
   describe('recoredFailedBrowserId', function() {
     it('record new browserId if test failed', function() {
-      this.testemEvents.recoredFailedBrowserId(1, { failed: true });
+      this.testemEvents.recoredFailedBrowserId(1);
 
       assert.deepEqual(this.testemEvents.stateManager.getFailedBrowsers(), [1], 'failed browserId 1 is correctly recorded');
     });
 
     it('does not record browserId that has already been recorded', function() {
-      this.testemEvents.recoredFailedBrowserId(1, { failed: true });
-      this.testemEvents.recoredFailedBrowserId(1, { failed: true });
+      this.testemEvents.recoredFailedBrowserId(1);
+      this.testemEvents.recoredFailedBrowserId(1);
 
       assert.deepEqual(this.testemEvents.stateManager.getFailedBrowsers(), [1], 'failed browserId 1 is correctly recorded only once');
-    });
-
-
-    it('does not record browserId if test passed', function() {
-      this.testemEvents.recoredFailedBrowserId(1, { passed: true });
-
-      assert.deepEqual(this.testemEvents.stateManager.getFailedBrowsers(), [], 'browserId does not get recorded for passed test');
-    });
-
-
-    it('does not record browserId if test is skipped', function() {
-      this.testemEvents.recoredFailedBrowserId(1, { skipped: true });
-
-      assert.deepEqual(this.testemEvents.stateManager.getFailedBrowsers(), [], 'browserId does not get recorded for skipped test');
     });
   });
 

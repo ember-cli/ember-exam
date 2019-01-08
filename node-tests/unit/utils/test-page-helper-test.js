@@ -253,5 +253,16 @@ describe('TestPageHelper', function() {
         'tests/index.html?hidepassed&foo=bar&split=4&loadBalance&partition=3&partition=4&browser=1'
       ]);
     });
+
+    it('should have multiple test pages with test replay execution', function() {
+      const testPages = getMultipleTestPages(
+        { testPage: 'tests/index.html?hidepassed' },
+        { replayExecution: 'abc.json',
+          replayBrowser: [2] });
+
+      assert.deepEqual(testPages, [
+        'tests/index.html?hidepassed&loadBalance&browser=2',
+      ]);
+    });
   });
 });
