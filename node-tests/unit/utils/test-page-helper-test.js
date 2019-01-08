@@ -1,6 +1,7 @@
 'use strict';
 
 const assert = require('assert');
+const sinon = require('sinon');
 const { convertOptionValueToArray, getTestUrlFromTestemConfig, getCustomBaseUrl, getMultipleTestPages } = require('../../../lib/utils/test-page-helper');
 
 describe('TestPageHelper', function() {
@@ -38,9 +39,15 @@ describe('TestPageHelper', function() {
     });
 
     it('should have a default test page with no test-page specified in a testem config file', function() {
+      const warnStub = sinon.stub(console, 'warn');
       const testPage = getTestUrlFromTestemConfig('testem.no-test-page.js');
 
-      assert.deepEqual(testPage, 'tests/index.html?hidepassed')
+      assert.deepEqual(testPage, 'tests/index.html?hidepassed');
+
+      sinon.assert.calledOnce(warnStub);
+      sinon.assert.calledWithExactly(warnStub, 'No test_page value found in the config. Defaulting to "tests/index.html?hidepassed"');
+
+      warnStub.restore();
     });
 
     it('should have multiple test pages specified in testem config file with test-page specified in the file', function() {
@@ -137,7 +144,7 @@ describe('TestPageHelper', function() {
     it('should have multiple test pages with no partitions specified', function() {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { parallel: true,
+        { parallel: 1,
           split: 2 });
 
       assert.deepEqual(testPages, [
@@ -149,7 +156,7 @@ describe('TestPageHelper', function() {
     it('should have multiple test pages with specified partitions', function() {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { parallel: true,
+        { parallel: 1,
           split: 4,
           partition: [3, 4]});
 
@@ -162,7 +169,7 @@ describe('TestPageHelper', function() {
     it('should have multiple test pages for each test_page in the config file with no partitions specified', function() {
       const testPages = getMultipleTestPages(
         { configFile: 'testem.multiple-test-page.js' },
-        { parallel: true,
+        { parallel: 1,
           split: 2 });
 
       assert.deepEqual(testPages, [
@@ -176,7 +183,7 @@ describe('TestPageHelper', function() {
     it('should have multiple test pages for each test_page in the config file with partitions specified', function() {
       const testPages = getMultipleTestPages(
         { configFile: 'testem.multiple-test-page.js' },
-        { parallel: true,
+        { parallel: 1,
           split: 4,
           partition: [3, 4] });
 
@@ -191,7 +198,7 @@ describe('TestPageHelper', function() {
     it('should have a test page with \'loadBalance\' when no specified number of browser', function() {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { loadBalance: 1 });
+        { loadBalance: true, parallel: 1 });
 
       assert.deepEqual(testPages, ['tests/index.html?hidepassed&loadBalance&browser=1']);
     });
@@ -199,7 +206,8 @@ describe('TestPageHelper', function() {
     it('should have multiple test page with \'loadBalance\' with splitting when no specified number of browser', function() {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { loadBalance: 1,
+        { loadBalance: true,
+          parallel: 1,
           split: 2 });
 
       assert.deepEqual(testPages, [
@@ -210,7 +218,7 @@ describe('TestPageHelper', function() {
     it('should have multiple test pages with test loading balanced, no specified partitions and no splitting', function() {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { loadBalance: 2 });
+        { loadBalance: true, parallel: 2 });
 
       assert.deepEqual(testPages, [
         'tests/index.html?hidepassed&loadBalance&browser=1',
@@ -221,7 +229,8 @@ describe('TestPageHelper', function() {
     it('should have multiple test pages with test loading balanced, no specified partitions and no splitting', function() {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { loadBalance: 2,
+        { loadBalance: true,
+          parallel: 2,
           split: 3,
           partition: [2, 3] });
 
@@ -234,7 +243,8 @@ describe('TestPageHelper', function() {
     it('should have multiple test pages for each test_page in the config file with partitions specified and test loading balanced', function() {
       const testPages = getMultipleTestPages(
         { configFile: 'testem.multiple-test-page.js' },
-        { loadBalance: 1,
+        { loadBalance: true,
+          parallel: 1,
           split: 4,
           partition: [3, 4] });
 

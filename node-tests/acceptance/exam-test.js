@@ -84,7 +84,7 @@ describe('Acceptance | Exam Command', function() {
       });
 
       it('splits the test suite and runs multiple specified partitions', function() {
-        return execa('ember', ['exam', '--split', '3', '--partition', '1', '--partition', '3', '--path', 'acceptance-dist']).then(child => {
+        return execa('ember', ['exam', '--split', '3', '--partition', '1,3', '--path', 'acceptance-dist']).then(child => {
           assertSomePartitions(child.stdout, ['1,3'], [1, 2, 3]);
         });
       });
@@ -104,13 +104,13 @@ describe('Acceptance | Exam Command', function() {
 
     describe('Parallel', function() {
       it('runs multiple partitions in parallel', function() {
-        return execa('ember', ['exam', '--split', '3', '--parallel', '--path', 'acceptance-dist']).then(child => {
+        return execa('ember', ['exam', '--path', 'acceptance-dist', '--split', '3', '--parallel']).then(child => {
           assertAllPartitions(child.stdout);
         });
       });
 
       it('runs multiple specified partitions in parallel', function() {
-        return execa('ember', ['exam', '--split', '3', '--parallel', '--partition', '1', '--partition', '3', '--path', 'acceptance-dist']).then(child => {
+        return execa('ember', ['exam', '--split', '3', '--partition', '1,3', '--path', 'acceptance-dist', '--parallel']).then(child => {
           assertSomePartitions(child.stdout, [1, 3], [2]);
         });
       });
@@ -144,8 +144,23 @@ describe('Acceptance | Exam Command', function() {
       unlinkFiles.length = 0;
     });
 
+    it('errors if `--parallel` is not passed', function() {
+      return execa('ember', ['exam', '--path', 'acceptance-dist', '--load-balance']).then(assertExpectRejection, error => {
+        assert.ok(error.message.includes('You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`.'));
+      });
+    });
+
+    it('load balances the test suite with one browser', function() {
+      return execa('ember', ['exam', '--path', 'acceptance-dist', '--load-balance', '--parallel']).then(child => {
+        const output = child.stdout;
+        assertTestExecutionJson(output);
+        assertOutput(output, 'Browser Id', [1]);
+        assert.equal(getNumberOfTests(output), getTotalNumberOfTests(output), 'ran all of the tests in the suite');
+      });
+    });
+
     it('load balances the test suite with 3 browsers', function() {
-      return execa('ember', ['exam', '--load-balance', '3', '--path', 'acceptance-dist']).then(child => {
+      return execa('ember', ['exam', '--path', 'acceptance-dist', '--load-balance', '--parallel', '3']).then(child => {
         const output = child.stdout;
         assertTestExecutionJson(output);
         assertOutput(output, 'Browser Id', [1, 2, 3]);
@@ -154,7 +169,7 @@ describe('Acceptance | Exam Command', function() {
     });
 
     it('load balances partition 1\'s test suite with 3 browsers', function() {
-      return execa('ember', ['exam', '--split', '2', '--load-balance', '3', '--path', 'acceptance-dist']).then(child => {
+      return execa('ember', ['exam', '--path', 'acceptance-dist', '--load-balance', '--split', '2', '--partition', '1', '--parallel', '3']).then(child => {
         const output = child.stdout;
         assertTestExecutionJson(output);
         assertOutput(output, 'Exam Partition', [1], [2]);

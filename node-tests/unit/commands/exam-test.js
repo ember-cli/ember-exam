@@ -7,7 +7,6 @@ const RSVP = require('rsvp');
 const sinon = require('sinon');
 
 const ExamCommand = require('../../../lib/commands/exam');
-const TestOptionsValidator = require('../../../lib/utils/tests-options-validator');
 
 describe('ExamCommand', function() {
   function createCommand() {
@@ -64,8 +63,8 @@ describe('ExamCommand', function() {
     });
 
     it('should set \'load-balance\' in the query option', function() {
-      return command.run({ 'loadBalance': 1 }).then(function() {
-        assert.equal(called.testRunOptions.query, 'loadBalance=1');
+      return command.run({ 'loadBalance': true, parallel: 1 }).then(function() {
+        assert.equal(called.testRunOptions.query, 'loadBalance');
       });
     });
 
@@ -82,7 +81,7 @@ describe('ExamCommand', function() {
     });
 
     it('should not append \'partition\' to the query option when parallelizing', function() {
-      return command.run({ split: 2, partition: [1, 2], parallel: true }).then(function() {
+      return command.run({ split: 2, partition: [1, 2], parallel: 1 }).then(function() {
         assert.equal(called.testRunOptions.query, 'split=2');
       });
     });
@@ -117,42 +116,6 @@ describe('ExamCommand', function() {
       return command.run({ split: 5 }).then(function() {
         assert.equal(process.env.EMBER_EXAM_SPLIT_COUNT, '5');
       });
-    });
-  });
-
-  describe('_generateCustomConfigs', function() {
-    function generateConfig(options) {
-      const project = new MockProject();
-
-      project.isEmberCLIProject = function() { return true; };
-
-      const command = new ExamCommand({
-        project: project,
-        tasks: {}
-      });
-
-      command.validator = new TestOptionsValidator(options);
-
-      return command._generateCustomConfigs(options);
-    }
-    it('should warn if no test_page is defined but use a default', function() {
-      const warnStub = sinon.stub(console, 'warn');
-
-      const config = generateConfig({
-        parallel: true,
-        split: 2,
-        configFile: 'testem.no-test-page.js'
-      });
-
-      assert.deepEqual(config.testPage, [
-        'tests/index.html?hidepassed&split=2&partition=1',
-        'tests/index.html?hidepassed&split=2&partition=2'
-      ]);
-
-      sinon.assert.calledOnce(warnStub);
-      sinon.assert.calledWithExactly(warnStub, 'No test_page value found in the config. Defaulting to "tests/index.html?hidepassed"');
-
-      warnStub.restore();
     });
   });
 

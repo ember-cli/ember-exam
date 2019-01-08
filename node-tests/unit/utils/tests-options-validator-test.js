@@ -74,7 +74,7 @@ describe('TestOptionsValidator', function() {
     }
 
     it('should log a warning if `split` is less than 2', function() {
-      shouldWarn('Split', { split: 1 }, 'You should specify a number of files greater than 1 to split your tests across. Defaulting to 1 split which is the same as not using `--split`.');
+      shouldWarn('Split', { split: 1 }, 'You should specify a number of files greater than 1 to split your tests across. Defaulting to 1 split which is the same as not using `split`.');
     });
 
     it('should throw an error if `partition` is used without `split`', function() {
@@ -134,33 +134,49 @@ describe('TestOptionsValidator', function() {
 
   describe('shouldParallelize', function() {
     it('should throw an error if `split` is not being used', function() {
-      shouldThrow('Parallel', { parallel: true }, /You must specify the `split` option in order to run your tests in parallel/);
+      shouldThrow('Parallel', { parallel: 1 }, /You must specify the `split` option in order to run your tests in parallel/);
     });
 
-    it('it should throw an error if `parallel` is being used with `load-balance`', function() {
-      shouldThrow('Parallel', { parallel: true, loadBalance: 1, split:2 }, /You must not use the `load-balance` option with the `parallel` option/);
-    })
+    it('should throw an error if used with `replay-execution`', function() {
+      shouldThrow('Parallel', { replayExecution: 'abc', parallel: 1 }, /You must not use the `replay-execution` option with the `parallel` option./);
+    });
 
-    it('should return false', function() {
-      shouldEqual('Parallel', { parallel: false }, false);
+    it('should throw an error if used with `replay-browser`', function() {
+      shouldThrow('Parallel', { replayBrowser: 2, parallel: 1 }, /You must not use the `replay-browser` option with the `parallel` option./);
+    });
+
+    it('should throw an error if parallel is > 1 when used with `split`', function() {
+      shouldThrow('Parallel', { split: 2, parallel: 2 }, /When used with `split` or `partition`, `parallel` does not accept a value other than 1./);
+    });
+
+    it('should throw an error if 0 is passed while loadBalance is specified', function() {
+      shouldThrow('Parallel', { loadBalance: 2, parallel: 0 }, /You must specify a value greater than 1 to `parallel`./);
     });
 
     it('should return true', function() {
-      shouldEqual('Parallel', { split: 2, parallel: true }, true);
+      shouldEqual('Parallel', { split: 2, parallel: 1 }, true);
     });
   });
 
   describe('shouldLoadBalance', function() {
-    it('should throw an error if `load-balance` contains a value less than 1', function() {
-      shouldThrow('LoadBalance', { loadBalance: -1}, /You must specify a load-balance value greater than or equal to 1/);
+    it('should throw an error if `replayExecution` is passed', function() {
+      shouldThrow('LoadBalance', { loadBalance: true, replayExecution: 'abc' }, /You must not use the `replay-execution` option with the `load-balance` option./);
     });
 
-    it('should throw an error if `load-balance` is being used with `parallel', function() {
-      shouldThrow('LoadBalance', { loadBalance: 2, parallel: true}, /You must not use the `parallel` option with the `load-balance` option/);
+    it('should throw an error if `replayBrowser` is passed', function() {
+      shouldThrow('LoadBalance', { loadBalance: true, replayBrowser: 3 }, /You must not use the `replay-browser` option with the `load-balance` option./);
+    });
+
+    it('should throw an error if `parallel` is not defined', function() {
+      shouldThrow('LoadBalance', { loadBalance: true }, /You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`./);
+    });
+
+    it('should throw an error if `parallel` has a value less than 1', function() {
+      shouldThrow('LoadBalance', { loadBalance: true, parallel: 0 }, /You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`./);
     });
 
     it('should return true', function() {
-      shouldEqual('LoadBalance', { loadBalance: 3 }, true);
+      shouldEqual('LoadBalance', { loadBalance: true, parallel: 3 }, true);
     });
   });
 
@@ -175,15 +191,15 @@ describe('TestOptionsValidator', function() {
     });
 
     it('should throw an error if `replay-browser` contains a value less than 1', function() {
-      shouldThrow('ReplayExecution', { replayExecution: 'test-execution-0000000.json', replayBrowser: [1, 0]}, /You must specify replay-browser values greater than or equal to 1./);
+      shouldThrow('ReplayExecution', { replayExecution: 'test-execution-0000000.json', replayBrowser: [1, 0] }, /You must specify replay-browser values greater than or equal to 1./);
     });
 
     it('should throw an error if `replay-browser` contains duplicate values', function() {
-      shouldThrow('ReplayExecution', { replayExecution: 'test-execution-0000000.json', replayBrowser: [1, 2, 1]}, /You cannot specify the same replayBrowser value twice. 1 is repeated./);
+      shouldThrow('ReplayExecution', { replayExecution: 'test-execution-0000000.json', replayBrowser: [1, 2, 1] }, /You cannot specify the same replayBrowser value twice. 1 is repeated./);
     })
 
     it('should throw an error if `replay-browser` contains an invalid browser number', function() {
-      shouldThrow('ReplayExecution', { replayExecution: 'test-execution-0000000.json', replayBrowser: [3, 1]}, /You must specify replayBrowser value smaller than a number of browsers in the specified json file./);
+      shouldThrow('ReplayExecution', { replayExecution: 'test-execution-0000000.json', replayBrowser: [3, 1] }, /You must specify replayBrowser value smaller than a number of browsers in the specified json file./);
     })
 
     it('should return true', function() {

@@ -32,7 +32,7 @@ export default function weightTestModules(modules) {
     groups[moduleWeight].push(module);
   });
 
-  // returns modules sorted by weight and alphabetically within its weighted groups
+  // return modules sorted by weight and alphabetically within its weighted groups
   return Object.keys(groups)
     .sort((a, b) => { return b-a })
     .reduce((accumulatedArray, weight) => {
