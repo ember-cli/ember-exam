@@ -1,4 +1,4 @@
-import EmberExamTestLoader from 'ember-exam/test-support/-private/ember-exam-test-loader';
+import EmberExamTestLoader from 'ember-exam/test-support/-private/ember-exam-mocha-test-loader';
 import { describe, it, beforeEach, afterEach } from 'mocha';
 import { expect } from 'chai';
 
@@ -227,5 +227,9 @@ describe('Unit | test-loader', function() {
     expect(this.requiredModules).to.deep.equal([
       'test-10-test',
     ]);
+  });
+
+  it('dummy test to even out the number of tests', function() {
+    expect(true).to.be.ok;
   });
 });

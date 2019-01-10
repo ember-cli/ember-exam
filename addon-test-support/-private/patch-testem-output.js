@@ -1,5 +1,12 @@
 /* globals Testem */
 
+/**
+ * Returns a modified test name including browser or partition information
+ *
+ * @param {Object} urlParams
+ * @param {string} testName
+ * @returns {string} testName
+ */
 function updateTestName(urlParams, testName) {
   const split = urlParams.split;
   const loadBalance = urlParams.loadBalance;
@@ -18,6 +25,11 @@ function updateTestName(urlParams, testName) {
   return testName;
 }
 
+/**
+ * Setup testem test-result event to update the test name when a test completes
+ *
+ * @param {Object} urlParams
+ */
 function patchTestemOutput(urlParams) {
   Testem.on('test-result', (test) => {
     test.name = updateTestName(urlParams, test.name);

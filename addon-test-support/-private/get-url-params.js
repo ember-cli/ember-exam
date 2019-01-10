@@ -2,6 +2,12 @@ function decodeQueryParam(param) {
   return decodeURIComponent(param.replace(/\+/g, '%20'));
 }
 
+/**
+ * Parses the url and return an object containing a param's key and value
+ *
+ * @export
+ * @returns {Object} urlParams
+ */
 export default function getUrlParams() {
   const urlParams = Object.create(null);
   const params = location.search.slice(1).split('&');

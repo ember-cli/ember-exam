@@ -9,7 +9,7 @@ const DEFAULT_WEIGHT = 50;
 * The weight assigned to a module corresponds to its test type execution speed, with slowest being the highest in weight.
 * If the test type is not identifiable from the modulePath, weight default to 50 (ordered after acceptance, but before integration)
 *
-* @param {*} modulePath File path to a module
+* @param {string} modulePath File path to a module
 */
 function getWeight(modulePath) {
   const [, key] = WEIGHT_REGEX.exec(modulePath) || [];
@@ -20,6 +20,13 @@ function getWeight(modulePath) {
   }
 }
 
+/**
+ * Returns the list of modules sorted by its weight
+ *
+ * @export
+ * @param {Array<string>} modules
+ * @returns {Array<string>}
+ */
 export default function weightTestModules(modules) {
   const groups = Object.create(null);
 

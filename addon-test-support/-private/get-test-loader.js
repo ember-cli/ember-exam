@@ -1,18 +1,19 @@
 /* globals require, requirejs */
 
 /**
- * Returns ember-qunit or ember-mocha's test loader
+ * Returns ember-exam-qunit-test-loader or ember-exam-mocha-test-loader
  *
  * @export
  * @returns {Object}
  */
 export default function getTestLoader() {
-  let testLoaderModulePath = 'ember-qunit/test-loader';
-
-  if (!requirejs.entries[testLoaderModulePath]) {
-    testLoaderModulePath = 'ember-mocha/test-loader';
+  if (requirejs.entries['ember-qunit/test-loader']) {
+    const TestLoaderModule = require('./ember-exam-qunit-test-loader');
+    return TestLoaderModule['default'];
+  } else if (requirejs.entries['ember-mocha/test-loader']) {
+    const TestLoaderModule = require('./ember-exam-mocha-test-loader');
+    return TestLoaderModule['default'];
   }
 
-  const TestLoaderModule = require(testLoaderModulePath);
-  return TestLoaderModule['TestLoader'];
+  throw new Error('Cannot find known test loader.');
 }

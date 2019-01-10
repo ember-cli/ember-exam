@@ -14,17 +14,10 @@ Object.keys(require.entries).forEach((entry) => {
 });
 
 setResolver(resolver);
+emberExam.loadEmberExam();
+emberExam.loadTests();
 
 // ember-qunit >= v3 support
 if (framework === 'qunit') {
-  // Use string literal to prevent Babel to transpile this into ES6 import
-  // that would break when tests run with Mocha framework.
-  const QUnit = require(`qunit`);
-
-  emberExam.loadEmberExam(QUnit['default']);
-  emberExam.loadTests();
   require(`ember-${framework}`).start({loadTests: false});
-} else {
-  emberExam.loadEmberExam();
-  emberExam.loadTests();
 }
