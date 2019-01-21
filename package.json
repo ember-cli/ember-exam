@@ -60,7 +60,7 @@
     "mocha-eslint": "^4.1.0",
     "nyc": "^13.1.0",
     "rsvp": "^4.0.2",
-    "sinon": "^7.1.1",
+    "sinon": "^7.2.3",
     "testdouble": "^3.9.3"
   },
   "engines": {
