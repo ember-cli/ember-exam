@@ -5367,7 +5367,7 @@ keyv@3.0.0:
   dependencies:
     json-buffer "3.0.0"
 
-kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.0.4, kind-of@^3.2.0:
+kind-of@^3.0.2, kind-of@^3.0.3, kind-of@^3.2.0:
   version "3.2.2"
   resolved "https://registry.yarnpkg.com/kind-of/-/kind-of-3.2.2.tgz#31ea21a734bab9bbb0f32466d893aea51e4a3c64"
   integrity sha1-MeohpzS6ubuw8yRm2JOupR5KPGQ=
@@ -7610,7 +7610,7 @@ signal-exit@^3.0.0, signal-exit@^3.0.2:
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.2.tgz#b5fdc08f1287ea1178628e415e25132b73646c6d"
   integrity sha1-tf3AjxKH6hF4Yo5BXiUTK3NkbG0=
 
-silent-error@^1.0.0, silent-error@^1.0.1, silent-error@^1.1.0:
+silent-error@^1.0.0, silent-error@^1.0.1, silent-error@^1.1.0, silent-error@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/silent-error/-/silent-error-1.1.1.tgz#f72af5b0d73682a2ba1778b7e32cd8aa7c2d8662"
   integrity sha512-n4iEKyNcg4v6/jpb3c0/iyH2G1nzUNl7Gpqtn/mHIJK9S/q/7MCfoO4rwVOoO59qPFIc0hVHvMbiOJ0NdtxKKw==

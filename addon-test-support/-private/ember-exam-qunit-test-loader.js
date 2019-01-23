@@ -4,9 +4,6 @@ import weightTestModules from './weight-test-modules';
 import { TestLoader } from 'ember-qunit/test-loader';
 import QUnit from 'qunit';
 
-TestLoader.prototype.actualUnsee = TestLoader.prototype.unsee;
-TestLoader.prototype.actualRequire = TestLoader.prototype.require;
-
 /**
  * EmberExamQUnitTestLoader allows delayed requiring of test modules to enable test load balancing
  * It extends ember-qunit/test-loader used by `ember test`, since it overrides moduleLoadFailure()
@@ -37,7 +34,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
 
   /**
    * require() collects the full list of modules before requiring each module with
-   * actualRequire(), instead of requiring and unseeing a module when each gets loaded.
+   * super.require(), instead of requiring and unseeing a module when each gets loaded.
    *
    * @param {string} moduleName
    */
@@ -76,8 +73,8 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
     } else {
       this._testModules = splitTestModules(this._testModules, split, partitions);
       this._testModules.forEach((moduleName) => {
-        this.actualRequire(moduleName);
-        this.actualUnsee(moduleName);
+        super.require(moduleName);
+        super.unsee(moduleName);
       });
     }
   }
@@ -93,8 +90,8 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
         'Failed to load a test module. `moduleName` is undefined in `loadIndividualModule`.'
       );
     }
-    this.actualRequire(moduleName);
-    this.actualUnsee(moduleName);
+    super.require(moduleName);
+    super.unsee(moduleName);
   }
 
   /**
@@ -104,7 +101,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
     // this handler sets up testem event handlers to load a test module. The cleanup of handlers
     // ensures each event will only envoke one handler.
     // if no cleanup was done, multiple handlers will be envoked for a single event, causing
-    // multiple get-next-module events, leading to uneven load balancing
+    // multiple get-next-test-module events, leading to uneven load balancing
     const nextModuleHandler = (resolve , reject) => {
       const getTestModule = (moduleName) => {
         try {
@@ -112,7 +109,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
 
           // if no tests were added, request the next module
           if (this._qunit.config.queue.length === 0) {
-            this._testem.emit('testem:get-next-module');
+            this._testem.emit('testem:get-next-test-module');
           } else {
             // `removeEventCallbacks` removes if the event queue contains the same callback for
             // an event.
@@ -131,7 +128,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
 
       this._testem.on('testem:next-module-response', getTestModule);
       this._testem.on('testem:module-queue-complete', moduleComplete);
-      this._testem.emit('testem:get-next-module');
+      this._testem.emit('testem:get-next-test-module');
     }
 
     this._qunit.begin(() => {

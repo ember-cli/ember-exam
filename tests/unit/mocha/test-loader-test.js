@@ -20,18 +20,18 @@ describe('Unit | test-loader', function() {
       'test-4-test': true,
       'test-4-test.jshint': true,
     };
-    this.testLoader = new EmberExamTestLoader();
+    // this.testLoader = new EmberExamTestLoader();
     this.originalURLParams = EmberExamTestLoader._urlParams;
   });
 
   afterEach(function() {
-    EmberExamTestLoader._urlParams = this.originalURLParams;
+    // EmberExamTestLoader._urlParams = this.originalURLParams;
     window.require = this.originalRequire;
   });
 
   it('loads all test modules by default', function() {
-    this.testLoader._urlParams = {};
-    this.testLoader.loadModules();
+    const testLoader = new EmberExamTestLoader(this.testem, {});
+    testLoader.loadModules();
 
     expect(this.requiredModules).to.deep.equal([
       'test-1-test.jshint',
@@ -46,12 +46,8 @@ describe('Unit | test-loader', function() {
   });
 
   it('loads modules from a specified partition', function() {
-    this.testLoader._urlParams = {
-      _partition: 3,
-      _split: 4,
-    };
-
-    this.testLoader.loadModules();
+    const testLoader = new EmberExamTestLoader(this.testem, { _partition: 3, _split: 4 });
+    testLoader.loadModules();
 
     expect(this.requiredModules).to.deep.equal([
       'test-3-test.jshint',
@@ -60,12 +56,8 @@ describe('Unit | test-loader', function() {
   });
 
   it('loads modules from multiple specified partitions', function() {
-    this.testLoader._urlParams = {
-      _partition: [1, 3],
-      _split: 4,
-    };
-
-    this.testLoader.loadModules();
+    const testLoader = new EmberExamTestLoader(this.testem, { _partition: [1, 3], _split: 4 });
+    testLoader.loadModules();
 
     expect(this.requiredModules).to.deep.equal([
       'test-1-test.jshint',
@@ -76,11 +68,8 @@ describe('Unit | test-loader', function() {
   });
 
   it('loads modules from the first partition by default', function() {
-    this.testLoader._urlParams = {
-      _split: 4,
-    };
-
-    this.testLoader.loadModules();
+    const testLoader = new EmberExamTestLoader(this.testem, { _split: 4 });
+    testLoader.loadModules();
 
     expect(this.requiredModules).to.deep.equal([
       'test-1-test.jshint',
@@ -89,12 +78,8 @@ describe('Unit | test-loader', function() {
   });
 
   it('handles params as strings', function() {
-    this.testLoader._urlParams = {
-      _partition: '3',
-      _split: '4',
-    };
-
-    this.testLoader.loadModules();
+    const testLoader = new EmberExamTestLoader(this.testem, { _partition: '3', _split: '4' });
+    testLoader.loadModules();
 
     expect(this.requiredModules).to.deep.equal([
       'test-3-test.jshint',
@@ -103,78 +88,56 @@ describe('Unit | test-loader', function() {
   });
 
   it('throws an error if splitting less than one', function() {
-    this.testLoader._urlParams = {
-      _split: 0,
-    };
+    const testLoader = new EmberExamTestLoader(this.testem, { _split: 0 });
 
     expect(() => {
-      this.testLoader.loadModules();
+      testLoader.loadModules();
     }).to.throw(/You must specify a split greater than 0/);
   });
 
   it('throws an error if partition isn\'t a number', function() {
-    this.testLoader._urlParams = {
-      _split: 2,
-      _partition: 'foo',
-    };
+    const testLoader = new EmberExamTestLoader(this.testem, { _split: 2, _partition: 'foo' });
 
     expect(() => {
-      this.testLoader.loadModules();
+      testLoader.loadModules();
     }).to.throw(/You must specify numbers for partition \(you specified 'foo'\)/);
   });
 
   it('throws an error if partition isn\'t a number with multiple partitions', function() {
-    this.testLoader._urlParams = {
-      _split: 2,
-      _partition: [1, 'foo'],
-    };
+    const testLoader = new EmberExamTestLoader(this.testem, { _split: 2, _partition: [1, 'foo'] });
 
     expect(() => {
-      this.testLoader.loadModules();
+      testLoader.loadModules();
     }).to.throw(/You must specify numbers for partition \(you specified '1,foo'\)/);
   });
 
   it('throws an error if loading partition greater than split number', function() {
-    this.testLoader._urlParams = {
-      _split: 2,
-      _partition: 3,
-    };
+    const testLoader = new EmberExamTestLoader(this.testem, { _split: 2, _partition: 3 });
 
     expect(() => {
-      this.testLoader.loadModules();
+      testLoader.loadModules();
     }).to.throw(/You must specify partitions numbered less than or equal to your split value/);
   });
 
   it('throws an error if loading partition greater than split number with multiple partitions', function() {
-    this.testLoader._urlParams = {
-      _split: 2,
-      _partition: [2, 3],
-    };
+    const testLoader = new EmberExamTestLoader(this.testem, { _split: 2, _partition: [2, 3] });
 
     expect(() => {
-      this.testLoader.loadModules();
+      testLoader.loadModules();
     }).to.throw(/You must specify partitions numbered less than or equal to your split value/);
   });
 
   it('throws an error if loading partition less than one', function() {
-    this.testLoader._urlParams = {
-      _split: 2,
-      _partition: 0,
-    };
+    const testLoader = new EmberExamTestLoader(this.testem, { _split: 2, _partition: 0 });
 
     expect(() => {
-      this.testLoader.loadModules();
+      testLoader.loadModules();
     }).to.throw(/You must specify partitions numbered greater than 0/);
   });
 
   it('load works without lint tests', function() {
-    this.testLoader._urlParams = {
-      nolint: true,
-      _partition: 4,
-      _split: 4,
-    };
-
-    this.testLoader.loadModules();
+    const testLoader = new EmberExamTestLoader(this.testem, { nolint: true, _partition: 4, _split: 4 });
+    testLoader.loadModules();
 
     // ember-cli-mocha doesn't support disabling linting by url param
     expect(this.requiredModules).to.deep.equal([
@@ -184,6 +147,8 @@ describe('Unit | test-loader', function() {
   });
 
   it('load works without non-lint tests', function() {
+    const testLoader = new EmberExamTestLoader(this.testem, { _partition: 4,  _split: 4 });
+
     window.requirejs.entries = {
       'test-1-test.jshint': true,
       'test-2-test.jshint': true,
@@ -191,12 +156,7 @@ describe('Unit | test-loader', function() {
       'test-4-test.jshint': true,
     };
 
-    this.testLoader._urlParams = {
-      _partition: 4,
-      _split: 4,
-    };
-
-    this.testLoader.loadModules();
+    testLoader.loadModules();
 
     expect(this.requiredModules).to.deep.equal([
       'test-4-test.jshint',
@@ -204,6 +164,8 @@ describe('Unit | test-loader', function() {
   });
 
   it('load works with a double-digit single partition', function() {
+    const testLoader = new EmberExamTestLoader(this.testem, { _partition: '10', _split: 10 });
+
     window.requirejs.entries = {
       'test-1-test': true,
       'test-2-test': true,
@@ -217,12 +179,7 @@ describe('Unit | test-loader', function() {
       'test-10-test': true,
     };
 
-    this.testLoader._urlParams = {
-      _partition: '10',
-      _split: 10,
-    };
-
-    this.testLoader.loadModules();
+    testLoader.loadModules();
 
     expect(this.requiredModules).to.deep.equal([
       'test-10-test',

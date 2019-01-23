@@ -2,9 +2,6 @@ import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
 import { TestLoader } from 'ember-mocha/test-loader';
 
-TestLoader.prototype.actualRequire = TestLoader.prototype.require;
-TestLoader.prototype.actualUnsee = TestLoader.prototype.unsee;
-
 /**
  * EmberExamMochaTestLoader extends ember-mocha/test-loader used by `ember test`, since it
  * overrides moduleLoadFailure() to log a test failure when a module fails to load
@@ -33,7 +30,7 @@ export default class EmberExamMochaTestLoader extends TestLoader {
 
   /**
    * require() collects the full list of modules before requiring each module with
-   * actualRequire(), instead of requiring and unseeing a module when each gets loaded.
+   * super.require, instead of requiring and unseeing a module when each gets loaded.
    *
    * @param {string} moduleName
    */
@@ -62,8 +59,8 @@ export default class EmberExamMochaTestLoader extends TestLoader {
 
     this._testModules = splitTestModules(this._testModules, split, partitions);
     this._testModules.forEach((moduleName) => {
-      this.actualRequire(moduleName);
-      this.actualUnsee(moduleName);
+      super.require(moduleName);
+      super.unsee(moduleName);
     });
   }
 }

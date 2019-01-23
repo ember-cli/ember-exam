@@ -7,7 +7,7 @@
  * @param {string} testName
  * @returns {string} testName
  */
-function updateTestName(urlParams, testName) {
+export function updateTestName(urlParams, testName) {
   const split = urlParams.split;
   const loadBalance = urlParams.loadBalance;
 
@@ -30,13 +30,8 @@ function updateTestName(urlParams, testName) {
  *
  * @param {Object} urlParams
  */
-function patchTestemOutput(urlParams) {
+export function patchTestemOutput(urlParams) {
   Testem.on('test-result', (test) => {
     test.name = updateTestName(urlParams, test.name);
   });
 }
-
-export default {
-  updateTestName,
-  patchTestemOutput
-};
