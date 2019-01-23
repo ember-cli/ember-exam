@@ -1,4 +1,24 @@
 
+v2.0.2 / 2019-01-22
+===================
+
+* Bump chalk from 2.4.1 to 2.4.2
+* Bump debug from 4.1.0 to 4.1.1
+* Bump ember-cli from 3.5.1 to 3.7.1
+* Bump ember-cli-babel from 7.1.4 to 7.4.0
+* Bump ember-cli-dependency-checker from 3.0.0 to 3.1.0
+* Bump ember-cli-htmlbars-inline-precompile from 2.0.0 to 2.1.0
+* Bump ember-qunit from 4.1.2 to 4.2.0
+* Bump ember-source from 3.6.0 to 3.7.2
+* Bump ember-template-lint from 0.8.23 to 1.1.0
+* Bump eslint-plugin-ember from 6.0.1 to 6.1.0
+* Bump eslint-plugin-node from 8.0.0 to 8.0.1
+* Bump rimraf from 2.6.2 to 2.6.3
+* Bump sinon from 7.1.1 to 7.2.3
+* Bump testdouble from 3.9.1 to 3.9.3
+* Run test:all to trigger ember & node test in ci, add missing single quote, and change number of tests running
+* `setResolver()` from `@ember/test-helpers`
+
 v2.0.1 / 2018-12-07
 ===================
 
