@@ -1,6 +1,6 @@
 {
   "name": "ember-exam",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Run your tests with randomization, splitting, and parallelization for beautiful tests.",
   "keywords": [
     "ember-addon"
