@@ -8,12 +8,14 @@
  */
 export default function getTestLoader() {
   if (requirejs.entries['ember-qunit/test-loader']) {
-    const TestLoaderModule = require('./ember-exam-qunit-test-loader');
-    return TestLoaderModule['default'];
+    const EmberExamQUnitTestLoader = require('./ember-exam-qunit-test-loader');
+    return EmberExamQUnitTestLoader['default'];
   } else if (requirejs.entries['ember-mocha/test-loader']) {
-    const TestLoaderModule = require('./ember-exam-mocha-test-loader');
-    return TestLoaderModule['default'];
+    const EmberExamMochaTestLoader = require('./ember-exam-mocha-test-loader');
+    return EmberExamMochaTestLoader['default'];
   }
 
-  throw new Error('Cannot find known test loader.');
+  throw new Error(
+    'Unable to find a suitable test loader. You should ensure that one of `ember-qunit` or `ember-mocha` are added as dependencies.'
+  );
 }

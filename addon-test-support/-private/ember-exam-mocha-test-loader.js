@@ -21,7 +21,7 @@ export default class EmberExamMochaTestLoader extends TestLoader {
   }
 
   /**
-   * Ember-cli-test-loader instanciates a new TestLoader instance and calls loadModules.
+   * Ember-cli-test-loader instantiates a new TestLoader instance and calls loadModules.
    * EmberExamMochaTestLoader does not support load() in favor of loadModules().
    */
   static load() {
@@ -38,6 +38,9 @@ export default class EmberExamMochaTestLoader extends TestLoader {
     this._testModules.push(moduleName);
   }
 
+  /**
+   * Make unsee a no-op to avoid any unwanted resets
+   */
   unsee() {}
 
   /**

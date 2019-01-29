@@ -30,7 +30,9 @@ function loadEmberExam() {
  */
 function loadTests() {
   if (testLoader === undefined) {
-    throw new Error('testLoader is not defined. It must call `loadEmberExam()` before calling `loadTest()`.')
+    throw new Error(
+      'A testLoader instance has not been created. You must call `loadEmberExam()` before calling `loadTest()`.'
+    );
   }
 
   testLoader.loadModules();

@@ -4,16 +4,9 @@ const assert = require('assert');
 const ExecutionStateManager = require('../../../lib/utils/execution-state-manager');
 
 describe('ExecutionStateManager', function() {
-  before(function() {
-    this.stateManager = new ExecutionStateManager;
-  });
-
   beforeEach(function() {
+    this.stateManager = new ExecutionStateManager;
     this.moduleQueue = ['foo', 'bar', 'baz', 'boo', 'far', 'faz'];
-  });
-
-  afterEach(function() {
-    this.stateManager.cleanUpStates();
   });
 
   describe('moduleQueue', function() {

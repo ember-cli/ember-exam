@@ -25,7 +25,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
   }
 
   /**
-   * ember-cli-test-loader instanciates a new TestLoader instance and calls loadModules.
+   * ember-cli-test-loader instantiates a new TestLoader instance and calls loadModules.
    * EmberExamQUnitTestLoader does not support load() in favor of loadModules().
    */
   static load() {
@@ -42,6 +42,9 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
     this._testModules.push(moduleName);
   }
 
+  /**
+   * Make unsee a no-op to avoid any unwanted resets
+   */
   unsee() {}
 
   /**
