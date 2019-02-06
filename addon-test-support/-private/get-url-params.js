@@ -9,7 +9,7 @@ function decodeQueryParam(param) {
  * @returns {Object} urlParams
  */
 export default function getUrlParams() {
-  const urlParams = Object.create(null);
+  const urlParams = new Map();
   const params = location.search.slice(1).split('&');
 
   for (let i = 0; i < params.length; i++) {

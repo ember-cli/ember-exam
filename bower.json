@@ -1,0 +1,9 @@
+{
+  "name": "ember-try-placeholder",
+  "dependencies": {
+    "ember": "components/ember#canary"
+  },
+  "resolutions": {
+    "ember": "canary"
+  }
+}

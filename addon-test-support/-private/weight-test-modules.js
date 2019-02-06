@@ -33,7 +33,7 @@ function getWeight(modulePath) {
  * @returns {Array<string>}
  */
 export default function weightTestModules(modules) {
-  const groups = Object.create(null);
+  const groups = new Map();
 
   modules.forEach((module) => {
     const moduleWeight = getWeight(module);

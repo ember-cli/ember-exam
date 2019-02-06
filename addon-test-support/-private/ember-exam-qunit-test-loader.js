@@ -2,6 +2,7 @@ import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
 import weightTestModules from './weight-test-modules';
 import { TestLoader } from 'ember-qunit/test-loader';
+import AsyncIterator from './async-iterator';
 import QUnit from 'qunit';
 
 /**
@@ -101,45 +102,40 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
    * setupLoadBalanceHandlers() registers QUnit callbacks neeeded for the load-balance option.
    */
   setupLoadBalanceHandlers() {
-    // this handler sets up testem event handlers to load a test module. The cleanup of handlers
-    // ensures each event will only envoke one handler.
-    // if no cleanup was done, multiple handlers will be envoked for a single event, causing
-    // multiple get-next-test-module events, leading to uneven load balancing
-    const nextModuleHandler = (resolve , reject) => {
-      const getTestModule = (moduleName) => {
-        try {
+    const nextModuleAsyncIterator = new AsyncIterator(this._testem, {
+      request: 'testem:next-module-request',
+      response: 'testem:next-module-response'
+    });
+
+    const nextModuleHandler = async function(resolve, reject) {
+      try {
+        let response = await nextModuleAsyncIterator.next();
+        let testAdded = false;
+
+        // iterate promises until a test is added or there is no modules left in test module queue
+        while (!testAdded && !response.done) {
+          const moduleName = response.value;
           this.loadIndividualModule(moduleName);
 
           // if no tests were added, request the next module
           if (this._qunit.config.queue.length === 0) {
-            this._testem.emit('testem:get-next-test-module');
+            response = await nextModuleAsyncIterator.next();
           } else {
-            // `removeEventCallbacks` removes if the event queue contains the same callback for
-            // an event.
-            this._testem.removeEventCallbacks('testem:next-module-response', getTestModule);
-            this._testem.removeEventCallbacks('testem:module-queue-complete', moduleComplete);
-            resolve();
+            testAdded = true;
           }
-        } catch (err) {
-          reject(err);
         }
-      }
-      const moduleComplete = () => {
-        this._testem.removeEventCallbacks('testem:next-module-response', getTestModule);
         resolve();
+      } catch (err){
+        reject(err);
       }
-
-      this._testem.on('testem:next-module-response', getTestModule);
-      this._testem.on('testem:module-queue-complete', moduleComplete);
-      this._testem.emit('testem:get-next-test-module');
     }
 
     this._qunit.begin(() => {
-      return new self.Promise(nextModuleHandler);
+      return new self.Promise(nextModuleHandler.bind(this));
     });
 
-    this._qunit.moduleDone(() =>{
-      return new self.Promise(nextModuleHandler);
+    this._qunit.moduleDone(() => {
+      return new self.Promise(nextModuleHandler.bind(this));
     });
   }
 }
