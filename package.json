@@ -46,7 +46,7 @@
     "ember-disable-prototype-extensions": "^1.1.2",
     "ember-export-application-global": "^2.0.0",
     "ember-load-initializers": "^2.0.0",
-    "ember-qunit": "^4.1.1",
+    "ember-qunit": "^4.3.0",
     "ember-resolver": "^5.0.1",
     "ember-source": "~3.7.2",
     "ember-source-channel-url": "^1.1.0",
