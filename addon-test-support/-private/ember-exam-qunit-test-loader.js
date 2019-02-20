@@ -107,7 +107,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
       response: 'testem:next-module-response'
     });
 
-    const nextModuleHandler = async function(resolve, reject) {
+    const nextModuleHandler = async () => {
       try {
         let response = await nextModuleAsyncIterator.next();
         let testAdded = false;
@@ -124,18 +124,20 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
             testAdded = true;
           }
         }
-        resolve();
       } catch (err){
-        reject(err);
+        throw new Error(`Failed to get a next test module to load. - ${err}`);
       }
     }
 
+    // it registers qunit begin callback to ask for a next test moudle to execute when the test suite begins.
+    // By default ember-qunit adds `Ember.onerror` test to a qunit processing queue and once the test is complete it execute _qunit.moduleDone callback.
+    // However, when `setupEmberOnerrorValidation: false` is passed the test is disabled and _qunit.begin callback needs to request a next test module to run.
     this._qunit.begin(() => {
-      return new self.Promise(nextModuleHandler.bind(this));
+      return nextModuleHandler.call(this);
     });
 
     this._qunit.moduleDone(() => {
-      return new self.Promise(nextModuleHandler.bind(this));
+      return nextModuleHandler.call(this);
     });
   }
 }

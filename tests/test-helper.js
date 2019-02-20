@@ -2,9 +2,8 @@
 
 import { setResolver } from '@ember/test-helpers';
 import resolver from './helpers/resolver';
-import emberExam from 'ember-exam/test-support/load';
+import start from 'ember-exam/test-support/start';
 
-const framework = require.has('ember-qunit') ? 'qunit' : 'mocha';
 const oppositeFramework = !require.has('ember-qunit') ? 'qunit' : 'mocha';
 
 Object.keys(require.entries).forEach((entry) => {
@@ -14,10 +13,5 @@ Object.keys(require.entries).forEach((entry) => {
 });
 
 setResolver(resolver);
-emberExam.loadEmberExam();
-emberExam.loadTests();
+start();
 
-// ember-qunit >= v3 support
-if (framework === 'qunit') {
-  require(`ember-${framework}`).start({loadTests: false});
-}

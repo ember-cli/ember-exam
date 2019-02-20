@@ -1,5 +1,7 @@
 'use strict';
 
+import getUrlParams from './get-url-params';
+
 /**
  * A class to iterate a sequencial asynchrouse event.
  *
@@ -14,6 +16,8 @@ export default class AsyncIterator {
     this._current = null;
     this._boundHandleResponse = this.handleResponse.bind(this);
     this._waiting = false;
+    // Set a timeout value from either url parameter or default timeout value, 2 s.
+    this._timeout = getUrlParams().asyncTimeout || 2;
     testem.on(this._response, this._boundHandleResponse);
   }
 
@@ -34,8 +38,6 @@ export default class AsyncIterator {
    * @param {*} response
    */
   handleResponse(response) {
-    console.debug(`handleResponse ${response}`);
-
     if (this._waiting === false) {
       throw new Error(this.toString() + ' Was not expecting a response, but got a response');
     } else {
@@ -51,6 +53,10 @@ export default class AsyncIterator {
       this._current.reject(e);
     } finally {
       this._current = null;
+
+      if (this.timer) {
+        clearTimeout(this.timer);
+      }
     }
   }
 
@@ -69,8 +75,23 @@ export default class AsyncIterator {
    */
   _makeNextRequest() {
     this._waiting = true;
-    console.debug(`makeRequest ${this._request}`);
     this._testem.emit(this._request);
+  }
+
+  /**
+   * Set a timeout to reject a promise if it doesn't get response within the timeout threshold.
+   *
+   * @param {*} reject
+   */
+  _setTimeout(reject) {
+    clearTimeout(this.timeout);
+    this.timer = setTimeout(() => {
+      if (!this._waiting) {
+        return;
+      }
+      let err = new Error(`EmberExam: Promise timed out after ${this._timeout} ms while waiting for response for ${this._request}`)
+      reject(err);
+    }, this._timeout * 1000);
   }
 
   /**
@@ -86,9 +107,8 @@ export default class AsyncIterator {
     let promise = new Promise((_resolve, _reject) => {
       resolve = _resolve;
       reject = _reject;
+      this._setTimeout(reject);
     });
-
-    // TODO: timeout?
 
     this._current = {
       resolve,
