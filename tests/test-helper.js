@@ -14,4 +14,3 @@ Object.keys(require.entries).forEach((entry) => {
 
 setResolver(resolver);
 start();
-

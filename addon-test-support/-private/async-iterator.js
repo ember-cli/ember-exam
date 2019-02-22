@@ -89,7 +89,7 @@ export default class AsyncIterator {
       if (!this._waiting) {
         return;
       }
-      let err = new Error(`EmberExam: Promise timed out after ${this._timeout} ms while waiting for response for ${this._request}`)
+      let err = new Error(`EmberExam: Promise timed out after ${this._timeout} s while waiting for response for ${this._request}`)
       reject(err);
     }, this._timeout * 1000);
   }

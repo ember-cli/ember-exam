@@ -24,7 +24,7 @@ module('Unit | test-loader', {
       emit: function(event) {
         this.eventQueue.push(event);
       },
-      on: ()=> {}
+      on: () => {}
     };
     this.qunit = {
       config: { queue: [] },
