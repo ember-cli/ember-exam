@@ -56,7 +56,7 @@
     "eslint-plugin-node": "^8.0.0",
     "istanbul": "^0.4.3",
     "loader.js": "^4.7.0",
-    "mocha": "^6.0.0",
+    "mocha": "^6.0.1",
     "mocha-eslint": "^4.1.0",
     "nyc": "^13.3.0",
     "rsvp": "^4.0.2",
