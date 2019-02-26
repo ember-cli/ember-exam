@@ -66,7 +66,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
 
     super.loadModules();
 
-    if (loadBalance) {
+    if (loadBalance && this._testem) {
       this.setupLoadBalanceHandlers();
       this._testModules = splitTestModules(
         weightTestModules(this._testModules),
