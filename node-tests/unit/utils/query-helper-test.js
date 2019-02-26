@@ -8,31 +8,31 @@ describe('QueryHelper', function() {
     it('should add param when no query and value is true', function() {
       const validQuery = addToQuery(null, 'foo', true);
 
-      assert.deepEqual(validQuery, 'foo')
+      assert.deepEqual(validQuery, 'foo');
     });
 
     it('should add param and value when no query and value is string', function() {
       const validQuery = addToQuery(null, 'foo', 'bar');
 
-      assert.deepEqual(validQuery, 'foo=bar')
+      assert.deepEqual(validQuery, 'foo=bar');
     });
 
     it('should add param to query when value is boolean', function() {
       const validQuery = addToQuery('foo', 'bar', true);
 
-      assert.deepEqual(validQuery, 'foo&bar')
+      assert.deepEqual(validQuery, 'foo&bar');
     });
 
     it('should add param and value to query when value is string', function() {
       const validQuery = addToQuery('foo', 'bar', 'baz');
 
-      assert.deepEqual(validQuery, 'foo&bar=baz')
+      assert.deepEqual(validQuery, 'foo&bar=baz');
     });
 
     it('should not add param when value is false', function() {
       const validQuery = addToQuery('foo', 'bar', false);
 
-      assert.deepEqual(validQuery, 'foo')
+      assert.deepEqual(validQuery, 'foo');
     });
   });
 
@@ -52,7 +52,7 @@ describe('QueryHelper', function() {
     it('should add param and value to url when value is string', function() {
       const url = addToUrl('tests/index.html?hidepassed', 'foo', 'bar');
 
-      assert.deepEqual(url, 'tests/index.html?hidepassed&foo=bar')
+      assert.deepEqual(url, 'tests/index.html?hidepassed&foo=bar');
     });
   });
 });

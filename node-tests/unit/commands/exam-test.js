@@ -17,7 +17,9 @@ describe('ExamCommand', function() {
 
     const project = new MockProject();
 
-    project.isEmberCLIProject = function() { return true; };
+    project.isEmberCLIProject = function() {
+      return true;
+    };
 
     return new ExamCommand({
       project: project,
@@ -56,55 +58,70 @@ describe('ExamCommand', function() {
       });
     });
 
-    it('should set \'partition\' in the query option with one partition', function() {
+    it("should set 'partition' in the query option with one partition", function() {
       return command.run({ split: 2, partition: [2] }).then(function() {
         assert.equal(called.testRunOptions.query, 'split=2&partition=2');
       });
     });
 
-    it('should set \'load-balance\' in the query option', function() {
-      return command.run({ 'loadBalance': true, parallel: 1 }).then(function() {
+    it("should set 'load-balance' in the query option", function() {
+      return command.run({ loadBalance: true, parallel: 1 }).then(function() {
         assert.equal(called.testRunOptions.query, 'loadBalance');
       });
     });
 
-    it('should set \'partition\' in the query option with multiple partitions', function() {
+    it("should set 'partition' in the query option with multiple partitions", function() {
       return command.run({ split: 2, partition: [1, 2] }).then(function() {
-        assert.equal(called.testRunOptions.query, 'split=2&partition=1&partition=2');
+        assert.equal(
+          called.testRunOptions.query,
+          'split=2&partition=1&partition=2'
+        );
       });
     });
 
-    it('should append \'partition\' to the query option', function() {
-      return command.run({ split: 2, partition: [2], query: 'someQuery=derp&hidepassed' }).then(function() {
-        assert.equal(called.testRunOptions.query, 'someQuery=derp&hidepassed&split=2&partition=2');
-      });
+    it("should append 'partition' to the query option", function() {
+      return command
+        .run({ split: 2, partition: [2], query: 'someQuery=derp&hidepassed' })
+        .then(function() {
+          assert.equal(
+            called.testRunOptions.query,
+            'someQuery=derp&hidepassed&split=2&partition=2'
+          );
+        });
     });
 
-    it('should not append \'partition\' to the query option when parallelizing', function() {
-      return command.run({ split: 2, partition: [1, 2], parallel: 1 }).then(function() {
-        assert.equal(called.testRunOptions.query, 'split=2');
-      });
+    it("should not append 'partition' to the query option when parallelizing", function() {
+      return command
+        .run({ split: 2, partition: [1, 2], parallel: 1 })
+        .then(function() {
+          assert.equal(called.testRunOptions.query, 'split=2');
+        });
     });
 
-    it('should not append \'partition\' to the query option when not parallelizing without partitions', function() {
+    it("should not append 'partition' to the query option when not parallelizing without partitions", function() {
       return command.run({ split: 2 }).then(function() {
         assert.equal(called.testRunOptions.query, 'split=2');
       });
     });
 
-    it('should set \'seed=1337\' in the query option', function() {
+    it("should set 'seed=1337' in the query option", function() {
       return command.run({ random: '1337' }).then(function() {
         assert.equal(called.testRunOptions.query, 'seed=1337');
       });
     });
 
-    it('should append \'seed=1337\' to the query option', function() {
-      return command.run({ random: '1337', query: 'someQuery=derp&hidepassed' }).then(function() {
-        assert.equal(called.testRunOptions.query, 'someQuery=derp&hidepassed&seed=1337');
-      });
+    it("should append 'seed=1337' to the query option", function() {
+      return command
+        .run({ random: '1337', query: 'someQuery=derp&hidepassed' })
+        .then(function() {
+          assert.equal(
+            called.testRunOptions.query,
+            'someQuery=derp&hidepassed&seed=1337'
+          );
+        });
     });
 
-    it('should set \'seed=random_seed\' in the query option', function() {
+    it("should set 'seed=random_seed' in the query option", function() {
       const randomStub = sinon.stub(Math, 'random').returns('  random_seed');
       return command.run({ random: '' }).then(function() {
         assert.equal(called.testRunOptions.query, 'seed=random_seed');

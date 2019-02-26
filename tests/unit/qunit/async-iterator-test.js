@@ -1,12 +1,15 @@
 import AsyncIterator from 'ember-exam/test-support/-private/async-iterator';
-import { module, test } from 'qunit';
+import {
+  module,
+  test
+} from 'qunit';
 
 
 module('Unit | async-iterator', {
   beforeEach() {
     this.testem = {
       eventHandler: new Array(),
-      emit: function(event) {
+      emit: function (event) {
         const argsWithoutFirst = Array.prototype.slice.call(arguments, 1);
         if (this.eventHandler && this.eventHandler[event]) {
           let handlers = this.eventHandler[event];
@@ -15,7 +18,7 @@ module('Unit | async-iterator', {
           }
         }
       },
-      on: function(event, callBack) {
+      on: function (event, callBack) {
         if (!this.eventHandler) {
           this.eventHandler = {};
         }
@@ -29,18 +32,18 @@ module('Unit | async-iterator', {
   }
 });
 
-test('should instantiate', function(assert) {
+test('should instantiate', function (assert) {
   let iteratorOfPromises = new AsyncIterator(this.testem, {
     request: 'next-module-request',
     response: 'next-module-response'
   });
 
   assert.deepEqual(iteratorOfPromises.done, false);
-  assert.deepEqual(typeof(iteratorOfPromises.next), 'function');
-  assert.deepEqual(typeof(iteratorOfPromises.dispose), 'function');
+  assert.deepEqual(typeof (iteratorOfPromises.next), 'function');
+  assert.deepEqual(typeof (iteratorOfPromises.dispose), 'function');
 });
 
-test('should get the value from response.', async function(assert) {
+test('should get the value from response.', async function (assert) {
   this.testem.on('next-module-request', () => {
     this.testem.emit('next-module-response', {
       done: false,
@@ -57,8 +60,8 @@ test('should get the value from response.', async function(assert) {
   assert.deepEqual('a', step.value);
 });
 
-test('should iterate promises until there is no response.', async function(assert) {
-  const testem = Testem;
+test('should iterate promises until there is no response.', async function (assert) {
+  const testem = this.testem;
   const responses = ['a', 'b', 'c'];
 
   testem.on('next-module-request', () => {
@@ -76,7 +79,7 @@ test('should iterate promises until there is no response.', async function(asser
   let step = await iteratorOfPromises.next();
   let values = [];
 
-  while(!step.done) {
+  while (!step.done) {
     values.push(step.value);
     step = await iteratorOfPromises.next();
   }
@@ -84,7 +87,7 @@ test('should iterate promises until there is no response.', async function(asser
   assert.deepEqual(values, ['a', 'b', 'c']);
 });
 
-test('should return false after disposing', async function(assert) {
+test('should return false after disposing', async function (assert) {
   const iteratorOfPromises = new AsyncIterator(this.testem, {
     request: 'next-module-request',
     response: 'next-module-response'
@@ -95,8 +98,8 @@ test('should return false after disposing', async function(assert) {
   assert.deepEqual(iteratorOfPromises.done, true);
 });
 
-test('should dispose after iteration.', async function(assert) {
-  const testem = Testem;
+test('should dispose after iteration.', async function (assert) {
+  const testem = this.testem;
   const responses = ['a', 'b', 'c'];
 
   testem.on('next-module-request', () => {
@@ -113,14 +116,14 @@ test('should dispose after iteration.', async function(assert) {
 
   let step = await iteratorOfPromises.next();
 
-  while(!step.done) {
+  while (!step.done) {
     step = await iteratorOfPromises.next();
   }
 
   assert.deepEqual(iteratorOfPromises.done, true);
 });
 
-test('should throw a timout error if request is not handled within 2s', async function(assert) {
+test('should throw a timout error if request is not handled within 2s', async function (assert) {
   const iteratorOfPromises = new AsyncIterator(this.testem, {
     request: 'next-module-request',
     response: 'next-module-response'
@@ -130,18 +133,24 @@ test('should throw a timout error if request is not handled within 2s', async fu
 
   try {
     await iteratorOfPromises.next()
-  } catch(err) {
+  } catch (err) {
     errMessage = err.message;
   }
 
-  assert.deepEqual(errMessage, 'EmberExam: Promise timed out after 2 s while waiting for response for next-module-request')
+  assert.deepEqual(
+    errMessage,
+    'EmberExam: Promise timed out after 2 s while waiting for response for next-module-request'
+  );
 });
 
-test('should throw an error if handleResponse is invoked while not waiting for a response', function(assert){
+test('should throw an error if handleResponse is invoked while not waiting for a response', function (assert) {
   const iteratorOfPromises = new AsyncIterator(this.testem, {
     request: 'next-module-request',
     response: 'next-module-response'
   });
 
-  assert.throws(() => iteratorOfPromises.handleResponse({}), /Was not expecting a response, but got a response/);
+  assert.throws(
+    () => iteratorOfPromises.handleResponse({}),
+    /Was not expecting a response, but got a response/
+  );
 });
