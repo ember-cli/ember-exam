@@ -1,7 +1,9 @@
 import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
 import weightTestModules from './weight-test-modules';
-import { TestLoader } from 'ember-qunit/test-loader';
+import {
+  TestLoader
+} from 'ember-qunit/test-loader';
 import AsyncIterator from './async-iterator';
 import QUnit from 'qunit';
 
@@ -72,7 +74,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
         weightTestModules(this._testModules),
         split,
         partitions
-        );
+      );
       this._testem.emit('testem:set-modules-queue', this._testModules);
     } else {
       this._testModules = splitTestModules(this._testModules, split, partitions);
@@ -102,32 +104,31 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
    * setupLoadBalanceHandlers() registers QUnit callbacks neeeded for the load-balance option.
    */
   setupLoadBalanceHandlers() {
+    // nextModuleAsyncIterator handles the async testem events
+    // it returns an element of {value: <moduleName>, done: boolean}
     const nextModuleAsyncIterator = new AsyncIterator(this._testem, {
       request: 'testem:next-module-request',
       response: 'testem:next-module-response'
     });
 
-    const nextModuleHandler = async () => {
-      try {
-        let response = await nextModuleAsyncIterator.next();
-        let testAdded = false;
+    const nextModuleHandler = () => {
+      return new Promise((resolve, reject) => {
+        nextModuleAsyncIterator.next().then((response) => {
+          if (!response.done) {
+            const moduleName = response.value;
+            this.loadIndividualModule(moduleName);
 
-        // iterate promises until a test is added or there is no modules left in test module queue
-        while (!testAdded && !response.done) {
-          const moduleName = response.value;
-          this.loadIndividualModule(moduleName);
-
-          // if no tests were added, request the next module
-          if (this._qunit.config.queue.length === 0) {
-            response = await nextModuleAsyncIterator.next();
-          } else {
-            testAdded = true;
+            // if no tests were added, request the next module
+            if (this._qunit.config.queue.length === 0) {
+              resolve(nextModuleHandler());
+            }
           }
-        }
-      } catch (err){
-        throw new Error(`Failed to get a next test module to load. - ${err}`);
-      }
-    }
+          resolve();
+        }).catch((err) => {
+          reject(`Failed to get a next test module to load. - ${err}`);
+        });
+      });
+    };
 
     // it registers qunit begin callback to ask for a next test moudle to execute when the test suite begins.
     // By default ember-qunit adds `Ember.onerror` test to a qunit processing queue and once the test is complete it execute _qunit.moduleDone callback.

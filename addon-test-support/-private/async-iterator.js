@@ -3,7 +3,7 @@
 import getUrlParams from './get-url-params';
 
 /**
- * A class to iterate a sequencial asynchrouse event.
+ * A class to iterate a sequencial set of asynchronous events.
  *
  * @class AsyncIterator
  */
@@ -98,8 +98,9 @@ export default class AsyncIterator {
    * Gets the next response from the request and resolve the promise.
    * if it's end of the iteration resolve the promise with done being true.
    *
+   * @return {Promise}
    */
-  async next() {
+  next() {
     if (this._done)    { return Promise.resolve({ done: true, value: null }); }
     if (this._current) { return this._current.promise; }
 
