@@ -21,6 +21,8 @@ describe('TestOptionsValidator', function() {
         return validator.validateRandom();
       case 'Parallel':
         return validator.validateParallel();
+      case 'ExecutionOnly':
+        return validator.validateExecutionOnly();
       case 'LoadBalance':
         return validator.validateLoadBalance();
       case 'ReplayExecution':
@@ -192,6 +194,45 @@ describe('TestOptionsValidator', function() {
       shouldEqual('Parallel', { split: 2, parallel: 1 }, true);
     });
   });
+
+  describe('ShouldExecuteOnly', function() {
+    it('should throw an error if `execution-only` is used without `load-balance`', function() {
+      shouldThrow(
+        'ExecutionOnly',
+        { executionOnly: true },
+        /You must run test suite with the `load-balance` option in order to use the `execution-only` option./
+      );
+    });
+
+    it('should throw an error if `execution-only` is used without `load-balance`', function() {
+      shouldThrow(
+        'ExecutionOnly',
+        { split: 2, partition: 1, executionOnly: true },
+        /You must run test suite with the `load-balance` option in order to use the `execution-only` option./
+      );
+    });
+
+    it('should throw an error if `execution-only` is used without `load-balance`', function() {
+      shouldThrow(
+        'ExecutionOnly',
+        { replayExecution: 'test-execution-0000000.json',
+          replayBrowser: [1, 2],
+          executionOnly: true },
+        /You must run test suite with the `load-balance` option in order to use the `execution-only` option./
+      );
+    });
+
+    it('should return true', function() {
+      shouldEqual(
+        'ExecutionOnly',
+        { loadBalance: true,
+          parallel: 2,
+          executionOnly: true
+        },
+        true
+      );
+    });
+  })
 
   describe('shouldLoadBalance', function() {
     it('should throw an error if `replayExecution` is passed', function() {

@@ -35,7 +35,7 @@ describe('TestemEvents', function() {
     });
 
     it('set sharedModuleQueue for load-balance mode', function() {
-      this.testemEvents.setModuleQueue(1, this.moduleQueue, true, false, 'ci');
+      this.testemEvents.setModuleQueue(1, this.moduleQueue, true, false, false);
 
       assert.deepEqual(
         this.testemEvents.stateManager.getSharedModuleQueue(),
@@ -45,13 +45,13 @@ describe('TestemEvents', function() {
 
     it('ignore subsequent setModuleQueue if moduleQueue is already set for load-balance mode', function() {
       const anotherModuleQueue = ['a', 'b', 'c'];
-      this.testemEvents.setModuleQueue(1, this.moduleQueue, true, false, 'ci');
+      this.testemEvents.setModuleQueue(1, this.moduleQueue, true, false, false);
       this.testemEvents.setModuleQueue(
         2,
         anotherModuleQueue,
         true,
         false,
-        'ci'
+        false
       );
 
       assert.deepEqual(
@@ -62,7 +62,7 @@ describe('TestemEvents', function() {
 
     it('set browserModuleQueue for replay-execution mode', function() {
       this.testemEvents.setReplayExecutionMap(testExecutionJsonPath, [1]);
-      this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true, 'ci');
+      this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true, false);
 
       assert.deepEqual(
         this.testemEvents.stateManager.getBrowserModuleQueue(1),
@@ -72,7 +72,7 @@ describe('TestemEvents', function() {
 
     it('set browserModuleQueue for replay-execution mode when replay-browser is undefined', function() {
       this.testemEvents.setReplayExecutionMap(testExecutionJsonPath);
-      this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true, 'ci');
+      this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true, false);
 
       assert.deepEqual(
         this.testemEvents.stateManager.getBrowserModuleQueue(1),
@@ -88,7 +88,7 @@ describe('TestemEvents', function() {
             this.moduleQueue,
             false,
             true,
-            'ci'
+            false
           ),
         /No replay execution map was set on the stateManager/,
         'Error is thrown'
@@ -129,7 +129,7 @@ describe('TestemEvents', function() {
 
     it('should fire next-module-response event and save the moduleName to stateManager.moduleMap when load-balance is true', function() {
       this.testemEvents.stateManager.setSharedModuleQueue(this.moduleQueue);
-      this.testemEvents.nextModuleResponse(1, socket, true, 'ci');
+      this.testemEvents.nextModuleResponse(1, socket, true, false);
 
       assert.deepEqual(
         socket.events,
@@ -145,7 +145,7 @@ describe('TestemEvents', function() {
 
     it('should fire module-queue-complete event when load-balance is true', function() {
       this.testemEvents.stateManager.setSharedModuleQueue([]);
-      this.testemEvents.nextModuleResponse(1, socket, true, 'ci');
+      this.testemEvents.nextModuleResponse(1, socket, true, false);
 
       assert.deepEqual(
         socket.events,
@@ -161,7 +161,7 @@ describe('TestemEvents', function() {
 
     it('should fire next-module-response event when replayExecution is true', function() {
       this.testemEvents.stateManager.setBrowserModuleQueue(this.moduleQueue, 1);
-      this.testemEvents.nextModuleResponse(1, socket, false, 'ci');
+      this.testemEvents.nextModuleResponse(1, socket, false, false);
 
       assert.deepEqual(
         socket.events,
@@ -177,7 +177,7 @@ describe('TestemEvents', function() {
 
     it('should fire module-queue-complete event when replayExecution is true', function() {
       this.testemEvents.stateManager.setBrowserModuleQueue([], 1);
-      this.testemEvents.nextModuleResponse(1, socket, false, 'ci');
+      this.testemEvents.nextModuleResponse(1, socket, false, false);
 
       assert.deepEqual(
         socket.events,
@@ -245,7 +245,7 @@ describe('TestemEvents', function() {
         2,
         true,
         'test-execution.json',
-        'ci'
+        false
       );
 
       assert.equal(
@@ -261,7 +261,7 @@ describe('TestemEvents', function() {
         1,
         true,
         'test-execution.json',
-        'ci'
+        false
       );
 
       const actual = fs.readFileSync(
@@ -282,7 +282,7 @@ describe('TestemEvents', function() {
         2,
         false,
         'test-execution.json',
-        'ci'
+        false
       );
 
       assert.equal(
