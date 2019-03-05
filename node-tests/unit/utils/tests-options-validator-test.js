@@ -15,16 +15,16 @@ const TestExecutionJson = {
 describe('TestOptionsValidator', function() {
   function validateCommand(validator, cmd) {
     switch (cmd) {
-      case 'Split':
-        return validator.validateSplit();
+      case 'PartitionCount':
+        return validator.validatePartitionCount();
       case 'Random':
         return validator.validateRandom();
       case 'Parallel':
         return validator.validateParallel();
       case 'writeExecutionFile':
         return validator.validateWriteExecutionFile();
-      case 'LoadBalance':
-        return validator.validateLoadBalance();
+      case 'BrowserCount':
+        return validator.validateBrowserCount();
       case 'ReplayExecution':
         return validator.validateReplayExecution();
       default:
@@ -73,61 +73,61 @@ describe('TestOptionsValidator', function() {
     /* eslint-enable no-console */
   }
 
-  describe('shouldSplit', function() {
-    function shouldSplitThrows(options, message) {
-      shouldThrow('Split', options, message);
+  describe('shouldSplitByPartitionCount', function() {
+    function shouldSplitByPartitionCountThrows(options, message) {
+      shouldThrow('PartitionCount', options, message);
     }
 
-    function shouldSplitEqual(options, message) {
-      shouldEqual('Split', options, message);
+    function shouldSplitByPartitionCountEqual(options, message) {
+      shouldEqual('PartitionCount', options, message);
     }
 
-    it('should log a warning if `split` is less than 2', function() {
+    it('should log a warning if `partitionCount` is less than 2', function() {
       shouldWarn(
-        'Split',
-        { split: 1 },
-        'You should specify a number of files greater than 1 to split your tests across. Defaulting to 1 split which is the same as not using `split`.'
+        'PartitionCount',
+        { partitionCount: 1 },
+        'You should specify a number of files greater than 1 to split your tests across. Defaulting to 1 partition-count which is the same as not using `partition-count`.'
       );
     });
 
-    it('should throw an error if `partition` is used without `split`', function() {
-      shouldSplitThrows(
+    it('should throw an error if `partition` is used without `partition-count`', function() {
+      shouldSplitByPartitionCountThrows(
         { partition: [1] },
-        /You must specify a `split` value in order to use `partition`/
+        /You must specify a `partition-count` value in order to use `partition`/
       );
     });
 
     it('should throw an error if `partition` contains a value less than 1', function() {
-      shouldSplitThrows(
-        { split: 2, partition: [1, 0] },
+      shouldSplitByPartitionCountThrows(
+        { partitionCount: 2, partition: [1, 0] },
         /Split tests are one-indexed, so you must specify partition values greater than or equal to 1./
       );
     });
 
-    it('should throw an error if `partition` contains a value greater than `split`', function() {
-      shouldSplitThrows(
-        { split: 2, partition: [1, 3] },
-        /You must specify `partition` values that are less than or equal to your `split` value./
+    it('should throw an error if `partition` contains a value greater than `partition-count`', function() {
+      shouldSplitByPartitionCountThrows(
+        { partitionCount: 2, partition: [1, 3] },
+        /You must specify `partition` values that are less than or equal to your `partition-count` value./
       );
     });
 
     it('should throw an error if `partition` contains duplicate values', function() {
-      shouldSplitThrows(
-        { split: 2, partition: [1, 2, 1] },
+      shouldSplitByPartitionCountThrows(
+        { partitionCount: 2, partition: [1, 2, 1] },
         /You cannot specify the same partition value twice. 1 is repeated./
       );
     });
 
-    it('should return true if using `split`', function() {
-      shouldSplitEqual({ split: 2 }, true);
+    it('should return true if using `partition-count`', function() {
+      shouldSplitByPartitionCountEqual({ partitionCount: 2 }, true);
     });
 
-    it('should return true if using `split` and `partition`', function() {
-      shouldSplitEqual({ split: 2, partition: [1] }, true);
+    it('should return true if using `partition-count` and `partition`', function() {
+      shouldSplitByPartitionCountEqual({ partitionCount: 2, partition: [1] }, true);
     });
 
-    it('should return false if not using `split`', function() {
-      shouldSplitEqual({}, false);
+    it('should return false if not using `partition-count`', function() {
+      shouldSplitByPartitionCountEqual({}, false);
     });
   });
 
@@ -162,18 +162,18 @@ describe('TestOptionsValidator', function() {
   });
 
   describe('shouldParallelize', function() {
-    it('should throw an error if `split` is not being used', function() {
+    it('should throw an error if `partition-count` is not being used', function() {
       shouldThrow(
         'Parallel',
-        { parallel: 1 },
-        /You must specify the `split` option in order to run your tests in parallel/
+        { parallel: true },
+        /You must specify the `partition-count` option in order to run your tests in parallel/
       );
     });
 
     it('should throw an error if used with `replay-execution`', function() {
       shouldThrow(
         'Parallel',
-        { replayExecution: 'abc', parallel: 1 },
+        { replayExecution: 'abc', parallel: true },
         /You must not use the `replay-execution` option with the `parallel` option./
       );
     });
@@ -181,29 +181,17 @@ describe('TestOptionsValidator', function() {
     it('should throw an error if used with `replay-browser`', function() {
       shouldThrow(
         'Parallel',
-        { replayBrowser: 2, parallel: 1 },
+        { replayBrowser: 2, parallel: true },
         /You must not use the `replay-browser` option with the `parallel` option./
       );
     });
 
-    it('should throw an error if parallel is > 1 when used with `split`', function() {
-      shouldThrow(
-        'Parallel',
-        { split: 2, parallel: 2 },
-        /When used with `split` or `partition`, `parallel` does not accept a value other than 1./
-      );
-    });
-
-    it('should throw an error if 0 is passed while loadBalance is specified', function() {
-      shouldThrow(
-        'Parallel',
-        { loadBalance: 2, parallel: 0 },
-        /You must specify a value greater than 1 to `parallel`./
-      );
+    it('should throw an error if used with `browser-count`', function() {
+      shouldThrow('Parallel', { browserCount: 2, parallel: true }, /You must not use the `browser-count` option with the `parallel` option./);
     });
 
     it('should return true', function() {
-      shouldEqual('Parallel', { split: 2, parallel: 1 }, true);
+      shouldEqual('Parallel', { partitionCount: 2, partition: 1, parallel: true }, true);
     });
   });
 
@@ -212,35 +200,34 @@ describe('TestOptionsValidator', function() {
       shouldEqual(
         'writeExecutionFile',
         {
-          loadBalance: true,
-          parallel: 2,
+          browser: 2,
           launch: 'false'
         },
         false
       );
     });
 
-    it('should throw an error if `write-execution-file` is used without `load-balance`', function() {
+    it('should throw an error if `write-execution-file` is used without `browser-count`', function() {
       shouldThrow(
         'writeExecutionFile',
         { writeExecutionFile: true },
-        /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./
+        /You must run test suite with the `browser-count` option in order to use the `write-execution-file` option./
       );
     });
 
-    it('should throw an error if `write-execution-file` is used without `load-balance`', function() {
+    it('should throw an error if `write-execution-file` is used without `browser-count`', function() {
       shouldThrow(
         'writeExecutionFile',
         {
-          split: 2,
+          partitionCount: 2,
           partition: 1,
           writeExecutionFile: true
         },
-        /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./
+        /You must run test suite with the `browser-count` option in order to use the `write-execution-file` option./
       );
     });
 
-    it('should throw an error if `write-execution-file` is used without `load-balance`', function() {
+    it('should throw an error if `write-execution-file` is used without `browser-count`', function() {
       shouldThrow(
         'writeExecutionFile',
         {
@@ -248,7 +235,7 @@ describe('TestOptionsValidator', function() {
           replayBrowser: [1, 2],
           writeExecutionFile: true
         },
-        /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./
+        /You must run test suite with the `browser-count` option in order to use the `write-execution-file` option./
       );
     });
 
@@ -256,8 +243,7 @@ describe('TestOptionsValidator', function() {
       shouldThrow(
         'writeExecutionFile',
         {
-          loadBalance: true,
-          parallel: 1,
+          browserCount: 1,
           launch: 'false',
           writeExecutionFile: true
         },
@@ -269,7 +255,7 @@ describe('TestOptionsValidator', function() {
       shouldEqual(
         'writeExecutionFile',
         {
-          loadBalance: true,
+          browserCount: 2,
           parallel: 2,
           writeExecutionFile: true
         },
@@ -278,11 +264,11 @@ describe('TestOptionsValidator', function() {
     });
   });
 
-  describe('shouldLoadBalance', function() {
+  describe('shouldBrowserCount', function() {
     it('should throw an error if ember-cli version is below 3.2.0', function() {
       shouldThrow(
-        'LoadBalance',
-        { loadBalance: true, replayExecution: 'abc' },
+        'BrowserCount',
+        { browserCount: 1, replayExecution: 'abc' },
         /You must be using ember-cli version \^3.2.0 for this feature to work properly./,
         '3.0.0'
       );
@@ -290,8 +276,8 @@ describe('TestOptionsValidator', function() {
 
     it('should throw an error if ember-cli version is ~3.1.0', function() {
       shouldThrow(
-        'LoadBalance',
-        { loadBalance: true, replayExecution: 'abc' },
+        'BrowserCount',
+        { browserCount: 2, replayExecution: 'abc' },
         /You must be using ember-cli version \^3.2.0 for this feature to work properly./,
         '~3.1.0'
       );
@@ -299,46 +285,46 @@ describe('TestOptionsValidator', function() {
 
     it('should throw an error if `replayExecution` is passed', function() {
       shouldThrow(
-        'LoadBalance',
-        { loadBalance: true, replayExecution: 'abc' },
-        /You must not use the `replay-execution` option with the `load-balance` option./
+        'BrowserCount',
+        { browserCount: 1, replayExecution: 'abc' },
+        /You must not use the `replay-execution` option with the `browser-count` option./
       );
     });
 
     it('should throw an error if `replayBrowser` is passed', function() {
       shouldThrow(
-        'LoadBalance',
-        { loadBalance: true, replayBrowser: 3 },
-        /You must not use the `replay-browser` option with the `load-balance` option./
+        'BrowserCount',
+        { browserCount: 1, replayBrowser: 3 },
+        /You must not use the `replay-browser` option with the `browser-count` option./
       );
     });
 
-    it('should throw an error if `parallel` is not defined', function() {
+    it('should throw an error if `parallel` is defined', function() {
       shouldThrow(
-        'LoadBalance',
-        { loadBalance: true },
-        /You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`./
+        'BrowserCount',
+        { browserCount: 2, parallel: true },
+        /You must not use the `parallel` option with the `browser-count` option./
       );
     });
 
-    it('should throw an error if `parallel` has a value less than 1', function() {
+    it('should throw an error if `browser-count` has a value less than 1', function() {
       shouldThrow(
-        'LoadBalance',
-        { loadBalance: true, parallel: 0 },
-        /You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`./
+        'BrowserCount',
+        { browserCount: 0 },
+        /You must specify a value greater than 1 to `browser-count`./
       );
     });
 
     it('should throw an error if `no-launch` is passed', function() {
       shouldThrow(
-        'LoadBalance',
-        { loadBalance: true, parallel: 0, launch: 'false' },
-        /You must not use `no-launch` option with the `load-balance` option./
+        'BrowserCount',
+        { browserCount: 1, launch: 'false' },
+        /You must not use `no-launch` option with the `browser-count` option./
       );
     });
 
     it('should return true', function() {
-      shouldEqual('LoadBalance', { loadBalance: true, parallel: 3 }, true);
+      shouldEqual('BrowserCount', { browserCount : 3 }, true);
     });
   });
 

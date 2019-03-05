@@ -66,10 +66,10 @@ describe('Acceptance | Exam Iterate Command', function() {
       '--parallel'
     ]);
     return execution.then(assertExpectRejection, error => {
-      const splitErrorRE = /You must specify the `split` option in order to run your tests in parallel./g;
+      const partitionCountErrorRE = /You must specify the `partition-count` option in order to run your tests in parallel/g;
 
       assert.ok(
-        splitErrorRE.test(error.stderr),
+        partitionCountErrorRE.test(error.stderr),
         'expected stderr to contain the appropriate error message'
       );
       assert.equal(error.code, 1);

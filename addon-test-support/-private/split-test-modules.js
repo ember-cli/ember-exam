@@ -33,17 +33,17 @@ function isNotLintTest(name) {
  *
  * @export
  * @param {Array<string>} modules
- * @param {number} split
+ * @param {number} partitionCount
  * @param {number} partitions
  * @returns {Array<string>} tests
  */
-export default function splitTestModules(modules, split, partitions) {
-  if (split < 1) {
-    throw new Error('You must specify a split greater than 0');
+export default function splitTestModules(modules, partitionCount, partitions) {
+  if (partitionCount < 1) {
+    throw new Error('You must specify a partition-count greater than 0');
   }
 
-  const lintTestGroups = filterIntoGroups(modules, isLintTest, split);
-  const otherTestGroups = filterIntoGroups(modules, isNotLintTest, split);
+  const lintTestGroups = filterIntoGroups(modules, isLintTest, partitionCount);
+  const otherTestGroups = filterIntoGroups(modules, isNotLintTest, partitionCount);
   const tests = [];
 
   for (let i = 0; i < partitions.length; i++) {
@@ -56,12 +56,9 @@ export default function splitTestModules(modules, split, partitions) {
       );
     }
 
-    if (split < partition) {
-      throw new Error(
-        'You must specify partitions numbered less than or equal to your split value of ' +
-          split
-      );
-    } else if (partition < 1) {
+    if (partitionCount < partition) {
+      throw new Error('You must specify partitions numbered less than or equal to your partition-count value of ' + partitionCount);
+    } else  if (partition < 1) {
       throw new Error('You must specify partitions numbered greater than 0');
     }
 

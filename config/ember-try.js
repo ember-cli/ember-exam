@@ -5,7 +5,7 @@ const getChannelURL = require('ember-source-channel-url');
 const command = [
   'ember',
   'exam',
-  '--split',
+  '--partition-count',
   '3',
   '--parallel',
   '--random',

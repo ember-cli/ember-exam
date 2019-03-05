@@ -91,11 +91,11 @@ describe('Acceptance | Exam Command', function() {
     });
   });
 
-  describe('Split', function() {
-    it('splits the test suite but only runs the first partition', function() {
+  describe('PartitionCount', function() {
+    it('splits the test suite by `partition-count` but only runs the first partition', function() {
       return execa('ember', [
         'exam',
-        '--split',
+        '--partition-count',
         '3',
         '--path',
         'acceptance-dist'
@@ -105,10 +105,10 @@ describe('Acceptance | Exam Command', function() {
     });
 
     describe('Partition', function() {
-      it('splits the test suite and runs a specified partition', function() {
+      it('splits the test suite by `partition-count` and runs a specified partition', function() {
         return execa('ember', [
           'exam',
-          '--split',
+          '--partition-count',
           '3',
           '--partition',
           '2',
@@ -119,10 +119,10 @@ describe('Acceptance | Exam Command', function() {
         });
       });
 
-      it('splits the test suite and runs multiple specified partitions', function() {
+      it('splits the test suite by `partition-count`and runs multiple specified partitions', function() {
         return execa('ember', [
           'exam',
-          '--split',
+          '--partition-count',
           '3',
           '--partition',
           '1,3',
@@ -136,7 +136,7 @@ describe('Acceptance | Exam Command', function() {
       it('errors when running an invalid partition', function() {
         return execa('ember', [
           'exam',
-          '--split',
+          '--partition-count',
           '3',
           '--partition',
           '4',
@@ -145,7 +145,7 @@ describe('Acceptance | Exam Command', function() {
         ]).then(assertExpectRejection, error => {
           assert.ok(
             error.message.includes(
-              'You must specify `partition` values that are less than or equal to your `split` value.'
+              'You must specify `partition` values that are less than or equal to your `partition-count` value.'
             )
           );
         });
@@ -161,7 +161,7 @@ describe('Acceptance | Exam Command', function() {
         ]).then(assertExpectRejection, error => {
           assert.ok(
             error.message.includes(
-              'You must specify a `split` value in order to use `partition`.'
+              'You must specify a `partition-count` value in order to use `partition`.'
             )
           );
         });
@@ -174,7 +174,7 @@ describe('Acceptance | Exam Command', function() {
           'exam',
           '--path',
           'acceptance-dist',
-          '--split',
+          '--partition-count',
           '3',
           '--parallel'
         ]).then(child => {
@@ -185,7 +185,7 @@ describe('Acceptance | Exam Command', function() {
       it('runs multiple specified partitions in parallel', function() {
         return execa('ember', [
           'exam',
-          '--split',
+          '--partition-count',
           '3',
           '--partition',
           '1,3',
@@ -222,7 +222,7 @@ describe('Acceptance | Exam Command', function() {
     });
   });
 
-  describe('Load Balance', function() {
+  describe('Browser Count', function() {
     const unlinkFiles = [];
 
     function assertTestExecutionJson(output) {
@@ -245,16 +245,18 @@ describe('Acceptance | Exam Command', function() {
       unlinkFiles.length = 0;
     });
 
-    it('errors if `--parallel` is not passed', function() {
+    it('errors if `--parallel` is passed', function() {
       return execa('ember', [
         'exam',
         '--path',
         'acceptance-dist',
-        '--load-balance'
+        '--browser-count',
+        '2',
+        '--parallel'
       ]).then(assertExpectRejection, error => {
         assert.ok(
           error.message.includes(
-            'You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`.'
+            'You must not use the `browser-count` option with the `parallel` option.'
           )
         );
       });
@@ -266,12 +268,11 @@ describe('Acceptance | Exam Command', function() {
         '--path',
         'acceptance-dist',
         '--write-execution-file',
-        '--load-balance',
-        '--parallel'
+        '--browser-count',
+        '1'
       ]).then(child => {
         const output = child.stdout;
         assertTestExecutionJson(output);
-        assertOutput(output, 'Browser Id', [1]);
         assert.equal(
           getNumberOfTests(output),
           getTotalNumberOfTests(output),
@@ -285,8 +286,7 @@ describe('Acceptance | Exam Command', function() {
         'exam',
         '--path',
         'acceptance-dist',
-        '--load-balance',
-        '--parallel',
+        '--browser-count',
         '3',
         '--write-execution-file'
       ]).then(child => {
@@ -306,13 +306,12 @@ describe('Acceptance | Exam Command', function() {
         'exam',
         '--path',
         'acceptance-dist',
-        '--load-balance',
-        '--split',
+        '--browser-count',
+        '3',
+        '--partition-count',
         '2',
         '--partition',
         '1',
-        '--parallel',
-        '3',
         '--write-execution-file'
       ]).then(child => {
         const output = child.stdout;
@@ -356,8 +355,7 @@ describe('Acceptance | Exam Command', function() {
           'exam',
           '--path',
           'failure-dist',
-          '--load-balance',
-          '--parallel',
+          '--browser-count',
           '2',
           '--write-execution-file'
         ]).then(assertExpectRejection, error => {

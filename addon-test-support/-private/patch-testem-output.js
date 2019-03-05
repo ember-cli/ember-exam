@@ -8,17 +8,16 @@
  * @returns {string} testName
  */
 export function updateTestName(urlParams, testName) {
-  const split = urlParams.get('split');
-  const loadBalance = urlParams.get('loadBalance');
+  const partitionCount = urlParams.get('partitionCount');
 
   const partition = urlParams.get('partition') || 1;
-  const browser = urlParams.get('browser') || 1;
+  const browser = urlParams.get('browser');
 
-  if (split && loadBalance) {
-    testName = `Exam Partition ${partition} - Browser Id ${browser} - ${testName}`;
-  } else if (split) {
+  if (partitionCount && browser) {
+    testName = `Exam Partition ${partition} - Browser Id ${browser} - ${testName}`
+  } else if (partitionCount) {
     testName = `Exam Partition ${partition} - ${testName}`;
-  } else if (loadBalance) {
+  } else if (browser) {
     testName = `Browser Id ${browser} - ${testName}`;
   }
 

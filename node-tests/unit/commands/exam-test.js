@@ -64,48 +64,42 @@ describe('ExamCommand', function() {
     });
 
     it('should set `partition` in the query option with one partition', function() {
-      return command.run({ split: 2, partition: [2] }).then(function() {
-        assert.equal(called.testRunOptions.query, 'split=2&partition=2');
-      });
-    });
-
-    it('should set `load-balance` in the query option', function() {
-      return command.run({ loadBalance: true, parallel: 1 }).then(function() {
-        assert.equal(called.testRunOptions.query, 'loadBalance');
+      return command.run({ partitionCount: 2, partition: [2] }).then(function() {
+        assert.equal(called.testRunOptions.query, 'partitionCount=2&partition=2');
       });
     });
 
     it('should set `partition` in the query option with multiple partitions', function() {
-      return command.run({ split: 2, partition: [1, 2] }).then(function() {
+      return command.run({ partitionCount: 2, partition: [1, 2] }).then(function() {
         assert.equal(
           called.testRunOptions.query,
-          'split=2&partition=1&partition=2'
+          'partitionCount=2&partition=1&partition=2'
         );
       });
     });
 
     it('should append `partition` to the query option', function() {
       return command
-        .run({ split: 2, partition: [2], query: 'someQuery=derp&hidepassed' })
+        .run({ partitionCount: 2, partition: [2], query: 'someQuery=derp&hidepassed' })
         .then(function() {
           assert.equal(
             called.testRunOptions.query,
-            'someQuery=derp&hidepassed&split=2&partition=2'
+            'someQuery=derp&hidepassed&partitionCount=2&partition=2'
           );
         });
     });
 
     it('should not append `partition` to the query option when parallelizing', function() {
       return command
-        .run({ split: 2, partition: [1, 2], parallel: 1 })
+        .run({ partitionCount: 2, partition: [1, 2], parallel: true })
         .then(function() {
-          assert.equal(called.testRunOptions.query, 'split=2');
+          assert.equal(called.testRunOptions.query, 'partitionCount=2');
         });
     });
 
     it('should not append `partition` to the query option when not parallelizing without partitions', function() {
-      return command.run({ split: 2 }).then(function() {
-        assert.equal(called.testRunOptions.query, 'split=2');
+      return command.run({ partitionCount: 2 }).then(function() {
+        assert.equal(called.testRunOptions.query, 'partitionCount=2');
       });
     });
 
@@ -134,8 +128,8 @@ describe('ExamCommand', function() {
       });
     });
 
-    it('should set split env var', function() {
-      return command.run({ split: 5 }).then(function() {
+    it('should set partitionCount env var', function() {
+      return command.run({ partitionCount: 5 }).then(function() {
         assert.equal(process.env.EMBER_EXAM_SPLIT_COUNT, '5');
       });
     });

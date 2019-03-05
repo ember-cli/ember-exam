@@ -52,12 +52,12 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
    * Loads the test modules depending on the urlParam
    */
   loadModules() {
-    const loadBalance = this._urlParams.get('loadBalance');
+    // if url params has browser key it's defaulting to load tests balance
     const browserId = this._urlParams.get('browser');
     let partitions = this._urlParams.get('partition');
-    let split = parseInt(this._urlParams.get('split'), 10);
+    let partitionCount = parseInt(this._urlParams.get('partitionCount'), 10);
 
-    split = isNaN(split) ? 1 : split;
+    partitionCount = isNaN(partitionCount) ? 1 : partitionCount;
 
     if (partitions === undefined) {
       partitions = [1];
@@ -67,11 +67,11 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
 
     super.loadModules();
 
-    if (loadBalance && this._testem) {
+    if (browserId && this._testem) {
       this.setupLoadBalanceHandlers();
       this._testModules = splitTestModules(
         weightTestModules(this._testModules),
-        split,
+        partitionCount,
         partitions
       );
       this._testem.emit(
@@ -82,7 +82,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
     } else {
       this._testModules = splitTestModules(
         this._testModules,
-        split,
+        partitionCount,
         partitions
       );
       this._testModules.forEach((moduleName) => {
