@@ -21,8 +21,8 @@ describe('TestOptionsValidator', function() {
         return validator.validateRandom();
       case 'Parallel':
         return validator.validateParallel();
-      case 'ExecutionOnly':
-        return validator.validateExecutionOnly();
+      case 'noExecutionFile':
+        return validator.validateNoExecutionFile();
       case 'LoadBalance':
         return validator.validateLoadBalance();
       case 'ReplayExecution':
@@ -196,38 +196,38 @@ describe('TestOptionsValidator', function() {
   });
 
   describe('ShouldExecuteOnly', function() {
-    it('should throw an error if `execution-only` is used without `load-balance`', function() {
+    it('should throw an error if `no-execution-file` is used without `load-balance`', function() {
       shouldThrow(
-        'ExecutionOnly',
-        { executionOnly: true },
-        /You must run test suite with the `load-balance` option in order to use the `execution-only` option./
+        'noExecutionFile',
+        { noExecutionFile: true },
+        /You must run test suite with the `load-balance` option in order to use the `no-execution-file` option./
       );
     });
 
-    it('should throw an error if `execution-only` is used without `load-balance`', function() {
+    it('should throw an error if `no-execution-file` is used without `load-balance`', function() {
       shouldThrow(
-        'ExecutionOnly',
-        { split: 2, partition: 1, executionOnly: true },
-        /You must run test suite with the `load-balance` option in order to use the `execution-only` option./
+        'noExecutionFile',
+        { split: 2, partition: 1, noExecutionFile: true },
+        /You must run test suite with the `load-balance` option in order to use the `no-execution-file` option./
       );
     });
 
-    it('should throw an error if `execution-only` is used without `load-balance`', function() {
+    it('should throw an error if `no-execution-file` is used without `load-balance`', function() {
       shouldThrow(
-        'ExecutionOnly',
+        'noExecutionFile',
         { replayExecution: 'test-execution-0000000.json',
           replayBrowser: [1, 2],
-          executionOnly: true },
-        /You must run test suite with the `load-balance` option in order to use the `execution-only` option./
+          noExecutionFile: true },
+        /You must run test suite with the `load-balance` option in order to use the `no-execution-file` option./
       );
     });
 
     it('should return true', function() {
       shouldEqual(
-        'ExecutionOnly',
+        'noExecutionFile',
         { loadBalance: true,
           parallel: 2,
-          executionOnly: true
+          noExecutionFile: true
         },
         true
       );

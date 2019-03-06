@@ -35,7 +35,7 @@ describe('TestemEvents', function() {
     });
 
     it('set sharedModuleQueue for load-balance mode', function() {
-      this.testemEvents.setModuleQueue(1, this.moduleQueue, true, false, false);
+      this.testemEvents.setModuleQueue(1, this.moduleQueue, true, false);
 
       assert.deepEqual(
         this.testemEvents.stateManager.getSharedModuleQueue(),
@@ -45,12 +45,11 @@ describe('TestemEvents', function() {
 
     it('ignore subsequent setModuleQueue if moduleQueue is already set for load-balance mode', function() {
       const anotherModuleQueue = ['a', 'b', 'c'];
-      this.testemEvents.setModuleQueue(1, this.moduleQueue, true, false, false);
+      this.testemEvents.setModuleQueue(1, this.moduleQueue, true, false);
       this.testemEvents.setModuleQueue(
         2,
         anotherModuleQueue,
         true,
-        false,
         false
       );
 
@@ -62,7 +61,7 @@ describe('TestemEvents', function() {
 
     it('set browserModuleQueue for replay-execution mode', function() {
       this.testemEvents.setReplayExecutionMap(testExecutionJsonPath, [1]);
-      this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true, false);
+      this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true);
 
       assert.deepEqual(
         this.testemEvents.stateManager.getBrowserModuleQueue(1),
@@ -72,7 +71,7 @@ describe('TestemEvents', function() {
 
     it('set browserModuleQueue for replay-execution mode when replay-browser is undefined', function() {
       this.testemEvents.setReplayExecutionMap(testExecutionJsonPath);
-      this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true, false);
+      this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true);
 
       assert.deepEqual(
         this.testemEvents.stateManager.getBrowserModuleQueue(1),
@@ -87,8 +86,7 @@ describe('TestemEvents', function() {
             1,
             this.moduleQueue,
             false,
-            true,
-            false
+            true
           ),
         /No replay execution map was set on the stateManager/,
         'Error is thrown'
