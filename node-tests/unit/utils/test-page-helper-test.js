@@ -4,9 +4,10 @@ const assert = require('assert');
 const sinon = require('sinon');
 const {
   convertOptionValueToArray,
-  getTestUrlFromTestemConfig,
+  getBrowserId,
   getCustomBaseUrl,
-  getMultipleTestPages
+  getMultipleTestPages,
+  getTestUrlFromTestemConfig
 } = require('../../../lib/utils/test-page-helper');
 
 describe('TestPageHelper', function() {
@@ -33,6 +34,16 @@ describe('TestPageHelper', function() {
 
     it('should have a number of array when a specified option is a combination of number and string in range', function() {
       assert.deepEqual(convertOptionValueToArray([1, '3..6']), [1, 3, 4, 5, 6]);
+    });
+  });
+
+  describe('getBrowserId', function() {
+    it('should return the correct browserId', function() {
+      assert.equal(getBrowserId('loadBalance&browser=1'), 1);
+    });
+
+    it('should return 0 if no browser param is found in the test page', function() {
+      assert.equal(getBrowserId('loadBalance'), 0);
     });
   });
 

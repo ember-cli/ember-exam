@@ -238,9 +238,14 @@ describe('TestemEvents', function() {
   });
 
   describe('completedBrowsersHandler', function() {
+    const mockUi = {
+      writeLine: () => {}
+    };
+
     it('should increment completedBrowsers only when completedBrowsers is less than browserCount', function() {
       this.testemEvents.completedBrowsersHandler(
         2,
+        mockUi,
         true,
         'test-execution.json',
         false
@@ -257,6 +262,7 @@ describe('TestemEvents', function() {
       this.testemEvents.stateManager.addToModuleMap('a', 1);
       this.testemEvents.completedBrowsersHandler(
         1,
+        mockUi,
         true,
         'test-execution.json',
         false
@@ -278,6 +284,7 @@ describe('TestemEvents', function() {
     it('should increment completedBrowsers when load-balance is false', function() {
       this.testemEvents.completedBrowsersHandler(
         2,
+        mockUi,
         false,
         'test-execution.json',
         false
@@ -296,6 +303,7 @@ describe('TestemEvents', function() {
 
       this.testemEvents.completedBrowsersHandler(
         2,
+        mockUi,
         true,
         'test-execution.json',
         false
@@ -308,9 +316,12 @@ describe('TestemEvents', function() {
     });
 
     it('should clean up states from stateManager when test execution is completed', function() {
+      const mockReplayExecutionMap = { 1: ['a'] };
       this.testemEvents.stateManager.addToModuleMap('a', 1);
+      this.testemEvents.stateManager.setReplayExecutionMap(mockReplayExecutionMap);
       this.testemEvents.completedBrowsersHandler(
         1,
+        mockUi,
         true,
         'test-execution.json',
         false
@@ -327,6 +338,10 @@ describe('TestemEvents', function() {
       assert.deepEqual(
         this.testemEvents.stateManager.getBrowserModuleQueue(),
         null
+      );
+      assert.deepEqual(
+        this.testemEvents.stateManager.getReplayExecutionMap(),
+        mockReplayExecutionMap
       );
     });
   });
