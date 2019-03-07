@@ -135,7 +135,7 @@ describe('TestemEvents', function() {
         'testem:next-module-response event was emitted with payload foo'
       );
       assert.deepEqual(
-        this.testemEvents.stateManager.getModuleMap()[1],
+        this.testemEvents.stateManager.getModuleMap().values().next().value,
         ['foo'],
         'module was correctly saved to the moduleMap'
       );
@@ -287,6 +287,46 @@ describe('TestemEvents', function() {
         this.testemEvents.stateManager.completedBrowsers(),
         1,
         'completedBrowsers was incremented'
+      );
+    });
+
+    it('should not clean up states from stateManager when test execution is not completed', function() {
+      this.testemEvents.stateManager.addToModuleMap('a', 1);
+      this.testemEvents.stateManager.addToModuleMap('b', 2);
+
+      this.testemEvents.completedBrowsersHandler(
+        2,
+        true,
+        'test-execution.json',
+        false
+      );
+
+      assert.deepEqual(
+        this.testemEvents.stateManager.getModuleMap().size,
+        2
+      );
+    });
+
+    it('should clean up states from stateManager when test execution is completed', function() {
+      this.testemEvents.stateManager.addToModuleMap('a', 1);
+      this.testemEvents.completedBrowsersHandler(
+        1,
+        true,
+        'test-execution.json',
+        false
+      );
+
+      assert.deepEqual(
+        this.testemEvents.stateManager.getModuleMap().size,
+        0
+      );
+      assert.deepEqual(
+        this.testemEvents.stateManager.getSharedModuleQueue(),
+        null
+      );
+      assert.deepEqual(
+        this.testemEvents.stateManager.getBrowserModuleQueue(),
+        null
       );
     });
   });

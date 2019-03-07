@@ -9,6 +9,23 @@ describe('ExecutionStateManager', function() {
     this.moduleQueue = ['foo', 'bar', 'baz', 'boo', 'far', 'faz'];
   });
 
+  describe('initializeStates', function() {
+    it('initialize states', function() {
+      assert.deepEqual(
+        this.stateManager.getModuleMap().size,
+        0
+      );
+      assert.deepEqual(
+        this.stateManager.getSharedModuleQueue(),
+        null
+      );
+      assert.deepEqual(
+        this.stateManager.getBrowserModuleQueue(),
+        null
+      );
+    });
+  });
+
   describe('moduleQueue', function() {
     it('is shared when no browserId passed to setModuleQueue', function() {
       this.stateManager.setSharedModuleQueue(this.moduleQueue);

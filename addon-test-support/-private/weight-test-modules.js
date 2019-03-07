@@ -37,19 +37,22 @@ export default function weightTestModules(modules) {
 
   modules.forEach((module) => {
     const moduleWeight = getWeight(module);
+    let moduleWeightGroup = groups.get(moduleWeight);
 
-    if (Array.isArray(groups[moduleWeight])) {
-      groups[moduleWeight].push(module);
+    if (Array.isArray(moduleWeightGroup)) {
+      moduleWeightGroup.push(module);
     } else {
-      groups[moduleWeight] = [module];
+      moduleWeightGroup = [module];
     }
+
+    groups.set(moduleWeight, moduleWeightGroup);
   });
 
   // return modules sorted by weight and alphabetically within its weighted groups
-  return Object.keys(groups)
+  return Array.from(groups.keys())
     .sort((a, b) =>  b - a)
     .reduce((accumulatedArray, weight) => {
-      const sortedModuleArr = groups[weight].sort();
+      const sortedModuleArr = groups.get(weight).sort();
       return accumulatedArray.concat(sortedModuleArr);
     }, []);
 }
