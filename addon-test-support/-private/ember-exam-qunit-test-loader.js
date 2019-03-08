@@ -55,6 +55,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
    */
   loadModules() {
     const loadBalance = this._urlParams.loadBalance;
+    const browserId = this._urlParams.browser;
     let partitions = this._urlParams.partition;
     let split = parseInt(this._urlParams.split, 10);
 
@@ -75,7 +76,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
         split,
         partitions
       );
-      this._testem.emit('testem:set-modules-queue', this._testModules);
+      this._testem.emit('testem:set-modules-queue', this._testModules, browserId);
     } else {
       this._testModules = splitTestModules(this._testModules, split, partitions);
       this._testModules.forEach((moduleName) => {

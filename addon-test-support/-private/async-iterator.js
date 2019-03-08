@@ -18,6 +18,8 @@ export default class AsyncIterator {
     this._waiting = false;
     // Set a timeout value from either url parameter or default timeout value, 2 s.
     this._timeout = getUrlParams().asyncTimeout || 2;
+    this._browserId = getUrlParams().browser;
+
     testem.on(this._response, this._boundHandleResponse);
   }
 
@@ -75,7 +77,7 @@ export default class AsyncIterator {
    */
   _makeNextRequest() {
     this._waiting = true;
-    this._testem.emit(this._request);
+    this._testem.emit(this._request, this._browserId);
   }
 
   /**
