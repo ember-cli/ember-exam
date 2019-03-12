@@ -102,7 +102,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
   }
 
   /**
-   * setupLoadBalanceHandlers() registers QUnit callbacks neeeded for the load-balance option.
+   * setupLoadBalanceHandlers() registers QUnit callbacks needed for the load-balance option.
    */
   setupLoadBalanceHandlers() {
     // nextModuleAsyncIterator handles the async testem events

@@ -250,7 +250,7 @@ describe('Acceptance | Exam Command', function() {
         'exam',
         '--path',
         'acceptance-dist',
-        '--load-balance'
+        '--load-balance',
       ]).then(assertExpectRejection, error => {
         assert.ok(
           error.message.includes(
@@ -265,6 +265,7 @@ describe('Acceptance | Exam Command', function() {
         'exam',
         '--path',
         'acceptance-dist',
+        '--write-execution-file',
         '--load-balance',
         '--parallel'
       ]).then(child => {
@@ -286,7 +287,8 @@ describe('Acceptance | Exam Command', function() {
         'acceptance-dist',
         '--load-balance',
         '--parallel',
-        '3'
+        '3',
+        '--write-execution-file'
       ]).then(child => {
         const output = child.stdout;
         assertTestExecutionJson(output);
@@ -310,7 +312,8 @@ describe('Acceptance | Exam Command', function() {
         '--partition',
         '1',
         '--parallel',
-        '3'
+        '3',
+        '--write-execution-file'
       ]).then(child => {
         const output = child.stdout;
         assertTestExecutionJson(output);
@@ -355,7 +358,8 @@ describe('Acceptance | Exam Command', function() {
           'failure-dist',
           '--load-balance',
           '--parallel',
-          '2'
+          '2',
+          '--write-execution-file'
         ]).then(assertExpectRejection, error => {
           assert.ok(
             error.message.includes(

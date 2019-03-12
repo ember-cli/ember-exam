@@ -127,7 +127,7 @@ describe('TestemEvents', function() {
 
     it('should fire next-module-response event and save the moduleName to stateManager.moduleMap when load-balance is true', function() {
       this.testemEvents.stateManager.setSharedModuleQueue(this.moduleQueue);
-      this.testemEvents.nextModuleResponse(1, socket, true, false);
+      this.testemEvents.nextModuleResponse(1, socket, true, true);
 
       assert.deepEqual(
         socket.events,
@@ -265,7 +265,7 @@ describe('TestemEvents', function() {
         mockUi,
         true,
         'test-execution.json',
-        false
+        true
       );
 
       const actual = fs.readFileSync(

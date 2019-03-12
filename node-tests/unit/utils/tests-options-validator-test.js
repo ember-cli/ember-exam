@@ -21,8 +21,8 @@ describe('TestOptionsValidator', function() {
         return validator.validateRandom();
       case 'Parallel':
         return validator.validateParallel();
-      case 'noExecutionFile':
-        return validator.validateNoExecutionFile();
+      case 'writeExecutionFile':
+        return validator.validateWriteExecutionFile();
       case 'LoadBalance':
         return validator.validateLoadBalance();
       case 'ReplayExecution':
@@ -195,39 +195,52 @@ describe('TestOptionsValidator', function() {
     });
   });
 
-  describe('ShouldExecuteOnly', function() {
-    it('should throw an error if `no-execution-file` is used without `load-balance`', function() {
+  describe('ShouldWriteExecutionFile', function() {
+    it('should throw an error if `write-execution-file` is used without `load-balance`', function() {
       shouldThrow(
-        'noExecutionFile',
-        { noExecutionFile: true },
-        /You must run test suite with the `load-balance` option in order to use the `no-execution-file` option./
+        'writeExecutionFile',
+        { writeExecutionFile: true },
+        /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./
       );
     });
 
-    it('should throw an error if `no-execution-file` is used without `load-balance`', function() {
+    it('should throw an error if `write-execution-file` is used without `load-balance`', function() {
       shouldThrow(
-        'noExecutionFile',
-        { split: 2, partition: 1, noExecutionFile: true },
-        /You must run test suite with the `load-balance` option in order to use the `no-execution-file` option./
+        'writeExecutionFile',
+        { split: 2,
+          partition: 1,
+          writeExecutionFile: true},
+        /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./
       );
     });
 
-    it('should throw an error if `no-execution-file` is used without `load-balance`', function() {
+    it('should throw an error if `write-execution-file` is used without `load-balance`', function() {
       shouldThrow(
-        'noExecutionFile',
+        'writeExecutionFile',
         { replayExecution: 'test-execution-0000000.json',
           replayBrowser: [1, 2],
-          noExecutionFile: true },
-        /You must run test suite with the `load-balance` option in order to use the `no-execution-file` option./
+          writeExecutionFile: true },
+        /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./
+      );
+    });
+
+    it('should throw an error if `write-execution-file` is used with `no-launch`', function() {
+      shouldThrow(
+        'writeExecutionFile',
+        { loadBalance: true,
+          parallel: 1,
+          launch: 'false',
+          writeExecutionFile: true },
+        /You must not use no-launch with write-execution-file option./
       );
     });
 
     it('should return true', function() {
       shouldEqual(
-        'noExecutionFile',
+        'writeExecutionFile',
         { loadBalance: true,
           parallel: 2,
-          noExecutionFile: true
+          writeExecutionFile: true
         },
         true
       );
@@ -282,6 +295,14 @@ describe('TestOptionsValidator', function() {
         'LoadBalance',
         { loadBalance: true, parallel: 0 },
         /You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`./
+      );
+    });
+
+    it('should throw an error if `no-launch` is passed', function() {
+      shouldThrow(
+        'LoadBalance',
+        { loadBalance: true, parallel: 0, launch: 'false' },
+        /You must not use `no-launch` option with the `load-balance` option./
       );
     });
 
