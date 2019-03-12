@@ -20,6 +20,11 @@ describe('ExamCommand', function() {
     project.isEmberCLIProject = function() {
       return true;
     };
+    project.pkg = {
+      devDependencies: {
+        'ember-cli': '3.7.0'
+      }
+    };
 
     return new ExamCommand({
       project: project,

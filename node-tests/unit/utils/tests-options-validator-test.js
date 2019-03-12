@@ -32,17 +32,17 @@ describe('TestOptionsValidator', function() {
     }
   }
 
-  function shouldThrow(cmd, options, message) {
-    const validator = new TestOptionsValidator(options);
+  function shouldThrow(cmd, options, message, emberCliVer = '3.7.0') {
+    const validator = new TestOptionsValidator(options, options.framework, emberCliVer);
     assert.throws(() => validateCommand(validator, cmd), message);
   }
 
-  function shouldEqual(cmd, options, value) {
-    const validator = new TestOptionsValidator(options);
+  function shouldEqual(cmd, options, value, emberCliVer = '3.7.0') {
+    const validator = new TestOptionsValidator(options, options.framework, emberCliVer);
     assert.equal(validateCommand(validator, cmd), value);
   }
 
-  function shouldWarn(cmd, options, value) {
+  function shouldWarn(cmd, options, value, emberCliVer = '3.7.0') {
     /* eslint-disable no-console */
     let originalWarn = console.warn;
     let warnCalled = 0;
@@ -52,7 +52,7 @@ describe('TestOptionsValidator', function() {
       warnMessage = message;
     };
 
-    const validator = new TestOptionsValidator(options, options.framework);
+    const validator = new TestOptionsValidator(options, options.framework, emberCliVer);
     assert.notEqual(validateCommand(validator, cmd), undefined);
     assert.equal(warnCalled, 1);
     assert.equal(warnMessage, value);
@@ -235,6 +235,24 @@ describe('TestOptionsValidator', function() {
   })
 
   describe('shouldLoadBalance', function() {
+    it('should throw an error if ember-cli version is below 3.2.0', function() {
+      shouldThrow(
+        'LoadBalance',
+        { loadBalance: true, replayExecution: 'abc' },
+        /You must be using ember-cli version \^3.2.0 for this feature to work properly./,
+        '3.0.0'
+      );
+    });
+
+    it('should throw an error if ember-cli version is ~3.1.0', function() {
+      shouldThrow(
+        'LoadBalance',
+        { loadBalance: true, replayExecution: 'abc' },
+        /You must be using ember-cli version \^3.2.0 for this feature to work properly./,
+        '~3.1.0'
+      );
+    });
+
     it('should throw an error if `replayExecution` is passed', function() {
       shouldThrow(
         'LoadBalance',
