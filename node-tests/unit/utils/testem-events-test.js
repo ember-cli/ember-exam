@@ -46,12 +46,7 @@ describe('TestemEvents', function() {
     it('ignore subsequent setModuleQueue if moduleQueue is already set for load-balance mode', function() {
       const anotherModuleQueue = ['a', 'b', 'c'];
       this.testemEvents.setModuleQueue(1, this.moduleQueue, true, false);
-      this.testemEvents.setModuleQueue(
-        2,
-        anotherModuleQueue,
-        true,
-        false
-      );
+      this.testemEvents.setModuleQueue(2, anotherModuleQueue, true, false);
 
       assert.deepEqual(
         this.testemEvents.stateManager.getSharedModuleQueue(),
@@ -82,12 +77,7 @@ describe('TestemEvents', function() {
     it('throws error if ReplayExecutionMap is not set when setting browserModuleQueue for replay-execution mode', function() {
       assert.throws(
         () =>
-          this.testemEvents.setModuleQueue(
-            1,
-            this.moduleQueue,
-            false,
-            true
-          ),
+          this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true),
         /No replay execution map was set on the stateManager/,
         'Error is thrown'
       );
@@ -114,20 +104,15 @@ describe('TestemEvents', function() {
       value: 'foo'
     };
 
-    const doneResponse = {
-      done: true,
-      value: undefined
-    };
-
     const emptyMap = new Map();
 
     afterEach(function() {
       socket.reset();
     });
 
-    it('should fire next-module-response event and save the moduleName to stateManager.moduleMap when load-balance is true', function() {
+    it('should fire next-module-response event and save the moduleName to stateManager.moduleMap when write-execution-file is true', function() {
       this.testemEvents.stateManager.setSharedModuleQueue(this.moduleQueue);
-      this.testemEvents.nextModuleResponse(1, socket, true, true);
+      this.testemEvents.nextModuleResponse(1, socket, true);
 
       assert.deepEqual(
         socket.events,
@@ -135,69 +120,19 @@ describe('TestemEvents', function() {
         'testem:next-module-response event was emitted with payload foo'
       );
       assert.deepEqual(
-        this.testemEvents.stateManager.getModuleMap().values().next().value,
+        this.testemEvents.stateManager
+          .getModuleMap()
+          .values()
+          .next().value,
         ['foo'],
         'module was correctly saved to the moduleMap'
       );
     });
 
-    it('should fire module-queue-complete event when load-balance is true', function() {
-      this.testemEvents.stateManager.setSharedModuleQueue([]);
-      this.testemEvents.nextModuleResponse(1, socket, true, false);
-
-      assert.deepEqual(
-        socket.events,
-        ['testem:next-module-response', doneResponse],
-        'testem:module-queue-complete event was emitted'
-      );
-      assert.deepEqual(
-        this.testemEvents.stateManager.getModuleMap(),
-        emptyMap,
-        'moduleMap should be in its initial state'
-      );
-    });
-
-    it('should fire next-module-response event when replayExecution is true', function() {
-      this.testemEvents.stateManager.setBrowserModuleQueue(this.moduleQueue, 1);
-      this.testemEvents.nextModuleResponse(1, socket, false, false);
-
-      assert.deepEqual(
-        socket.events,
-        ['testem:next-module-response', fooResponse],
-        'testem:next-module-response event was emitted with payload foo'
-      );
-      assert.deepEqual(
-        this.testemEvents.stateManager.getModuleMap(),
-        emptyMap,
-        'moduleMap should be in its initial state'
-      );
-    });
-
-    it('should fire module-queue-complete event when replayExecution is true', function() {
+    it('should not save the moduleName to stateManager.moduleMap when write-execution-file is false', function() {
       this.testemEvents.stateManager.setBrowserModuleQueue([], 1);
-      this.testemEvents.nextModuleResponse(1, socket, false, false);
+      this.testemEvents.nextModuleResponse(1, socket, false);
 
-      assert.deepEqual(
-        socket.events,
-        ['testem:next-module-response', doneResponse],
-        'testem:module-queue-complete event was emitted'
-      );
-      assert.deepEqual(
-        this.testemEvents.stateManager.getModuleMap(),
-        emptyMap,
-        'moduleMap should be in its initial state'
-      );
-    });
-
-    it('should fire next-module-response event when appMode is dev', function() {
-      this.testemEvents.stateManager.setBrowserModuleQueue(this.moduleQueue, 1);
-      this.testemEvents.nextModuleResponse(1, socket, false, 'dev');
-
-      assert.deepEqual(
-        socket.events,
-        ['testem:next-module-response', fooResponse],
-        'testem:next-module-response event was emitted with payload foo'
-      );
       assert.deepEqual(
         this.testemEvents.stateManager.getModuleMap(),
         emptyMap,
@@ -259,7 +194,7 @@ describe('TestemEvents', function() {
     });
 
     it('should write test-execution file and cleanup state when completedBrowsers equals browserCount and load-balance is true', function() {
-      this.testemEvents.stateManager.addToModuleMap('a', 1);
+      this.testemEvents.stateManager.addModuleNameToModuleMap('a', 1);
       this.testemEvents.completedBrowsersHandler(
         1,
         mockUi,
@@ -298,8 +233,8 @@ describe('TestemEvents', function() {
     });
 
     it('should not clean up states from stateManager when test execution is not completed', function() {
-      this.testemEvents.stateManager.addToModuleMap('a', 1);
-      this.testemEvents.stateManager.addToModuleMap('b', 2);
+      this.testemEvents.stateManager.addModuleNameToModuleMap('a', 1);
+      this.testemEvents.stateManager.addModuleNameToModuleMap('b', 2);
 
       this.testemEvents.completedBrowsersHandler(
         2,
@@ -309,16 +244,15 @@ describe('TestemEvents', function() {
         false
       );
 
-      assert.deepEqual(
-        this.testemEvents.stateManager.getModuleMap().size,
-        2
-      );
+      assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 2);
     });
 
     it('should clean up states from stateManager when test execution is completed', function() {
       const mockReplayExecutionMap = { 1: ['a'] };
-      this.testemEvents.stateManager.addToModuleMap('a', 1);
-      this.testemEvents.stateManager.setReplayExecutionMap(mockReplayExecutionMap);
+      this.testemEvents.stateManager.addModuleNameToModuleMap('a', 1);
+      this.testemEvents.stateManager.setReplayExecutionMap(
+        mockReplayExecutionMap
+      );
       this.testemEvents.completedBrowsersHandler(
         1,
         mockUi,
@@ -327,10 +261,7 @@ describe('TestemEvents', function() {
         false
       );
 
-      assert.deepEqual(
-        this.testemEvents.stateManager.getModuleMap().size,
-        0
-      );
+      assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 0);
       assert.deepEqual(
         this.testemEvents.stateManager.getSharedModuleQueue(),
         null

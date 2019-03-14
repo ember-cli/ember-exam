@@ -11,18 +11,9 @@ describe('ExecutionStateManager', function() {
 
   describe('initializeStates', function() {
     it('initialize states', function() {
-      assert.deepEqual(
-        this.stateManager.getModuleMap().size,
-        0
-      );
-      assert.deepEqual(
-        this.stateManager.getSharedModuleQueue(),
-        null
-      );
-      assert.deepEqual(
-        this.stateManager.getBrowserModuleQueue(),
-        null
-      );
+      assert.deepEqual(this.stateManager.getModuleMap().size, 0);
+      assert.deepEqual(this.stateManager.getSharedModuleQueue(), null);
+      assert.deepEqual(this.stateManager.getBrowserModuleQueue(), null);
     });
   });
 

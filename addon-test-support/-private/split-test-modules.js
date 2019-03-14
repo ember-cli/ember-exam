@@ -49,12 +49,19 @@ export default function splitTestModules(modules, split, partitions) {
   for (let i = 0; i < partitions.length; i++) {
     const partition = parseInt(partitions[i], 10);
     if (isNaN(partition)) {
-      throw new Error('You must specify numbers for partition (you specified \'' + partitions + '\')');
+      throw new Error(
+        'You must specify numbers for partition (you specified \'' +
+          partitions +
+          '\')'
+      );
     }
 
     if (split < partition) {
-      throw new Error('You must specify partitions numbered less than or equal to your split value of ' + split);
-    } else  if (partition < 1) {
+      throw new Error(
+        'You must specify partitions numbered less than or equal to your split value of ' +
+          split
+      );
+    } else if (partition < 1) {
       throw new Error('You must specify partitions numbered greater than 0');
     }
 

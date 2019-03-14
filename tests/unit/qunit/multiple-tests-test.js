@@ -1,34 +1,31 @@
-import {
-  module,
-  test
-} from 'qunit';
+import { module, test } from 'qunit';
 
 module('#2: Module With Multiple Tests');
 
-test('#1', function (assert) {
+test('#1', function(assert) {
   assert.ok(true);
 });
-test('#2', function (assert) {
+test('#2', function(assert) {
   assert.ok(true);
 });
-test('#3', function (assert) {
+test('#3', function(assert) {
   assert.ok(true);
 });
-test('#4', function (assert) {
+test('#4', function(assert) {
   assert.ok(true);
 });
-test('#5', function (assert) {
+test('#5', function(assert) {
   assert.ok(true);
 });
-test('#6', function (assert) {
+test('#6', function(assert) {
   assert.ok(true);
 });
-test('#7', function (assert) {
+test('#7', function(assert) {
   assert.ok(true);
 });
-test('#8', function (assert) {
+test('#8', function(assert) {
   assert.ok(true);
 });
-test('#9', function (assert) {
+test('#9', function(assert) {
   assert.ok(true);
 });

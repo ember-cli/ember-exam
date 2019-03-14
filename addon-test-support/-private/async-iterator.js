@@ -17,8 +17,8 @@ export default class AsyncIterator {
     this._boundHandleResponse = this.handleResponse.bind(this);
     this._waiting = false;
     // Set a timeout value from either url parameter or default timeout value, 2 s.
-    this._timeout = getUrlParams().asyncTimeout || 2;
-    this._browserId = getUrlParams().browser;
+    this._timeout = getUrlParams().get('asyncTimeout') || 2;
+    this._browserId = getUrlParams().get('browser');
 
     testem.on(this._response, this._boundHandleResponse);
   }
@@ -31,7 +31,9 @@ export default class AsyncIterator {
   }
 
   toString() {
-    return `<AsyncIterator (request: ${this._request} response: ${this._response})>`;
+    return `<AsyncIterator (request: ${this._request} response: ${
+      this._response
+    })>`;
   }
 
   /**
@@ -41,7 +43,9 @@ export default class AsyncIterator {
    */
   handleResponse(response) {
     if (this._waiting === false) {
-      throw new Error(this.toString() + ' Was not expecting a response, but got a response');
+      throw new Error(
+        `${this.toString()} Was not expecting a response, but got a response`
+      );
     } else {
       this._waiting = false;
     }
@@ -68,7 +72,10 @@ export default class AsyncIterator {
    */
   dispose() {
     this._done = true;
-    this._testem.removeEventCallbacks(this._response, this._boundHandleResponse);
+    this._testem.removeEventCallbacks(
+      this._response,
+      this._boundHandleResponse
+    );
   }
 
   /**
@@ -91,7 +98,11 @@ export default class AsyncIterator {
       if (!this._waiting) {
         return;
       }
-      let err = new Error(`EmberExam: Promise timed out after ${this._timeout} s while waiting for response for ${this._request}`)
+      let err = new Error(
+        `EmberExam: Promise timed out after ${
+          this._timeout
+        } s while waiting for response for ${this._request}`
+      );
       reject(err);
     }, this._timeout * 1000);
   }
@@ -103,8 +114,12 @@ export default class AsyncIterator {
    * @return {Promise}
    */
   next() {
-    if (this._done)    { return Promise.resolve({ done: true, value: null }); }
-    if (this._current) { return this._current.promise; }
+    if (this._done) {
+      return Promise.resolve({ done: true, value: null });
+    }
+    if (this._current) {
+      return this._current.promise;
+    }
 
     let resolve, reject;
     let promise = new Promise((_resolve, _reject) => {

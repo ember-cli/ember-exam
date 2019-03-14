@@ -3,7 +3,7 @@
 const assert = require('assert');
 const sinon = require('sinon');
 const {
-  convertOptionValueToArray,
+  combineOptionValueIntoArray,
   getBrowserId,
   getCustomBaseUrl,
   getMultipleTestPages,
@@ -11,29 +11,29 @@ const {
 } = require('../../../lib/utils/test-page-helper');
 
 describe('TestPageHelper', function() {
-  describe('convertOptionValueToArray', function() {
+  describe('combineOptionValueIntoArray', function() {
     it('should return empty array when no optionValue specified', function() {
-      assert.deepEqual(convertOptionValueToArray(), []);
+      assert.deepEqual(combineOptionValueIntoArray(), []);
     });
 
     it('should have a specified option number when the option is number', function() {
-      assert.deepEqual(convertOptionValueToArray(3), [3]);
+      assert.deepEqual(combineOptionValueIntoArray(3), [3]);
     });
 
     it('should have a number of array when a specified option is string', function() {
-      assert.deepEqual(convertOptionValueToArray('2,3'), [2, 3]);
+      assert.deepEqual(combineOptionValueIntoArray('2,3'), [2, 3]);
     });
 
     it('should have a numbe of array when a specified option is a combination of number and string ', function() {
-      assert.deepEqual(convertOptionValueToArray([1, '2,3']), [1, 2, 3]);
+      assert.deepEqual(combineOptionValueIntoArray([1, '2,3']), [1, 2, 3]);
     });
 
     it('should have a sequence number of array when a specified option is in range', function() {
-      assert.deepEqual(convertOptionValueToArray('1..5'), [1, 2, 3, 4, 5]);
+      assert.deepEqual(combineOptionValueIntoArray('1..5'), [1, 2, 3, 4, 5]);
     });
 
     it('should have a number of array when a specified option is a combination of number and string in range', function() {
-      assert.deepEqual(convertOptionValueToArray([1, '3..6']), [1, 3, 4, 5, 6]);
+      assert.deepEqual(combineOptionValueIntoArray([1, '3..6']), [1, 3, 4, 5, 6]);
     });
   });
 
@@ -43,7 +43,9 @@ describe('TestPageHelper', function() {
     });
 
     it('should return 0 if no browser param is found in the test page', function() {
-      assert.equal(getBrowserId('loadBalance'), 0);
+      assert.throws(() => {
+        getBrowserId('loadBalance');
+      }, /Browser Id can't be found./);
     });
   });
 
@@ -256,7 +258,7 @@ describe('TestPageHelper', function() {
       ]);
     });
 
-    it("should have a test page with 'loadBalance' when no specified number of browser", function() {
+    it('should have a test page with `loadBalance` when no specified number of browser', function() {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
         { loadBalance: true, parallel: 1 }
@@ -267,7 +269,7 @@ describe('TestPageHelper', function() {
       ]);
     });
 
-    it("should have multiple test page with 'loadBalance' with splitting when no specified number of browser", function() {
+    it('should have multiple test page with `loadBalance` with splitting when no specified number of browser', function() {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
         { loadBalance: true, parallel: 1, split: 2 }

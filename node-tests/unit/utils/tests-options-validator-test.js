@@ -33,12 +33,20 @@ describe('TestOptionsValidator', function() {
   }
 
   function shouldThrow(cmd, options, message, emberCliVer = '3.7.0') {
-    const validator = new TestOptionsValidator(options, options.framework, emberCliVer);
+    const validator = new TestOptionsValidator(
+      options,
+      options.framework,
+      emberCliVer
+    );
     assert.throws(() => validateCommand(validator, cmd), message);
   }
 
   function shouldEqual(cmd, options, value, emberCliVer = '3.7.0') {
-    const validator = new TestOptionsValidator(options, options.framework, emberCliVer);
+    const validator = new TestOptionsValidator(
+      options,
+      options.framework,
+      emberCliVer
+    );
     assert.equal(validateCommand(validator, cmd), value);
   }
 
@@ -52,7 +60,11 @@ describe('TestOptionsValidator', function() {
       warnMessage = message;
     };
 
-    const validator = new TestOptionsValidator(options, options.framework, emberCliVer);
+    const validator = new TestOptionsValidator(
+      options,
+      options.framework,
+      emberCliVer
+    );
     assert.notEqual(validateCommand(validator, cmd), undefined);
     assert.equal(warnCalled, 1);
     assert.equal(warnMessage, value);
@@ -81,7 +93,7 @@ describe('TestOptionsValidator', function() {
     it('should throw an error if `partition` is used without `split`', function() {
       shouldSplitThrows(
         { partition: [1] },
-        /You must specify a 'split' value in order to use 'partition'/
+        /You must specify a `split` value in order to use `partition`/
       );
     });
 
@@ -95,7 +107,7 @@ describe('TestOptionsValidator', function() {
     it('should throw an error if `partition` contains a value greater than `split`', function() {
       shouldSplitThrows(
         { split: 2, partition: [1, 3] },
-        /You must specify 'partition' values that are less than or equal to your 'split' value./
+        /You must specify `partition` values that are less than or equal to your `split` value./
       );
     });
 
@@ -196,6 +208,18 @@ describe('TestOptionsValidator', function() {
   });
 
   describe('ShouldWriteExecutionFile', function() {
+    it('should return false when not passed', function() {
+      shouldEqual(
+        'writeExecutionFile',
+        {
+          loadBalance: true,
+          parallel: 2,
+          launch: 'false'
+        },
+        false
+      );
+    });
+
     it('should throw an error if `write-execution-file` is used without `load-balance`', function() {
       shouldThrow(
         'writeExecutionFile',
@@ -207,9 +231,11 @@ describe('TestOptionsValidator', function() {
     it('should throw an error if `write-execution-file` is used without `load-balance`', function() {
       shouldThrow(
         'writeExecutionFile',
-        { split: 2,
+        {
+          split: 2,
           partition: 1,
-          writeExecutionFile: true},
+          writeExecutionFile: true
+        },
         /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./
       );
     });
@@ -217,9 +243,11 @@ describe('TestOptionsValidator', function() {
     it('should throw an error if `write-execution-file` is used without `load-balance`', function() {
       shouldThrow(
         'writeExecutionFile',
-        { replayExecution: 'test-execution-0000000.json',
+        {
+          replayExecution: 'test-execution-0000000.json',
           replayBrowser: [1, 2],
-          writeExecutionFile: true },
+          writeExecutionFile: true
+        },
         /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./
       );
     });
@@ -227,10 +255,12 @@ describe('TestOptionsValidator', function() {
     it('should throw an error if `write-execution-file` is used with `no-launch`', function() {
       shouldThrow(
         'writeExecutionFile',
-        { loadBalance: true,
+        {
+          loadBalance: true,
           parallel: 1,
           launch: 'false',
-          writeExecutionFile: true },
+          writeExecutionFile: true
+        },
         /You must not use no-launch with write-execution-file option./
       );
     });
@@ -238,14 +268,15 @@ describe('TestOptionsValidator', function() {
     it('should return true', function() {
       shouldEqual(
         'writeExecutionFile',
-        { loadBalance: true,
+        {
+          loadBalance: true,
           parallel: 2,
           writeExecutionFile: true
         },
         true
       );
     });
-  })
+  });
 
   describe('shouldLoadBalance', function() {
     it('should throw an error if ember-cli version is below 3.2.0', function() {
@@ -351,6 +382,17 @@ describe('TestOptionsValidator', function() {
           replayBrowser: [3, 1]
         },
         /You must specify replayBrowser value smaller than a number of browsers in the specified json file./
+      );
+    });
+
+    it('should throw an error if `no-launch` is used with `replay-execution`.', function() {
+      shouldThrow(
+        'ReplayExecution',
+        {
+          replayExecution: 'test-execution-0000000.json',
+          launch: 'false'
+        },
+        /You must not use `no-launch` option with the `replay-execution` option./
       );
     });
 

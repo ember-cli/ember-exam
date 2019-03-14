@@ -16,7 +16,7 @@ function getNumberOfTests(str) {
   return match && parseInt(match[1], 10);
 }
 
-const TOTAL_NUM_TESTS = 47; // Total Number of tests without the global "Ember.onerror validation tests"
+const TOTAL_NUM_TESTS = 47; // Total Number of tests without the global 'Ember.onerror validation tests'
 
 function getTotalNumberOfTests(output) {
   // In ember-qunit 3.4.0, this new check was added: https://github.com/emberjs/ember-qunit/commit/a7e93c4b4b535dae62fed992b46c00b62bfc83f4
@@ -145,7 +145,7 @@ describe('Acceptance | Exam Command', function() {
         ]).then(assertExpectRejection, error => {
           assert.ok(
             error.message.includes(
-              "You must specify 'partition' values that are less than or equal to your 'split' value."
+              'You must specify `partition` values that are less than or equal to your `split` value.'
             )
           );
         });
@@ -161,7 +161,7 @@ describe('Acceptance | Exam Command', function() {
         ]).then(assertExpectRejection, error => {
           assert.ok(
             error.message.includes(
-              "You must specify a 'split' value in order to use 'partition'."
+              'You must specify a `split` value in order to use `partition`.'
             )
           );
         });
@@ -250,7 +250,7 @@ describe('Acceptance | Exam Command', function() {
         'exam',
         '--path',
         'acceptance-dist',
-        '--load-balance',
+        '--load-balance'
       ]).then(assertExpectRejection, error => {
         assert.ok(
           error.message.includes(
@@ -301,7 +301,7 @@ describe('Acceptance | Exam Command', function() {
       });
     });
 
-    it("load balances partition 1's test suite with 3 browsers", function() {
+    it('load balances partition 1\'s test suite with 3 browsers', function() {
       return execa('ember', [
         'exam',
         '--path',

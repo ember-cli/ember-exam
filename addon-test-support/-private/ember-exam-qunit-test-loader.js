@@ -1,9 +1,7 @@
 import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
 import weightTestModules from './weight-test-modules';
-import {
-  TestLoader
-} from 'ember-qunit/test-loader';
+import { TestLoader } from 'ember-qunit/test-loader';
 import AsyncIterator from './async-iterator';
 import QUnit from 'qunit';
 
@@ -54,10 +52,10 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
    * Loads the test modules depending on the urlParam
    */
   loadModules() {
-    const loadBalance = this._urlParams.loadBalance;
-    const browserId = this._urlParams.browser;
-    let partitions = this._urlParams.partition;
-    let split = parseInt(this._urlParams.split, 10);
+    const loadBalance = this._urlParams.get('loadBalance');
+    const browserId = this._urlParams.get('browser');
+    let partitions = this._urlParams.get('partition');
+    let split = parseInt(this._urlParams.get('split'), 10);
 
     split = isNaN(split) ? 1 : split;
 
@@ -76,9 +74,17 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
         split,
         partitions
       );
-      this._testem.emit('testem:set-modules-queue', this._testModules, browserId);
+      this._testem.emit(
+        'testem:set-modules-queue',
+        this._testModules,
+        browserId
+      );
     } else {
-      this._testModules = splitTestModules(this._testModules, split, partitions);
+      this._testModules = splitTestModules(
+        this._testModules,
+        split,
+        partitions
+      );
       this._testModules.forEach((moduleName) => {
         super.require(moduleName);
         super.unsee(moduleName);
@@ -113,33 +119,35 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
     });
 
     const nextModuleHandler = () => {
-      return new Promise((resolve, reject) => {
-        nextModuleAsyncIterator.next().then((response) => {
+      return nextModuleAsyncIterator
+        .next()
+        .then((response) => {
           if (!response.done) {
             const moduleName = response.value;
             this.loadIndividualModule(moduleName);
 
             // if no tests were added, request the next module
             if (this._qunit.config.queue.length === 0) {
-              resolve(nextModuleHandler());
+              return nextModuleHandler();
             }
           }
-          resolve();
-        }).catch((err) => {
-          reject(`Failed to get a next test module to load. - ${err}`);
+        }).catch(e => {
+          if (typeof e === 'object' && e !== null && typeof e.message === 'string') {
+            e.message = `EmberExam: Failed to get next test module: ${e.message}`;
+          }
+          throw new Error(`EmberExam: Failed to get next test module: ${e}`);
         });
-      });
     };
 
     // it registers qunit begin callback to ask for a next test moudle to execute when the test suite begins.
     // By default ember-qunit adds `Ember.onerror` test to a qunit processing queue and once the test is complete it execute _qunit.moduleDone callback.
     // However, when `setupEmberOnerrorValidation: false` is passed the test is disabled and _qunit.begin callback needs to request a next test module to run.
     this._qunit.begin(() => {
-      return nextModuleHandler.call(this);
+      return nextModuleHandler();
     });
 
     this._qunit.moduleDone(() => {
-      return nextModuleHandler.call(this);
+      return nextModuleHandler();
     });
   }
 }

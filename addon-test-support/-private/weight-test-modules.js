@@ -50,7 +50,7 @@ export default function weightTestModules(modules) {
 
   // return modules sorted by weight and alphabetically within its weighted groups
   return Array.from(groups.keys())
-    .sort((a, b) =>  b - a)
+    .sort((a, b) => b - a)
     .reduce((accumulatedArray, weight) => {
       const sortedModuleArr = groups.get(weight).sort();
       return accumulatedArray.concat(sortedModuleArr);

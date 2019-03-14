@@ -47,8 +47,8 @@ export default class EmberExamMochaTestLoader extends TestLoader {
    * Loads the test modules depending on the urlParam
    */
   loadModules() {
-    let partitions = this._urlParams.partition;
-    let split = parseInt(this._urlParams.split, 10);
+    let partitions = this._urlParams.get('partition');
+    let split = parseInt(this._urlParams.get('split'), 10);
 
     split = isNaN(split) ? 1 : split;
 
