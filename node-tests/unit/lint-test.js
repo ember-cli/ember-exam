@@ -1,7 +1,5 @@
-var lint = require('mocha-eslint');
+'use strict';
 
-lint([
-  'lib',
-  'node-tests',
-  'index.js'
-]);
+const lint = require('mocha-eslint');
+
+lint(['lib', 'node-tests', 'index.js']);

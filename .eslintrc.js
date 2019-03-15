@@ -27,6 +27,7 @@ module.exports = {
         'testem.js',
         'testem.multiple-test-page.js',
         'testem.no-test-page.js',
+        'testem.simple-test-page.js',
         'blueprints/*/index.js',
         'config/**/*.js',
         'tests/dummy/config/**/*.js',

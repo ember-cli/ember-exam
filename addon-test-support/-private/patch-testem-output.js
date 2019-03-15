@@ -1,14 +1,37 @@
 /* globals Testem */
 
-// Add the partition number for better debugging when reading the reporter
-export default function patchTestemOutput(TestLoader) {
-  Testem.on('test-result', function prependPartition(test) {
-    const urlParams = TestLoader._urlParams;
-    const split = urlParams._split;
+/**
+ * Returns a modified test name including browser or partition information
+ *
+ * @param {Map} urlParams
+ * @param {string} testName
+ * @returns {string} testName
+ */
+export function updateTestName(urlParams, testName) {
+  const split = urlParams.get('split');
+  const loadBalance = urlParams.get('loadBalance');
 
-    if (split) {
-      const partition = urlParams._partition || 1;
-      test.name = `Exam Partition ${partition} - ${test.name}`;
-    }
+  const partition = urlParams.get('partition') || 1;
+  const browser = urlParams.get('browser') || 1;
+
+  if (split && loadBalance) {
+    testName = `Exam Partition ${partition} - Browser Id ${browser} - ${testName}`;
+  } else if (split) {
+    testName = `Exam Partition ${partition} - ${testName}`;
+  } else if (loadBalance) {
+    testName = `Browser Id ${browser} - ${testName}`;
+  }
+
+  return testName;
+}
+
+/**
+ * Setup testem test-result event to update the test name when a test completes
+ *
+ * @param {Map} urlParams
+ */
+export function patchTestemOutput(urlParams) {
+  Testem.on('test-result', (test) => {
+    test.name = updateTestName(urlParams, test.name);
   });
 }

@@ -2,8 +2,14 @@ function decodeQueryParam(param) {
   return decodeURIComponent(param.replace(/\+/g, '%20'));
 }
 
+/**
+ * Parses the url and return an object containing a param's key and value
+ *
+ * @export
+ * @returns {Object} urlParams
+ */
 export default function getUrlParams() {
-  const urlParams = Object.create(null);
+  const urlParams = new Map();
   const params = location.search.slice(1).split('&');
 
   for (let i = 0; i < params.length; i++) {
@@ -12,12 +18,12 @@ export default function getUrlParams() {
       const name = decodeQueryParam(param[0]);
 
       // Allow just a key to turn on a flag, e.g., test.html?noglobals
-      const value = param.length === 1 ||
-        decodeQueryParam(param.slice(1).join('='));
-      if (name in urlParams) {
-        urlParams[name] = [].concat(urlParams[name], value);
+      const value =
+        param.length === 1 || decodeQueryParam(param.slice(1).join('='));
+      if (urlParams.has(name)) {
+        urlParams.set(name, [].concat(urlParams.get(name), value));
       } else {
-        urlParams[name] = value;
+        urlParams.set(name, value);
       }
     }
   }

@@ -1,10 +1,13 @@
+import TestemOutput from './-private/patch-testem-output';
 import getTestLoader from './-private/get-test-loader';
-import patchTestLoader from './-private/patch-test-loader';
-import patchTestemOutput from './-private/patch-testem-output';
 
 let loaded = false;
+let testLoader;
 
-export default function loadEmberExam() {
+/**
+ * Setup EmberExamTestLoader to enable ember exam functionalities
+ */
+function loadEmberExam() {
   if (loaded) {
     // eslint-disable-next-line no-console
     console.warn('Attempted to load Ember Exam more than once.');
@@ -12,11 +15,28 @@ export default function loadEmberExam() {
   }
 
   loaded = true;
-
-  const TestLoader = getTestLoader();
-  patchTestLoader(TestLoader);
+  const EmberExamTestLoader = getTestLoader();
+  testLoader = new EmberExamTestLoader(window.Testem);
 
   if (window.Testem) {
-    patchTestemOutput(TestLoader);
+    TestemOutput.patchTestemOutput(testLoader.urlParams);
   }
 }
+
+/**
+ * Equivalent to ember-qunit or ember-mocha's loadTest() except this does not create a new TestLoader instance
+ */
+function loadTests() {
+  if (testLoader === undefined) {
+    throw new Error(
+      'A testLoader instance has not been created. You must call `loadEmberExam()` before calling `loadTest()`.'
+    );
+  }
+
+  testLoader.loadModules();
+}
+
+export default {
+  loadEmberExam,
+  loadTests
+};

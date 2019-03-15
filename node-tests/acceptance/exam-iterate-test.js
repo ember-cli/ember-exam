@@ -16,33 +16,62 @@ describe('Acceptance | Exam Iterate Command', function() {
   it('should build the app, test it a number of times, and clean it up', function() {
     return execa('ember', ['exam:iterate', '2'], child => {
       const stdout = child.stdout;
-      assert.ok(stdout.includes('Building app for test iterations.'), 'Logged building message from command');
-      assert.ok(stdout.includes('Built project successfully.'), 'Built successfully according to Ember-CLI');
+      assert.ok(
+        stdout.includes('Building app for test iterations.'),
+        'Logged building message from command'
+      );
+      assert.ok(
+        stdout.includes('Built project successfully.'),
+        'Built successfully according to Ember-CLI'
+      );
 
-      assert.ok(stdout.includes('Running iteration #1.'), 'Logs first iteration');
-      assert.ok(stdout.includes('Running iteration #2.'), 'Logs second iteration');
+      assert.ok(
+        stdout.includes('Running iteration #1.'),
+        'Logs first iteration'
+      );
+      assert.ok(
+        stdout.includes('Running iteration #2.'),
+        'Logs second iteration'
+      );
 
-      var seedRE = /Randomizing tests with seed: (.*)/g;
+      const seedRE = /Randomizing tests with seed: (.*)/g;
 
-      var firstSeed = seedRE.exec(stdout)[1];
-      var secondSeed = seedRE.exec(stdout)[1];
+      const firstSeed = seedRE.exec(stdout)[1];
+      const secondSeed = seedRE.exec(stdout)[1];
 
       assert.ok(firstSeed, 'first seed exists');
       assert.ok(secondSeed, 'second seed exists');
-      assert.notEqual(firstSeed, secondSeed, 'the first and second seeds are not the same');
+      assert.notEqual(
+        firstSeed,
+        secondSeed,
+        'the first and second seeds are not the same'
+      );
 
-      assert.ok(stdout.includes('Cleaning up test iterations.'), 'Logged cleaning up message from command');
-      assert.throws(() => fs.accessSync('iteration-dist', fs.F_OK), 'iteration-dist is cleaned up');
+      assert.ok(
+        stdout.includes('Cleaning up test iterations.'),
+        'Logged cleaning up message from command'
+      );
+      assert.throws(
+        () => fs.accessSync('iteration-dist', fs.F_OK),
+        'iteration-dist is cleaned up'
+      );
     });
   });
 
   it('should test the app with additional options passed in and catch failure cases', function() {
-    const execution = execa('ember', ['exam:iterate', '2' ,'--options' ,'--parallel']);
-
+    const execution = execa('ember', [
+      'exam:iterate',
+      '2',
+      '--options',
+      '--parallel'
+    ]);
     return execution.then(assertExpectRejection, error => {
       const splitErrorRE = /You must specify the `split` option in order to run your tests in parallel./g;
 
-      assert.ok(splitErrorRE.test(error.stderr), 'expected stderr to contain the appropriate error message');
+      assert.ok(
+        splitErrorRE.test(error.stderr),
+        'expected stderr to contain the appropriate error message'
+      );
       assert.equal(error.code, 1);
       assert.equal(error.failed, true);
       assert.equal(error.killed, false);
@@ -57,37 +86,76 @@ describe('Acceptance | Exam Iterate Command', function() {
     it('should not build the app or clean it up, but use an existing build to test', function() {
       execa.sync('ember', ['build']);
 
-      return execa('ember', ['exam:iterate', '2', '--path', 'dist']).then(child => {
-        const stdout = child.stdout;
+      return execa('ember', ['exam:iterate', '2', '--path', 'dist']).then(
+        child => {
+          const stdout = child.stdout;
 
-        assert.ok(!stdout.includes('Building app for test iterations.'), 'No logged building message from command');
-        assert.ok(!stdout.includes('Built project successfully.'), 'Not built successfully according to Ember-CLI');
+          assert.ok(
+            !stdout.includes('Building app for test iterations.'),
+            'No logged building message from command'
+          );
+          assert.ok(
+            !stdout.includes('Built project successfully.'),
+            'Not built successfully according to Ember-CLI'
+          );
 
-        assert.ok(stdout.includes('Running iteration #1.'), 'Logs first iteration');
-        assert.ok(stdout.includes('Running iteration #2.'), 'Logs second iteration');
+          assert.ok(
+            stdout.includes('Running iteration #1.'),
+            'Logs first iteration'
+          );
+          assert.ok(
+            stdout.includes('Running iteration #2.'),
+            'Logs second iteration'
+          );
 
-        var seedRE = /Randomizing tests with seed: (.*)/g;
+          const seedRE = /Randomizing tests with seed: (.*)/g;
 
-        var firstSeed = seedRE.exec(stdout)[1];
-        var secondSeed = seedRE.exec(stdout)[1];
+          const firstSeed = seedRE.exec(stdout)[1];
+          const secondSeed = seedRE.exec(stdout)[1];
 
-        assert.ok(firstSeed, 'first seed exists');
-        assert.ok(secondSeed, 'second seed exists');
-        assert.notEqual(firstSeed, secondSeed, 'the first and second seeds are not the same');
+          assert.ok(firstSeed, 'first seed exists');
+          assert.ok(secondSeed, 'second seed exists');
+          assert.notEqual(
+            firstSeed,
+            secondSeed,
+            'the first and second seeds are not the same'
+          );
 
-        assert.ok(!stdout.includes('Cleaning up test iterations.'), 'No logged cleaning up message from command');
-        assert.throws(() => fs.accessSync('iteration-dist', fs.F_OK), 'iteration-dist is non-existent');
+          assert.ok(
+            !stdout.includes('Cleaning up test iterations.'),
+            'No logged cleaning up message from command'
+          );
+          assert.throws(
+            () => fs.accessSync('iteration-dist', fs.F_OK),
+            'iteration-dist is non-existent'
+          );
 
-        assert.doesNotThrow(() => fs.accessSync(buildDir, fs.F_OK), 'dist is not cleaned up');
-      });
+          assert.doesNotThrow(
+            () => fs.accessSync(buildDir, fs.F_OK),
+            'dist is not cleaned up'
+          );
+        }
+      );
     });
   });
 
   describe('Exit Code', function() {
-    const destPath = path.join(__dirname, '..', '..', 'tests', 'unit', 'failing-test.js');
+    const destPath = path.join(
+      __dirname,
+      '..',
+      '..',
+      'tests',
+      'unit',
+      'failing-test.js'
+    );
 
     beforeEach(function() {
-      const failingTestPath = path.join(__dirname, '..', 'fixtures', 'failure.js');
+      const failingTestPath = path.join(
+        __dirname,
+        '..',
+        'fixtures',
+        'failure.js'
+      );
       fs.copySync(failingTestPath, destPath);
     });
 
@@ -96,10 +164,13 @@ describe('Acceptance | Exam Iterate Command', function() {
     });
 
     it('should have an exitCode of 1 when a test fails', function() {
-      return execa('ember', ['exam:iterate','1']).then(assertExpectRejection, error => {
-        assert.equal(error.code, 1);
-        assert.equal(error.killed, false);
-      });
+      return execa('ember', ['exam:iterate', '1']).then(
+        assertExpectRejection,
+        error => {
+          assert.equal(error.code, 1);
+          assert.equal(error.killed, false);
+        }
+      );
     });
   });
 });

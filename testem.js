@@ -7,6 +7,7 @@ module.exports = {
   launch_in_dev: [
     'Chrome'
   ],
+  timeout: 15,
   browser_args: {
     Chrome: {
       ci: [
@@ -21,5 +22,6 @@ module.exports = {
         '--window-size=1440,900'
       ].filter(Boolean)
     }
-  }
+  },
+  'parallel': -1
 };

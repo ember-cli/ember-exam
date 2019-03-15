@@ -5,7 +5,7 @@
 module.exports = {
   name: require('./package').name,
 
-  includedCommands: function() {
+  includedCommands() {
     return require('./lib/commands');
   }
 };
