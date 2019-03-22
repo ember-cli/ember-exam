@@ -32,6 +32,7 @@
     "ember-cli-babel": "^7.5.0",
     "execa": "^1.0.0",
     "fs-extra": "^7.0.1",
+    "js-yaml": "^3.13.0",
     "rimraf": "^2.6.2",
     "semver": "^5.6.0",
     "silent-error": "^1.1.1"

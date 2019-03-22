@@ -34,11 +34,11 @@ describe('TestemEvents', function() {
       });
     });
 
-    it('set sharedModuleQueue for load-balance mode', function() {
+    it('set TestModuleQueue for load-balance mode', function() {
       this.testemEvents.setModuleQueue(1, this.moduleQueue, true, false);
 
       assert.deepEqual(
-        this.testemEvents.stateManager.getSharedModuleQueue(),
+        this.testemEvents.stateManager.getTestModuleQueue(),
         this.moduleQueue
       );
     });
@@ -49,32 +49,32 @@ describe('TestemEvents', function() {
       this.testemEvents.setModuleQueue(2, anotherModuleQueue, true, false);
 
       assert.deepEqual(
-        this.testemEvents.stateManager.getSharedModuleQueue(),
+        this.testemEvents.stateManager.getTestModuleQueue(),
         this.moduleQueue
       );
     });
 
-    it('set browserModuleQueue for replay-execution mode', function() {
+    it('set replayExecutionModuleQueue for replay-execution mode', function() {
       this.testemEvents.setReplayExecutionMap(testExecutionJsonPath, [1]);
       this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true);
 
       assert.deepEqual(
-        this.testemEvents.stateManager.getBrowserModuleQueue(1),
+        this.testemEvents.stateManager.getReplayExecutionModuleQueue(1),
         testExecutionJson.executionMapping[1]
       );
     });
 
-    it('set browserModuleQueue for replay-execution mode when replay-browser is undefined', function() {
+    it('set replayExecutionModuleQueue for replay-execution mode when replay-browser is undefined', function() {
       this.testemEvents.setReplayExecutionMap(testExecutionJsonPath);
       this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true);
 
       assert.deepEqual(
-        this.testemEvents.stateManager.getBrowserModuleQueue(1),
+        this.testemEvents.stateManager.getReplayExecutionModuleQueue(1),
         testExecutionJson.executionMapping[1]
       );
     });
 
-    it('throws error if ReplayExecutionMap is not set when setting browserModuleQueue for replay-execution mode', function() {
+    it('throws error if ReplayExecutionMap is not set when setting replayExecutionModuleQueue for replay-execution mode', function() {
       assert.throws(
         () =>
           this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true),
@@ -111,7 +111,7 @@ describe('TestemEvents', function() {
     });
 
     it('should fire next-module-response event and save the moduleName to stateManager.moduleMap when write-execution-file is true', function() {
-      this.testemEvents.stateManager.setSharedModuleQueue(this.moduleQueue);
+      this.testemEvents.stateManager.setTestModuleQueue(this.moduleQueue);
       this.testemEvents.nextModuleResponse(1, socket, true);
 
       assert.deepEqual(
@@ -130,7 +130,7 @@ describe('TestemEvents', function() {
     });
 
     it('should not save the moduleName to stateManager.moduleMap when write-execution-file is false', function() {
-      this.testemEvents.stateManager.setBrowserModuleQueue([], 1);
+      this.testemEvents.stateManager.setReplayExecutionModuleQueue([], 1);
       this.testemEvents.nextModuleResponse(1, socket, false);
 
       assert.deepEqual(
@@ -187,14 +187,14 @@ describe('TestemEvents', function() {
       );
 
       assert.equal(
-        this.testemEvents.stateManager.completedBrowsers(),
+        this.testemEvents.stateManager.getCompletedBrowser(),
         1,
         'completedBrowsers was incremented'
       );
     });
 
     it('should write test-execution file and cleanup state when completedBrowsers equals browserCount and load-balance is true', function() {
-      this.testemEvents.stateManager.addModuleNameToModuleMap('a', 1);
+      this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('a', 1);
       this.testemEvents.completedBrowsersHandler(
         1,
         mockUi,
@@ -226,15 +226,15 @@ describe('TestemEvents', function() {
       );
 
       assert.equal(
-        this.testemEvents.stateManager.completedBrowsers(),
+        this.testemEvents.stateManager.getCompletedBrowser(),
         1,
         'completedBrowsers was incremented'
       );
     });
 
     it('should not clean up states from stateManager when test execution is not completed', function() {
-      this.testemEvents.stateManager.addModuleNameToModuleMap('a', 1);
-      this.testemEvents.stateManager.addModuleNameToModuleMap('b', 2);
+      this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('a', 1);
+      this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('b', 2);
 
       this.testemEvents.completedBrowsersHandler(
         2,
@@ -249,7 +249,7 @@ describe('TestemEvents', function() {
 
     it('should clean up states from stateManager when test execution is completed', function() {
       const mockReplayExecutionMap = { 1: ['a'] };
-      this.testemEvents.stateManager.addModuleNameToModuleMap('a', 1);
+      this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('a', 1);
       this.testemEvents.stateManager.setReplayExecutionMap(
         mockReplayExecutionMap
       );
@@ -263,11 +263,11 @@ describe('TestemEvents', function() {
 
       assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 0);
       assert.deepEqual(
-        this.testemEvents.stateManager.getSharedModuleQueue(),
+        this.testemEvents.stateManager.getTestModuleQueue(),
         null
       );
       assert.deepEqual(
-        this.testemEvents.stateManager.getBrowserModuleQueue(),
+        this.testemEvents.stateManager.getReplayExecutionModuleQueue(),
         null
       );
       assert.deepEqual(

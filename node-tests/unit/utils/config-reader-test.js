@@ -26,4 +26,18 @@ describe('ConfigReader | readTestemConfig', function() {
       'bar'
     );
   });
+
+  it('should read a specified `json` file and return an object read from the file', function() {
+    assert.deepEqual(
+      readTestemConfig('testem.json-file.json', []).foo,
+      'bar'
+    );
+  });
+
+  it('should read a specified `yaml` file and return an object read from the file', function() {
+    assert.deepEqual(
+      readTestemConfig('testem.yaml-file.yaml', []).foo,
+      'bar'
+    );
+  });
 });
