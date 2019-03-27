@@ -28,3 +28,4 @@
 /bower.json.ember-try
 /package.json.ember-try
 /.nyc_output/
+/config/addon-docs.js
