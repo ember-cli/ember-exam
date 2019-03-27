@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/trentmwillis/ember-exam/badges/gpa.svg)](https://codeclimate.com/github/trentmwillis/ember-exam)
 [![Node Test Coverage](https://codeclimate.com/github/trentmwillis/ember-exam/badges/coverage.svg)](https://codeclimate.com/github/trentmwillis/ember-exam/coverage)
 
-Ember Exam is an addon to allow you more control over how you run your tests when used in conjunction with [Ember QUnit](https://github.com/emberjs/ember-qunit) or [Ember CLI Mocha](https://github.com/ember-cli/ember-cli-mocha). It provides the ability to randomize, split, and parallelize your test suite by adding a more robust CLI command.
+Ember Exam is an addon to allow you more control over how you run your tests when used in conjunction with [Ember QUnit](https://github.com/emberjs/ember-qunit) or [Ember CLI Mocha](https://github.com/ember-cli/ember-cli-mocha). It provides the ability to randomize, split, parallelize, and load-balance your test suite by adding a more robust CLI command.
 
 It started as a way to help reduce flaky tests and encourage healthy test driven development. It's like [Head & Shoulders](http://www.headandshoulders.com/) for your tests!
 
@@ -27,24 +27,46 @@ Using Ember Exam is fairly straightforward as it extends directly from the defau
 $ ember exam
 $ ember exam --filter='acceptance'
 $ ember exam --server
+$ ember exam --load-balance --parallel=1
+```
+
+A value to an option can be passed with either `=` or a space.
+```bash
+# A value of filter is acceptance
+$ ember exam --filter 'acceptance'
+
+# A value of parallel is 2
+$ ember exam --load-balance --parallel=2 --server --no-launch
+
+# If a `=` is not used to pass a value to an option that requires a value, it will take anything passed after a space as it's value
+# In this instance, the value of parallel is --server
+$ ember exam --load-balance --parallel --server --no-launch
 ```
 
 The idea is that you should be able to replace `ember test` with `ember exam` and never look back.
 
-However, to get the unique features of Ember Exam (described in-depth below), you will need to load Ember Exam before your test suite runs. This is done by invoking the `loadEmberExam` function, usually from within `test-helper.js` but it can be done anywhere that executes prior to your tests loading.
+However, to get the unique features of Ember Exam (described in-depth below), you will need to import `addon-test-support/start.js` to invoke the `start` function. The start function creates an instance of EmberExamTestLoader, loads tests, and invokes start function from either `Ember-Qunit` or `Ember-Mocha`. This is done usually from within `test-helper.js` and should replace the use of `start()` from `Ember-Qunit` or `Ember-Mocha`.
+
+```js
+// test-helper.js
+import start from 'ember-exam/test-support/start';
+
+// start() triggers qunit or mocha start after instantiating either qunit or mocha test-loader instance and loading test modules.
+start();
+
+```
+
+### Version `< [our-new-version]`
+
+Starting with version `[our-new-version]`, Ember-exam's `start()` function must be invoked explicitly to use ember-exam's functionalities. Prior to this release, Ember Exam must be loaded by importing `addon-test-support/load.js` and calling `loadEmberExam`. Ember-Exam's `start()` function ensures tests are loaded at the right places and unifies to set up for both `ember-qunit` and `ember-mocha`. If you are using ember-exam version < [our-new-version] make sure to invoke `loadEmberExam()`.
 
 ```js
 // test-helper.js
 import loadEmberExam from 'ember-exam/test-support/load';
 
 loadEmberExam();
+
 ```
-
-If you are using `ember-qunit@>=3`, you need to call `loadEmberExam` before the call to `start`.
-
-### Version `>=0.7.0`
-
-Starting with version `0.7.0`, Ember Exam must be loaded explicitly by calling `loadEmberExam`. Prior to this release, Ember Exam would load its functionality automatically when the document loaded. This change was made to remove some "magic" from the system and takes a cue from the [changes in `ember-qunit@3`](https://github.com/emberjs/ember-qunit#upgrading). For more details on how to load Ember Exam, see the _How To Use_ section above.
 
 ### Randomization
 
@@ -106,7 +128,7 @@ _Note: This feature is not currently supported by Mocha._
 $ ember exam --split=<num>
 ```
 
-The `split` option allows you to specify a number of partitions greater than one to spread your tests across. Ember Exam will then proceed to run the first batch of tests.
+The `split` option allows you to specify the number of partitions greater than one to spread your tests across. Ember Exam will then proceed to run the first batch of tests.
 
 ```bash
 $ ember exam --split=<num> --partition=<num>
@@ -115,20 +137,10 @@ $ ember exam --split=<num> --partition=<num>
 The `partition` option allows you to specify which test group to run after using the `split` option. It is one-indexed, so if you specify a split of 3, the last group you could run is 3 as well. You can also run multiple partitions, e.g.:
 
 ```bash
-# comma delimited
-$ ember exam --split=4 --partition=1,2
-
-# ranged input
-$ ember exam --split=4 --partition=2..4
+$ ember exam --split=4 --partition=1 --partition=2
 ```
 
-_Note: Ember Exam splits test by modifying the Ember-QUnit's `TestLoader`, which means that tests are split up according to AMD modules, so it is possible to have unbalanced partitions. For more info, see [issue #60](https://github.com/trentmwillis/ember-exam/issues/60)._
-
-<!--```bash
-$ ember exam --split=<num> --weighted
-```
-
-The `weighted` option splits tests by weighting them according to type; `acceptance` tests weigh more than `unit` tests weigh more than `jshint` tests. This helps make sure the various test groupings run in similar amounts of time. -->
+_Note: Ember Exam splits test by modifying the Ember-QUnit/Ember-Mocah's `TestLoader` to bucketing each test file into a partition, where each partition has an even number of test files. This makes it possible to have unbalanced partitions. To run your tests with balaned partition, consider using `--load-balance`. For more info, see _Test Load Balancing_ section.
 
 #### Split Test Parallelization
 
@@ -155,7 +167,7 @@ ember exam --split=3 --partition=1,2 --parallel
 
 ```bash
 # container 2
-ember exam --split=3 --partition=3
+ember exam --split=3 --partition=3 --parallel
 ```
 
 **Note 1**: _Ember Exam will respect the `parallel` setting of your [Testem config file](https://github.com/testem/testem/blob/master/docs/config_file.md#config-level-options) while running tests in parallel. The default value for `parallel` in Testem is 1, which means you'll need a non-default value to actually see parallel behavior._
@@ -163,6 +175,106 @@ ember exam --split=3 --partition=3
 **Note 2**: _Ember Exam sets `process.env.EMBER_EXAM_SPLIT_COUNT` for convenience. You can use this in your Testem file._
 
 **Note 3**: _You must be using Testem version `1.5.0` or greater for this feature to work properly._
+
+### Test Load Balancing
+
+```bash
+$ ember exam --parallel=<num> --load-balance
+```
+
+The `load-balance` option allows you to load balance test files against multiple browsers. It will order the test files by test types, e.g. acceptance | integration | unit | eslint, and load balance the ordered test files between the browsers dynamically rather than statically.
+**Note:** parallel must be used along with load-balance to specify a number of browser(s)
+
+The `load-balance` option was added to version 1.1 to address execution performance when running against a large test suite.
+
+Web browsers and servers communicate via promise in order to send and receive a test file. The promise timeout value is set to be 2 seconds, and the timeout can be customized by adding asyncTimeout=[timeout] as a querystring param in the test URL or adding to a testem config.
+For example, if you specify `load-balance` and `parallel` equals 3, then three browser instances will be created and the output will look something like:
+
+```bash
+# ember exam --parallel=3 --load-balance
+ok 1 Chrome 66.0 - Browser Id 1 - some test
+ok 2 Chrome 66.0 - Browser Id 2 - some another test
+ok 3 Chrome 66.0 - Browser Id 3 - some the other test
+```
+
+You can also specify the `split` and `partition` options with `load-balance` to load a portion of test modules on multiple CI containers.
+
+```bash
+$ ember exam --split=<num> --partition=<num> --parallel=<num> --load-balance
+```
+
+This command will split test files and load-balance tests from the specified partition across the browsers. For example `ember exam --split=2 -partition=1 --parallel=3 --load-balance`, the complete list of test files are split into two halves. With the first half of the list load balanced against three browsers. The output will look something like below:
+
+```bash
+# ember exam --split=2 --partition=1 --parallel=3 --load-balance
+ok 1 Chrome 66.0 - Exam Partition 1 - browser Id 1 - some test
+ok 2 Chrome 66.0 - Exam Partition 1 - browser Id 2 - another test
+ok 3 Chrome 66.0 - Exam Partition 1 - browser Id 3 - some the other test
+```
+
+
+**Important information on load-balance**
+
+1. The load-balance option is currently only supported in CI mode and due to the reason no-launch can not be used with load-balance.
+2. You must be using ember-cli version 3.2.0 or greater for load-balnce and test failure reproduction features to work properly.
+3. You must be using ember-qunit version 4.1.1 or greater for this feature to work properly.
+4. You must be using qunit version 2.8.0 or greater for this feature to work properly.
+5. This feature is not currently supported by Mocha.
+
+##### Test Failure Reproduction
+
+Due to the dynamic nature of the load-balance option, test file execution order can vary between runs. In order to reproduce a past test execution, the execution must be recorded via passing --write-execution-file or --wef, which allows generating a JSON file that enables rerunning the past test execution. The option is only allowed when load-balance is passed.
+
+```bash
+# The command will load in test balanced mode with <num> of browser(s). After the test suite execution, it will generate a test-execution json file.
+$ ember exam --parallel=<num> --load-balance --wef
+$ ember exam --parallel=<num> --load-balance --write-execution-file
+```
+
+The file is stored in the root directory and the naming structure is `test-execution-<timestamp>.json`.
+To replay the test execution for particular browser(s), do the following:
+
+```bash
+# The command will read a test execution file specified for `replay-execution` and execute a browser Id(s) from `replay-browser`
+$ ember exam --replay-execution=[string] --replay-browser=[num]
+```
+
+`replay-execution` allows you to specify a path to the json file to run execution against and `replay-browser` is to specify browser ID(s) to execute.
+
+```bash
+# The command will read test-execution-000000.json and load the list of modules mapped to browserId 1
+$ ember exam --replay-execution=test-execution-000000.json --replay-browser=1
+```
+
+The above command will read `test-execution-000000.json` and load the list of modules which is mapped by browser ID #1.
+
+`replay-browser` can be an array of browser IDs. For instance `--replay-broweser=1,2` will start two browsers and execute a list of modules which were previously run by browsers #1 and #2.
+
+```bash
+# The command will read test-execution-000000.json and load the list of module mapped to browserId 1 and 2
+$ ember exam --replay-execution=test-execution-000000.json --replay-browser=1,2
+```
+
+When `replay-browser` value is not specified it will execute browserId(s) read from `failedBrowser` in the test execution file.
+
+```bash
+# The command will read test-execution-000000.json and load the list of modules mapped to browserIds from failedBrowser in the json file.
+$ ember exam --replay-execution=test-execution-000000.json
+```
+
+When `replay-browser` value is not specified and there is no value for `failedBrowser` in the json file it will rerun all list of modules.
+
+```bash
+# The command will read test-execution-000000.json and load the list of module mapped to all browserIds when failedBrowser is none in the json file
+$ ember exam --replay-execution=test-execution-000000.json
+```
+
+**Important information on replay-execution and replay-browser**
+
+1. You must be using ember-cli version 3.2.0 or greater for load-balnce and test failure reproduction features to work properly.
+2. You must be using ember-qunit version 4.1.1 or greater for this feature to work properly.
+3. You must be using qunit version 2.8.0 or greater for this feature to work properly.
+4. This feature is not currently supported by Mocha.
 
 ## Advanced Configuration
 
