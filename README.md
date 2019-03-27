@@ -56,9 +56,9 @@ start();
 
 ```
 
-### Version `< [our-new-version]`
+### Version < `2.1.0`
 
-Starting with version `[our-new-version]`, Ember-exam's `start()` function must be invoked explicitly to use ember-exam's functionalities. Prior to this release, Ember Exam must be loaded by importing `addon-test-support/load.js` and calling `loadEmberExam`. Ember-Exam's `start()` function ensures tests are loaded at the right places and unifies to set up for both `ember-qunit` and `ember-mocha`. If you are using ember-exam version < [our-new-version] make sure to invoke `loadEmberExam()`.
+Starting with version `2.1.0`, Ember-exam's `start()` function must be invoked explicitly to use ember-exam's functionalities. Prior to this release, Ember Exam must be loaded by importing `addon-test-support/load.js` and calling `loadEmberExam`. Ember-Exam's `start()` function ensures tests are loaded at the right places and unifies to set up for both `ember-qunit` and `ember-mocha`. If you are using ember-exam version < `2.1.0` make sure to invoke `loadEmberExam()`.
 
 ```js
 // test-helper.js
