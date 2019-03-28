@@ -12,7 +12,7 @@ const testExecutionJson = {
   numberOfBrowsers: 1,
   failedBrowsers: [],
   executionMapping: {
-    1: ['path/to/testmodule', 'path/to/another/testmodule']
+    "1": ['path/to/testmodule', 'path/to/another/testmodule']
   }
 };
 
@@ -45,8 +45,8 @@ describe('TestemEvents', function() {
 
     it('ignore subsequent setModuleQueue if moduleQueue is already set for load-balance mode', function() {
       const anotherModuleQueue = ['a', 'b', 'c'];
-      this.testemEvents.setModuleQueue(1, this.moduleQueue, true, false);
-      this.testemEvents.setModuleQueue(2, anotherModuleQueue, true, false);
+      this.testemEvents.setModuleQueue("1", this.moduleQueue, true, false);
+      this.testemEvents.setModuleQueue("2", anotherModuleQueue, true, false);
 
       assert.deepEqual(
         this.testemEvents.stateManager.getTestModuleQueue(),
@@ -55,22 +55,22 @@ describe('TestemEvents', function() {
     });
 
     it('set replayExecutionModuleQueue for replay-execution mode', function() {
-      this.testemEvents.setReplayExecutionMap(testExecutionJsonPath, [1]);
-      this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true);
+      this.testemEvents.setReplayExecutionMap(testExecutionJsonPath, ["1"]);
+      this.testemEvents.setModuleQueue("1", this.moduleQueue, false, true);
 
       assert.deepEqual(
-        this.testemEvents.stateManager.getReplayExecutionModuleQueue(1),
-        testExecutionJson.executionMapping[1]
+        this.testemEvents.stateManager.getReplayExecutionModuleQueue("1"),
+        testExecutionJson.executionMapping["1"]
       );
     });
 
     it('set replayExecutionModuleQueue for replay-execution mode when replay-browser is undefined', function() {
       this.testemEvents.setReplayExecutionMap(testExecutionJsonPath);
-      this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true);
+      this.testemEvents.setModuleQueue("1", this.moduleQueue, false, true);
 
       assert.deepEqual(
-        this.testemEvents.stateManager.getReplayExecutionModuleQueue(1),
-        testExecutionJson.executionMapping[1]
+        this.testemEvents.stateManager.getReplayExecutionModuleQueue("1"),
+        testExecutionJson.executionMapping["1"]
       );
     });
 
@@ -149,9 +149,9 @@ describe('TestemEvents', function() {
     });
   });
 
-  describe('recoredFailedBrowserId', function() {
+  describe('recordFailedBrowserId', function() {
     it('record new browserId if test failed', function() {
-      this.testemEvents.recoredFailedBrowserId(1);
+      this.testemEvents.recordFailedBrowserId(1);
 
       assert.deepEqual(
         this.testemEvents.stateManager.getFailedBrowsers(),
@@ -161,8 +161,8 @@ describe('TestemEvents', function() {
     });
 
     it('does not record browserId that has already been recorded', function() {
-      this.testemEvents.recoredFailedBrowserId(1);
-      this.testemEvents.recoredFailedBrowserId(1);
+      this.testemEvents.recordFailedBrowserId(1);
+      this.testemEvents.recordFailedBrowserId(1);
 
       assert.deepEqual(
         this.testemEvents.stateManager.getFailedBrowsers(),
