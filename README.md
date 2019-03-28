@@ -187,7 +187,7 @@ The `load-balance` option allows you to load balance test files against multiple
 
 The `load-balance` option was added to version 1.1 to address execution performance when running against a large test suite.
 
-Web browsers and servers communicate via promise in order to send and receive a test file. The promise timeout value is set to be 2 seconds, and the timeout can be customized by adding asyncTimeout=[timeout] as a querystring param in the test URL or adding to a testem config.
+Web browsers and the testem server communicate via promise in order to send and receive test file. The promise timeout value is set to 15 seconds, and is configurable by adding `asyncTimeout=[timeout]` as a querystring param in the test URL or adding to the `test_page` option in the testem config.
 For example, if you specify `load-balance` and `parallel` equals 3, then three browser instances will be created and the output will look something like:
 
 ```bash

@@ -1,7 +1,5 @@
 'use strict';
 
-import getUrlParams from './get-url-params';
-
 /**
  * A class to iterate a sequencial set of asynchronous events.
  *
@@ -16,9 +14,9 @@ export default class AsyncIterator {
     this._current = null;
     this._boundHandleResponse = this.handleResponse.bind(this);
     this._waiting = false;
-    // Set a timeout value from either url parameter or default timeout value, 2 s.
-    this._timeout = getUrlParams().get('asyncTimeout') || 2;
-    this._browserId = getUrlParams().get('browser');
+    // Set a timeout value from either url parameter or default timeout value, 15 s.
+    this._timeout = options.timeout || 15;
+    this._browserId = options.browserId;
 
     testem.on(this._response, this._boundHandleResponse);
   }
