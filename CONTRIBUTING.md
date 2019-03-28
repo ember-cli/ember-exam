@@ -2,7 +2,7 @@
 
 ## Installation
 
-- `git clone https://github.com/ember-exam/ember-exam.git`
+- `git clone https://github.com/ember-cli/ember-exam.git`
 - `cd ember-exam`
 - `yarn install`
 
