@@ -13,7 +13,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/trentmwillis/ember-exam.git"
+    "url": "https://github.com/ember-cli/ember-exam.git"
   },
   "scripts": {
     "lint:hbs": "ember-template-lint .",
@@ -87,5 +87,5 @@
       "tests"
     ]
   },
-  "homepage": "https://trentmwillis.github.io/ember-exam"
-  }
+  "homepage": "https://ember-cli.github.io/ember-exam"
+}

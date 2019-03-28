@@ -16,7 +16,8 @@
 
 - `ember test` – Runs the test suite on the current Ember version
 - `ember test --server` – Runs the test suite in "watch mode"
-- `ember try:each` – Runs the test suite against multiple Ember versions
+- `yarn test:node` - Runs the node tests
+- `yarn test:all` – Runs the test suite against multiple Ember versions
 
 ## Running the dummy application
 

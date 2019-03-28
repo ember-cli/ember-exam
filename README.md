@@ -11,6 +11,7 @@ It started as a way to help reduce flaky tests and encourage healthy test driven
 
 [![Introduction to Ember Exam](https://cloud.githubusercontent.com/assets/2922250/22800360/157ad67c-eed7-11e6-8d33-d2c59238c7f1.png)](https://embermap.com/video/ember-exam)
 
+The [documentation website](https://ember-cli.github.io/ember-exam/) contains examples and API information.
 ## Installation
 
 Installation is as easy as running:
@@ -30,7 +31,7 @@ $ ember exam --server
 $ ember exam --load-balance --parallel=1
 ```
 
-A value to an option can be passed with either `=` or a space.
+For more information and examples, please visit the [documentation website](https://ember-cli.github.io/ember-exam/).
 ```bash
 # A value of filter is acceptance
 $ ember exam --filter 'acceptance'
