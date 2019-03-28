@@ -1,0 +1,24 @@
+{{docs-header}}
+
+{{#docs-viewer as |viewer|}}
+  {{#viewer.nav as |nav|}}
+    {{nav.section "Introduction"}}
+    {{nav.item "Quickstart" "docs.index"}}
+
+    {{nav.section "Options"}}
+    {{nav.item "Randomization" "docs.randomization"}}
+    {{nav.item "Randomization Iterator" "docs.randomization-iterator"}}
+    {{nav.item "Splitting" "docs.splitting"}}
+    {{nav.item "Split Test Parallelization" "docs.split-parallel"}}
+    {{nav.item "Test Load Balancing" "docs.load-balancing"}}
+    {{nav.item "Randomization" "docs.randomization"}}
+
+    {{nav.section "Advanced Configuration"}}
+    {{nav.item "Ember Try & CI Integration" "docs.ember-try-and-ci"}}
+    {{nav.item "Test Suite Segmentation" "docs.test-suite-segmentation"}}
+  {{/viewer.nav}}
+
+  {{#viewer.main}}
+    {{outlet}}
+  {{/viewer.main}}
+{{/docs-viewer}}
