@@ -151,7 +151,8 @@ test('should throw a timout error if request is not handled within 2s', function
   const done = assert.async();
   const iteratorOfPromises = new AsyncIterator(this.testem, {
     request: 'next-module-request',
-    response: 'next-module-response'
+    response: 'next-module-response',
+    timeout: 2
   });
 
   iteratorOfPromises.next().catch(err => {
