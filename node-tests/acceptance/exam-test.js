@@ -91,6 +91,62 @@ describe('Acceptance | Exam Command', function() {
     });
   });
 
+  describe('Execute tests with load() in test-helper', function() {
+    const originalTestHelperPath = path.join(
+      __dirname,
+      '..',
+      '..',
+      'tests',
+      'test-helper.js'
+    );
+
+    const renamedOriginalTestHelperPath = path.join(
+      __dirname,
+      '..',
+      '..',
+      'tests',
+      'test-helper-orig.js'
+    );
+
+    const testHelperWithLoadPath = path.join(
+      __dirname,
+      '..',
+      'fixtures',
+      'test-helper-with-load.js'
+    );
+    before(function() {
+      // Use test-helper-with-load.js as the test-helper.js file
+      fs.renameSync(originalTestHelperPath, renamedOriginalTestHelperPath);
+      fs.copySync(testHelperWithLoadPath, originalTestHelperPath);
+
+      // Build the app
+      return execa('ember', ['build', '--output-path', 'acceptance-with-load-dist']);
+    });
+
+    after(function() {
+      rimraf.sync('acceptance-with-load-dist');
+
+      // restore the original test-helper.js file
+      fs.unlinkSync(originalTestHelperPath);
+      fs.renameSync(renamedOriginalTestHelperPath, originalTestHelperPath);
+    });
+
+    it('runs all tests normally', function() {
+      return execa('ember', ['exam', '--path', 'acceptance-with-load-dist']).then(child => {
+        const stdout = child.stdout;
+        assert.ok(
+          !stdout.includes('Exam Partition'),
+          'does not add any sort of partition info'
+        );
+        assert.equal(
+          getNumberOfTests(stdout),
+          getTotalNumberOfTests(stdout),
+          'ran all of the tests in the suite'
+        );
+      });
+    });
+  });
+
   describe('Split', function() {
     it('splits the test suite but only runs the first partition', function() {
       return execa('ember', [

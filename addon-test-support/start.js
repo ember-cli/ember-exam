@@ -1,9 +1,25 @@
 /* globals require */
 
-import emberExam from 'ember-exam/test-support/load';
+import loadEmberExam from 'ember-exam/test-support/load';
 
 /**
- * Ember-exam's own start function to set up EmberExamTestLoader and disable `loadTest` to enable load-balancing
+ * Equivalent to ember-qunit or ember-mocha's loadTest() except this does not create a new TestLoader instance
+ *
+ * @param {*} testLoader
+ */
+function loadTests(testLoader) {
+  if (testLoader === undefined) {
+    throw new Error(
+      'A testLoader instance has not been created. You must call `loadEmberExam()` before calling `loadTest()`.'
+    );
+  }
+
+  testLoader.loadModules();
+}
+
+/**
+ * Ember-exam's own start function to set up EmberExamTestLoader, load tests and calls start() from
+ * ember-qunit or ember-mocha
  *
  * @param {*} qunitOptions
  */
@@ -12,8 +28,8 @@ export default function start(qunitOptions) {
   const modifiedOptions = qunitOptions || Object.create(null);
   modifiedOptions.loadTests = false;
 
-  emberExam.loadEmberExam();
-  emberExam.loadTests();
+  const testLoader = loadEmberExam();
+  loadTests(testLoader);
 
   const emberTestFramework = require(`ember-${framework}`);
 
