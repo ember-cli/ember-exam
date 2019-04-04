@@ -1,4 +1,15 @@
 
+v2.1.4 / 2019-03-27
+===================
+
+* [Bugfix] Ensure serialized test-execution browserId's are always treated as a string https://github.com/ember-cli/ember-exam/pull/233
+
+v2.1.3 / 2019-03-27
+===================
+
+* [Bugfix] fix breaking change: https://github.com/ember-cli/ember-exam/pull/242 (@step2yeung)
+* [Enhancement] Prettify test-execution.json (@step2yeung)
+
 v2.1.0 / 2019-03-27
 ===================
 
