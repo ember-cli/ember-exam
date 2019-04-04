@@ -458,7 +458,7 @@ describe('Acceptance | Exam Command', function() {
     });
 
     it('replay only the failed browsers defined in failedBrowsers array', function() {
-      testExecutionJson.failedBrowsers.push(1);
+      testExecutionJson.failedBrowsers.push("1");
       fixturify.writeSync(process.cwd(), {
         'test-execution-123.json': JSON.stringify(testExecutionJson)
       });
@@ -535,7 +535,7 @@ describe('Acceptance | Exam Command', function() {
           'no test execution json should be written'
         );
 
-        assertOutput(output, 'Browser Id', [2]);
+        assertOutput(output, 'Browser Id', ["2"]);
         assert.equal(
           getNumberOfTests(output),
           23,
