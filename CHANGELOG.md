@@ -1,3 +1,9 @@
+
+v2.1.5 / 2019-01-22
+===================
+
+* re-release 2.0.3 as 2.1.5, as 2.0.4...2.1.4 introduced a worth-while but unexpected breaking change. 2.0.4...2.1.4 will be re-released as 3.x
+``
 v2.0.3 / 2019-01-22
 ===================
 
