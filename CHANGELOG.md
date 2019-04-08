@@ -1,4 +1,49 @@
 
+v3.0.0 / 2019-04-08
+===================
+
+* [Feature - Breaking] Introduce TestLoadBalancing <@choheekim> & <step2yeung>
+
+Starting with version `3.0.0`, Ember-exam's `start()` function must be invoked explicitly to use ember-exam's functionalities. Prior to this release, Ember Exam must be loaded by importing `addon-test-support/load.js` and calling `loadEmberExam`. Ember-Exam's `start()` function ensures tests are loaded at the right places and unifies to set up for both `ember-qunit` and `ember-mocha`. If you are using ember-exam version < `3.0.0` make sure to invoke `loadEmberExam()`.
+
+```js
+// test-helper.js
+import loadEmberExam from 'ember-exam/test-support/load';
+
+loadEmberExam();
+```
+
+* [Bugfix] Ensure serialized test-execution browserId's are always treated as a string https://github.com/ember-cli/ember-exam/pull/233
+* [Bugfix] fix breaking change: https://github.com/ember-cli/ember-exam/pull/242 (@step2yeung)
+* [Enhancement] Prettify test-execution.json (@step2yeung)
+* Bump ember-qunit from 4.4.0 to 4.4.1 (4 weeks ago) <dependabot[bot]>
+* Bump ember-resolver from 5.1.2 to 5.1.3 (4 weeks ago) <dependabot[bot]>
+* Bump testdouble from 3.10.0 to 3.11.0 (4 weeks ago) <dependabot[bot]>
+* Bump ember-cli-babel from 7.4.3 to 7.5.0 (4 weeks ago) <dependabot[bot]>
+* Bump ember-resolver from 5.1.1 to 5.1.2 (5 weeks ago) <dependabot[bot]>
+* Bump mocha from 6.0.0 to 6.0.1 (5 weeks ago) <dependabot[bot]>
+* Bump ember-cli-babel from 7.4.2 to 7.4.3 (5 weeks ago) <dependabot[bot]>
+* Bump ember-qunit from 4.3.0 to 4.4.0 (5 weeks ago) <dependabot[bot]>
+* Bump mocha from 5.2.0 to 6.0.0 (5 weeks ago) <dependabot[bot]>
+* Bump ember-source from 3.7.3 to 3.8.0 (5 weeks ago) <dependabot[bot]>
+* Bump sinon from 7.2.3 to 7.2.4 (5 weeks ago) <dependabot[bot]>
+* Bump nyc from 13.2.0 to 13.3.0 (6 weeks ago) <dependabot[bot]>
+* [Security] Bump handlebars from 4.0.12 to 4.1.0 (6 weeks ago) <dependabot[bot]>
+* Bump ember-cli-babel from 7.4.1 to 7.4.2 (6 weeks ago) <dependabot[bot]>
+* Bump ember-source from 3.7.2 to 3.7.3 (7 weeks ago) <dependabot[bot]>
+* Bump ember-qunit from 4.2.0 to 4.3.0 (7 weeks ago) <dependabot[bot]>
+* Bump nyc from 13.1.0 to 13.2.0 (7 weeks ago) <dependabot[bot]>
+* Bump testdouble from 3.9.3 to 3.10.0 (7 weeks ago) <dependabot[bot]>
+* Bump ember-cli-babel from 7.4.0 to 7.4.1 (8 weeks ago) <dependabot[bot]>
+* Bump eslint-plugin-ember from 6.1.0 to 6.2.0 (8 weeks ago) <dependabot[bot]>
+
+
+v2.1.5 / 2019-04-08
+===================
+
+* re-release 2.0.3 as 2.1.5, as 2.0.4...2.1.4 introduced a worth-while but unexpected breaking change. 2.0.4...2.1.4 will be re-released as 3.x
+
+
 v2.1.4 / 2019-03-27
 ===================
 
