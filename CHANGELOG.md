@@ -4,14 +4,17 @@ v3.0.0 / 2019-04-08
 
 * [Feature - Breaking] Introduce TestLoadBalancing <@choheekim> & <step2yeung>
 
-Starting with version `3.0.0`, Ember-exam's `start()` function must be invoked explicitly to use ember-exam's functionalities. Prior to this release, Ember Exam must be loaded by importing `addon-test-support/load.js` and calling `loadEmberExam`. Ember-Exam's `start()` function ensures tests are loaded at the right places and unifies to set up for both `ember-qunit` and `ember-mocha`. If you are using ember-exam version < `3.0.0` make sure to invoke `loadEmberExam()`.
+You will need to **replace** the use of `start()` from `Ember-Qunit` or `Ember-Mocha` in `test-helper.js` with `start()` from `ember-exam`:
 
 ```js
 // test-helper.js
-import loadEmberExam from 'ember-exam/test-support/load';
+import start from 'ember-exam/test-support/start';
 
-loadEmberExam();
+// Options passed to `start` will be passed-through to ember-qunit or ember-mocha
+start();
 ```
+
+This breaking change was motivated by wanting to remove the monkey-patching, of ember-qunit and ember-mocha's test-loader, ember exam was doing.
 
 * [Bugfix] Ensure serialized test-execution browserId's are always treated as a string https://github.com/ember-cli/ember-exam/pull/233
 * [Bugfix] fix breaking change: https://github.com/ember-cli/ember-exam/pull/242 (@step2yeung)
