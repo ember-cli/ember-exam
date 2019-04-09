@@ -55,7 +55,8 @@ import start from 'ember-exam/test-support/start';
 start();
 ```
 
-### Version < `2.1.0`
+### Version < `3.0.0`
+
 
 Prior to `2.1.0`, Ember Exam must be loaded by importing `addon-test-support/load.js` and calling `loadEmberExam`:
 
