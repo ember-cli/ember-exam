@@ -40,6 +40,6 @@ npm publish
 
 ## Update release notes
 
-Finally, publish the [release on GitHub](https://github.com/trentmwillis/ember-exam/releases) by drafting a new release. Use the changelog to populate the entry.
+Finally, publish the [release on GitHub](https://github.com/ember-cli/ember-exam/releases) by drafting a new release. Use the changelog to populate the entry.
 
 And that's it! Congratulations!
