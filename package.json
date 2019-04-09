@@ -40,7 +40,7 @@
   "devDependencies": {
     "@ember/optional-features": "^0.7.0",
     "codeclimate-test-reporter": "^0.5.0",
-    "ember-cli": "~3.8.2",
+    "ember-cli": "~3.9.0",
     "ember-cli-dependency-checker": "^3.0.0",
     "ember-cli-htmlbars": "^3.0.1",
     "ember-cli-htmlbars-inline-precompile": "^2.0.0",
@@ -60,7 +60,7 @@
     "fixturify": "^1.2.0",
     "istanbul": "^0.4.3",
     "loader.js": "^4.7.0",
-    "mocha": "^6.1.1",
+    "mocha": "^6.1.2",
     "mocha-eslint": "^4.1.0",
     "nyc": "^13.3.0",
     "rsvp": "^4.0.2",

@@ -43,22 +43,22 @@ $ ember exam --load-balance --parallel=2 --server --no-launch
 $ ember exam --load-balance --parallel --server --no-launch
 ```
 
-The idea is that you should be able to replace `ember test` with `ember exam` and never look back.
+The idea is that you can replace `ember test` with `ember exam` and never look back.
 
-However, to get the unique features of Ember Exam (described in-depth below), you will need to import `addon-test-support/start.js` to invoke the `start` function. The start function creates an instance of EmberExamTestLoader, loads tests, and invokes start function from either `Ember-Qunit` or `Ember-Mocha`. This is done usually from within `test-helper.js` and should replace the use of `start()` from `Ember-Qunit` or `Ember-Mocha`.
+To get the unique features of Ember Exam (described in-depth below), you will need to **replace** the use of `start()` from `Ember-Qunit` or `Ember-Mocha` in `test-helper.js` with `start()` from `ember-exam`:
 
 ```js
 // test-helper.js
 import start from 'ember-exam/test-support/start';
 
-// start() triggers qunit or mocha start after instantiating either qunit or mocha test-loader instance and loading test modules.
+// Options passed to `start` will be passed-through to ember-qunit or ember-mocha
 start();
-
 ```
 
-### Version < `2.1.0`
+### Version < `3.0.0`
 
-Starting with version `3.0.0`, Ember-exam's `start()` function must be invoked explicitly to use ember-exam's functionalities. Prior to this release, Ember Exam must be loaded by importing `addon-test-support/load.js` and calling `loadEmberExam`. Ember-Exam's `start()` function ensures tests are loaded at the right places and unifies to set up for both `ember-qunit` and `ember-mocha`. If you are using ember-exam version < `3.0.0` make sure to invoke `loadEmberExam()`.
+
+Prior to `2.1.0`, Ember Exam must be loaded by importing `addon-test-support/load.js` and calling `loadEmberExam`:
 
 ```js
 // test-helper.js
@@ -140,7 +140,7 @@ The `partition` option allows you to specify which test group to run after using
 $ ember exam --split=4 --partition=1 --partition=2
 ```
 
-_Note: Ember Exam splits test by modifying the Ember-QUnit/Ember-Mocah's `TestLoader` to bucketing each test file into a partition, where each partition has an even number of test files. This makes it possible to have unbalanced partitions. To run your tests with balaned partition, consider using `--load-balance`. For more info, see _Test Load Balancing_ section.
+_Note: Ember Exam splits tests by modifying the Ember-QUnit/Ember-Mocha's `TestLoader` to bucket each test file into a partition, where each partition has an even number of test files. This makes it possible to have unbalanced partitions. To run your tests with balanced partitions, consider using `--load-balance`. For more info, see [_Test Load Balancing_](#test-load-balancing).
 
 #### Split Test Parallelization
 
@@ -213,12 +213,12 @@ ok 3 Chrome 66.0 - Exam Partition 1 - browser Id 3 - some the other test
 ```
 
 
-**Important information on load-balance**
+**Important information on Load Balancing**
 
-1. The load-balance option is currently only supported in CI mode and due to the reason no-launch can not be used with load-balance.
-2. You must be using ember-cli version 3.2.0 or greater for load-balnce and test failure reproduction features to work properly.
-3. You must be using ember-qunit version 4.1.1 or greater for this feature to work properly.
-4. You must be using qunit version 2.8.0 or greater for this feature to work properly.
+1. The `--load-balance` option is currently only supported in CI mode and for that reason no-launch cannot be used with load-balance.
+2. You must be using `ember-cli` version 3.2.0 or greater for load balancing and test failure reproduction features to work properly.
+3. You must be using `ember-qunit` version 4.1.1 or greater for this feature to work properly.
+4. You must be using `qunit` version 2.8.0 or greater for this feature to work properly.
 5. This feature is not currently supported by Mocha.
 
 ##### Test Failure Reproduction
@@ -248,7 +248,7 @@ $ ember exam --replay-execution=test-execution-000000.json --replay-browser=1
 
 The above command will read `test-execution-000000.json` and load the list of modules which is mapped by browser ID #1.
 
-`replay-browser` can be an array of browser IDs. For instance `--replay-broweser=1,2` will start two browsers and execute a list of modules which were previously run by browsers #1 and #2.
+`replay-browser` can be an array of browser IDs. For instance `--replay-browser=1,2` will start two browsers and execute a list of modules which were previously run by browsers #1 and #2.
 
 ```bash
 # The command will read test-execution-000000.json and load the list of module mapped to browserId 1 and 2
@@ -269,11 +269,11 @@ When `replay-browser` value is not specified and there is no value for `failedBr
 $ ember exam --replay-execution=test-execution-000000.json
 ```
 
-**Important information on replay-execution and replay-browser**
+**Important information on `--replay-execution` and `--replay-browser`**
 
-1. You must be using ember-cli version 3.2.0 or greater for load-balnce and test failure reproduction features to work properly.
-2. You must be using ember-qunit version 4.1.1 or greater for this feature to work properly.
-3. You must be using qunit version 2.8.0 or greater for this feature to work properly.
+1. You must be using `ember-cli` version 3.2.0 or greater for load-balnce and test failure reproduction features to work properly.
+2. You must be using `ember-qunit` version 4.1.1 or greater for this feature to work properly.
+3. You must be using `qunit` version 2.8.0 or greater for this feature to work properly.
 4. This feature is not currently supported by Mocha.
 
 ## Advanced Configuration
@@ -282,7 +282,7 @@ Ember Exam does its best to allow you to run your test suite in a way that is ef
 
 ### Ember Try & CI Integration
 
-Integrating ember-exam with [ember-try](https://github.com/ember-cli/ember-try) is remarkably easy. Simply define a [`command` in your `ember-try.js` config](https://github.com/ember-cli/ember-try#configuration-files) that leverages the `exam` command:
+Integrating ember-exam with [ember-try](https://github.com/ember-cli/ember-try) is remarkably easy. Define a [`command` in your `ember-try.js` config](https://github.com/ember-cli/ember-try#configuration-files) that leverages the `exam` command:
 
 ```js
 // config/ember-try.js
