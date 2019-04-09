@@ -16,4 +16,4 @@ The `partition` option allows you to specify which test group to run after using
 ember exam --split=4 --partition=1 --partition=2
 ```
 
-_Note: Ember Exam splits test by modifying the Ember-QUnit/Ember-Mocah's `TestLoader` to bucketing each test file into a partition, where each partition has an even number of test files. This makes it possible to have unbalanced partitions. To run your tests with balaned partition, consider using `--load-balance`. For more info, see \_Test Load Balancing_ section.
+_Note: Ember Exam splits tests by modifying the Ember-QUnit/Ember-Mocha's `TestLoader` to bucket each test file into a partition, where each partition has an even number of test files. This makes it possible to have unbalanced partitions. To run your tests with balanced partitions, consider using `--load-balance`. For more info, see [_Test Load Balancing_](#test-load-balancing).

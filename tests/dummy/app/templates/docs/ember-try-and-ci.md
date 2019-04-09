@@ -1,6 +1,6 @@
 ### Ember Try & CI Integration
 
-Integrating ember-exam with [ember-try](https://github.com/ember-cli/ember-try) is remarkably easy. Simply define a [`command` in your `ember-try.js` config](https://github.com/ember-cli/ember-try#configuration-files) that leverages the `exam` command:
+Integrating ember-exam with [ember-try](https://github.com/ember-cli/ember-try) is remarkably easy. Define a [`command` in your `ember-try.js` config](https://github.com/ember-cli/ember-try#configuration-files) that leverages the `exam` command:
 
 ```js
 // config/ember-try.js

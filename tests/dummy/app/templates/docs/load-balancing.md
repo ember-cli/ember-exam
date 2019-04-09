@@ -34,12 +34,12 @@ ok 2 Chrome 66.0 - Exam Partition 1 - browser Id 2 - another test
 ok 3 Chrome 66.0 - Exam Partition 1 - browser Id 3 - some the other test
 ```
 
-**Important information on load-balance**
+**Important information on Load Balancing**
 
-1. The load-balance option is currently only supported in CI mode and due to the reason no-launch can not be used with load-balance.
-2. You must be using ember-cli version 3.2.0 or greater for load-balnce and test failure reproduction features to work properly.
-3. You must be using ember-qunit version 4.1.1 or greater for this feature to work properly.
-4. You must be using qunit version 2.8.0 or greater for this feature to work properly.
+1. The `--load-balance` option is currently only supported in CI mode and for that reason no-launch cannot be used with load-balance.
+2. You must be using `ember-cli` version 3.2.0 or greater for load balancing and test failure reproduction features to work properly.
+3. You must be using `ember-qunit` version 4.1.1 or greater for this feature to work properly.
+4. You must be using `qunit` version 2.8.0 or greater for this feature to work properly.
 5. This feature is not currently supported by Mocha.
 
 ## Test Failure Reproduction
@@ -69,7 +69,7 @@ ember exam --replay-execution=test-execution-000000.json --replay-browser=1
 
 The above command will read `test-execution-000000.json` and load the list of modules which is mapped by browser ID #1.
 
-`replay-browser` can be an array of browser IDs. For instance `--replay-broweser=1,2` will start two browsers and execute a list of modules which were previously run by browsers #1 and #2.
+`replay-browser` can be an array of browser IDs. For instance `--replay-browser=1,2` will start two browsers and execute a list of modules which were previously run by browsers #1 and #2.
 
 ```bash
 # The command will read test-execution-000000.json and load the list of module mapped to browserId 1 and 2
@@ -90,9 +90,9 @@ When `replay-browser` value is not specified and there is no value for `failedBr
 ember exam --replay-execution=test-execution-000000.json
 ```
 
-**Important information on replay-execution and replay-browser**
+**Important information on `--replay-execution` and `--replay-browser`**
 
-1. You must be using ember-cli version 3.2.0 or greater for load-balnce and test failure reproduction features to work properly.
-2. You must be using ember-qunit version 4.1.1 or greater for this feature to work properly.
-3. You must be using qunit version 2.8.0 or greater for this feature to work properly.
+1. You must be using `ember-cli` version 3.2.0 or greater for load-balnce and test failure reproduction features to work properly.
+2. You must be using `ember-qunit` version 4.1.1 or greater for this feature to work properly.
+3. You must be using `qunit` version 2.8.0 or greater for this feature to work properly.
 4. This feature is not currently supported by Mocha.
