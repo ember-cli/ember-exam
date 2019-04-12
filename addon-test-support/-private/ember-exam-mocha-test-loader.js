@@ -1,10 +1,12 @@
 import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
-import { TestLoader } from 'ember-mocha/test-loader';
+import { describe, it } from 'mocha';
+
+// get testLoader from 'ember-qunit/test-loader' once a new version get's released
+import TestLoader from 'ember-cli-test-loader/test-support/index';
 
 /**
- * EmberExamMochaTestLoader extends ember-mocha/test-loader used by `ember test`, since it
- * overrides moduleLoadFailure() to log a test failure when a module fails to load
+ * EmberExamMochaTestLoader extends ember-cli-test-loader used by `ember test`
  * @class EmberExamMochaTestLoader
  * @extends {TestLoader}
  */
@@ -42,6 +44,20 @@ export default class EmberExamMochaTestLoader extends TestLoader {
    * Make unsee a no-op to avoid any unwanted resets
    */
   unsee() {}
+
+  /**
+   * ensure a test failure is reported if a module cannot be loaded
+   *
+   * @param {string} moduleName
+   * @param {error} error
+   */
+  moduleLoadFailure(moduleName, error) {
+    describe('TestLoader Failures', function() {
+      it(moduleName + ': could not be loaded', function() {
+        throw error;
+      });
+    });
+  }
 
   /**
    * Loads the test modules depending on the urlParam
