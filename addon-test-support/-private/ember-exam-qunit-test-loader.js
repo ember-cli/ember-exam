@@ -166,7 +166,9 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
       return nextModuleHandler();
     });
 
-    this._qunit.moduleDone(() => {
+    this._qunit.moduleDone((details) => {
+      // testem:module-done-detail is sent to server to keep tracking of test module details.
+      this._testem.emit('testem:module-done-detail', details);
       return nextModuleHandler();
     });
   }

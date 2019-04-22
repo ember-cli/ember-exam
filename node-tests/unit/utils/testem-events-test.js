@@ -183,7 +183,6 @@ describe('TestemEvents', function() {
         1,
         mockUi,
         true,
-        'test-execution.json',
         false
       );
 
@@ -201,12 +200,12 @@ describe('TestemEvents', function() {
         1,
         mockUi,
         true,
-        'test-execution.json',
+        '0000',
         true
       );
 
       const actual = fs.readFileSync(
-        path.join(fixtureDir, 'test-execution.json')
+        path.join(fixtureDir, 'test-execution-0000.json')
       );
 
       assert.deepEqual(JSON.parse(actual), {
@@ -218,13 +217,35 @@ describe('TestemEvents', function() {
       });
     });
 
+    it('should write module-run-details file and cleanup state when completedBrowsers equals browserCount, load-balance is true, and write-execution-file is false', function() {
+      this.testemEvents.stateManager.addModuleDoneDetailToModuleRunDetails('a', 1, 1);
+      this.testemEvents.completedBrowsersHandler(
+        1,
+        mockUi,
+        true,
+        '0000',
+        false
+      );
+
+      const actual = fs.readFileSync(
+        path.join(fixtureDir, 'module-run-details-0000.json')
+      );
+
+      assert.deepEqual(JSON.parse(actual), [{
+        moduleName: 'a',
+        totalAssertionNum: 1,
+        totalDuration: 1
+      }]);
+    });
+
+
     it('should increment completedBrowsers when load-balance is false', function() {
       this.testemEvents.completedBrowsersHandler(
         2,
         1,
         mockUi,
         false,
-        'test-execution.json',
+        '0000',
         false
       );
 
@@ -244,7 +265,7 @@ describe('TestemEvents', function() {
         1,
         mockUi,
         true,
-        'test-execution.json',
+        '0000',
         false
       );
 
@@ -262,7 +283,7 @@ describe('TestemEvents', function() {
         1,
         mockUi,
         true,
-        'test-execution.json',
+        '0000',
         false
       );
 

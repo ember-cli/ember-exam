@@ -98,4 +98,36 @@ describe('ExecutionStateManager', function() {
       assert.deepEqual(this.stateManager.getCompletedBrowser(), 1);
     });
   });
+
+  describe('moduleRunDetails', function() {
+    // test addModuleDoneDetailToModuleRunDetails
+    it('returns an empty array', function() {
+      assert.equal(
+        this.stateManager.getModuleRunDetails().length,
+        0
+      );
+    });
+
+    it('adds module detail to moduleRunDetails', function() {
+      const moduleName = 'foo';
+      const totalAssertionNum = 1;
+      const totalDuration = 1;
+
+      this.stateManager.addModuleDoneDetailToModuleRunDetails(moduleName, totalAssertionNum, totalDuration);
+
+      assert.equal(
+        this.stateManager.getModuleRunDetails()[0].moduleName,
+        moduleName
+      );
+      assert.equal(
+        this.stateManager.getModuleRunDetails()[0].totalAssertionNum,
+        totalAssertionNum
+      );
+      assert.equal(
+        this.stateManager.getModuleRunDetails()[0].totalDuration,
+        totalDuration
+      );
+    })
+  })
+>>>>>>> This commint adds
 });
