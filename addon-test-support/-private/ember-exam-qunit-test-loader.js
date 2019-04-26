@@ -167,7 +167,8 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
     });
 
     this._qunit.moduleDone((details) => {
-      // testem:module-done-detail is sent to server to keep tracking of test module details.
+      // testem:module-done-detail is sent to server to keep track of test module details.
+      // 'details' contains module metadata like module name, total number of assertion ran in the module, and module runtime.
       this._testem.emit('testem:module-done-detail', details);
       return nextModuleHandler();
     });

@@ -218,7 +218,7 @@ describe('TestemEvents', function() {
     });
 
     it('should write module-run-details file and cleanup state when completedBrowsers equals browserCount, load-balance is true, and write-execution-file is false', function() {
-      this.testemEvents.stateManager.addModuleDoneDetailToModuleRunDetails('a', 1, 1);
+      this.testemEvents.stateManager.addMetadataToModuleMetadata({ name: 'a', total: 1, runtime: 1});
       this.testemEvents.completedBrowsersHandler(
         1,
         mockUi,
@@ -232,10 +232,46 @@ describe('TestemEvents', function() {
       );
 
       assert.deepEqual(JSON.parse(actual), [{
-        moduleName: 'a',
-        totalAssertionNum: 1,
-        totalDuration: 1
+        name: 'a',
+        total: 1,
+        runtime: 1
       }]);
+    });
+
+    it('should write module-run-details file with sorted by runtime', function() {
+      this.testemEvents.stateManager.addMetadataToModuleMetadata({ name: 'foo', total: 1, runtime: 1});
+      this.testemEvents.stateManager.addMetadataToModuleMetadata({ name: 'bar', total: 4, runtime: 8});
+      this.testemEvents.stateManager.addMetadataToModuleMetadata({ name: 'baz', total: 2, runtime: 2});
+
+      this.testemEvents.completedBrowsersHandler(
+        1,
+        mockUi,
+        true,
+        '0000',
+        false
+      );
+
+      const actual = fs.readFileSync(
+        path.join(fixtureDir, 'module-run-details-0000.json')
+      );
+
+      assert.deepEqual(JSON.parse(actual), [
+        {
+          name: 'bar',
+          total: 4,
+          runtime: 8
+        },
+        {
+          name: 'baz',
+          total: 2,
+          runtime: 2
+        },
+        {
+          name: 'foo',
+          total: 1,
+          runtime: 1
+        },
+      ]);
     });
 
 

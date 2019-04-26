@@ -103,29 +103,31 @@ describe('ExecutionStateManager', function() {
     // test addModuleDoneDetailToModuleRunDetails
     it('returns an empty array', function() {
       assert.equal(
-        this.stateManager.getModuleRunDetails().length,
+        this.stateManager.getModuleMetadata().length,
         0
       );
     });
 
-    it('adds module detail to moduleRunDetails', function() {
-      const moduleName = 'foo';
-      const totalAssertionNum = 1;
-      const totalDuration = 1;
+    it('adds module detail to moduleMetadata', function() {
+      const moduleMetadata = {
+        name: 'foo',
+        total: 1,
+        runtime: 1
+      };
 
-      this.stateManager.addModuleDoneDetailToModuleRunDetails(moduleName, totalAssertionNum, totalDuration);
+      this.stateManager.addMetadataToModuleMetadata(moduleMetadata);
 
       assert.equal(
-        this.stateManager.getModuleRunDetails()[0].moduleName,
-        moduleName
+        this.stateManager.getModuleMetadata()[0].name,
+        moduleMetadata.name
       );
       assert.equal(
-        this.stateManager.getModuleRunDetails()[0].totalAssertionNum,
-        totalAssertionNum
+        this.stateManager.getModuleMetadata()[0].total,
+        moduleMetadata.total
       );
       assert.equal(
-        this.stateManager.getModuleRunDetails()[0].totalDuration,
-        totalDuration
+        this.stateManager.getModuleMetadata()[0].runtime,
+        moduleMetadata.runtime
       );
     })
   })
