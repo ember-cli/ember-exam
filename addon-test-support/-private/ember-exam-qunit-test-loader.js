@@ -116,8 +116,9 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
     const nextModuleAsyncIterator = new AsyncIterator(this._testem, {
       request: 'testem:next-module-request',
       response: 'testem:next-module-response',
-      timeout: getUrlParams().get('asyncTimeout'),
-      browserId: getUrlParams().get('browser')
+      timeout: this._urlParams.get('asyncTimeout'),
+      browserId: this._urlParams.get('browser'),
+      emberExamExitOnError: this._urlParams.get('_emberExamExitOnError'),
     });
 
     const nextModuleHandler = () => {
