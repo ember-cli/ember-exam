@@ -359,12 +359,13 @@ describe('Acceptance | Exam Command', function() {
       });
     });
 
-    it('should write module detail json after execution', function() {
+    it('should write module detail json after execution with `write-module-metadata-file`.', function() {
       return execa('ember', [
         'exam',
         '--path',
         'acceptance-dist',
         '--load-balance',
+        '--write-module-metadata-file',
         '--parallel'
       ]).then(child => {
         const output = child.stdout;
@@ -445,7 +446,7 @@ describe('Acceptance | Exam Command', function() {
         fs.removeSync(destPath);
       });
 
-      it('should write test-execution json and module-detail json when browser exits', function() {
+      it('should write test-execution json when browser exits', function() {
         return execa('ember', [
           'exam',
           '--path',
@@ -464,6 +465,26 @@ describe('Acceptance | Exam Command', function() {
             `browser exited during the test execution:\n${output}`
           );
           assertTestExecutionFailedBrowsers(output, 1);
+        });
+      });
+
+      it('should write module metadata json when browser exits', function() {
+        return execa('ember', [
+          'exam',
+          '--path',
+          'failure-dist',
+          '--load-balance',
+          '--parallel',
+          '1',
+          '--write-module-metadata-file'
+        ]).then(assertExpectRejection, error => {
+          assert.ok(
+            error.message.includes(
+              'Error: Browser exited on request from test driver'
+            ),
+            `browser exited during the test execution:\n${error.message}`
+          );
+          assertModuleDetailJson(error.message);
         });
       });
     });

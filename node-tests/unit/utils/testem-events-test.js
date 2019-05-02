@@ -182,8 +182,11 @@ describe('TestemEvents', function() {
         2,
         1,
         mockUi,
-        true,
-        false
+        new Map([
+          ['loadBalance', true],
+          ['writeExecutionFile', false]
+        ]),
+        '0000'
       );
 
       assert.equal(
@@ -199,9 +202,11 @@ describe('TestemEvents', function() {
         1,
         1,
         mockUi,
-        true,
-        '0000',
-        true
+        new Map([
+          ['loadBalance', true],
+          ['writeExecutionFile', true]
+        ]),
+        '0000'
       );
 
       const actual = fs.readFileSync(
@@ -222,9 +227,11 @@ describe('TestemEvents', function() {
       this.testemEvents.completedBrowsersHandler(
         1,
         mockUi,
-        true,
-        '0000',
-        false
+        new Map([
+          ['loadBalance', true],
+          ['writeModuleMetadataFile', true]
+        ]),
+        '0000'
       );
 
       const actual = fs.readFileSync(
@@ -246,9 +253,11 @@ describe('TestemEvents', function() {
       this.testemEvents.completedBrowsersHandler(
         1,
         mockUi,
-        true,
-        '0000',
-        false
+        new Map([
+          ['loadBalance', true],
+          ['writeModuleMetadataFile', true]
+        ]),
+        '0000'
       );
 
       const actual = fs.readFileSync(
@@ -280,9 +289,11 @@ describe('TestemEvents', function() {
         2,
         1,
         mockUi,
-        false,
-        '0000',
-        false
+        new Map([
+          ['loadBalance', false],
+          ['writeExecutionFile', false]
+        ]),
+        '0000'
       );
 
       assert.equal(
@@ -300,9 +311,10 @@ describe('TestemEvents', function() {
         2,
         1,
         mockUi,
-        true,
-        '0000',
-        false
+        new Map([
+          ['loadBalance', true]
+        ]),
+        '0000'
       );
 
       assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 2);
@@ -318,9 +330,10 @@ describe('TestemEvents', function() {
         1,
         1,
         mockUi,
-        true,
-        '0000',
-        false
+        new Map([
+          ['loadBalance', true]
+        ]),
+        '0000'
       );
 
       assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 0);

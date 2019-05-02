@@ -69,6 +69,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
     }
 
     super.loadModules();
+    this.setupModuleMetadataHandler();
 
     if (modulePath || filePath) {
       this._testModules = filterTestModules(
@@ -119,6 +120,17 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
   }
 
   /**
+   * setupModuleMetadataHandler() register QUnit callback to enable generating module metadata file.
+   */
+  setupModuleMetadataHandler() {
+    this._qunit.moduleDone((details) => {
+      // testem:module-done-metadata is sent to server to keep track of test module details.
+      // 'details' contains module metadata like module name, total number of assertion ran in the module, and module runtime.
+      this._testem.emit('testem:module-done-metadata', details);
+    });
+  }
+
+  /**
    * setupLoadBalanceHandlers() registers QUnit callbacks needed for the load-balance option.
    */
   setupLoadBalanceHandlers() {
@@ -166,10 +178,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
       return nextModuleHandler();
     });
 
-    this._qunit.moduleDone((details) => {
-      // testem:module-done-detail is sent to server to keep track of test module details.
-      // 'details' contains module metadata like module name, total number of assertion ran in the module, and module runtime.
-      this._testem.emit('testem:module-done-detail', details);
+    this._qunit.moduleDone(() => {
       return nextModuleHandler();
     });
   }
