@@ -12,6 +12,23 @@ It started as a way to help reduce flaky tests and encourage healthy test driven
 [![Introduction to Ember Exam](https://cloud.githubusercontent.com/assets/2922250/22800360/157ad67c-eed7-11e6-8d33-d2c59238c7f1.png)](https://embermap.com/video/ember-exam)
 
 The [documentation website](https://ember-cli.github.io/ember-exam/) contains examples and API information.
+
+## Table of Contents
+
+- [Installation](#installation)
+- [How To Use](#how-to-use)
+  * [Version < `3.0.0`](#version--300)
+  * [Randomization](#randomization)
+    + [Randomization Iterator](#randomization-iterator)
+  * [Splitting](#splitting)
+    + [Split Test Parallelization](#split-test-parallelization)
+  * [Test Load Balancing](#test-load-balancing)
+      - [Test Failure Reproduction](#test-failure-reproduction)
+- [Advanced Configuration](#advanced-configuration)
+  * [Ember Try & CI Integration](#ember-try--ci-integration)
+  * [Test Suite Segmentation](#test-suite-segmentation)
+
+
 ## Installation
 
 Installation is as easy as running:
