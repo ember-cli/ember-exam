@@ -146,21 +146,35 @@ test('should dispose after iteration.', function(assert) {
     });
 });
 
-test('should throw a timout error if request is not handled within 2s', function(assert) {
+test('should resolve with iterator finishing if request is not handled within 2s', function(assert) {
   assert.expect(1);
-  const done = assert.async();
   const iteratorOfPromises = new AsyncIterator(this.testem, {
     request: 'next-module-request',
     response: 'next-module-response',
     timeout: 2
   });
 
-  iteratorOfPromises.next().catch(err => {
+  return iteratorOfPromises.next().then(res => {
+    assert.deepEqual(res.done, true);
+  });
+});
+
+test('should resolve a timeout error if request is not handled within 2s when emberExamExitOnError is true', function(assert) {
+  assert.expect(1);
+  const iteratorOfPromises = new AsyncIterator(this.testem, {
+    request: 'next-module-request',
+    response: 'next-module-response',
+    timeout: 2,
+    emberExamExitOnError: true,
+  });
+
+  return iteratorOfPromises.next().then(() => {
+    assert.ok(false, 'Promise should not resolve, expecting reject');
+  },err => {
     assert.deepEqual(
       err.message,
       'EmberExam: Promise timed out after 2 s while waiting for response for next-module-request'
     );
-    done();
   });
 });
 

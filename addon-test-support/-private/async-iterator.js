@@ -1,5 +1,7 @@
 'use strict';
 
+const iteratorCompleteResponse = { done: true, value: null };
+
 /**
  * A class to iterate a sequencial set of asynchronous events.
  *
@@ -17,6 +19,7 @@ export default class AsyncIterator {
     // Set a timeout value from either url parameter or default timeout value, 15 s.
     this._timeout = options.timeout || 15;
     this._browserId = options.browserId;
+    this._emberExamExitOnError = options.emberExamExitOnError;
 
     testem.on(this._response, this._boundHandleResponse);
   }
@@ -88,20 +91,29 @@ export default class AsyncIterator {
   /**
    * Set a timeout to reject a promise if it doesn't get response within the timeout threshold.
    *
-   * @param {*} reject
+   * @param {*} resolve
    */
-  _setTimeout(reject) {
+  _setTimeout(resolve, reject) {
     clearTimeout(this.timeout);
     this.timer = setTimeout(() => {
       if (!this._waiting) {
         return;
       }
-      let err = new Error(
-        `EmberExam: Promise timed out after ${
+
+      if (this._emberExamExitOnError) {
+        let err = new Error(
+          `EmberExam: Promise timed out after ${
+            this._timeout
+          } s while waiting for response for ${this._request}`
+        );
+        reject(err);
+      } else {
+        // eslint-disable-next-line no-console
+        console.error(`EmberExam: Promise timed out after ${
           this._timeout
-        } s while waiting for response for ${this._request}`
-      );
-      reject(err);
+        } s while waiting for response for ${this._request}. Closing browser to exit gracefully.`);
+        resolve(iteratorCompleteResponse);
+      }
     }, this._timeout * 1000);
   }
 
@@ -113,7 +125,7 @@ export default class AsyncIterator {
    */
   next() {
     if (this._done) {
-      return Promise.resolve({ done: true, value: null });
+      return Promise.resolve(iteratorCompleteResponse);
     }
     if (this._current) {
       return this._current.promise;
@@ -123,7 +135,7 @@ export default class AsyncIterator {
     let promise = new Promise((_resolve, _reject) => {
       resolve = _resolve;
       reject = _reject;
-      this._setTimeout(reject);
+      this._setTimeout(resolve, reject);
     });
 
     this._current = {
