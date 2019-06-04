@@ -63,6 +63,12 @@ describe('ExamCommand', function() {
       });
     });
 
+    it('should set `modulePathFilter` in the query option', function() {
+      return command.run({ modulePathFilter: 'foo'}).then(function() {
+        assert.equal(called.testRunOptions.query, 'modulePathFilter=foo')
+      });
+    });
+
     it('should set `partition` in the query option with one partition', function() {
       return command.run({ split: 2, partition: [2] }).then(function() {
         assert.equal(called.testRunOptions.query, 'split=2&partition=2');
