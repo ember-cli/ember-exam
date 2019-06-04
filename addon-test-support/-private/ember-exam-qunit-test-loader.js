@@ -1,6 +1,7 @@
 import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
 import weightTestModules from './weight-test-modules';
+import { filterTestModules } from './filter-test-modules';
 import { TestLoader } from 'ember-qunit/test-loader';
 import AsyncIterator from './async-iterator';
 import QUnit from 'qunit';
@@ -54,6 +55,8 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
   loadModules() {
     const loadBalance = this._urlParams.get('loadBalance');
     const browserId = this._urlParams.get('browser');
+    const modulePathFilter = this._urlParams.get('modulePathFilter');
+    const testFilePathFilter = this._urlParams.get('testFilePathFilter');
     let partitions = this._urlParams.get('partition');
     let split = parseInt(this._urlParams.get('split'), 10);
 
@@ -66,6 +69,14 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
     }
 
     super.loadModules();
+
+    if (modulePathFilter || testFilePathFilter) {
+      this._testModules = filterTestModules(
+        this._testModules,
+        modulePathFilter,
+        testFilePathFilter
+      );
+    }
 
     if (loadBalance && this._testem) {
       this.setupLoadBalanceHandlers();

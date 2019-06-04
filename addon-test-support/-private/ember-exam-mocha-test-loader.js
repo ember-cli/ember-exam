@@ -1,5 +1,6 @@
 import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
+import { filterTestModules} from './filter-test-modules';
 import { TestLoader } from 'ember-mocha/test-loader';
 
 /**
@@ -47,6 +48,8 @@ export default class EmberExamMochaTestLoader extends TestLoader {
    * Loads the test modules depending on the urlParam
    */
   loadModules() {
+    const modulePathFilter = this._urlParams.get('modulePathFilter');
+    const testFilePathFilter = this._urlParams.get('testFilePathFilter');
     let partitions = this._urlParams.get('partition');
     let split = parseInt(this._urlParams.get('split'), 10);
 
@@ -59,6 +62,14 @@ export default class EmberExamMochaTestLoader extends TestLoader {
     }
 
     super.loadModules();
+
+    if (modulePathFilter || testFilePathFilter) {
+      this._testModules = filterTestModules(
+        this._testModules,
+        modulePathFilter,
+        testFilePathFilter
+      );
+    }
 
     this._testModules = splitTestModules(this._testModules, split, partitions);
     this._testModules.forEach((moduleName) => {

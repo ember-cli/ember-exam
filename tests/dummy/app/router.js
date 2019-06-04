@@ -12,6 +12,7 @@ Router.map(function() {
     this.route('randomization-iterator');
     this.route('splitting');
     this.route('split-parallel');
+    this.route('filtering');
     this.route('load-balancing');
 
     this.route('ember-try-and-ci');
