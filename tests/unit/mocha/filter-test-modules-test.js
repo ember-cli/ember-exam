@@ -23,7 +23,7 @@ describe('Unit | filter-test-modules', () => {
     });
   });
 
-  describe('modulePathFilter', function() {
+  describe('modulePath', function() {
     beforeEach(function() {
       this.modules = [
         'foo-test',
@@ -70,9 +70,16 @@ describe('Unit | filter-test-modules', () => {
         'bar-test.jshint'
       ]);
     });
+
+    it('should return a list of unique tests matches when options are repeated', () => {
+      expect(filterTestModules(this.modules, 'foo, foo')).to.deep.equal([
+        'foo-test',
+        'foo-test.jshint'
+      ]);
+    });
   });
 
-  describe('testFilePathFilter', function() {
+  describe('filePath', function() {
     beforeEach(function() {
       this.modules = [
         'dummy/tests/integration/foo-test',
@@ -119,6 +126,13 @@ describe('Unit | filter-test-modules', () => {
     it('should return a list of tests matches with a list of string options', () => {
       expect(filterTestModules(this.modules, null, '/tests/integration/*, dummy/tests/unit/foo-test')).to.deep.equal([
         'dummy/tests/integration/foo-test',
+        'dummy/tests/unit/foo-test'
+      ]);
+    });
+
+    it('should return a list of unique tests matches when options are repeated', () => {
+      expect(filterTestModules(this.modules, null, 'app/tests/unit/bar-test.js, /tests/unit/*')).to.deep.equal([
+        'dummy/tests/unit/bar-test',
         'dummy/tests/unit/foo-test'
       ]);
     });

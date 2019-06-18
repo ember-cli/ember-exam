@@ -63,9 +63,9 @@ describe('ExamCommand', function() {
       });
     });
 
-    it('should set `modulePathFilter` in the query option', function() {
-      return command.run({ modulePathFilter: 'foo'}).then(function() {
-        assert.equal(called.testRunOptions.query, 'modulePathFilter=foo')
+    it('should set `modulePath` in the query option', function() {
+      return command.run({ modulePath: 'foo'}).then(function() {
+        assert.equal(called.testRunOptions.query, 'modulePath=foo')
       });
     });
 

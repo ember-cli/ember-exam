@@ -48,8 +48,8 @@ export default class EmberExamMochaTestLoader extends TestLoader {
    * Loads the test modules depending on the urlParam
    */
   loadModules() {
-    const modulePathFilter = this._urlParams.get('modulePathFilter');
-    const testFilePathFilter = this._urlParams.get('testFilePathFilter');
+    const modulePath = this._urlParams.get('modulePath');
+    const filePath = this._urlParams.get('filePath');
     let partitions = this._urlParams.get('partition');
     let split = parseInt(this._urlParams.get('split'), 10);
 
@@ -63,11 +63,11 @@ export default class EmberExamMochaTestLoader extends TestLoader {
 
     super.loadModules();
 
-    if (modulePathFilter || testFilePathFilter) {
+    if (modulePath || filePath) {
       this._testModules = filterTestModules(
         this._testModules,
-        modulePathFilter,
-        testFilePathFilter
+        modulePath,
+        filePath
       );
     }
 

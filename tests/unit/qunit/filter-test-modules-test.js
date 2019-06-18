@@ -21,7 +21,7 @@ module('Unit | filter-test-modules', function(hooks) {
     });
   }),
 
-  module('modulePathFilter', function(hooks) {
+  module('modulePath', function(hooks) {
     setupTest(hooks);
     hooks.beforeEach(function() {
       this.modules = [
@@ -81,9 +81,18 @@ module('Unit | filter-test-modules', function(hooks) {
         ], filterTestModules(this.modules, 'foo, bar')
       );
     });
+
+    test('should return a list of unique tests matches when options are repeated', function(assert) {
+      assert.deepEqual(
+        [
+          'foo-test',
+          'foo-test.jshint'
+        ], filterTestModules(this.modules, 'foo, foo')
+      );
+    });
   }),
 
-  module('testFilePathFilter', function(hooks) {
+  module('filePath', function(hooks) {
     setupTest(hooks);
     hooks.beforeEach(function() {
       this.modules = [
@@ -147,6 +156,15 @@ module('Unit | filter-test-modules', function(hooks) {
           'dummy/tests/integration/foo-test',
           'dummy/tests/unit/foo-test'
         ], filterTestModules(this.modules, null, '/tests/integration/*, dummy/tests/unit/foo-test')
+      );
+    });
+
+    test('should return a list of unique tests matches when options are repeated', function(assert) {
+      assert.deepEqual(
+        [
+          'dummy/tests/unit/bar-test',
+          'dummy/tests/unit/foo-test'
+        ], filterTestModules(this.modules, null, 'app/tests/unit/bar-test.js, /tests/unit/*')
       );
     });
   });
