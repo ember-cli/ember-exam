@@ -235,7 +235,7 @@ describe('TestemEvents', function() {
       );
 
       const actual = fs.readFileSync(
-        path.join(fixtureDir, 'module-run-details-0000.json')
+        path.join(fixtureDir, 'module-metadata-0000.json')
       );
 
       assert.deepEqual(JSON.parse(actual), [{
@@ -261,7 +261,7 @@ describe('TestemEvents', function() {
       );
 
       const actual = fs.readFileSync(
-        path.join(fixtureDir, 'module-run-details-0000.json')
+        path.join(fixtureDir, 'module-metadata-0000.json')
       );
 
       assert.deepEqual(JSON.parse(actual), [

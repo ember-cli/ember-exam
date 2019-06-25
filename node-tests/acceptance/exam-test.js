@@ -306,13 +306,13 @@ describe('Acceptance | Exam Command', function() {
     function assertModuleDetailJson(output) {
       let moduleRunDetailJsonPath = path.join(
         process.cwd(),
-        output.match(/module-run-details-([0-9]*).json/g)[0]
+        output.match(/module-metadata-([0-9]*).json/g)[0]
       );
+      unlinkFiles.push(moduleRunDetailJsonPath);
       assert.ok(
         fs.existsSync(moduleRunDetailJsonPath),
         'module run detail json written to root'
       );
-      unlinkFiles.push(moduleRunDetailJsonPath);
     }
 
     afterEach(() => {
@@ -475,7 +475,7 @@ describe('Acceptance | Exam Command', function() {
           'failure-dist',
           '--load-balance',
           '--parallel',
-          '1',
+          '2',
           '--write-module-metadata-file'
         ]).then(assertExpectRejection, error => {
           assert.ok(
@@ -517,7 +517,7 @@ describe('Acceptance | Exam Command', function() {
 
     afterEach(() => {
       fs.unlinkSync(path.join(process.cwd(), 'test-execution-123.json'));
-      glob.sync('module-run-details-*.json').forEach((file) => {
+      glob.sync('module-metadata-*.json').forEach((file) => {
         fs.unlinkSync(path.join(process.cwd(), file));
       });
     });
