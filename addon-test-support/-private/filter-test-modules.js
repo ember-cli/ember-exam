@@ -74,7 +74,7 @@ function filterTestModules(modules, modulePath, filePath) {
   // Generates an array with module filter value seperated by comma (,).
   const moduleFilters = (filePath || modulePath).split(',').map( value => value.trim());
 
-  return moduleFilters.reduce((result, moduleFilter) => {
+  const filteredTestModules = moduleFilters.reduce((result, moduleFilter) => {
     const modulePath = convertFilePathToModulePath(moduleFilter);
     const modulePathRegex = getRegexFilter(modulePath);
 
@@ -84,6 +84,11 @@ function filterTestModules(modules, modulePath, filePath) {
       return result.concat(stringFilter(modules, modulePath).filter( module => result.indexOf(module) === -1 ));
     }
   }, []);
+
+  if (filteredTestModules.length === 0) {
+    throw new Error(`No tests matched with the filter: ${modulePath || filePath}.`);
+  }
+  return filteredTestModules;
 }
 
 export {
