@@ -89,4 +89,13 @@ describe('ExecutionStateManager', function() {
       );
     });
   });
+
+  describe('completedBrowsers', function() {
+    it('incrementCompletedBrowsers called for the same browserId will only be accounted once', function() {
+      this.stateManager.incrementCompletedBrowsers(1);
+      this.stateManager.incrementCompletedBrowsers(1);
+
+      assert.deepEqual(this.stateManager.getCompletedBrowser(), 1);
+    });
+  });
 });
