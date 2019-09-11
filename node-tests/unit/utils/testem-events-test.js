@@ -180,6 +180,7 @@ describe('TestemEvents', function() {
     it('should increment completedBrowsers only when completedBrowsers is less than browserCount', function() {
       this.testemEvents.completedBrowsersHandler(
         2,
+        1,
         mockUi,
         true,
         'test-execution.json',
@@ -196,6 +197,7 @@ describe('TestemEvents', function() {
     it('should write test-execution file and cleanup state when completedBrowsers equals browserCount and load-balance is true', function() {
       this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('a', 1);
       this.testemEvents.completedBrowsersHandler(
+        1,
         1,
         mockUi,
         true,
@@ -219,6 +221,7 @@ describe('TestemEvents', function() {
     it('should increment completedBrowsers when load-balance is false', function() {
       this.testemEvents.completedBrowsersHandler(
         2,
+        1,
         mockUi,
         false,
         'test-execution.json',
@@ -238,6 +241,7 @@ describe('TestemEvents', function() {
 
       this.testemEvents.completedBrowsersHandler(
         2,
+        1,
         mockUi,
         true,
         'test-execution.json',
@@ -254,6 +258,7 @@ describe('TestemEvents', function() {
         mockReplayExecutionMap
       );
       this.testemEvents.completedBrowsersHandler(
+        1,
         1,
         mockUi,
         true,
