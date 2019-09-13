@@ -226,6 +226,7 @@ describe('TestemEvents', function() {
       this.testemEvents.stateManager.addMetadataToModuleMetadata({ name: 'a', total: 1, runtime: 1});
       this.testemEvents.completedBrowsersHandler(
         1,
+        1,
         mockUi,
         new Map([
           ['loadBalance', true],
@@ -251,6 +252,7 @@ describe('TestemEvents', function() {
       this.testemEvents.stateManager.addMetadataToModuleMetadata({ name: 'baz', total: 2, runtime: 2});
 
       this.testemEvents.completedBrowsersHandler(
+        1,
         1,
         mockUi,
         new Map([
