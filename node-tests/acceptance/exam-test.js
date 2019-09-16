@@ -281,16 +281,25 @@ describe('Acceptance | Exam Command', function() {
   describe('Load Balance', function() {
     const unlinkFiles = [];
 
-    function assertTestExecutionJson(output) {
-      let testExecutionJsonPath = path.join(
+    function assertTestExecutionFailedBrowsers(output, numberOfFailedBrowsers) {
+      const testExecutionPath = path.join(
         process.cwd(),
         output.match(/test-execution-([0-9]*).json/g)[0]
       );
+      unlinkFiles.push(testExecutionPath);
+
       assert.ok(
-        fs.existsSync(testExecutionJsonPath),
+        fs.existsSync(testExecutionPath),
         'test execution json written to root'
       );
-      unlinkFiles.push(testExecutionJsonPath);
+
+      const testExecutionFile = fs.readJsonSync(testExecutionPath);
+
+      assert.equal(
+        testExecutionFile.failedBrowsers.length,
+        numberOfFailedBrowsers,
+        'failed browsers array is correctly recorded'
+      );
     }
 
     afterEach(() => {
@@ -326,7 +335,8 @@ describe('Acceptance | Exam Command', function() {
         '--parallel'
       ]).then(child => {
         const output = child.stdout;
-        assertTestExecutionJson(output);
+
+        assertTestExecutionFailedBrowsers(output, 0);
         assertOutput(output, 'Browser Id', [1]);
         assert.equal(
           getNumberOfTests(output),
@@ -347,7 +357,8 @@ describe('Acceptance | Exam Command', function() {
         '--write-execution-file'
       ]).then(child => {
         const output = child.stdout;
-        assertTestExecutionJson(output);
+
+        assertTestExecutionFailedBrowsers(output, 0);
         assertOutput(output, 'Browser Id', [1, 2, 3]);
         assert.equal(
           getNumberOfTests(output),
@@ -372,7 +383,8 @@ describe('Acceptance | Exam Command', function() {
         '--write-execution-file'
       ]).then(child => {
         const output = child.stdout;
-        assertTestExecutionJson(output);
+
+        assertTestExecutionFailedBrowsers(output, 0);
         assertOutput(output, 'Exam Partition', [1], [2]);
         assertOutput(output, 'Browser Id', [1, 2, 3]);
         assert.ok(
@@ -417,13 +429,15 @@ describe('Acceptance | Exam Command', function() {
           '2',
           '--write-execution-file'
         ]).then(assertExpectRejection, error => {
+          const output = error.message;
+
           assert.ok(
-            error.message.includes(
+            output.includes(
               'Error: Browser exited on request from test driver'
             ),
-            `browser exited during the test execution:\n${error.message}`
+            `browser exited during the test execution:\n${output}`
           );
-          assertTestExecutionJson(error.message);
+          assertTestExecutionFailedBrowsers(output, 1);
         });
       });
     });
