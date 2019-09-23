@@ -223,7 +223,7 @@ describe('TestemEvents', function() {
     });
 
     it('should write module-run-details file and cleanup state when completedBrowsers equals browserCount, load-balance is true, and write-execution-file is false', function() {
-      this.testemEvents.stateManager.addMetadataToModuleMetadata({ name: 'a', total: 1, runtime: 1});
+      this.testemEvents.stateManager.addToModuleMetadata({ name: 'a', total: 1, runtime: 1});
       this.testemEvents.completedBrowsersHandler(
         1,
         1,
@@ -247,9 +247,9 @@ describe('TestemEvents', function() {
     });
 
     it('should write module-run-details file with sorted by runtime', function() {
-      this.testemEvents.stateManager.addMetadataToModuleMetadata({ name: 'foo', total: 1, runtime: 1});
-      this.testemEvents.stateManager.addMetadataToModuleMetadata({ name: 'bar', total: 4, runtime: 8});
-      this.testemEvents.stateManager.addMetadataToModuleMetadata({ name: 'baz', total: 2, runtime: 2});
+      this.testemEvents.stateManager.addToModuleMetadata({ name: 'foo', total: 1, runtime: 1});
+      this.testemEvents.stateManager.addToModuleMetadata({ name: 'bar', total: 4, runtime: 8});
+      this.testemEvents.stateManager.addToModuleMetadata({ name: 'baz', total: 2, runtime: 2});
 
       this.testemEvents.completedBrowsersHandler(
         1,

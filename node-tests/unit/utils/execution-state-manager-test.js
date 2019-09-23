@@ -115,7 +115,7 @@ describe('ExecutionStateManager', function() {
         runtime: 1
       };
 
-      this.stateManager.addMetadataToModuleMetadata(moduleMetadata);
+      this.stateManager.addToModuleMetadata(moduleMetadata);
 
       assert.equal(
         this.stateManager.getModuleMetadata()[0].name,
