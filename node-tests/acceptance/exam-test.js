@@ -6,6 +6,7 @@ const fixturify = require('fixturify');
 const fs = require('fs-extra');
 const path = require('path');
 const rimraf = require('rimraf');
+const glob = require('glob');
 
 function assertExpectRejection() {
   assert.ok(false, 'Expected promise to reject, but it fullfilled');
@@ -302,6 +303,18 @@ describe('Acceptance | Exam Command', function() {
       );
     }
 
+    function assertModuleDetailJson(output) {
+      let moduleRunDetailJsonPath = path.join(
+        process.cwd(),
+        output.match(/module-metadata-([0-9]*).json/g)[0]
+      );
+      unlinkFiles.push(moduleRunDetailJsonPath);
+      assert.ok(
+        fs.existsSync(moduleRunDetailJsonPath),
+        'module run detail json written to root'
+      );
+    }
+
     afterEach(() => {
       unlinkFiles.forEach(path => {
         fs.unlinkSync(path);
@@ -343,6 +356,20 @@ describe('Acceptance | Exam Command', function() {
           getTotalNumberOfTests(output),
           'ran all of the tests in the suite'
         );
+      });
+    });
+
+    it('should write module detail json after execution with `write-module-metadata-file`.', function() {
+      return execa('ember', [
+        'exam',
+        '--path',
+        'acceptance-dist',
+        '--load-balance',
+        '--write-module-metadata-file',
+        '--parallel'
+      ]).then(child => {
+        const output = child.stdout;
+        assertModuleDetailJson(output);
       });
     });
 
@@ -426,7 +453,7 @@ describe('Acceptance | Exam Command', function() {
           'failure-dist',
           '--load-balance',
           '--parallel',
-          '2',
+          '1',
           '--write-execution-file'
         ]).then(assertExpectRejection, error => {
           const output = error.message;
@@ -438,6 +465,26 @@ describe('Acceptance | Exam Command', function() {
             `browser exited during the test execution:\n${output}`
           );
           assertTestExecutionFailedBrowsers(output, 1);
+        });
+      });
+
+      it('should write module metadata json when browser exits', function() {
+        return execa('ember', [
+          'exam',
+          '--path',
+          'failure-dist',
+          '--load-balance',
+          '--parallel',
+          '2',
+          '--write-module-metadata-file'
+        ]).then(assertExpectRejection, error => {
+          assert.ok(
+            error.message.includes(
+              'Error: Browser exited on request from test driver'
+            ),
+            `browser exited during the test execution:\n${error.message}`
+          );
+          assertModuleDetailJson(error.message);
         });
       });
     });
@@ -470,6 +517,9 @@ describe('Acceptance | Exam Command', function() {
 
     afterEach(() => {
       fs.unlinkSync(path.join(process.cwd(), 'test-execution-123.json'));
+      glob.sync('module-metadata-*.json').forEach((file) => {
+        fs.unlinkSync(path.join(process.cwd(), file));
+      });
     });
 
     it('replay only the failed browsers defined in failedBrowsers array', function() {

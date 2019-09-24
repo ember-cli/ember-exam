@@ -182,9 +182,11 @@ describe('TestemEvents', function() {
         2,
         1,
         mockUi,
-        true,
-        'test-execution.json',
-        false
+        new Map([
+          ['loadBalance', true],
+          ['writeExecutionFile', false]
+        ]),
+        '0000'
       );
 
       assert.equal(
@@ -200,13 +202,15 @@ describe('TestemEvents', function() {
         1,
         1,
         mockUi,
-        true,
-        'test-execution.json',
-        true
+        new Map([
+          ['loadBalance', true],
+          ['writeExecutionFile', true]
+        ]),
+        '0000'
       );
 
       const actual = fs.readFileSync(
-        path.join(fixtureDir, 'test-execution.json')
+        path.join(fixtureDir, 'test-execution-0000.json')
       );
 
       assert.deepEqual(JSON.parse(actual), {
@@ -218,14 +222,80 @@ describe('TestemEvents', function() {
       });
     });
 
+    it('should write module-run-details file and cleanup state when completedBrowsers equals browserCount, load-balance is true, and write-execution-file is false', function() {
+      this.testemEvents.stateManager.addToModuleMetadata({ name: 'a', total: 1, runtime: 1});
+      this.testemEvents.completedBrowsersHandler(
+        1,
+        1,
+        mockUi,
+        new Map([
+          ['loadBalance', true],
+          ['writeModuleMetadataFile', true]
+        ]),
+        '0000'
+      );
+
+      const actual = fs.readFileSync(
+        path.join(fixtureDir, 'module-metadata-0000.json')
+      );
+
+      assert.deepEqual(JSON.parse(actual), [{
+        name: 'a',
+        total: 1,
+        runtime: 1
+      }]);
+    });
+
+    it('should write module-run-details file with sorted by runtime', function() {
+      this.testemEvents.stateManager.addToModuleMetadata({ name: 'foo', total: 1, runtime: 1});
+      this.testemEvents.stateManager.addToModuleMetadata({ name: 'bar', total: 4, runtime: 8});
+      this.testemEvents.stateManager.addToModuleMetadata({ name: 'baz', total: 2, runtime: 2});
+
+      this.testemEvents.completedBrowsersHandler(
+        1,
+        1,
+        mockUi,
+        new Map([
+          ['loadBalance', true],
+          ['writeModuleMetadataFile', true]
+        ]),
+        '0000'
+      );
+
+      const actual = fs.readFileSync(
+        path.join(fixtureDir, 'module-metadata-0000.json')
+      );
+
+      assert.deepEqual(JSON.parse(actual), [
+        {
+          name: 'bar',
+          total: 4,
+          runtime: 8
+        },
+        {
+          name: 'baz',
+          total: 2,
+          runtime: 2
+        },
+        {
+          name: 'foo',
+          total: 1,
+          runtime: 1
+        },
+      ]);
+    });
+
+
     it('should increment completedBrowsers when load-balance is false', function() {
       this.testemEvents.completedBrowsersHandler(
         2,
         1,
         mockUi,
-        false,
-        'test-execution.json',
-        false
+        new Map([
+          ['loadBalance', false],
+          ['writeExecutionFile', false]
+        ]),
+        '0000'
       );
 
       assert.equal(
@@ -243,9 +313,10 @@ describe('TestemEvents', function() {
         2,
         1,
         mockUi,
-        true,
-        'test-execution.json',
-        false
+        new Map([
+          ['loadBalance', true]
+        ]),
+        '0000'
       );
 
       assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 2);
@@ -261,9 +332,10 @@ describe('TestemEvents', function() {
         1,
         1,
         mockUi,
-        true,
-        'test-execution.json',
-        false
+        new Map([
+          ['loadBalance', true]
+        ]),
+        '0000'
       );
 
       assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 0);

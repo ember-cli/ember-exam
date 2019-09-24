@@ -69,6 +69,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
     }
 
     super.loadModules();
+    this.setupModuleMetadataHandler();
 
     if (modulePath || filePath) {
       this._testModules = filterTestModules(
@@ -116,6 +117,17 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
     }
     super.require(moduleName);
     super.unsee(moduleName);
+  }
+
+  /**
+   * setupModuleMetadataHandler() register QUnit callback to enable generating module metadata file.
+   */
+  setupModuleMetadataHandler() {
+    this._qunit.moduleDone((metadata) => {
+      // testem:module-done-metadata is sent to server to keep track of test module details.
+      // 'metadata' contains module name, total number of assertion ran in the module, and module runtime.
+      this._testem.emit('testem:module-done-metadata', metadata);
+    });
   }
 
   /**

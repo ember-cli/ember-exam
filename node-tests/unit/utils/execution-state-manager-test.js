@@ -98,4 +98,37 @@ describe('ExecutionStateManager', function() {
       assert.deepEqual(this.stateManager.getCompletedBrowser(), 1);
     });
   });
+
+  describe('moduleRunDetails', function() {
+    // test addModuleDoneDetailToModuleRunDetails
+    it('returns an empty array', function() {
+      assert.equal(
+        this.stateManager.getModuleMetadata().length,
+        0
+      );
+    });
+
+    it('adds module detail to moduleMetadata', function() {
+      const moduleMetadata = {
+        name: 'foo',
+        total: 1,
+        runtime: 1
+      };
+
+      this.stateManager.addToModuleMetadata(moduleMetadata);
+
+      assert.equal(
+        this.stateManager.getModuleMetadata()[0].name,
+        moduleMetadata.name
+      );
+      assert.equal(
+        this.stateManager.getModuleMetadata()[0].total,
+        moduleMetadata.total
+      );
+      assert.equal(
+        this.stateManager.getModuleMetadata()[0].runtime,
+        moduleMetadata.runtime
+      );
+    })
+  })
 });
