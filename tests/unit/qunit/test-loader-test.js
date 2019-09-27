@@ -60,6 +60,27 @@ test('loads all test modules by default', function(assert) {
   ]);
 });
 
+test('loads all test modules when testem object is not available', function(assert) {
+  const undefinedTestem = undefined;
+  const testLoader = new EmberExamTestLoader(
+    undefinedTestem,
+    new Map(),
+    this.qunit
+  );
+  testLoader.loadModules();
+
+  assert.deepEqual(this.requiredModules, [
+    'test-1-test.jshint',
+    'test-2-test.jshint',
+    'test-3-test.jshint',
+    'test-4-test.jshint',
+    'test-1-test',
+    'test-2-test',
+    'test-3-test',
+    'test-4-test'
+  ]);
+});
+
 test('loads modules from a specified partition', function(assert) {
   const testLoader = new EmberExamTestLoader(
     this.testem,
