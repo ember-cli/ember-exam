@@ -100,35 +100,89 @@ describe('ExecutionStateManager', function() {
   });
 
   describe('moduleRunDetails', function() {
-    // test addModuleDoneDetailToModuleRunDetails
-    it('returns an empty array', function() {
+    it('returns a map size of 0', function() {
       assert.equal(
-        this.stateManager.getModuleMetadata().length,
+        this.stateManager.getModuleMetadata().size,
         0
       );
     });
 
-    it('adds module detail to moduleMetadata', function() {
+    it('adds a single testDone module metadata to moduleMetadata.', function() {
+      const testModuleName = 'foo';
       const moduleMetadata = {
-        name: 'foo',
-        total: 1,
-        runtime: 1
+        moduleName: testModuleName,
+        testName: 'testing foo',
+        failed: 0,
+        duration: 1
       };
 
       this.stateManager.addToModuleMetadata(moduleMetadata);
 
+      const fooModuleMetadata = this.stateManager
+        .getModuleMetadata()
+        .get(testModuleName);
+
       assert.equal(
-        this.stateManager.getModuleMetadata()[0].name,
-        moduleMetadata.name
+        fooModuleMetadata.passed,
+        1
       );
       assert.equal(
-        this.stateManager.getModuleMetadata()[0].total,
-        moduleMetadata.total
+        fooModuleMetadata.failed,
+        0
       );
       assert.equal(
-        this.stateManager.getModuleMetadata()[0].runtime,
-        moduleMetadata.runtime
+        fooModuleMetadata.duration,
+        1
       );
-    })
+      assert.equal(
+        fooModuleMetadata.failedTests.length,
+        0
+      );
+    });
+
+    it('adds two test metadata and returns cumulative module data', function() {
+      const fooTestModule = 'foo';
+      const fooTestMetadata = {
+        moduleName: fooTestModule,
+        testName: 'testing foo',
+        failed: 0,
+        duration: 1
+      };
+
+      const barTestMetadata = {
+        moduleName: fooTestModule,
+        testName: 'testing bar',
+        failed: 1,
+        duration: 1.8
+      };
+
+      this.stateManager.addToModuleMetadata(fooTestMetadata);
+      this.stateManager.addToModuleMetadata(barTestMetadata);
+
+      const fooModuleMetadata = this.stateManager
+        .getModuleMetadata()
+        .get(fooTestModule);
+
+      assert.equal(
+        fooModuleMetadata.total,
+        2
+      );
+      assert.equal(
+        fooModuleMetadata.passed,
+        1
+      );
+      assert.equal(
+        fooModuleMetadata.failed,
+        1
+      );
+      assert.equal(
+        fooModuleMetadata.duration,
+        2.8
+      );
+      assert.equal(
+        fooModuleMetadata.failedTests.length,
+        1
+      );
+    });
   })
 });

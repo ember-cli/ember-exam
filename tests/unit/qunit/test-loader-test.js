@@ -31,7 +31,8 @@ module('Unit | test-loader', {
         queue: []
       },
       begin: () => {},
-      moduleDone: () => {}
+      moduleDone: () => {},
+      testDone: () => {}
     };
   },
 

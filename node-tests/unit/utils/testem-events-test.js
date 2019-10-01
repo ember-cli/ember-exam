@@ -223,7 +223,7 @@ describe('TestemEvents', function() {
     });
 
     it('should write module-run-details file and cleanup state when completedBrowsers equals browserCount, load-balance is true, and write-execution-file is false', function() {
-      this.testemEvents.stateManager.addToModuleMetadata({ name: 'a', total: 1, runtime: 1});
+      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test', failed: false, duration: 1});
       this.testemEvents.completedBrowsersHandler(
         1,
         1,
@@ -239,17 +239,23 @@ describe('TestemEvents', function() {
         path.join(fixtureDir, 'module-metadata-0000.json')
       );
 
-      assert.deepEqual(JSON.parse(actual), [{
-        name: 'a',
-        total: 1,
-        runtime: 1
-      }]);
+      assert.deepEqual(JSON.parse(actual), [
+        {
+          moduleName: 'a',
+          total: 1,
+          passed: 1,
+          failed: 0,
+          duration: 1,
+          failedTests: []
+        }
+      ]);
     });
 
-    it('should write module-run-details file with sorted by runtime', function() {
-      this.testemEvents.stateManager.addToModuleMetadata({ name: 'foo', total: 1, runtime: 1});
-      this.testemEvents.stateManager.addToModuleMetadata({ name: 'bar', total: 4, runtime: 8});
-      this.testemEvents.stateManager.addToModuleMetadata({ name: 'baz', total: 2, runtime: 2});
+    it('should write module-run-details file with sorted by duration', function() {
+      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 1', failed: false, duration: 1});
+      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 2', failed: true, duration: 8});
+      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', failed: false, duration: 1});
+
 
       this.testemEvents.completedBrowsersHandler(
         1,
@@ -268,20 +274,21 @@ describe('TestemEvents', function() {
 
       assert.deepEqual(JSON.parse(actual), [
         {
-          name: 'bar',
-          total: 4,
-          runtime: 8
-        },
-        {
-          name: 'baz',
+          moduleName: 'a',
           total: 2,
-          runtime: 2
+          passed: 1,
+          failed: 1,
+          duration: 9,
+          failedTests: ['test 2']
         },
         {
-          name: 'foo',
+          moduleName: 'b',
           total: 1,
-          runtime: 1
-        },
+          passed: 1,
+          failed: 0,
+          duration: 1,
+          failedTests: []
+        }
       ]);
     });
 
