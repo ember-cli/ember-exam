@@ -155,7 +155,7 @@ It creates a json file, `module-metadata-<timestamp>.json`, which contains an ar
   {
     "name": "Module-name",
     "total": "Total number of tests in the module",
-    "runtime": "ms in Total duration to execute the module"
+    "duration": "ms in Total duration to execute the module"
   }
 ]
 ```
@@ -166,12 +166,12 @@ and it looks something like below:
   {
     "name": "Slowest Module",
     "total": 12,
-    "runtime": 2159
+    "duration": 2159
   },
   {
     "name": "Fastest Module",
     "total": 9,
-    "runtime": 125
+    "duration": 125
   }
 ]
 ```

@@ -123,11 +123,12 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
    * setupModuleMetadataHandler() register QUnit callback to enable generating module metadata file.
    */
   setupModuleMetadataHandler() {
-    this._qunit.moduleDone((metadata) => {
-      // testem:module-done-metadata is sent to server to keep track of test module details.
-      // 'metadata' contains module name, total number of assertion ran in the module, and module runtime.
+    this._qunit.testDone((metadata) => {
       if (typeof this._testem !== 'undefined' && this._testem !== null) {
-        this._testem.emit('testem:module-done-metadata', metadata);
+        // testem:test-done-metadata is sent to server to track test module details.
+        // metadata contains name, module, failed, passed, total, duration, skipped, and todo.
+        // https://api.qunitjs.com/callbacks/QUnit.testDone
+        this._testem.emit('testem:test-done-metadata', metadata);
       }
     });
   }
