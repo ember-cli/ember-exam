@@ -453,7 +453,7 @@ describe('Acceptance | Exam Command', function() {
           'failure-dist',
           '--load-balance',
           '--parallel',
-          '1',
+          '3',
           '--write-execution-file'
         ]).then(assertExpectRejection, error => {
           const output = error.message;
