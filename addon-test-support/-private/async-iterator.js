@@ -21,7 +21,7 @@ export default class AsyncIterator {
     this._browserId = options.browserId;
     this._emberExamExitOnError = options.emberExamExitOnError;
 
-    testem.on(this._response, this._boundHandleResponse);
+    this._testem.on(this._response, this._boundHandleResponse);
   }
 
   /**
@@ -60,6 +60,7 @@ export default class AsyncIterator {
       this._current.reject(e);
     } finally {
       this._current = null;
+      // this._waiting = false;
 
       if (this.timer) {
         clearTimeout(this.timer);

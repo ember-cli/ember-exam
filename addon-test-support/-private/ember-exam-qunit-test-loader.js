@@ -149,7 +149,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
     const nextModuleHandler = () => {
       // if there are already tests queued up, don't request next module
       // this is possible if a test file has multiple qunit modules
-      if (this._qunit.config.queue.length > 0) {
+      if (this._qunit.config.queue.length > 0 || this._qunit.config.depth > 0) {
         return;
       }
 
