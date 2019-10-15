@@ -47,8 +47,6 @@ export default class AsyncIterator {
       throw new Error(
         `${this.toString()} Was not expecting a response, but got a response`
       );
-    } else {
-      this._waiting = false;
     }
 
     try {
@@ -60,7 +58,7 @@ export default class AsyncIterator {
       this._current.reject(e);
     } finally {
       this._current = null;
-      // this._waiting = false;
+      this._waiting = false;
 
       if (this.timer) {
         clearTimeout(this.timer);
