@@ -1,8 +1,87 @@
 
+v4.0.4 / 2019-09-30
+===================
+* [BugFix] Validate testem object is defined (@choheekim)
+* Bump ember-cli-babel from 7.11.0 to 7.11.1 <dependabot[bot]>
+
+
+v4.0.3 / 2019-09-24
+===================
+* [Feature] Introduce write-module-metadata-file (@choheekim)
+* Bump ember-resolver from 5.2.1 to 5.3.0 <dependabot[bot]>
+
+
+v4.0.2 / 2019-09-16
+===================
+* [BugFix] Ensure browserExitHandler is called for global errors (@step2yeung)
+* Bump ember-cli-deploy-git from 1.3.3 to 1.3.4 <dependabot[bot]>
+
+
+v4.0.1 / 2019-09-11
+===================
+* [Enhancement] Improve complete browser book keeping & improve request next module conditions (@step2yeung)
+* Bump sinon from 7.4.0 to 7.4.2 <dependabot[bot]>
+
+
+v4.0.0 / 2019-07-18
+===================
+* [Enhancement] Update to use node version >= 8 (@choheekim)
+* [Enhancement] Throw error when there are no matching tests with a given input by file-path and module-path (@choheekim)
+* [BugFix] Update yarn.lock to use v2.4.1 of ember-cli-addon-docs (@choheekim)
+* Bump ember-source from 3.10.1 to 3.10.2 <dependabot[bot]>
+* Bump eslint-plugin-ember from 6.6.0 to 6.7.0 <dependabot[bot]>
+* Bump semver from 6.1.1 to 6.1.2 <dependabot[bot]>
+* Bump testdouble from 3.12.0 to 3.12.2 <dependabot[bot]>
+
+
+v3.0.3 / 2019-06-18
+===================
+
+* [Feature] Introduce module-path-filter and test-file-path-filter in ember-exam (@choheekim)
+* Bump ember-source from 3.10.0 to 3.10.1 <dependabot[bot]>
+* Bump rsvp from 4.8.4 to 4.8.5 <dependabot[bot]>
+* Bump testdouble from 3.11.0 to 3.12.0 <dependabot[bot]>
+* Bump ember-cli-addon-docs from 0.6.11 to 0.6.13 <dependabot[bot]>
+* Bump ember-template-lint from 1.1.0 to 1.2.0 <dependabot[bot]>
+* Bump eslint-plugin-ember from 6.5.1 to 6.6.0 <dependabot[bot]>
+* Bump ember-cli-babel from 7.7.3 to 7.8.0 <dependabot[bot]>
+
+
+v3.0.2 / 2019-06-03
+===================
+
+* [Enhancement] Update documentation (Add Table of Contents) (@Vasanth-freshworks)
+* [Enhancement] Allow graceful exit when async iterator failes to get a module. Add emberExamExitOnError flag to hard fail (@step2yeung)
+* [BugFix] Remove duplicate nav entry (@samselikoff)
+* Bump ember-cli-addon-docs from 0.6.8 to 0.6.9 <dependabot[bot]>
+* Bump mocha from 6.1.2 to 6.1.3 <dependabot[bot]>
+* Bump ember-cli-addon-docs from 0.6.9 to 0.6.10 <dependabot[bot]>
+* Bump sinon from 7.3.1 to 7.3.2 <dependabot[bot]>
+* Bump eslint-plugin-ember from 6.3.0 to 6.4.1 <dependabot[bot]>
+* Bump ember-source from 3.9.0 to 3.9.1 <dependabot[bot]>
+* [Security] Bump jquery from 3.3.1 to 3.4.0 <dependabot[bot]>
+* Bump nyc from 13.3.0 to 14.1.1 <dependabot[bot]>
+* Bump ember-source from 3.9.1 to 3.10.0 <dependabot[bot]>
+* Bump fs-extra from 7.0.1 to 8.0.1 <dependabot[bot]>
+* Bump mocha from 6.1.3 to 6.1.4 <dependabot[bot]>
+* Bump ember-cli-addon-docs from 0.6.10 to 0.6.11 <dependabot[bot]>
+* Bump semver from 6.0.0 to 6.1.0 <dependabot[bot]>
+* Bump eslint-plugin-ember from 6.4.1 to 6.5.0 <dependabot[bot]>
+* Bump ember-try from 1.1.0 to 1.2.1 <dependabot[bot]>
+* Bump semver from 6.1.0 to 6.1.1 <dependabot[bot]>
+* Bump eslint-plugin-ember from 6.5.0 to 6.5.1 <dependabot[bot]>
+
+
+v3.0.1 / 2019-04-09
+===================
+
+* [Enhancement] Update documentation (@step2yeung)
+
+
 v3.0.0 / 2019-04-08
 ===================
 
-* [Feature - Breaking] Introduce TestLoadBalancing <@choheekim> & <step2yeung>
+* [Feature - Breaking] Introduce TestLoadBalancing (@choheekim) & (@step2yeung)
 
 You will need to **replace** the use of `start()` from `Ember-Qunit` or `Ember-Mocha` in `test-helper.js` with `start()` from `ember-exam`:
 
@@ -61,7 +140,7 @@ v2.1.3 / 2019-03-27
 v2.1.0 / 2019-03-27
 ===================
 
-* [Feature] Introduce TestLoadBalancing <@choheekim> & <step2yeung>
+* [Feature] Introduce TestLoadBalancing <@choheekim> & <@step2yeung>
 * Bump ember-qunit from 4.4.0 to 4.4.1 (4 weeks ago) <dependabot[bot]>
 * Bump ember-resolver from 5.1.2 to 5.1.3 (4 weeks ago) <dependabot[bot]>
 * Bump testdouble from 3.10.0 to 3.11.0 (4 weeks ago) <dependabot[bot]>
