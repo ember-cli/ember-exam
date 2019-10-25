@@ -1,4 +1,25 @@
 
+v4.0.5 / 2019-10-25
+===================
+* [BugFix] Validate process object is defined when registering event callbacks for process.error & process.exit (@choheekim)
+* [BugFix] Updates page title for dummy app to "Ember Exam" (@howie)
+* Bump rimraf from 2.7.1 to 3.0.0 <dependabot[bot]>
+* Bump ember-cli from 3.12.0 to 3.13.1 <dependabot[bot]>
+* Bump ember-cli-deploy-build from 1.1.1 to 2.0.0 <dependabot[bot]>
+* Bump mocha from 6.2.0 to 6.2.2 <dependabot[bot]>
+* Bump ember-template-lint from 1.5.3 to 1.6.0 <dependabot[bot]>
+* Bump ember-cli-babel from 7.11.1 to 7.12.0 <dependabot[bot]>
+* Bump ember-cli-inject-live-reload from 2.0.1 to 2.0.2 <dependabot[bot]>
+* Bump @ember/optional-features from 1.0.0 to 1.1.0  <dependabot[bot]>
+* Bump ember-cli-addon-docs from 0.6.14 to 0.6.15 <dependabot[bot]>
+* Bump ember-cli-htmlbars-inline-precompile from 2.1.0 to 3.0.1 <dependabot[bot]>
+* Bump ember-source from 3.10.2 to 3.13.3 <dependabot[bot]>
+* Bump eslint-plugin-node from 8.0.1 to 10.0.0  <dependabot[bot]>
+* Bump @ember/optional-features from 0.7.0 to 1.0.0 <dependabot[bot]>
+* Bump ember-cli-htmlbars from 3.1.0 to 4.0.8 <dependabot[bot]>
+* Bump eslint-plugin-ember from 6.10.1 to 7.2.0 <dependabot[bot]>
+
+
 v4.0.4 / 2019-09-30
 ===================
 * [BugFix] Validate testem object is defined (@choheekim)
