@@ -228,7 +228,7 @@
     }
   });
 });
-;define("dummy/components/code-snippet", ["exports", "dummy/snippets"], function (_exports, _snippets) {
+;define("dummy/components/code-snippet", ["exports", "ember-code-snippet/components/code-snippet", "dummy/snippets"], function (_exports, _codeSnippet, _snippets) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -236,78 +236,8 @@
   });
   _exports.default = void 0;
 
-  /* global require */
-  var Highlight = self.require('highlight.js');
-
-  var _default = Ember.Component.extend({
-    tagName: 'pre',
-    classNameBindings: ['language'],
-    unindent: true,
-    _unindent: function _unindent(src) {
-      if (!this.get('unindent')) {
-        return src;
-      }
-
-      var match,
-          min,
-          lines = src.split("\n").filter(function (l) {
-        return l !== '';
-      });
-
-      for (var i = 0; i < lines.length; i++) {
-        match = /^[ \t]*/.exec(lines[i]);
-
-        if (match && (typeof min === 'undefined' || min > match[0].length)) {
-          min = match[0].length;
-        }
-      }
-
-      if (typeof min !== 'undefined' && min > 0) {
-        src = src.replace(new RegExp("^[ \t]{" + min + "}", 'gm'), "");
-      }
-
-      return src;
-    },
-    source: Ember.computed('name', function () {
-      var snippet = this.get('name').split('/').reduce(function (dir, name) {
-        return dir && dir[name];
-      }, _snippets.default);
-      return this._unindent((snippet || "").replace(/^(\s*\n)*/, '').replace(/\s*$/, ''));
-    }),
-    didInsertElement: function didInsertElement() {
-      Highlight.highlightBlock(this.get('element'));
-    },
-    language: Ember.computed('name', function () {
-      var m = /\.(\w+)$/i.exec(this.get('name'));
-
-      if (m) {
-        switch (m[1].toLowerCase()) {
-          case 'js':
-            return 'javascript';
-
-          case 'coffee':
-            return 'coffeescript';
-
-          case 'hbs':
-            return 'htmlbars';
-
-          case 'css':
-            return 'css';
-
-          case 'scss':
-            return 'scss';
-
-          case 'less':
-            return 'less';
-
-          case 'emblem':
-            return 'emblem';
-
-          case 'ts':
-            return 'typescript';
-        }
-      }
-    })
+  var _default = _codeSnippet.default.extend({
+    snippets: _snippets.default
   });
 
   _exports.default = _default;
@@ -1859,25 +1789,6 @@
     }
   });
 });
-;define("dummy/helpers/noop", ["exports", "ember-composable-helpers/helpers/noop"], function (_exports, _noop) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function get() {
-      return _noop.default;
-    }
-  });
-  Object.defineProperty(_exports, "noop", {
-    enumerable: true,
-    get: function get() {
-      return _noop.noop;
-    }
-  });
-});
 ;define("dummy/helpers/not-eq", ["exports", "ember-truth-helpers/helpers/not-equal"], function (_exports, _notEqual) {
   "use strict";
 
@@ -2691,25 +2602,6 @@
   };
   _exports.default = _default;
 });
-;define("dummy/initializers/route-anchor-jump", ["exports", "ember-cli-addon-docs/initializers/route-anchor-jump"], function (_exports, _routeAnchorJump) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  Object.defineProperty(_exports, "default", {
-    enumerable: true,
-    get: function get() {
-      return _routeAnchorJump.default;
-    }
-  });
-  Object.defineProperty(_exports, "initialize", {
-    enumerable: true,
-    get: function get() {
-      return _routeAnchorJump.initialize;
-    }
-  });
-});
 ;define("dummy/instance-initializers/ember-data", ["exports", "ember-data/initialize-store-service"], function (_exports, _initializeStoreService) {
   "use strict";
 
@@ -2897,6 +2789,7 @@
     (0, _router.docsRoute)(this, function () {
       this.route('randomization');
       this.route('randomization-iterator');
+      this.route('module-metadata');
       this.route('splitting');
       this.route('split-parallel');
       this.route('filtering');
@@ -3144,24 +3037,6 @@
 
   _exports.default = _default;
 });
-;define("dummy/templates/components/code-snippet", ["exports"], function (_exports) {
-  "use strict";
-
-  Object.defineProperty(_exports, "__esModule", {
-    value: true
-  });
-  _exports.default = void 0;
-
-  var _default = Ember.HTMLBars.template({
-    "id": "Cz0R1/XF",
-    "block": "{\"symbols\":[],\"statements\":[[1,[23,\"source\"],false],[0,\"\\n\"]],\"hasEval\":false}",
-    "meta": {
-      "moduleName": "dummy/templates/components/code-snippet.hbs"
-    }
-  });
-
-  _exports.default = _default;
-});
 ;define("dummy/templates/components/etw/module-section", ["exports"], function (_exports) {
   "use strict";
 
@@ -3225,8 +3100,8 @@
   _exports.default = void 0;
 
   var _default = Ember.HTMLBars.template({
-    "id": "2WPUhM5h",
-    "block": "{\"symbols\":[\"viewer\",\"nav\"],\"statements\":[[1,[23,\"docs-header\"],false],[0,\"\\n\\n\"],[4,\"docs-viewer\",null,null,{\"statements\":[[4,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,1,[\"nav\"]],\"expected `viewer.nav` to be a contextual component but found a string. Did you mean `(component viewer.nav)`? ('dummy/templates/docs.hbs' @ L4:C5) \"],null]],null,{\"statements\":[[0,\"    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"section\"]],\"expected `nav.section` to be a contextual component but found a string. Did you mean `(component nav.section)`? ('dummy/templates/docs.hbs' @ L5:C6) \"],null],\"Introduction\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L6:C6) \"],null],\"Quickstart\",\"docs.index\"],null],false],[0,\"\\n\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"section\"]],\"expected `nav.section` to be a contextual component but found a string. Did you mean `(component nav.section)`? ('dummy/templates/docs.hbs' @ L8:C6) \"],null],\"Options\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L9:C6) \"],null],\"Randomization\",\"docs.randomization\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L10:C6) \"],null],\"Randomization Iterator\",\"docs.randomization-iterator\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L11:C6) \"],null],\"Splitting\",\"docs.splitting\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L12:C6) \"],null],\"Split Test Parallelization\",\"docs.split-parallel\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L13:C6) \"],null],\"Filtering\",\"docs.filtering\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L14:C6) \"],null],\"Test Load Balancing\",\"docs.load-balancing\"],null],false],[0,\"\\n\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"section\"]],\"expected `nav.section` to be a contextual component but found a string. Did you mean `(component nav.section)`? ('dummy/templates/docs.hbs' @ L16:C6) \"],null],\"Advanced Configuration\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L17:C6) \"],null],\"Ember Try & CI Integration\",\"docs.ember-try-and-ci\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L18:C6) \"],null],\"Test Suite Segmentation\",\"docs.test-suite-segmentation\"],null],false],[0,\"\\n\"]],\"parameters\":[2]},null],[0,\"\\n\"],[4,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,1,[\"main\"]],\"expected `viewer.main` to be a contextual component but found a string. Did you mean `(component viewer.main)`? ('dummy/templates/docs.hbs' @ L21:C5) \"],null]],null,{\"statements\":[[0,\"    \"],[1,[23,\"outlet\"],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null]],\"hasEval\":false}",
+    "id": "9un8VPLT",
+    "block": "{\"symbols\":[\"viewer\",\"nav\"],\"statements\":[[1,[23,\"docs-header\"],false],[0,\"\\n\\n\"],[4,\"docs-viewer\",null,null,{\"statements\":[[4,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,1,[\"nav\"]],\"expected `viewer.nav` to be a contextual component but found a string. Did you mean `(component viewer.nav)`? ('dummy/templates/docs.hbs' @ L4:C5) \"],null]],null,{\"statements\":[[0,\"    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"section\"]],\"expected `nav.section` to be a contextual component but found a string. Did you mean `(component nav.section)`? ('dummy/templates/docs.hbs' @ L5:C6) \"],null],\"Introduction\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L6:C6) \"],null],\"Quickstart\",\"docs.index\"],null],false],[0,\"\\n\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"section\"]],\"expected `nav.section` to be a contextual component but found a string. Did you mean `(component nav.section)`? ('dummy/templates/docs.hbs' @ L8:C6) \"],null],\"Options\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L9:C6) \"],null],\"Randomization\",\"docs.randomization\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L10:C6) \"],null],\"Randomization Iterator\",\"docs.randomization-iterator\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L11:C6) \"],null],\"Generating Module Metadata For Test Execution\",\"docs.module-metadata\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L12:C6) \"],null],\"Splitting\",\"docs.splitting\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L13:C6) \"],null],\"Split Test Parallelization\",\"docs.split-parallel\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L14:C6) \"],null],\"Filtering\",\"docs.filtering\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L15:C6) \"],null],\"Test Load Balancing\",\"docs.load-balancing\"],null],false],[0,\"\\n\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"section\"]],\"expected `nav.section` to be a contextual component but found a string. Did you mean `(component nav.section)`? ('dummy/templates/docs.hbs' @ L17:C6) \"],null],\"Advanced Configuration\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L18:C6) \"],null],\"Ember Try & CI Integration\",\"docs.ember-try-and-ci\"],null],false],[0,\"\\n    \"],[1,[29,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,2,[\"item\"]],\"expected `nav.item` to be a contextual component but found a string. Did you mean `(component nav.item)`? ('dummy/templates/docs.hbs' @ L19:C6) \"],null],\"Test Suite Segmentation\",\"docs.test-suite-segmentation\"],null],false],[0,\"\\n\"]],\"parameters\":[2]},null],[0,\"\\n\"],[4,\"component\",[[29,\"-assert-implicit-component-helper-argument\",[[24,1,[\"main\"]],\"expected `viewer.main` to be a contextual component but found a string. Did you mean `(component viewer.main)`? ('dummy/templates/docs.hbs' @ L22:C5) \"],null]],null,{\"statements\":[[0,\"    \"],[1,[23,\"outlet\"],false],[0,\"\\n\"]],\"parameters\":[]},null]],\"parameters\":[1]},null]],\"hasEval\":false}",
     "meta": {
       "moduleName": "dummy/templates/docs.hbs"
     }
@@ -3319,6 +3194,24 @@
     "block": "{\"symbols\":[],\"statements\":[[7,\"div\"],[11,\"class\",\"docs-md\"],[9],[7,\"h1\"],[11,\"id\",\"test-load-balancing\"],[11,\"class\",\"docs-md__h1\"],[9],[0,\"Test Load Balancing\"],[10],[0,\"\\n    \"],[7,\"pre\"],[11,\"class\",\"docs-md__code\"],[9],[7,\"code\"],[11,\"class\",\"undefinedbash\"],[9],[0,\"ember exam --parallel=<num> --load-balance\"],[10],[10],[0,\"\"],[7,\"p\"],[9],[0,\"The \"],[7,\"code\"],[9],[0,\"load-balance\"],[10],[0,\" option allows you to load balance test files against multiple browsers. It will order the test files by test types, e.g. acceptance | integration | unit | eslint, and load balance the ordered test files between the browsers dynamically rather than statically.\\n\"],[7,\"strong\"],[9],[0,\"Note:\"],[10],[0,\" parallel must be used along with load-balance to specify a number of browser(s)\"],[10],[0,\"\\n\"],[7,\"p\"],[9],[0,\"The \"],[7,\"code\"],[9],[0,\"load-balance\"],[10],[0,\" option was added to version 1.1 to address execution performance when running against a large test suite.\"],[10],[0,\"\\n\"],[7,\"p\"],[9],[0,\"Web browsers and the testem server communicate via promise in order to send and receive a test file. The promise timeout value is set to be 2 seconds, and the timeout can be customized by adding asyncTimeout=[timeout] as a querystring param in the test URL or adding to a testem config.\\nFor example, if you specify \"],[7,\"code\"],[9],[0,\"load-balance\"],[10],[0,\" and \"],[7,\"code\"],[9],[0,\"parallel\"],[10],[0,\" equals 3, then three browser instances will be created and the output will look something like:\"],[10],[0,\"\\n\"],[7,\"pre\"],[11,\"class\",\"docs-md__code\"],[9],[7,\"code\"],[11,\"class\",\"undefinedbash\"],[9],[0,\"# ember exam --parallel=3 --load-balance\\nok 1 Chrome 66.0 - Browser Id 1 - some test\\nok 2 Chrome 66.0 - Browser Id 2 - some another test\\nok 3 Chrome 66.0 - Browser Id 3 - some the other test\"],[10],[10],[0,\"\"],[7,\"p\"],[9],[0,\"You can also specify the \"],[7,\"code\"],[9],[0,\"split\"],[10],[0,\" and \"],[7,\"code\"],[9],[0,\"partition\"],[10],[0,\" options with \"],[7,\"code\"],[9],[0,\"load-balance\"],[10],[0,\" to load a portion of test modules on multiple CI containers.\"],[10],[0,\"\\n\"],[7,\"pre\"],[11,\"class\",\"docs-md__code\"],[9],[7,\"code\"],[11,\"class\",\"undefinedbash\"],[9],[0,\"ember exam --split=<num> --partition=<num> --parallel=<num> --load-balance\"],[10],[10],[0,\"\"],[7,\"p\"],[9],[0,\"This command will split test files and load-balance tests from the specified partition across the browsers. For example \"],[7,\"code\"],[9],[0,\"ember exam --split=2 -partition=1 --parallel=3 --load-balance\"],[10],[0,\", the complete list of test files are split into two halves. With the first half of the list load balanced against three browsers. The output will look something like below:\"],[10],[0,\"\\n\"],[7,\"pre\"],[11,\"class\",\"docs-md__code\"],[9],[7,\"code\"],[11,\"class\",\"undefinedbash\"],[9],[0,\"# ember exam --split=2 --partition=1 --parallel=3 --load-balance\\nok 1 Chrome 66.0 - Exam Partition 1 - browser Id 1 - some test\\nok 2 Chrome 66.0 - Exam Partition 1 - browser Id 2 - another test\\nok 3 Chrome 66.0 - Exam Partition 1 - browser Id 3 - some the other test\"],[10],[10],[0,\"\"],[7,\"p\"],[9],[7,\"strong\"],[9],[0,\"Important information on Load Balancing\"],[10],[10],[0,\"\\n\"],[7,\"ol\"],[9],[0,\"\\n\"],[7,\"li\"],[9],[0,\"The \"],[7,\"code\"],[9],[0,\"--load-balance\"],[10],[0,\" option is currently only supported in CI mode and for that reason no-launch cannot be used with load-balance.\"],[10],[0,\"\\n\"],[7,\"li\"],[9],[0,\"You must be using \"],[7,\"code\"],[9],[0,\"ember-cli\"],[10],[0,\" version 3.2.0 or greater for load balancing and test failure reproduction features to work properly.\"],[10],[0,\"\\n\"],[7,\"li\"],[9],[0,\"You must be using \"],[7,\"code\"],[9],[0,\"ember-qunit\"],[10],[0,\" version 4.1.1 or greater for this feature to work properly.\"],[10],[0,\"\\n\"],[7,\"li\"],[9],[0,\"You must be using \"],[7,\"code\"],[9],[0,\"qunit\"],[10],[0,\" version 2.8.0 or greater for this feature to work properly.\"],[10],[0,\"\\n\"],[7,\"li\"],[9],[0,\"This feature is not currently supported by Mocha.\"],[10],[0,\"\\n\"],[10],[0,\"\\n\\n      \"],[7,\"h2\"],[11,\"id\",\"test-failure-reproduction\"],[11,\"class\",\"docs-md__h2\"],[9],[7,\"a\"],[11,\"href\",\"#test-failure-reproduction\"],[11,\"class\",\"heading-anchor\"],[9],[0,\"Test Failure Reproduction\"],[10],[10],[0,\"\\n    \"],[7,\"p\"],[9],[0,\"Due to the dynamic nature of the load-balance option, test file execution order can vary between runs. In order to reproduce a past test execution, the execution must be recorded via passing --write-execution-file or --wef, which allows generating a JSON file that enables rerunning the past test execution. The option is only allowed when load-balance is passed.\"],[10],[0,\"\\n\"],[7,\"pre\"],[11,\"class\",\"docs-md__code\"],[9],[7,\"code\"],[11,\"class\",\"undefinedbash\"],[9],[0,\"# The command will load in test balanced mode with <num> of browser(s). After the test suite execution, it will generate a test-execution json file.\\nember exam --parallel=<num> --load-balance --wef\\nember exam --parallel=<num> --load-balance --write-execution-file\"],[10],[10],[0,\"\"],[7,\"p\"],[9],[0,\"The file is stored in the root directory and the naming structure is \"],[7,\"code\"],[9],[0,\"test-execution-<timestamp>.json\"],[10],[0,\".\\nTo replay the test execution for particular browser(s), do the following:\"],[10],[0,\"\\n\"],[7,\"pre\"],[11,\"class\",\"docs-md__code\"],[9],[7,\"code\"],[11,\"class\",\"undefinedbash\"],[9],[0,\"# The command will read a test execution file specified for `replay-execution` and execute a browser Id(s) from `replay-browser`\\nember exam --replay-execution=[string] --replay-browser=[num]\"],[10],[10],[0,\"\"],[7,\"p\"],[9],[7,\"code\"],[9],[0,\"replay-execution\"],[10],[0,\" allows you to specify a path to the json file to run execution against and \"],[7,\"code\"],[9],[0,\"replay-browser\"],[10],[0,\" is to specify browser ID(s) to execute.\"],[10],[0,\"\\n\"],[7,\"pre\"],[11,\"class\",\"docs-md__code\"],[9],[7,\"code\"],[11,\"class\",\"undefinedbash\"],[9],[0,\"# The command will read test-execution-000000.json and load the list of modules mapped to browserId 1\\nember exam --replay-execution=test-execution-000000.json --replay-browser=1\"],[10],[10],[0,\"\"],[7,\"p\"],[9],[0,\"The above command will read \"],[7,\"code\"],[9],[0,\"test-execution-000000.json\"],[10],[0,\" and load the list of modules which is mapped by browser ID #1.\"],[10],[0,\"\\n\"],[7,\"p\"],[9],[7,\"code\"],[9],[0,\"replay-browser\"],[10],[0,\" can be an array of browser IDs. For instance \"],[7,\"code\"],[9],[0,\"--replay-browser=1,2\"],[10],[0,\" will start two browsers and execute a list of modules which were previously run by browsers #1 and #2.\"],[10],[0,\"\\n\"],[7,\"pre\"],[11,\"class\",\"docs-md__code\"],[9],[7,\"code\"],[11,\"class\",\"undefinedbash\"],[9],[0,\"# The command will read test-execution-000000.json and load the list of module mapped to browserId 1 and 2\\nember exam --replay-execution=test-execution-000000.json --replay-browser=1,2\"],[10],[10],[0,\"\"],[7,\"p\"],[9],[0,\"When \"],[7,\"code\"],[9],[0,\"replay-browser\"],[10],[0,\" value is not specified it will execute browserId(s) read from \"],[7,\"code\"],[9],[0,\"failedBrowser\"],[10],[0,\" in the test execution file.\"],[10],[0,\"\\n\"],[7,\"pre\"],[11,\"class\",\"docs-md__code\"],[9],[7,\"code\"],[11,\"class\",\"undefinedbash\"],[9],[0,\"# The command will read test-execution-000000.json and load the list of modules mapped to browserIds from failedBrowser in the json file.\\nember exam --replay-execution=test-execution-000000.json\"],[10],[10],[0,\"\"],[7,\"p\"],[9],[0,\"When \"],[7,\"code\"],[9],[0,\"replay-browser\"],[10],[0,\" value is not specified and there is no value for \"],[7,\"code\"],[9],[0,\"failedBrowser\"],[10],[0,\" in the json file it will rerun all list of modules.\"],[10],[0,\"\\n\"],[7,\"pre\"],[11,\"class\",\"docs-md__code\"],[9],[7,\"code\"],[11,\"class\",\"undefinedbash\"],[9],[0,\"# The command will read test-execution-000000.json and load the list of module mapped to all browserIds when failedBrowser is none in the json file\\nember exam --replay-execution=test-execution-000000.json\"],[10],[10],[0,\"\"],[7,\"p\"],[9],[7,\"strong\"],[9],[0,\"Important information on \"],[7,\"code\"],[9],[0,\"--replay-execution\"],[10],[0,\" and \"],[7,\"code\"],[9],[0,\"--replay-browser\"],[10],[10],[10],[0,\"\\n\"],[7,\"ol\"],[9],[0,\"\\n\"],[7,\"li\"],[9],[0,\"You must be using \"],[7,\"code\"],[9],[0,\"ember-cli\"],[10],[0,\" version 3.2.0 or greater for load-balnce and test failure reproduction features to work properly.\"],[10],[0,\"\\n\"],[7,\"li\"],[9],[0,\"You must be using \"],[7,\"code\"],[9],[0,\"ember-qunit\"],[10],[0,\" version 4.1.1 or greater for this feature to work properly.\"],[10],[0,\"\\n\"],[7,\"li\"],[9],[0,\"You must be using \"],[7,\"code\"],[9],[0,\"qunit\"],[10],[0,\" version 2.8.0 or greater for this feature to work properly.\"],[10],[0,\"\\n\"],[7,\"li\"],[9],[0,\"This feature is not currently supported by Mocha.\"],[10],[0,\"\\n\"],[10],[10]],\"hasEval\":false}",
     "meta": {
       "moduleName": "dummy/templates/docs/load-balancing.hbs"
+    }
+  });
+
+  _exports.default = _default;
+});
+;define("dummy/templates/docs/module-metadata", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = Ember.HTMLBars.template({
+    "id": "0cOzzKuu",
+    "block": "{\"symbols\":[],\"statements\":[[7,\"div\"],[11,\"class\",\"docs-md\"],[9],[7,\"h3\"],[11,\"id\",\"generating-module-metadata-file-for-test-execution\"],[11,\"class\",\"docs-md__h3\"],[9],[7,\"a\"],[11,\"href\",\"#generating-module-metadata-file-for-test-execution\"],[11,\"class\",\"heading-anchor\"],[9],[0,\"Generating Module Metadata File For Test Execution\"],[10],[10],[0,\"\\n    \"],[7,\"pre\"],[11,\"class\",\"docs-md__code\"],[9],[7,\"code\"],[11,\"class\",\"undefinedbash\"],[9],[0,\"$ ember exam --write-module-metadata-file\\n$ ember exam --wmmf\"],[10],[10],[0,\"\"],[7,\"p\"],[9],[0,\"The \"],[7,\"code\"],[9],[0,\"--write-module-metadata-file\"],[10],[0,\", \"],[7,\"code\"],[9],[0,\"wmmf\"],[10],[0,\" as an alias, allows you to generate a module metadata file after a test run. The module metadata file provides information about the test modules executed.\"],[10],[0,\"\\n\"],[7,\"p\"],[9],[0,\"It creates a json file, \"],[7,\"code\"],[9],[0,\"module-metadata-<timestamp>.json\"],[10],[0,\", which contains an array of elements representing metadata of modules executed by sorted by ascending order:\"],[10],[0,\"\\n\"],[7,\"pre\"],[11,\"class\",\"docs-md__code\"],[9],[7,\"code\"],[11,\"class\",\"undefinedjson\"],[9],[0,\"[\\n  {\\n    \"],[7,\"span\"],[11,\"class\",\"hljs-attr\"],[9],[0,\"\\\"name\\\"\"],[10],[0,\": \"],[7,\"span\"],[11,\"class\",\"hljs-string\"],[9],[0,\"\\\"Module-name\\\"\"],[10],[0,\",\\n    \"],[7,\"span\"],[11,\"class\",\"hljs-attr\"],[9],[0,\"\\\"total\\\"\"],[10],[0,\": \"],[7,\"span\"],[11,\"class\",\"hljs-string\"],[9],[0,\"\\\"Total number of tests in the module\\\"\"],[10],[0,\",\\n    \"],[7,\"span\"],[11,\"class\",\"hljs-attr\"],[9],[0,\"\\\"runtime\\\"\"],[10],[0,\": \"],[7,\"span\"],[11,\"class\",\"hljs-string\"],[9],[0,\"\\\"ms in Total duration to execute the module\\\"\"],[10],[0,\"\\n  }\\n]\"],[10],[10],[0,\"\"],[7,\"p\"],[9],[0,\"and it looks something like below:\"],[10],[0,\"\\n\"],[7,\"pre\"],[11,\"class\",\"docs-md__code\"],[9],[7,\"code\"],[11,\"class\",\"undefinedjson\"],[9],[0,\"[\\n  {\\n    \"],[7,\"span\"],[11,\"class\",\"hljs-attr\"],[9],[0,\"\\\"name\\\"\"],[10],[0,\": \"],[7,\"span\"],[11,\"class\",\"hljs-string\"],[9],[0,\"\\\"Slowest Module\\\"\"],[10],[0,\",\\n    \"],[7,\"span\"],[11,\"class\",\"hljs-attr\"],[9],[0,\"\\\"total\\\"\"],[10],[0,\": \"],[7,\"span\"],[11,\"class\",\"hljs-number\"],[9],[0,\"12\"],[10],[0,\",\\n    \"],[7,\"span\"],[11,\"class\",\"hljs-attr\"],[9],[0,\"\\\"runtime\\\"\"],[10],[0,\": \"],[7,\"span\"],[11,\"class\",\"hljs-number\"],[9],[0,\"2159\"],[10],[0,\"\\n  },\\n  {\\n    \"],[7,\"span\"],[11,\"class\",\"hljs-attr\"],[9],[0,\"\\\"name\\\"\"],[10],[0,\": \"],[7,\"span\"],[11,\"class\",\"hljs-string\"],[9],[0,\"\\\"Fastest Module\\\"\"],[10],[0,\",\\n    \"],[7,\"span\"],[11,\"class\",\"hljs-attr\"],[9],[0,\"\\\"total\\\"\"],[10],[0,\": \"],[7,\"span\"],[11,\"class\",\"hljs-number\"],[9],[0,\"9\"],[10],[0,\",\\n    \"],[7,\"span\"],[11,\"class\",\"hljs-attr\"],[9],[0,\"\\\"runtime\\\"\"],[10],[0,\": \"],[7,\"span\"],[11,\"class\",\"hljs-number\"],[9],[0,\"125\"],[10],[0,\"\\n  }\\n]\"],[10],[10],[0,\"\"],[7,\"p\"],[9],[7,\"em\"],[9],[0,\"Note: This feature is not currently supported by Mocha.\"],[10],[10],[10]],\"hasEval\":false}",
+    "meta": {
+      "moduleName": "dummy/templates/docs/module-metadata.hbs"
     }
   });
 
