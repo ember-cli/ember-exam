@@ -8,6 +8,7 @@ const command = [
   '--split',
   '3',
   '--parallel',
+  '1',
   '--random',
   process.env.TRAVIS_PULL_REQUEST
 ].filter(Boolean).join(' ');

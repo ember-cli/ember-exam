@@ -162,6 +162,14 @@ describe('TestOptionsValidator', function() {
   });
 
   describe('shouldParallelize', function() {
+    it('should throw an error if `parallel` is not a numeric value', function() {
+      shouldThrow(
+        'Parallel',
+        { parallel: '--reporter' },
+        /EmberExam: You must specify a Numeric value to 'parallel'. Value passed: --reporter/
+      );
+    });
+
     it('should throw an error if `split` is not being used', function() {
       shouldThrow(
         'Parallel',
