@@ -201,7 +201,7 @@ describe('Acceptance | Exam Command', function() {
           'acceptance-dist'
         ]).then(assertExpectRejection, error => {
           assert.ok(
-            error.message.includes(
+            error.stderr.includes(
               'You must specify `partition` values that are less than or equal to your `split` value.'
             )
           );
@@ -217,7 +217,7 @@ describe('Acceptance | Exam Command', function() {
           'acceptance-dist'
         ]).then(assertExpectRejection, error => {
           assert.ok(
-            error.message.includes(
+            error.stderr.includes(
               'You must specify a `split` value in order to use `partition`.'
             )
           );
@@ -331,7 +331,7 @@ describe('Acceptance | Exam Command', function() {
         '--load-balance'
       ]).then(assertExpectRejection, error => {
         assert.ok(
-          error.message.includes(
+          error.stderr.includes(
             'You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`.'
           )
         );
@@ -456,8 +456,7 @@ describe('Acceptance | Exam Command', function() {
           '3',
           '--write-execution-file'
         ]).then(assertExpectRejection, error => {
-          const output = error.message;
-
+          const output = error.stdout;
           assert.ok(
             output.includes(
               'Error: Browser exited on request from test driver'
@@ -478,13 +477,14 @@ describe('Acceptance | Exam Command', function() {
           '2',
           '--write-module-metadata-file'
         ]).then(assertExpectRejection, error => {
+          const output = error.stdout;
           assert.ok(
-            error.message.includes(
+            output.includes(
               'Error: Browser exited on request from test driver'
             ),
-            `browser exited during the test execution:\n${error.message}`
+            `browser exited during the test execution:\n${output}`
           );
-          assertModuleDetailJson(error.message);
+          assertModuleDetailJson(output);
         });
       });
     });
