@@ -1,3 +1,8 @@
+v4.0.8 / 2019-12-02
+===================
+* [Enhancement] Add a number of total, skipped, and failed tests per module to module metadata file (@choheekim)
+
+
 v4.0.7 / 2019-12-02
 ===================
 * [BugFix] Update yarn.lock to use latest version of core-js-compat (v.3.4.7) (@choheekim)
@@ -6,7 +11,6 @@ v4.0.7 / 2019-12-02
 v4.0.6 / 2019-12-02
 ===================
 * [BugFix] Fix process validation when registering callbacks for process.error & process.exit (@choheekim)
-* [Enhancement] Add a number of total, skipped, and failed tests per module to module metadata file (@choheekim)
 * Bump ember-template-lint from 1.6.0 to 1.6.1 <dependabot[bot]>
 * Bump ember-qunit from 4.5.1 to 4.6.0 <dependabot[bot]>
 * Bump eslint-plugin-ember from 7.2.0 to 7.3.0 <dependabot[bot]>
