@@ -1,3 +1,20 @@
+v4.0.6 / 2019-12-02
+* [BugFix] Fix process validation when registering callbacks for process.error & process.exit (@choheekim)
+* [Enhancement] Add a number of total, skipped, and failed tests per module to module metadata file (@choheekim)
+* Bump ember-template-lint from 1.6.0 to 1.6.1 <dependabot[bot]>
+* Bump ember-qunit from 4.5.1 to 4.6.0 <dependabot[bot]>
+* Bump eslint-plugin-ember from 7.2.0 to 7.3.0 <dependabot[bot]>
+* Bump ember-load-initializers from 2.1.0 to 2.1.1 <dependabot[bot]>
+* Bump ember-template-lint from 1.6.1 to 1.8.1 <dependabot[bot]>
+* Bump ember-source from 3.13.3 to 3.14.1 <dependabot[bot]>
+* Bump chalk from 2.4.2 to 3.0.0 <dependabot[bot]>
+* Bump ember-export-application-global from 2.0.0 to 2.0.1 <dependabot[bot]>
+* Bump ember-template-lint from 1.8.1 to 1.8.2 <dependabot[bot]>
+* Bump ember-cli from 3.13.1 to 3.14.0 <dependabot[bot]>
+* Bump ember-resolver from 5.3.0 to 6.0.0  <dependabot[bot]>
+* Bump ember-cli-babel from 7.12.0 to 7.13.0 <dependabot[bot]>
+* Bump execa from 3.3.0 to 3.4.0 <dependabot[bot]>
+
 
 v4.0.5 / 2019-10-25
 ===================
