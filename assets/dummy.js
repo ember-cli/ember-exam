@@ -15,6 +15,19 @@
     }
   });
 });
+;define("dummy/adapters/-json-api", ["exports", "@ember-data/adapter/json-api"], function (_exports, _jsonApi) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function get() {
+      return _jsonApi.default;
+    }
+  });
+});
 ;define("dummy/adapters/class", ["exports", "ember-cli-addon-docs/adapters/class"], function (_exports, _class) {
   "use strict";
 
@@ -228,7 +241,7 @@
     }
   });
 });
-;define("dummy/components/code-snippet", ["exports", "ember-code-snippet/components/code-snippet", "dummy/snippets"], function (_exports, _codeSnippet, _snippets) {
+;define("dummy/components/code-snippet", ["exports", "dummy/snippets"], function (_exports, _snippets) {
   "use strict";
 
   Object.defineProperty(_exports, "__esModule", {
@@ -236,8 +249,78 @@
   });
   _exports.default = void 0;
 
-  var _default = _codeSnippet.default.extend({
-    snippets: _snippets.default
+  /* global require */
+  var Highlight = self.require('highlight.js');
+
+  var _default = Ember.Component.extend({
+    tagName: 'pre',
+    classNameBindings: ['language'],
+    unindent: true,
+    _unindent: function _unindent(src) {
+      if (!this.get('unindent')) {
+        return src;
+      }
+
+      var match,
+          min,
+          lines = src.split("\n").filter(function (l) {
+        return l !== '';
+      });
+
+      for (var i = 0; i < lines.length; i++) {
+        match = /^[ \t]*/.exec(lines[i]);
+
+        if (match && (typeof min === 'undefined' || min > match[0].length)) {
+          min = match[0].length;
+        }
+      }
+
+      if (typeof min !== 'undefined' && min > 0) {
+        src = src.replace(new RegExp("^[ \t]{" + min + "}", 'gm'), "");
+      }
+
+      return src;
+    },
+    source: Ember.computed('name', function () {
+      var snippet = this.get('name').split('/').reduce(function (dir, name) {
+        return dir && dir[name];
+      }, _snippets.default);
+      return this._unindent((snippet || "").replace(/^(\s*\n)*/, '').replace(/\s*$/, ''));
+    }),
+    didInsertElement: function didInsertElement() {
+      Highlight.highlightBlock(this.get('element'));
+    },
+    language: Ember.computed('name', function () {
+      var m = /\.(\w+)$/i.exec(this.get('name'));
+
+      if (m) {
+        switch (m[1].toLowerCase()) {
+          case 'js':
+            return 'javascript';
+
+          case 'coffee':
+            return 'coffeescript';
+
+          case 'hbs':
+            return 'htmlbars';
+
+          case 'css':
+            return 'css';
+
+          case 'scss':
+            return 'scss';
+
+          case 'less':
+            return 'less';
+
+          case 'emblem':
+            return 'emblem';
+
+          case 'ts':
+            return 'typescript';
+        }
+      }
+    })
   });
 
   _exports.default = _default;
@@ -1789,6 +1872,25 @@
     }
   });
 });
+;define("dummy/helpers/noop", ["exports", "ember-composable-helpers/helpers/noop"], function (_exports, _noop) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function get() {
+      return _noop.default;
+    }
+  });
+  Object.defineProperty(_exports, "noop", {
+    enumerable: true,
+    get: function get() {
+      return _noop.noop;
+    }
+  });
+});
 ;define("dummy/helpers/not-eq", ["exports", "ember-truth-helpers/helpers/not-equal"], function (_exports, _notEqual) {
   "use strict";
 
@@ -2444,42 +2546,10 @@
   _exports.default = void 0;
 
   /*
+    This code initializes EmberData in an Ember application.
   
-    This code initializes Ember-Data onto an Ember application.
-  
-    If an Ember.js developer defines a subclass of DS.Store on their application,
-    as `App.StoreService` (or via a module system that resolves to `service:store`)
-    this code will automatically instantiate it and make it available on the
-    router.
-  
-    Additionally, after an application's controllers have been injected, they will
-    each have the store made available to them.
-  
-    For example, imagine an Ember.js application with the following classes:
-  
-    ```app/services/store.js
-    import DS from 'ember-data';
-  
-    export default DS.Store.extend({
-      adapter: 'custom'
-    });
-    ```
-  
-    ```app/controllers/posts.js
-    import { Controller } from '@ember/controller';
-  
-    export default Controller.extend({
-      // ...
-    });
-  
-    When the application is initialized, `ApplicationStore` will automatically be
-    instantiated, and the instance of `PostsController` will have its `store`
-    property set to that instance.
-  
-    Note that this code will only be run if the `ember-application` package is
-    loaded. If Ember Data is being used in an environment other than a
-    typical application (e.g., node.js where only `ember-runtime` is available),
-    this code will be ignored.
+    It ensures that the `store` service is automatically injected
+    as the `store` property on all routes and controllers.
   */
   var _default = {
     name: 'ember-data',
@@ -2862,6 +2932,45 @@
     }
   });
 });
+;define("dummy/serializers/-default", ["exports", "@ember-data/serializer/json"], function (_exports, _json) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function get() {
+      return _json.default;
+    }
+  });
+});
+;define("dummy/serializers/-json-api", ["exports", "@ember-data/serializer/json-api"], function (_exports, _jsonApi) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function get() {
+      return _jsonApi.default;
+    }
+  });
+});
+;define("dummy/serializers/-rest", ["exports", "@ember-data/serializer/rest"], function (_exports, _rest) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function get() {
+      return _rest.default;
+    }
+  });
+});
 ;define("dummy/services/adapter", ["exports", "ember-fetch-adapter"], function (_exports, _emberFetchAdapter) {
   "use strict";
 
@@ -3051,6 +3160,24 @@
     "block": "{\"symbols\":[],\"statements\":[[1,[22,\"outlet\"],false],[0,\"\\n\\n\"],[1,[22,\"docs-keyboard-shortcuts\"],false]],\"hasEval\":false}",
     "meta": {
       "moduleName": "dummy/templates/application.hbs"
+    }
+  });
+
+  _exports.default = _default;
+});
+;define("dummy/templates/components/code-snippet", ["exports"], function (_exports) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  _exports.default = void 0;
+
+  var _default = Ember.HTMLBars.template({
+    "id": "zGuD2Kx3",
+    "block": "{\"symbols\":[],\"statements\":[[1,[22,\"source\"],false],[0,\"\\n\"]],\"hasEval\":false}",
+    "meta": {
+      "moduleName": "dummy/templates/components/code-snippet.hbs"
     }
   });
 
@@ -3361,6 +3488,58 @@
   });
 
   _exports.default = _default;
+});
+;define("dummy/transforms/boolean", ["exports", "@ember-data/serializer/-private"], function (_exports, _private) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function get() {
+      return _private.BooleanTransform;
+    }
+  });
+});
+;define("dummy/transforms/date", ["exports", "@ember-data/serializer/-private"], function (_exports, _private) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function get() {
+      return _private.DateTransform;
+    }
+  });
+});
+;define("dummy/transforms/number", ["exports", "@ember-data/serializer/-private"], function (_exports, _private) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function get() {
+      return _private.NumberTransform;
+    }
+  });
+});
+;define("dummy/transforms/string", ["exports", "@ember-data/serializer/-private"], function (_exports, _private) {
+  "use strict";
+
+  Object.defineProperty(_exports, "__esModule", {
+    value: true
+  });
+  Object.defineProperty(_exports, "default", {
+    enumerable: true,
+    get: function get() {
+      return _private.StringTransform;
+    }
+  });
 });
 ;define("dummy/transitions", ["exports"], function (_exports) {
   "use strict";

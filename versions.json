@@ -14,8 +14,8 @@
   "-latest": {
     "path": "",
     "name": "Latest",
-    "sha": "286fff1ca837a6cae620387ee8d939ac9c5b1ddf",
-    "tag": "v4.0.5"
+    "sha": "e6854075f0325128934d1d01aa93a3a801f40768",
+    "tag": "v4.0.7"
   },
   "v3.0.1": {
     "path": "versions/v3.0.1",
@@ -70,5 +70,11 @@
     "name": "origin/gh-pages",
     "sha": "de1ab72c396228ff5149f211a794cf451d8155d5",
     "tag": null
+  },
+  "v4.0.7": {
+    "path": "versions/v4.0.7",
+    "name": "v4.0.7",
+    "sha": "e6854075f0325128934d1d01aa93a3a801f40768",
+    "tag": "v4.0.7"
   }
 }
