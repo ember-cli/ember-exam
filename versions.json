@@ -64,5 +64,11 @@
     "name": "v4.0.5",
     "sha": "286fff1ca837a6cae620387ee8d939ac9c5b1ddf",
     "tag": "v4.0.5"
+  },
+  "origin/gh-pages": {
+    "path": "versions/origin/gh-pages",
+    "name": "origin/gh-pages",
+    "sha": "0d9b17240ca0814584522a2786835045e608a00e",
+    "tag": null
   }
 }
