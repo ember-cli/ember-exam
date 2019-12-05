@@ -112,7 +112,10 @@ describe('ExecutionStateManager', function() {
       const moduleMetadata = {
         moduleName: testModuleName,
         testName: 'testing foo',
+        passed: 1,
         failed: 0,
+        skipped: false,
+        total: 1,
         duration: 1
       };
 
@@ -131,6 +134,10 @@ describe('ExecutionStateManager', function() {
         0
       );
       assert.equal(
+        fooModuleMetadata.skipped,
+        0
+      );
+      assert.equal(
         fooModuleMetadata.duration,
         1
       );
@@ -145,14 +152,20 @@ describe('ExecutionStateManager', function() {
       const fooTestMetadata = {
         moduleName: fooTestModule,
         testName: 'testing foo',
+        passed: 1,
         failed: 0,
+        skipped: false,
+        total: 1,
         duration: 1
       };
 
       const barTestMetadata = {
         moduleName: fooTestModule,
         testName: 'testing bar',
+        passed: 0,
         failed: 1,
+        skipped: false,
+        total: 1,
         duration: 1.8
       };
 
@@ -174,6 +187,10 @@ describe('ExecutionStateManager', function() {
       assert.equal(
         fooModuleMetadata.failed,
         1
+      );
+      assert.equal(
+        fooModuleMetadata.skipped,
+        0
       );
       assert.equal(
         fooModuleMetadata.duration,

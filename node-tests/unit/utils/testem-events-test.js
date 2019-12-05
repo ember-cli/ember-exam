@@ -223,7 +223,7 @@ describe('TestemEvents', function() {
     });
 
     it('should write module-run-details file and cleanup state when completedBrowsers equals browserCount, load-balance is true, and write-execution-file is false', function() {
-      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test', failed: false, duration: 1});
+      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test', passed: true, failed: false, skipped: false, duration: 1});
       this.testemEvents.completedBrowsersHandler(
         1,
         1,
@@ -245,6 +245,7 @@ describe('TestemEvents', function() {
           total: 1,
           passed: 1,
           failed: 0,
+          skipped: 0,
           duration: 1,
           failedTests: []
         }
@@ -252,9 +253,9 @@ describe('TestemEvents', function() {
     });
 
     it('should write module-run-details file with sorted by duration', function() {
-      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 1', failed: false, duration: 1});
-      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 2', failed: true, duration: 8});
-      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', failed: false, duration: 1});
+      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 1', passed: true, failed: false, skipped: false, duration: 1});
+      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 2', passed: false, failed: true, skipped: false, duration: 8});
+      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', passed: true, failed: false, skipped: false, duration: 1});
 
 
       this.testemEvents.completedBrowsersHandler(
@@ -278,6 +279,7 @@ describe('TestemEvents', function() {
           total: 2,
           passed: 1,
           failed: 1,
+          skipped: 0,
           duration: 9,
           failedTests: ['test 2']
         },
@@ -286,12 +288,56 @@ describe('TestemEvents', function() {
           total: 1,
           passed: 1,
           failed: 0,
+          skipped: 0,
           duration: 1,
           failedTests: []
         }
       ]);
     });
 
+    it('should add skipped test number to write module-run-details file with sorted by duration', function() {
+      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 1', passed: true, failed: false, skipped: true, duration: 0});
+      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 2', passed: false, failed: true, skipped: false, duration: 8});
+      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', passed: true, failed: false, skipped: false, duration: 1});
+      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', passed: true, failed: false, skipped: false, duration: 0});
+      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', paseed: true, failed: false, skipped: true, duration: 1});
+
+      this.testemEvents.completedBrowsersHandler(
+        1,
+        1,
+        mockUi,
+        new Map([
+          ['loadBalance', true],
+          ['writeModuleMetadataFile', true]
+        ]),
+        '0000'
+      );
+
+      const actual = fs.readFileSync(
+        path.join(fixtureDir, 'module-metadata-0000.json')
+      );
+
+      assert.deepEqual(JSON.parse(actual), [
+        {
+          moduleName: 'a',
+          total: 2,
+          passed: 0,
+          failed: 1,
+          skipped: 1,
+          duration: 8,
+          failedTests: ['test 2']
+        },
+        {
+          moduleName: 'b',
+          total: 3,
+          passed: 2,
+          failed: 0,
+          skipped: 1,
+          duration: 2,
+          failedTests: []
+        }
+      ]);
+    });
 
     it('should increment completedBrowsers when load-balance is false', function() {
       this.testemEvents.completedBrowsersHandler(
