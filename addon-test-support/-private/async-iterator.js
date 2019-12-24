@@ -25,12 +25,19 @@ export default class AsyncIterator {
   }
 
   /**
-   * Return whether the response queue is done.
+   * Indicates whether the response queue is done or not.
+   *
+   * @method done
+   * @return {bool} whether the response queue is done or not
    */
   get done() {
     return this._done;
   }
 
+  /**
+   * @method toString
+   * @return {String} the stringified value of the iterator.
+   */
   toString() {
     return `<AsyncIterator (request: ${this._request} response: ${
       this._response
@@ -40,6 +47,7 @@ export default class AsyncIterator {
   /**
    * Handle a response when it's waiting for a response
    *
+   * @method handleResponse
    * @param {*} response
    */
   handleResponse(response) {
@@ -70,6 +78,7 @@ export default class AsyncIterator {
   /**
    * Dispose when an iteration is finished.
    *
+   * @method dispose
    */
   dispose() {
     this._done = true;
@@ -82,6 +91,7 @@ export default class AsyncIterator {
   /**
    * Emit the current request.
    *
+   * @method _makeNextRequest
    */
   _makeNextRequest() {
     this._waiting = true;
@@ -91,6 +101,7 @@ export default class AsyncIterator {
   /**
    * Set a timeout to reject a promise if it doesn't get response within the timeout threshold.
    *
+   * @method _setTimeout
    * @param {*} resolve
    */
   _setTimeout(resolve, reject) {
@@ -121,6 +132,7 @@ export default class AsyncIterator {
    * Gets the next response from the request and resolve the promise.
    * if it's end of the iteration resolve the promise with done being true.
    *
+   * @method next
    * @return {Promise}
    */
   next() {

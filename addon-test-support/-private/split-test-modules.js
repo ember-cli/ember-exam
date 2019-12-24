@@ -28,14 +28,15 @@ function isNotLintTest(name) {
 }
 
 /**
- * splits the list of modules into unique subset of modules
+ * Splits the list of modules into unique subset of modules
  * return the subset indexed by the partition
  *
  * @export
+ * @function splitTestModules
  * @param {Array<string>} modules
  * @param {number} split
  * @param {number} partitions
- * @returns {Array<string>} tests
+ * @return {Array<string>} tests
  */
 export default function splitTestModules(modules, split, partitions) {
   if (split < 1) {

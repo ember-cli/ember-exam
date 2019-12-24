@@ -24,6 +24,8 @@ export default class EmberExamMochaTestLoader extends TestLoader {
   /**
    * Ember-cli-test-loader instantiates a new TestLoader instance and calls loadModules.
    * EmberExamMochaTestLoader does not support load() in favor of loadModules().
+   *
+   * @method load
    */
   static load() {
     throw new Error('`EmberExamMochaTestLoader` doesn\'t support `load()`.');
@@ -33,6 +35,7 @@ export default class EmberExamMochaTestLoader extends TestLoader {
    * require() collects the full list of modules before requiring each module with
    * super.require, instead of requiring and unseeing a module when each gets loaded.
    *
+   * @method require
    * @param {string} moduleName
    */
   require(moduleName) {
@@ -41,11 +44,15 @@ export default class EmberExamMochaTestLoader extends TestLoader {
 
   /**
    * Make unsee a no-op to avoid any unwanted resets
+   *
+   * @method unsee
    */
   unsee() {}
 
   /**
    * Loads the test modules depending on the urlParam
+   *
+   * @method loadModules
    */
   loadModules() {
     const modulePath = this._urlParams.get('modulePath');

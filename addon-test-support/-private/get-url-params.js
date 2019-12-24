@@ -6,7 +6,8 @@ function decodeQueryParam(param) {
  * Parses the url and return an object containing a param's key and value
  *
  * @export
- * @returns {Object} urlParams
+ * @function getUrlParams
+ * @return {Object} urlParams
  */
 export default function getUrlParams() {
   const urlParams = new Map();
