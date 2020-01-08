@@ -29,6 +29,8 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
   /**
    * ember-cli-test-loader instantiates a new TestLoader instance and calls loadModules.
    * EmberExamQUnitTestLoader does not support load() in favor of loadModules().
+   *
+   * @method load
    */
   static load() {
     throw new Error('`EmberExamQUnitTestLoader` doesn\'t support `load()`.');
@@ -38,6 +40,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
    * require() collects the full list of modules before requiring each module with
    * super.require(), instead of requiring and unseeing a module when each gets loaded.
    *
+   * @method require
    * @param {string} moduleName
    */
   require(moduleName) {
@@ -46,11 +49,15 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
 
   /**
    * Make unsee a no-op to avoid any unwanted resets
+   *
+   * @method unsee
    */
   unsee() {}
 
   /**
    * Loads the test modules depending on the urlParam
+   *
+   * @method loadModules
    */
   loadModules() {
     const loadBalance = this._urlParams.get('loadBalance');
@@ -107,6 +114,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
   /**
    * Allow loading one module at a time.
    *
+   * @method loadIndividualModule
    * @param {string} moduleName
    */
   loadIndividualModule(moduleName) {
@@ -121,6 +129,8 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
 
   /**
    * setupModuleMetadataHandler() register QUnit callback to enable generating module metadata file.
+   *
+   * @method setupModuleMetadataHandler
    */
   setupModuleMetadataHandler() {
     this._qunit.testDone((metadata) => {
@@ -135,6 +145,8 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
 
   /**
    * setupLoadBalanceHandlers() registers QUnit callbacks needed for the load-balance option.
+   *
+   * @method setupLoadBalanceHandlers
    */
   setupLoadBalanceHandlers() {
     // nextModuleAsyncIterator handles the async testem events

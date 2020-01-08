@@ -5,6 +5,7 @@ import loadEmberExam from 'ember-exam/test-support/load';
 /**
  * Equivalent to ember-qunit or ember-mocha's loadTest() except this does not create a new TestLoader instance
  *
+ * @function loadTests
  * @param {*} testLoader
  */
 function loadTests(testLoader) {
@@ -21,6 +22,7 @@ function loadTests(testLoader) {
  * Ember-exam's own start function to set up EmberExamTestLoader, load tests and calls start() from
  * ember-qunit or ember-mocha
  *
+ * @function start
  * @param {*} qunitOptions
  */
 export default function start(qunitOptions) {

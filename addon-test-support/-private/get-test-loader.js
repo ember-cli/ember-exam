@@ -4,7 +4,8 @@
  * Returns ember-exam-qunit-test-loader or ember-exam-mocha-test-loader
  *
  * @export
- * @returns {Object}
+ * @function getTestLoader
+ * @return {Object}
  */
 export default function getTestLoader() {
   if (requirejs.entries['ember-qunit/test-loader']) {

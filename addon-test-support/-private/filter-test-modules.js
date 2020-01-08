@@ -6,6 +6,7 @@ const TEST_PATH_REGEX = /\/tests\/(.*?)$/;
  * Return the matched test.
  * e.g. if an input is '!/weight/' it returns an array, ['!/weight/', '!', 'weight', ''];
  *
+ * @function getRegexFilter
  * @param {*} modulePath
  */
 function getRegexFilter(modulePath) {
@@ -16,6 +17,7 @@ function getRegexFilter(modulePath) {
  * Determine if a given module path is matched with module filter with wildcard.
  * e.g. A given moduleFilter, /tests/integration/*, matches with /tests/integration/foo and /tests/integration/bar
  *
+ * @function wildcardFilter
  * @param {*} module
  * @param {*} moduleFilter
  */
@@ -28,6 +30,7 @@ function wildcardFilter(module, moduleFilter) {
 /**
  * Return a list of test modules that contain a given module path string.
  *
+ * @function stringFilter
  * @param {Array<string>} modules
  * @param {string} moduleFilter
  */
@@ -38,6 +41,7 @@ function stringFilter(modules, moduleFilter) {
 /**
  * Return a list of test modules that matches with a given regular expression.
  *
+ * @function regexFilter
  * @param {Array<string>} modules
  * @param {Array<string>} modulePathRegexFilter
  */
@@ -51,6 +55,7 @@ function regexFilter(modules, modulePathRegexFilter) {
 /**
  * Return a module path that's mapped by a given test file path.
  *
+ * @function convertFilePathToModulePath
  * @param {*} filePath
  */
 function convertFilePathToModulePath(filePath) {
@@ -66,6 +71,7 @@ function convertFilePathToModulePath(filePath) {
 /**
  * Returns a list of test modules that match with the given module path filter or test file path.
  *
+ * @function filterTestModules
  * @param {Array<string>} modules
  * @param {string} modulePath
  * @param {string} filePath
