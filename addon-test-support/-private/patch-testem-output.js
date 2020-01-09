@@ -3,9 +3,10 @@
 /**
  * Returns a modified test name including browser or partition information
  *
+ * @function updateTestName
  * @param {Map} urlParams
  * @param {string} testName
- * @returns {string} testName
+ * @return {string} testName
  */
 export function updateTestName(urlParams, testName) {
   const split = urlParams.get('split');
@@ -28,6 +29,7 @@ export function updateTestName(urlParams, testName) {
 /**
  * Setup testem test-result event to update the test name when a test completes
  *
+ * @function patchTestemOutput
  * @param {Map} urlParams
  */
 export function patchTestemOutput(urlParams) {

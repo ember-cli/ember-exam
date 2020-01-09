@@ -6,7 +6,8 @@ let loaded = false;
 /**
  * Setup EmberExamTestLoader to enable ember exam functionalities
  *
- * @returns {*} testLoader
+ * @function loadEmberExam
+ * @return {*} testLoader
  */
 export default function loadEmberExam() {
   if (loaded) {
