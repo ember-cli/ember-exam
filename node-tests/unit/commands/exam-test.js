@@ -158,21 +158,21 @@ describe('ExamCommand', function() {
       command = createCommand();
     });
 
-    it('returns mocha if ember-cli-mocha is a dependency', function() {
+    it('returns mocha if ember-mocha is a dependency', function() {
       command.project.pkg.dependencies = {
-        'ember-cli-mocha': '*'
+        'ember-mocha': '*'
       };
       assertFramework(command, 'mocha');
     });
 
-    it('returns mocha if ember-cli-mocha is a dev-dependency', function() {
+    it('returns mocha if ember-mocha is a dev-dependency', function() {
       command.project.pkg.devDependencies = {
-        'ember-cli-mocha': '*'
+        'ember-mocha': '*'
       };
       assertFramework(command, 'mocha');
     });
 
-    it('returns qunit if ember-cli-mocha is not a dependency of any kind', function() {
+    it('returns qunit if ember-mocha is not a dependency of any kind', function() {
       command = createCommand();
       assertFramework(command, 'qunit');
     });
