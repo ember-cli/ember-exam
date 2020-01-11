@@ -63,7 +63,7 @@
     "ember-template-lint": "^1.13.0",
     "ember-try": "^1.4.0",
     "eslint-plugin-ember": "^7.7.2",
-    "eslint-plugin-node": "^10.0.0",
+    "eslint-plugin-node": "^11.0.0",
     "fixturify": "^1.2.0",
     "istanbul": "^0.4.3",
     "loader.js": "^4.7.0",
