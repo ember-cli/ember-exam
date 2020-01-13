@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/trentmwillis/ember-exam/badges/gpa.svg)](https://codeclimate.com/github/trentmwillis/ember-exam)
 [![Node Test Coverage](https://codeclimate.com/github/trentmwillis/ember-exam/badges/coverage.svg)](https://codeclimate.com/github/trentmwillis/ember-exam/coverage)
 
-Ember Exam is an addon to allow you more control over how you run your tests when used in conjunction with [Ember QUnit](https://github.com/emberjs/ember-qunit) or [Ember CLI Mocha](https://github.com/ember-cli/ember-cli-mocha). It provides the ability to randomize, split, parallelize, and load-balance your test suite by adding a more robust CLI command.
+Ember Exam is an addon to allow you more control over how you run your tests when used in conjunction with [Ember QUnit](https://github.com/emberjs/ember-qunit) or [Ember Mocha](https://github.com/emberjs/ember-mocha). It provides the ability to randomize, split, parallelize, and load-balance your test suite by adding a more robust CLI command.
 
 It started as a way to help reduce flaky tests and encourage healthy test driven development. It's like [Head & Shoulders](http://www.headandshoulders.com/) for your tests!
 
