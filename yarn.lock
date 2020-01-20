@@ -5039,10 +5039,10 @@ ember-auto-import@^1.5.3:
     walk-sync "^0.3.3"
     webpack "~4.28"
 
-ember-cli-addon-docs-yuidoc@^0.2.1:
-  version "0.2.3"
-  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs-yuidoc/-/ember-cli-addon-docs-yuidoc-0.2.3.tgz#13f7943c7ef1909d74ef9d33a719236117c17262"
-  integrity sha512-W1ASMlYnWS18qkyN4ducCAH/APQ5AljNH4rGXV81Ly6I6XHgh7WnQZdXD5eQqjc9XoruC/92hqBIIl27ykShKQ==
+ember-cli-addon-docs-yuidoc@^0.2.4:
+  version "0.2.4"
+  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs-yuidoc/-/ember-cli-addon-docs-yuidoc-0.2.4.tgz#dd8f5cf4982e8492b255fb677e9d771925e27dce"
+  integrity sha512-asyGxagV+VKK+edc5iOW8JI8Css/d8mEE7ndWKqYa8Ub4eFwVfI6SLr9gHZc8f7q9BK+M5a/RSWHSnTTL5/3Zw==
   dependencies:
     broccoli-caching-writer "^3.0.3"
     ember-cli-babel "^7.7.3"
