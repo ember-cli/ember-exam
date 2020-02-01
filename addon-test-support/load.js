@@ -1,4 +1,4 @@
-import TestemOutput from './-private/patch-testem-output';
+import { patchTestemOutput } from './-private/patch-testem-output';
 import getTestLoader from './-private/get-test-loader';
 
 let loaded = false;
@@ -21,7 +21,7 @@ export default function loadEmberExam() {
   const testLoader = new EmberExamTestLoader(window.Testem);
 
   if (window.Testem) {
-    TestemOutput.patchTestemOutput(testLoader.urlParams);
+    patchTestemOutput(testLoader.urlParams);
   }
 
   return testLoader;
