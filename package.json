@@ -67,7 +67,7 @@
     "fixturify": "^1.2.0",
     "istanbul": "^0.4.3",
     "loader.js": "^4.7.0",
-    "mocha": "^6.2.2",
+    "mocha": "^7.0.1",
     "mocha-eslint": "^4.1.0",
     "nyc": "^15.0.0",
     "rsvp": "^4.8.5",
