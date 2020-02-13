@@ -150,8 +150,14 @@ describe('TestemEvents', function() {
   });
 
   describe('recordFailedBrowserId', function() {
+    const launcher = {
+      settings: {
+        test_page: 'browser=1'
+      }
+    }
+
     it('record new browserId if test failed', function() {
-      this.testemEvents.recordFailedBrowserId(1);
+      this.testemEvents.recordFailedBrowserId(launcher, {});
 
       assert.deepEqual(
         this.testemEvents.stateManager.getFailedBrowsers(),
@@ -161,8 +167,8 @@ describe('TestemEvents', function() {
     });
 
     it('does not record browserId that has already been recorded', function() {
-      this.testemEvents.recordFailedBrowserId(1);
-      this.testemEvents.recordFailedBrowserId(1);
+      this.testemEvents.recordFailedBrowserId(launcher, {});
+      this.testemEvents.recordFailedBrowserId(launcher, {});
 
       assert.deepEqual(
         this.testemEvents.stateManager.getFailedBrowsers(),
@@ -198,6 +204,8 @@ describe('TestemEvents', function() {
 
     it('should write test-execution file and cleanup state when completedBrowsers equals browserCount and load-balance is true', function() {
       this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('a', 1);
+      this.testemEvents.stateManager.addToStartedLaunchers(1010);
+
       this.testemEvents.completedBrowsersHandler(
         1,
         1,
@@ -224,6 +232,8 @@ describe('TestemEvents', function() {
 
     it('should write module-run-details file and cleanup state when completedBrowsers equals browserCount, load-balance is true, and write-execution-file is false', function() {
       this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test', passed: true, failed: false, skipped: false, duration: 1});
+      this.testemEvents.stateManager.addToStartedLaunchers(1010);
+
       this.testemEvents.completedBrowsersHandler(
         1,
         1,
@@ -239,7 +249,7 @@ describe('TestemEvents', function() {
         path.join(fixtureDir, 'module-metadata-0000.json')
       );
 
-      assert.deepEqual(JSON.parse(actual), [
+      assert.deepEqual(JSON.parse(actual).modules, [
         {
           moduleName: 'a',
           total: 1,
@@ -257,6 +267,7 @@ describe('TestemEvents', function() {
       this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 2', passed: false, failed: true, skipped: false, duration: 8});
       this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', passed: true, failed: false, skipped: false, duration: 1});
 
+      this.testemEvents.stateManager.addToStartedLaunchers(1010);
 
       this.testemEvents.completedBrowsersHandler(
         1,
@@ -273,7 +284,7 @@ describe('TestemEvents', function() {
         path.join(fixtureDir, 'module-metadata-0000.json')
       );
 
-      assert.deepEqual(JSON.parse(actual), [
+      assert.deepEqual(JSON.parse(actual).modules, [
         {
           moduleName: 'a',
           total: 2,
@@ -295,12 +306,14 @@ describe('TestemEvents', function() {
       ]);
     });
 
-    it('should add skipped test number to write module-run-details file with sorted by duration', function() {
+    it('should add skipped test number to write module-metadata-file with sorted by duration', function() {
       this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 1', passed: true, failed: false, skipped: true, duration: 0});
       this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 2', passed: false, failed: true, skipped: false, duration: 8});
       this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', passed: true, failed: false, skipped: false, duration: 1});
       this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', passed: true, failed: false, skipped: false, duration: 0});
       this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', paseed: true, failed: false, skipped: true, duration: 1});
+
+      this.testemEvents.stateManager.addToStartedLaunchers(1010);
 
       this.testemEvents.completedBrowsersHandler(
         1,
@@ -317,7 +330,7 @@ describe('TestemEvents', function() {
         path.join(fixtureDir, 'module-metadata-0000.json')
       );
 
-      assert.deepEqual(JSON.parse(actual), [
+      assert.deepEqual(JSON.parse(actual).modules, [
         {
           moduleName: 'a',
           total: 2,
@@ -363,7 +376,7 @@ describe('TestemEvents', function() {
       this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('b', 2);
 
       this.testemEvents.completedBrowsersHandler(
-        2,
+        1,
         1,
         mockUi,
         new Map([
@@ -381,8 +394,43 @@ describe('TestemEvents', function() {
       this.testemEvents.stateManager.setReplayExecutionMap(
         mockReplayExecutionMap
       );
+      this.testemEvents.stateManager.addToStartedLaunchers(1010);
+
       this.testemEvents.completedBrowsersHandler(
         1,
+        1,
+        mockUi,
+        new Map([
+          ['loadBalance', true]
+        ]),
+        '0000'
+      );
+
+      assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 0);
+      assert.deepEqual(
+        this.testemEvents.stateManager.getTestModuleQueue(),
+        null
+      );
+      assert.deepEqual(
+        this.testemEvents.stateManager.getReplayExecutionModuleQueue(),
+        null
+      );
+      assert.deepEqual(
+        this.testemEvents.stateManager.getReplayExecutionMap(),
+        mockReplayExecutionMap
+      );
+    });
+
+    it('should clean up states from stateManager when all launched browsers complete tests', function() {
+      const mockReplayExecutionMap = { 1: ['a'] };
+      this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('a', 1);
+      this.testemEvents.stateManager.setReplayExecutionMap(
+        mockReplayExecutionMap
+      );
+      this.testemEvents.stateManager.addToStartedLaunchers(1010);
+
+      this.testemEvents.completedBrowsersHandler(
+        4,
         1,
         mockUi,
         new Map([

@@ -39,13 +39,21 @@ describe('TestPageHelper', function() {
 
   describe('getBrowserId', function() {
     it('should return the correct browserId', function() {
-      assert.equal(getBrowserId('loadBalance&browser=1'), 1);
+      const launcher = {
+        settings: {
+          test_page: 'loadBalance&browser=1'
+        }
+      }
+      assert.equal(getBrowserId(launcher), 1);
     });
 
-    it('should return 0 if no browser param is found in the test page', function() {
+    it('should throw an error if the launcher does not have test page set', function() {
+      const launcher = {
+        foo: 'bar'
+      }
       assert.throws(() => {
-        getBrowserId('loadBalance');
-      }, /Browser Id can't be found./);
+        getBrowserId(launcher);
+      }, /Launcher Settings:/);
     });
   });
 
