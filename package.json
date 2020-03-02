@@ -64,7 +64,7 @@
     "ember-try": "^1.4.0",
     "eslint-plugin-ember": "^7.9.0",
     "eslint-plugin-node": "^11.0.0",
-    "fixturify": "^1.2.0",
+    "fixturify": "^2.1.0",
     "istanbul": "^0.4.3",
     "loader.js": "^4.7.0",
     "mocha": "^7.1.0",
