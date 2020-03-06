@@ -11,9 +11,13 @@ It creates a json file, `module-metadata-<timestamp>.json`, which contains an ar
 ```json
 [
   {
-    "name": "Module-name",
+    "moduleName": "Module-name",
     "total": "Total number of tests in the module",
-    "duration": "ms in Total duration to execute the module"
+    "passed": "A number of passed tests in the module",
+    "failed": "A number of failed tests in the module",
+    "skipped": "A number of skipped tests in the module",
+    "duration": "(ms) duration to execute all tests within the module",
+    "failedTests": "A list of failed tests"
   }
 ]
 ```
@@ -22,14 +26,22 @@ and it looks something like below:
 ```json
 [
   {
-    "name": "Slowest Module",
+    "moduleName": "Slowest-module",
     "total": 12,
-    "duration": 2159
+    "passed": 9,
+    "failed": 1,
+    "skipped": 2,
+    "duration": 153,
+    "failedTests": ["failed-test-1"]
   },
   {
-    "name": "Fastest Module",
-    "total": 9,
-    "duration": 125
+    "moduleName": "Fastest-module",
+    "total": 2,
+    "passed": 1,
+    "failed": 0,
+    "skipped": 0,
+    "duration": 123,
+    "failedTests": []
   }
 ]
 ```
