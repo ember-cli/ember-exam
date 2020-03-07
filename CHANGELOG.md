@@ -1,3 +1,45 @@
+v5.0.0 / 2020-03-06
+===================
+* [Enhancement] Update docs for ember-cli-addon-docs (@choheekim)
+* [Enhancement] Update node engine to be above 10 (@choheekim)
+* [Enhancement] Enables to execute completeBrowserHandler() when there is browser(s) failed to attach to server (@choheekim)
+* [Enhancement] _getTestFramework checks for ember-mocha package (@choheekim)
+* [Enhancement] updating header comments to fix warnings during "ember build" (@dcombslinkedin)
+* [BugFix] fix invalid ES module usage (@ef3)
+* Bump ember-source from 3.16.3 to 3.17.0 <dependabot[bot]>
+* Bump ember-template-lint from 1.14.0 to 2.3.0 <dependabot[bot]>
+* Bump eslint-plugin-ember from 7.8.1 to 7.9.0 <dependabot[bot]>
+* Bump testdouble from 3.12.5 to 3.13.0 <dependabot[bot]>
+* Bump mocha from 7.0.1 to 7.1.0 <dependabot[bot]>
+* Bump ember-template-lint from 1.13.2 to 1.14.0 <dependabot[bot]>
+* Bump ember-source from 3.14.3 to 3.16.3 <dependabot[bot]>
+* Bump semver from 7.1.2 to 7.1.3 <dependabot[bot]>
+* Bump ember-cli from 3.15.2 to 3.16.0 <dependabot[bot]>
+* Bump ember-cli-babel from 7.17.1 to 7.18.0 <dependabot[bot]>
+* Bump eslint-plugin-ember from 7.7.2 to 7.8.1 <dependabot[bot]>
+* Bump rimraf from 3.0.1 to 3.0.2 <dependabot[bot]>
+* Bump ember-cli-babel from 7.14.1 to 7.17.1 <dependabot[bot]>
+* Bump semver from 6.3.0 to 7.1.2 <dependabot[bot]>
+* Bump mocha from 6.2.2 to 7.0.1 <dependabot[bot]>
+* Bump ember-cli-babel from 7.13.2 to 7.14.1 <dependabot[bot]>
+* Bump rimraf from 3.0.0 to 3.0.1 <dependabot[bot]>
+* Bump ember-cli from 3.15.1 to 3.15.2 <dependabot[bot]>
+* Bump ember-cli-addon-docs-yuidoc from 0.2.3 to 0.2.4 <dependabot[bot]>
+* Bump ember-template-lint from 1.13.0 to 1.13.2 <dependabot[bot]>
+* Bump ember-cli-htmlbars from 4.2.1 to 4.2.2 <dependabot[bot]>
+* Bump ember-cli-htmlbars from 4.2.0 to 4.2.1 <dependabot[bot]>
+* Bump eslint-plugin-node from 10.0.0 to 11.0.0 <dependabot[bot]>
+* Bump nyc from 14.1.1 to 15.0.0 <dependabot[bot]>
+* Bump ember-resolver from 6.0.0 to 6.0.1 <dependabot[bot]>
+* Bump ember-template-lint from 1.11.1 to 1.12.1 <dependabot[bot]>
+* Bump eslint-plugin-ember from 7.7.1 to 7.7.2 <dependabot[bot]>
+* Bump ember-cli-babel from 7.13.0 to 7.13.2 <dependabot[bot]>
+* Bump ember-cli-htmlbars from 4.1.0 to 4.2.0 <dependabot[bot]>
+* Bump ember-try from 1.3.0 to 1.4.0 <dependabot[bot]>
+* Bump ember-cli-htmlbars from 4.0.9 to 4.1.0 <dependabot[bot]>
+* Bump ember-template-lint from 1.9.0 to 1.10.0 <dependabot[bot]>
+
+
 v4.0.9 / 2019-12-05
 ===================
 * [Enhancement] Add a number of total tests, failed tests, passed tests, and skipped tests to a module metadata file (@choheekim)
