@@ -6644,10 +6644,10 @@ escodegen@^1.11.0, escodegen@^1.11.1:
   optionalDependencies:
     source-map "~0.6.1"
 
-eslint-plugin-ember@^7.11.1:
-  version "7.11.1"
-  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-7.11.1.tgz#d0f0205eab605d5fddaeb706ec6f73b3a71bb971"
-  integrity sha512-BebVe2jXos+nAU6ptdhxAVFqX6y7ZITjpDS+FhKD33FxtPPzNghJIqg/Yc2NwKCjetrW5zmfHXkIODtq49M1Sg==
+eslint-plugin-ember@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.yarnpkg.com/eslint-plugin-ember/-/eslint-plugin-ember-8.3.0.tgz#64a1158ca7f51c150529eadd6396b4066ec6d053"
+  integrity sha512-uEDiZsEQm4N6ELtIPi/L+YecwD/4Z+3gFqMgHrgxd2Rz9WWQ5Y6IzM87+Nurmo456uB2NCZ8R+DMD1L+pKo7pw==
   dependencies:
     "@ember-data/rfc395-data" "^0.0.4"
     ember-rfc176-data "^0.3.12"
