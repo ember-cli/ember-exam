@@ -1,3 +1,28 @@
+v5.0.1 / 2020-04-21
+===================
+* Bump fs-extra from 8.1.0 to 9.0.0 <dependabot[bot]>
+* Bump sinon from 7.5.0 to 9.0.2 <dependabot[bot]>
+* Bump cli-table3 from 0.5.1 to 0.6.0 <dependabot[bot]>
+* Bump ember-resolver from 6.0.2 to 8.0.0 <dependabot[bot]>
+* Bump ember-source from 3.17.2 to 3.18.0 <dependabot[bot]>
+* Bump semver from 7.1.3 to 7.3.2 <dependabot[bot]>
+* Bump eslint-plugin-node from 11.0.0 to 11.1.0 <dependabot[bot]>
+* Bump semver from 7.1.3 to 7.3.2 <dependabot[bot]>
+* Bump ember-template-lint from 2.4.1 to 2.5.2 <dependabot[bot]>
+* Bump mocha from 7.1.0 to 7.1.1 <dependabot[bot]>
+* Bump testdouble from 3.13.0 to 3.13.1 <dependabot[bot]>
+* Bump nyc from 15.0.0 to 15.0.1 <dependabot[bot]>
+* Bump ember-cli-htmlbars from 4.2.2 to 4.3.0 <dependabot[bot]>
+* Bump ember-cli from 3.16.0 to 3.17.0 <dependabot[bot]>
+* Bump ember-cli-babel from 7.18.0 to 7.19.0 <dependabot[bot]>
+* Bump ember-source from 3.17.1 to 3.17.2 <dependabot[bot]>
+* Bump ember-template-lint from 2.4.0 to 2.4.1  <dependabot[bot]>
+* Bump ember-source from 3.17.0 to 3.17.1 <dependabot[bot]>
+* Bump eslint-plugin-ember from 7.10.1 to 7.11.1 <dependabot[bot]>
+* Bump eslint-plugin-ember from 7.9.0 to 7.10.1 <dependabot[bot]>
+* Bump ember-template-lint from 2.3.0 to 2.4.0 <dependabot[bot]>
+
+
 v5.0.0 / 2020-03-06
 ===================
 * [Enhancement] Update docs for ember-cli-addon-docs (@choheekim)
