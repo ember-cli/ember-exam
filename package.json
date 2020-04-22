@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "chalk": "^3.0.0",
-    "cli-table3": "^0.5.1",
+    "cli-table3": "^0.6.0",
     "debug": "^4.1.0",
     "ember-cli-babel": "^7.19.0",
     "execa": "^3.4.0",
