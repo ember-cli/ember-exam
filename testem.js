@@ -7,7 +7,7 @@ module.exports = {
   launch_in_dev: [
     'Chrome'
   ],
-  timeout: 15,
+  timeout: 25,
   browser_args: {
     Chrome: {
       ci: [
