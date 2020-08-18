@@ -319,7 +319,7 @@ ok 3 Chrome 66.0 - Exam Partition 1 - browser Id 3 - some the other test
 3. You must be using `ember-qunit` version 4.1.1 or greater for this feature to work properly.
 4. You must be using `qunit` version 2.8.0 or greater for this feature to work properly.
 5. This feature is not currently supported by Mocha.
-6. `--random[=<seed>]` does not (currently) work with load balancing.
+6. `--random[=<seed>]` does not (currently) work with load balancing. This will be fixed once https://github.com/qunitjs/qunit/pull/1417 lands. 
 
 ##### Test Failure Reproduction
 
