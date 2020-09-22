@@ -1,6 +1,6 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
-import TestemOutput from 'ember-exam/test-support/-private/patch-testem-output';
+import * as TestemOutput from 'ember-exam/test-support/-private/patch-testem-output';
 
 describe('Unit | Mocha | patch-testem-output', () => {
   it('add partition number to test name when `split` is passed', function() {

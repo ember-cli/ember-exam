@@ -55,6 +55,10 @@ jobs:
     - env: EMBER_TRY_SCENARIO=ember-canary
     - env: EMBER_TRY_SCENARIO=ember-default-with-jquery
     - env: EMBER_TRY_SCENARIO=ember-classic
+    - env: EMBER_TRY_SCENARIO=embroider
+    - env: EMBER_TRY_SCENARIO=embroider TEST_FRAMEWORK=ember-mocha
+    - env: EMBER_TRY_SCENARIO=embroider-optimized
+    - env: EMBER_TRY_SCENARIO=embroider-optimized TEST_FRAMEWORK=ember-mocha
 
 before_install:
   - curl -o- -L https://yarnpkg.com/install.sh | bash
