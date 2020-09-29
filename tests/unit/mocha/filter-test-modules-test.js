@@ -2,7 +2,7 @@ import { convertFilePathToModulePath, filterTestModules } from 'ember-exam/test-
 import { describe, it, beforeEach, afterEach } from 'mocha';
 import { expect } from 'chai';
 
-describe('Unit | filter-test-modules', () => {
+describe('Unit | Mocha | filter-test-modules', () => {
   describe('convertFilePathToModulePath', () => {
     it('should return an input string without file extension when the input contains file extension', () => {
       expect(convertFilePathToModulePath('/tests/integration/foo.js')).to.equal(
@@ -23,9 +23,11 @@ describe('Unit | filter-test-modules', () => {
     });
   });
 
-  describe('modulePath', function() {
-    beforeEach(function() {
-      this.modules = [
+  describe('modulePath | Mocha', () => {
+    let modules = [];
+
+    beforeEach(() => {
+      modules = [
         'foo-test',
         'foo-test.jshint',
         'bar-test',
@@ -33,12 +35,12 @@ describe('Unit | filter-test-modules', () => {
       ];
     });
 
-    afterEach(function() {
-      this.modules = [];
+    afterEach(() => {
+      modules = [];
     });
 
     it('should return a list of jshint tests', () => {
-      expect(filterTestModules(this.modules, 'jshint')).to.deep.equal([
+      expect(filterTestModules(modules, 'jshint')).to.deep.equal([
         'foo-test.jshint',
         'bar-test.jshint'
       ]);
@@ -46,26 +48,26 @@ describe('Unit | filter-test-modules', () => {
 
     it('should return an empty list when there is no match', () => {
       expect(() => {
-        filterTestModules(this.modules, 'no-match');
+        filterTestModules(modules, 'no-match');
       }).to.throw(/No tests matched with the filter:/);
     });
 
     it('should return a list of tests matched with a regular expression', () => {
-      expect(filterTestModules(this.modules, '/jshint/')).to.deep.equal([
+      expect(filterTestModules(modules, '/jshint/')).to.deep.equal([
         'foo-test.jshint',
         'bar-test.jshint'
       ]);
     });
 
     it('should return a list of tests matched with a regular expression that excluses jshint', () => {
-      expect(filterTestModules(this.modules, '!/jshint/')).to.deep.equal([
+      expect(filterTestModules(modules, '!/jshint/')).to.deep.equal([
         'foo-test',
         'bar-test'
       ]);
     });
 
     it('should return a list of tests matches with a list of string options', () => {
-      expect(filterTestModules(this.modules, 'foo, bar')).to.deep.equal([
+      expect(filterTestModules(modules, 'foo, bar')).to.deep.equal([
         'foo-test',
         'foo-test.jshint',
         'bar-test',
@@ -74,47 +76,49 @@ describe('Unit | filter-test-modules', () => {
     });
 
     it('should return a list of unique tests matches when options are repeated', () => {
-      expect(filterTestModules(this.modules, 'foo, foo')).to.deep.equal([
+      expect(filterTestModules(modules, 'foo, foo')).to.deep.equal([
         'foo-test',
         'foo-test.jshint'
       ]);
     });
   });
 
-  describe('filePath', function() {
-    beforeEach(function() {
-      this.modules = [
+  describe('filePath | Mocha', () => {
+    let modules = [];
+
+    beforeEach(() => {
+      modules = [
         'dummy/tests/integration/foo-test',
         'dummy/tests/unit/foo-test',
         'dummy/tests/unit/bar-test'
       ];
     });
 
-    afterEach(function() {
-      this.modules = [];
+    afterEach(() => {
+      modules = [];
     });
 
     it('should return a test module matches with full test file path', () => {
-      expect(filterTestModules(this.modules, null, 'app/tests/integration/foo-test.js')).to.deep.equal([
+      expect(filterTestModules(modules, null, 'app/tests/integration/foo-test.js')).to.deep.equal([
         'dummy/tests/integration/foo-test'
       ]);
     });
 
     it('should return a test module matches with relative test file path', () => {
-      expect(filterTestModules(this.modules, null, '/tests/unit/foo-test')).to.deep.equal([
+      expect(filterTestModules(modules, null, '/tests/unit/foo-test')).to.deep.equal([
         'dummy/tests/unit/foo-test'
       ]);
     });
 
     it('should return a test module matched with test file path with wildcard', () => {
-      expect(filterTestModules(this.modules, null, '/unit/*')).to.deep.equal([
+      expect(filterTestModules(modules, null, '/unit/*')).to.deep.equal([
         'dummy/tests/unit/foo-test',
         'dummy/tests/unit/bar-test'
       ]);
     });
 
     it('should return a test module matched with test file path with wildcard', () => {
-      expect(filterTestModules(this.modules, null, '/tests/*/foo*')).to.deep.equal([
+      expect(filterTestModules(modules, null, '/tests/*/foo*')).to.deep.equal([
         'dummy/tests/integration/foo-test',
         'dummy/tests/unit/foo-test'
       ]);
@@ -122,19 +126,19 @@ describe('Unit | filter-test-modules', () => {
 
     it('should return a list of tests matched with a regular expression', () => {
       expect(() => {
-        filterTestModules(this.modules, null, 'no-match');
+        filterTestModules(modules, null, 'no-match');
       }).to.throw(/No tests matched with the filter:/);
     });
 
     it('should return a list of tests matches with a list of string options', () => {
-      expect(filterTestModules(this.modules, null, '/tests/integration/*, dummy/tests/unit/foo-test')).to.deep.equal([
+      expect(filterTestModules(modules, null, '/tests/integration/*, dummy/tests/unit/foo-test')).to.deep.equal([
         'dummy/tests/integration/foo-test',
         'dummy/tests/unit/foo-test'
       ]);
     });
 
     it('should return a list of unique tests matches when options are repeated', () => {
-      expect(filterTestModules(this.modules, null, 'app/tests/unit/bar-test.js, /tests/unit/*')).to.deep.equal([
+      expect(filterTestModules(modules, null, 'app/tests/unit/bar-test.js, /tests/unit/*')).to.deep.equal([
         'dummy/tests/unit/bar-test',
         'dummy/tests/unit/foo-test'
       ]);

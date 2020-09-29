@@ -1,6 +1,6 @@
 import { module, test } from 'qunit';
 
-module('#2: Module With Multiple Tests');
+module('Qunit | #2: Module With Multiple Tests');
 
 test('#1', function(assert) {
   assert.ok(true);

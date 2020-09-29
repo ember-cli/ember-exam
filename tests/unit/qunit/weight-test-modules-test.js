@@ -1,7 +1,7 @@
 import { module, test } from 'qunit';
 import weightTestModules from 'ember-exam/test-support/-private/weight-test-modules';
 
-module('Unit | weight-test-modules', () => {
+module('Unit | Qunit | weight-test-modules', () => {
   test('should sort a list of file paths by weight', function(assert) {
     const listOfModules = [
       '/eslint/test-1-test',

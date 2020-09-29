@@ -16,14 +16,17 @@
     "url": "https://github.com/ember-cli/ember-exam.git"
   },
   "scripts": {
+    "build": "ember build --environment=production",
+    "coverage": "nyc report --reporter=text-lcov | codeclimate-test-reporter",
+    "lint": "npm-run-all --aggregate-output --continue-on-error --parallel lint:*",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "build": "ember build",
-    "test": "ember test",
-    "test:all": "ember try:each && yarn test:node",
-    "test:node": "nyc mocha 'node-tests/**/*-test.js'",
-    "coverage": "nyc report --reporter=text-lcov | codeclimate-test-reporter"
+    "test": "npm-run-all lint:* test:*",
+    "test:ember": "ember test",
+    "test:ember-compatibility": "ember try:each",
+    "test:mocha": "TEST_FRAMEWORK=ember-mocha bin/install-test-framework.sh && ember test",
+    "test:node": "nyc mocha 'node-tests/**/*-test.js'"
   },
   "dependencies": {
     "chalk": "^4.1.0",
@@ -40,6 +43,7 @@
   },
   "devDependencies": {
     "@ember/optional-features": "^1.1.0",
+    "babel-eslint": "^10.1.0",
     "codeclimate-test-reporter": "^0.5.0",
     "ember-cli": "^3.19.0",
     "ember-cli-addon-docs": "^0.6.15",
@@ -62,20 +66,22 @@
     "ember-source-channel-url": "^1.1.0",
     "ember-template-lint": "^2.9.1",
     "ember-try": "^1.4.0",
-    "eslint-plugin-ember": "^7.11.1",
+    "eslint": "^7.5.0",
+    "eslint-plugin-ember": "^8.9.1",
     "eslint-plugin-node": "^11.1.0",
     "fixturify": "^1.2.0",
     "istanbul": "^0.4.3",
     "loader.js": "^4.7.0",
     "mocha": "^8.1.0",
-    "mocha-eslint": "^4.1.0",
+    "mocha-eslint": "^6.0.0",
+    "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
     "rsvp": "^4.8.5",
     "sinon": "^9.0.3",
     "testdouble": "^3.16.1"
   },
   "engines": {
-    "node": ">= 10.*"
+    "node": "10.* || >= 12"
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
