@@ -1,7 +1,7 @@
 import { describe, it } from 'mocha';
 import { expect } from 'chai';
 
-describe('#2: Module With Multiple Tests', function() {
+describe('Mocha | #2: Module With Multiple Tests', function() {
   it('#1', function() {
     expect(true).to.be.ok;
   });

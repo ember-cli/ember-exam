@@ -1,7 +1,7 @@
 import AsyncIterator from 'ember-exam/test-support/-private/async-iterator';
 import { module, test } from 'qunit';
 
-module('Unit | async-iterator', {
+module('Unit | Qunit | async-iterator', {
   beforeEach() {
     this.testem = {
       eventHandler: new Array(),

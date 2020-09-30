@@ -2,7 +2,7 @@ import EmberExamTestLoader from 'ember-exam/test-support/-private/ember-exam-moc
 import { describe, it, beforeEach, afterEach } from 'mocha';
 import { expect } from 'chai';
 
-describe('Unit | test-loader', function() {
+describe('Unit | Mocha | test-loader', function() {
   beforeEach(function() {
     this.originalRequire = window.require;
     this.requiredModules = [];

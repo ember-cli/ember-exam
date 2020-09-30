@@ -1,7 +1,7 @@
 import EmberExamTestLoader from 'ember-exam/test-support/-private/ember-exam-qunit-test-loader';
 import QUnit, { module, test } from 'qunit';
 
-module('Unit | test-loader', {
+module('Unit | Qunit | test-loader', {
   beforeEach() {
     this.originalRequire = window.require;
     this.requiredModules = [];

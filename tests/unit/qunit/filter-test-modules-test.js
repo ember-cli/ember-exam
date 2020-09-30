@@ -2,7 +2,7 @@ import { module, test } from 'qunit';
 import { setupTest } from 'ember-qunit';
 import { convertFilePathToModulePath, filterTestModules } from 'ember-exam/test-support/-private/filter-test-modules';
 
-module('Unit | filter-test-modules', function(hooks) {
+module('Unit | Qunit | filter-test-modules', function(hooks) {
   setupTest(hooks);
 
   module('covertFilePathToModulePath', function(hooks) {
@@ -21,7 +21,7 @@ module('Unit | filter-test-modules', function(hooks) {
     });
   }),
 
-  module('modulePath', function(hooks) {
+  module('modulePath | Qunit', function(hooks) {
     setupTest(hooks);
     hooks.beforeEach(function() {
       this.modules = [
@@ -93,7 +93,7 @@ module('Unit | filter-test-modules', function(hooks) {
     });
   }),
 
-  module('filePath', function(hooks) {
+  module('filePath | Qunit', function(hooks) {
     setupTest(hooks);
     hooks.beforeEach(function() {
       this.modules = [
