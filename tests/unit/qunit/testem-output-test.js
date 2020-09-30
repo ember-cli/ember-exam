@@ -1,5 +1,5 @@
 import { module, test } from 'qunit';
-import TestemOutput from 'ember-exam/test-support/-private/patch-testem-output';
+import * as TestemOutput from 'ember-exam/test-support/-private/patch-testem-output';
 
 module('Unit | Qunit | patch-testem-output', () => {
   test('add partition number to test name when `split` is passed', function(assert) {

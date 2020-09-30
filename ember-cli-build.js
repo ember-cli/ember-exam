@@ -14,5 +14,23 @@ module.exports = function(defaults) {
     behave. You most likely want to be modifying `./index.js` or app's build file
   */
 
-  return app.toTree();
+  // Use embroider if it's present (it can get added by ember-try)
+  if ('@embroider/core' in app.dependencies()) {
+    /* eslint-disable node/no-missing-require, node/no-extraneous-require */
+    const { Webpack } = require('@embroider/webpack');
+    const { compatBuild } = require('@embroider/compat');
+    /* eslint-enable node/no-missing-require, node/no-extraneous-require */
+    let config = {};
+    if (process.env.EMBER_TRY_SCENARIO === 'embroider-optimized') {
+      config = {
+        staticAddonTrees: true,
+        staticAddonTestSupportTrees: true,
+        staticHelpers: true,
+        staticComponents: true,
+      }
+    }
+    return compatBuild(app, Webpack, config);
+  } else {
+    return app.toTree();
+  }
 };

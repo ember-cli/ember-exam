@@ -1,6 +1,5 @@
-/* globals require */
-
 import loadEmberExam from 'ember-exam/test-support/load';
+import { dependencySatisfies, macroCondition, importSync } from '@embroider/macros';
 
 /**
  * Equivalent to ember-qunit or ember-mocha's loadTest() except this does not create a new TestLoader instance
@@ -26,14 +25,18 @@ function loadTests(testLoader) {
  * @param {*} qunitOptions
  */
 export default function start(qunitOptions) {
-  const framework = require.has('ember-qunit') ? 'qunit' : 'mocha';
   const modifiedOptions = qunitOptions || Object.create(null);
   modifiedOptions.loadTests = false;
 
   const testLoader = loadEmberExam();
   loadTests(testLoader);
 
-  const emberTestFramework = require(`ember-${framework}`);
+  let emberTestFramework;
+  if (macroCondition(dependencySatisfies('ember-qunit', '*'))){
+    emberTestFramework = importSync('ember-qunit');
+  } else if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
+    emberTestFramework = importSync('ember-mocha');
+  }
 
   if (emberTestFramework.start) {
     emberTestFramework.start(modifiedOptions);
