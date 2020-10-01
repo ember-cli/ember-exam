@@ -32,7 +32,7 @@
     "@embroider/macros": "^0.26.0",
     "chalk": "^4.1.0",
     "cli-table3": "^0.6.0",
-    "debug": "^4.1.0",
+    "debug": "^4.2.0",
     "ember-cli-babel": "^7.21.0",
     "execa": "^4.0.3",
     "fs-extra": "^9.0.1",
