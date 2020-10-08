@@ -54,11 +54,11 @@ For more information and examples, please visit the [documentation website](http
 $ ember exam --filter 'acceptance'
 
 # A value of parallel is 2
-$ ember exam --load-balance --parallel=2 --server --no-launch
+$ ember exam --load-balance --parallel=2 --server
 
 # If a `=` is not used to pass a value to an option that requires a value, it will take anything passed after a space as it's value
 # In this instance, the value of parallel is --server
-$ ember exam --load-balance --parallel --server --no-launch
+$ ember exam --load-balance --parallel --server
 ```
 
 The idea is that you can replace `ember test` with `ember exam` and never look back.
