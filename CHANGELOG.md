@@ -1,3 +1,33 @@
+## v6.0.0 (2020-10-12)
+
+#### :boom: Breaking Change
+* [#615](https://github.com/ember-cli/ember-exam/pull/615) Drop Node 13 support. ([@rwjblue](https://github.com/rwjblue))
+* [#600](https://github.com/ember-cli/ember-exam/pull/600) Drop Node 11 support. ([@thoov](https://github.com/thoov))
+
+#### :rocket: Enhancement
+* [#599](https://github.com/ember-cli/ember-exam/pull/599) Embroider support when `staticAddonTestSupportTrees` enabled ([@thoov](https://github.com/thoov))
+
+#### :bug: Bug Fix
+* [#410](https://github.com/ember-cli/ember-exam/pull/410) Fail if parallel is not a numeric value ([@step2yeung](https://github.com/step2yeung))
+
+#### :memo: Documentation
+* [#612](https://github.com/ember-cli/ember-exam/pull/612) Update README.md ([@jrowlingson](https://github.com/jrowlingson))
+* [#588](https://github.com/ember-cli/ember-exam/pull/588) Add note about `--random` and `--load-balance` ([@kellyselden](https://github.com/kellyselden))
+
+#### :house: Internal
+* [#614](https://github.com/ember-cli/ember-exam/pull/614) Update release automation setup. ([@rwjblue](https://github.com/rwjblue))
+* [#604](https://github.com/ember-cli/ember-exam/pull/604) Fixing bad yarn lock merge ([@thoov](https://github.com/thoov))
+* [#600](https://github.com/ember-cli/ember-exam/pull/600) Fix test suite to run mocha variants during CI ([@thoov](https://github.com/thoov))
+
+#### Committers: 6
+- Jack Rowlingson ([@jrowlingson](https://github.com/jrowlingson))
+- Kelly Selden ([@kellyselden](https://github.com/kellyselden))
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- Stephen Yeung ([@step2yeung](https://github.com/step2yeung))
+- Travis Hoover ([@thoov](https://github.com/thoov))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 v5.0.1 / 2020-04-21
 ===================
 * Bump fs-extra from 8.1.0 to 9.0.0 <dependabot[bot]>
