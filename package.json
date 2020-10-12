@@ -5,15 +5,16 @@
   "keywords": [
     "ember-addon"
   ],
+  "homepage": "https://ember-cli.github.io/ember-exam",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ember-cli/ember-exam.git"
+  },
   "license": "MIT",
   "author": "",
   "directories": {
     "doc": "doc",
     "test": "tests"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/ember-cli/ember-exam.git"
   },
   "scripts": {
     "build": "ember build --environment=production",
@@ -27,6 +28,14 @@
     "test:ember-compatibility": "ember try:each",
     "test:mocha": "TEST_FRAMEWORK=ember-mocha bin/install-test-framework.sh && ember test",
     "test:node": "nyc mocha 'node-tests/**/*-test.js'"
+  },
+  "nyc": {
+    "exclude": [
+      "bower_components",
+      "config",
+      "node-tests",
+      "tests"
+    ]
   },
   "dependencies": {
     "@embroider/macros": "^0.26.0",
@@ -77,6 +86,8 @@
     "mocha-eslint": "^6.0.0",
     "npm-run-all": "^4.1.5",
     "nyc": "^15.1.0",
+    "release-it": "^14.0.2",
+    "release-it-lerna-changelog": "^2.4.0",
     "rsvp": "^4.8.5",
     "sinon": "^9.1.0",
     "testdouble": "^3.16.1"
@@ -86,26 +97,35 @@
     "ember-qunit": "*"
   },
   "peerDependenciesMeta": {
-    "ember-qunit": {
+    "ember-mocha": {
       "optional": true
     },
-    "ember-mocha": {
+    "ember-qunit": {
       "optional": true
     }
   },
   "engines": {
     "node": "10.* || >= 12"
   },
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org"
+  },
   "ember-addon": {
     "configPath": "tests/dummy/config"
   },
-  "nyc": {
-    "exclude": [
-      "bower_components",
-      "config",
-      "node-tests",
-      "tests"
-    ]
-  },
-  "homepage": "https://ember-cli.github.io/ember-exam"
+  "release-it": {
+    "plugins": {
+      "release-it-lerna-changelog": {
+        "infile": "CHANGELOG.md",
+        "launchEditor": true
+      }
+    },
+    "git": {
+      "tagName": "v${version}"
+    },
+    "github": {
+      "release": true,
+      "tokenRef": "GITHUB_AUTH"
+    }
+  }
 }

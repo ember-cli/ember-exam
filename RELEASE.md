@@ -1,45 +1,60 @@
 # Release Process
 
-The following details how to perform a release for `ember-exam`.
+Releases are mostly automated using
+[release-it](https://github.com/release-it/release-it/) and
+[lerna-changelog](https://github.com/lerna/lerna-changelog/).
 
-## Update Changelog
+## Preparation
 
-First, we need to update the changelog using [`git-extras`](https://github.com/tj/git-extras).
+Since the majority of the actual release process is automated, the primary
+remaining task prior to releasing is confirming that all pull requests that
+have been merged since the last release have been labeled with the appropriate
+`lerna-changelog` labels and the titles have been updated to ensure they
+represent something that would make sense to our users. Some great information
+on why this is important can be found at
+[keepachangelog.com](https://keepachangelog.com/en/1.0.0/), but the overall
+guiding principle here is that changelogs are for humans, not machines.
 
-```bash
-git changelog
+When reviewing merged PR's the labels to be used are:
+
+* breaking - Used when the PR is considered a breaking change.
+* enhancement - Used when the PR adds a new feature or enhancement.
+* bug - Used when the PR fixes a bug included in a previous release.
+* documentation - Used when the PR adds or updates documentation.
+* internal - Used for internal changes that still require a mention in the
+  changelog/release notes.
+
+## Release
+
+Once the prep work is completed, the actual release is straight forward:
+
+* First, ensure that you have installed your projects dependencies:
+
+```sh
+yarn install
 ```
 
-Be sure to cleanup the changelog by removing merge commits or any commits that don't provide meaningful information. Then, commit the changes with the following message:
+* Second, ensure that you have obtained a
+  [GitHub personal access token][generate-token] with the `repo` scope (no
+  other permissions are needed). Make sure the token is available as the
+  `GITHUB_AUTH` environment variable.
 
-```bash
-git commit -am "Update changelog for vx.x.x"
+  For instance:
+
+  ```bash
+  export GITHUB_AUTH=abc123def456
+  ```
+
+[generate-token]: https://github.com/settings/tokens/new?scopes=repo&description=GITHUB_AUTH+env+variable
+
+* And last (but not least 😁) do your release.
+
+```sh
+npx release-it
 ```
 
-## Tag A New Version
-
-Next, we need to tag the new version. We do this using the built in `npm` command:
-
-```bash
-npm version x.x.x
-```
-
-Then, we push the new commits and tag to the repo:
-
-```
-git push origin master --tags
-```
-
-## Publish The New Version
-
-Almost there! We now publish the new version using:
-
-```bash
-npm publish
-```
-
-## Update release notes
-
-Finally, publish the [release on GitHub](https://github.com/ember-cli/ember-exam/releases) by drafting a new release. Use the changelog to populate the entry.
-
-And that's it! Congratulations!
+[release-it](https://github.com/release-it/release-it/) manages the actual
+release process. It will prompt you to to choose the version number after which
+you will have the chance to hand tweak the changelog to be used (for the
+`CHANGELOG.md` and GitHub release), then `release-it` continues on to tagging,
+pushing the tag and commits, etc.
