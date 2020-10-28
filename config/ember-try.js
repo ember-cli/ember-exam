@@ -72,6 +72,14 @@ module.exports = async function() {
         }
       },
       {
+        name: 'ember-default-with-mocha',
+        npm: {
+          devDependencies: {
+            'ember-mocha': '*'
+          }
+        }
+      },
+      {
         name: 'ember-classic',
         env: {
           EMBER_OPTIONAL_FEATURES: JSON.stringify({
@@ -97,12 +105,34 @@ module.exports = async function() {
         },
       },
       {
+        name: 'embroider-with-mocha',
+        npm: {
+          devDependencies: {
+            '@embroider/core': '*',
+            '@embroider/webpack': '*',
+            '@embroider/compat': '*',
+            'ember-mocha': '*',
+          },
+        },
+      },
+      {
         name: 'embroider-optimized',
         npm: {
           devDependencies: {
             '@embroider/core': '*',
             '@embroider/webpack': '*',
             '@embroider/compat': '*',
+          },
+        }
+      },
+      {
+        name: 'embroider-optimized-with-mocha',
+        npm: {
+          devDependencies: {
+            '@embroider/core': '*',
+            '@embroider/webpack': '*',
+            '@embroider/compat': '*',
+            'ember-mocha': '*',
           },
         }
       }
