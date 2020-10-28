@@ -1,3 +1,16 @@
+## v6.0.1 (2020-10-28)
+
+#### :bug: Bug Fix
+* [#617](https://github.com/ember-cli/ember-exam/pull/617) Update @embroider/macros to fix ember-qunit@5.0.0-beta support. ([@rwjblue](https://github.com/rwjblue))
+
+#### :house: Internal
+* [#618](https://github.com/ember-cli/ember-exam/pull/618) Swap to GitHub actions for CI. ([@rwjblue](https://github.com/rwjblue))
+
+#### Committers: 2
+- Robert Jackson ([@rwjblue](https://github.com/rwjblue))
+- [@dependabot-preview[bot]](https://github.com/apps/dependabot-preview)
+
+
 ## v6.0.0 (2020-10-12)
 
 #### :boom: Breaking Change
