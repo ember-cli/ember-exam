@@ -1,4 +1,5 @@
 /* eslint-env node */
+const VersionChecker = require('ember-cli-version-checker');
 
 'use strict';
 
@@ -7,5 +8,29 @@ module.exports = {
 
   includedCommands() {
     return require('./lib/commands');
+  },
+
+  init() {
+    this._super.init.apply(this, arguments);
+    let versionChecker = new VersionChecker(this.project);
+
+    this.options = this.options || {};
+    this.options.autoImport = {};
+
+    const hasMagicallyProvidedQUnit = versionChecker
+      .for('ember-qunit')
+      .lt('5.0.0-beta.1');
+
+    // Ember-qunit < 5 provides an AMD shim for qunit but newer versions now use
+    // ember-auto-import to include qunit. This means that qunit is no
+    // longer available for addons (if the parent app is using ember-qunit > 5) to
+    // directly import under embroider unless they are using ember-auto-import
+    // themselves. This condidionally falls back to not using ember-auto-import
+    // when the parent app is providing qunit because without this we would double
+    // include qunit resulting in a runtime error (qunit detects if it as
+    // already be added to the window object and errors if so).
+    if (hasMagicallyProvidedQUnit) {
+      this.options.autoImport.exclude.push('qunit');
+    }
   }
 };

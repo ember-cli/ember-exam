@@ -3,8 +3,11 @@
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
 module.exports = function(defaults) {
+  const self = defaults.project.findAddonByName('ember-exam');
+  const autoImport = self.options.autoImport;
+
   let app = new EmberAddon(defaults, {
-    // Add options here
+    autoImport
   });
 
   /*
@@ -14,23 +17,6 @@ module.exports = function(defaults) {
     behave. You most likely want to be modifying `./index.js` or app's build file
   */
 
-  // Use embroider if it's present (it can get added by ember-try)
-  if ('@embroider/core' in app.dependencies()) {
-    /* eslint-disable node/no-missing-require, node/no-extraneous-require */
-    const { Webpack } = require('@embroider/webpack');
-    const { compatBuild } = require('@embroider/compat');
-    /* eslint-enable node/no-missing-require, node/no-extraneous-require */
-    let config = {};
-    if (process.env.EMBER_TRY_SCENARIO === 'embroider-optimized') {
-      config = {
-        staticAddonTrees: true,
-        staticAddonTestSupportTrees: true,
-        staticHelpers: true,
-        staticComponents: true,
-      }
-    }
-    return compatBuild(app, Webpack, config);
-  } else {
-    return app.toTree();
-  }
+  const { maybeEmbroider } = require('@embroider/test-setup');
+  return maybeEmbroider(app);
 };
