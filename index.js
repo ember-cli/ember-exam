@@ -14,9 +14,6 @@ module.exports = {
     this._super.init.apply(this, arguments);
     let versionChecker = new VersionChecker(this.project);
 
-    this.options = this.options || {};
-    this.options.autoImport = { exclude: [] };
-
     const hasMagicallyProvidedQUnit = versionChecker
       .for('ember-qunit')
       .lt('5.0.0-beta.1');
@@ -30,7 +27,10 @@ module.exports = {
     // include qunit resulting in a runtime error (qunit detects if it as
     // already be added to the window object and errors if so).
     if (hasMagicallyProvidedQUnit) {
-      this.options.autoImport.exclude.push('qunit');
+      this.options = this.options || {};
+      this.options.autoImport = {
+        exclude: ['qunit'],
+      };
     }
   }
 };
