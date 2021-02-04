@@ -43,16 +43,16 @@ jobs:
           - ember-default-with-jquery
           - ember-default-with-mocha
           - ember-classic
-          - embroider
-          - embroider-with-mocha
-          - embroider-optimized
-          - embroider-optimized-with-mocha
           - ember-lts-3.20
           - ember-lts-3.16
           - ember-lts-3.12
           - ember-release
           - ember-beta
           - ember-canary
+          - embroider-safe
+          - embroider-safe-with-mocha
+          - embroider-optimized
+          - embroider-optimized-with-mocha
 
     steps:
       - uses: actions/checkout@v2
