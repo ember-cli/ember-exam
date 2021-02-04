@@ -15,7 +15,7 @@ module.exports = {
     let versionChecker = new VersionChecker(this.project);
 
     this.options = this.options || {};
-    this.options.autoImport = {};
+    this.options.autoImport = { exclude: [] };
 
     const hasMagicallyProvidedQUnit = versionChecker
       .for('ember-qunit')
