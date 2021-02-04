@@ -106,7 +106,7 @@
       "optional": true
     },
     "ember-qunit": {
-        "optional": true
+      "optional": true
     },
     "qunit": {
       "optional": true
