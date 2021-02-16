@@ -19,6 +19,10 @@ module.exports = {
       .for('ember-qunit')
       .lt('5.0.0-beta.1');
 
+    let options = {
+      exclude: ['ember-mocha', 'mocha']
+    };
+
     // Ember-qunit < 5 provides an AMD shim for qunit but newer versions now use
     // ember-auto-import to include qunit. This means that qunit is no
     // longer available for addons (if the parent app is using ember-qunit > 5) to
@@ -29,9 +33,10 @@ module.exports = {
     // already be added to the window object and errors if so).
     if (hasMagicallyProvidedQUnit) {
       this.options = this.options || {};
-      this.options.autoImport = {
-        exclude: ['qunit'],
-      };
+      options.exclude.push('qunit');
+      this.options.autoImport = options;
+    } else {
+      this.options.autoImport = options;
     }
   }
 };
