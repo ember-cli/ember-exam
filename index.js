@@ -20,15 +20,7 @@ module.exports = {
       .lt('5.0.0-beta.1');
 
     let options = {
-      exclude: ['ember-mocha', 'mocha'],
-      webpack: {
-        externals: {
-          mocha: 'mocha'
-        },
-        node: {
-          stream: false
-        }
-      }
+      exclude: ['ember-mocha', 'mocha']
     };
 
     // Ember-qunit < 5 provides an AMD shim for qunit but newer versions now use

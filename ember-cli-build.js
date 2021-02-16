@@ -10,5 +10,13 @@ module.exports = function(defaults) {
   });
 
   const { maybeEmbroider } = require('@embroider/test-setup');
-  return maybeEmbroider(app);
+  return maybeEmbroider(app, {
+    packagerOptions: {
+      webpackConfig: {
+        externals: {
+          mocha: 'mocha'
+        }
+      }
+    }
+  });
 };
