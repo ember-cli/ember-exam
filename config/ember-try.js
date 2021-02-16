@@ -1,6 +1,7 @@
 'use strict';
 
 const getChannelURL = require('ember-source-channel-url');
+const { embroiderSafe, embroiderOptimized } = require('@embroider/test-setup');
 
 const command = [
   'ember',
@@ -94,48 +95,30 @@ module.exports = async function() {
           }
         }
       },
-      {
-        name: 'embroider',
-        npm: {
-          devDependencies: {
-            '@embroider/core': '*',
-            '@embroider/webpack': '*',
-            '@embroider/compat': '*',
-          },
+      embroiderSafe(),
+      embroiderSafe({
+        name: 'embroider-safe-with-mocha',
+        env: {
+          EMBROIDER_TEST_SETUP_OPTIONS: 'safe'
         },
-      },
-      {
-        name: 'embroider-with-mocha',
         npm: {
           devDependencies: {
-            '@embroider/core': '*',
-            '@embroider/webpack': '*',
-            '@embroider/compat': '*',
             'ember-mocha': '*',
           },
         },
-      },
-      {
-        name: 'embroider-optimized',
-        npm: {
-          devDependencies: {
-            '@embroider/core': '*',
-            '@embroider/webpack': '*',
-            '@embroider/compat': '*',
-          },
-        }
-      },
-      {
+      }),
+      embroiderOptimized(),
+      embroiderOptimized({
         name: 'embroider-optimized-with-mocha',
+        env: {
+          EMBROIDER_TEST_SETUP_OPTIONS: 'optimized'
+        },
         npm: {
           devDependencies: {
-            '@embroider/core': '*',
-            '@embroider/webpack': '*',
-            '@embroider/compat': '*',
             'ember-mocha': '*',
           },
         }
-      }
+      }),
     ]
   };
 };
