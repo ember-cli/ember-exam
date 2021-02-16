@@ -2,6 +2,18 @@
 
 const getChannelURL = require('ember-source-channel-url');
 const { embroiderSafe, embroiderOptimized } = require('@embroider/test-setup');
+const mergeWith = require('lodash.mergewith');
+
+function mochaScenario(scenario = {}) {
+  return mergeWith({}, scenario, {
+    devDependencies: {
+      'chai-dom': '*',
+      'ember-cli-chai': '*',
+      'ember-mocha': '*',
+      'ember-qunit': null
+    }
+  });
+}
 
 const command = [
   'ember',
@@ -88,14 +100,9 @@ module.exports = async function() {
           }
         }
       },
-      {
-        name: 'ember-default-with-mocha',
-        npm: {
-          devDependencies: {
-            'ember-mocha': '*'
-          }
-        }
-      },
+      mochaScenario({
+        name: 'ember-default-with-mocha'
+      }),
       {
         name: 'ember-classic',
         env: {
@@ -112,29 +119,17 @@ module.exports = async function() {
         }
       },
       embroiderSafe(),
-      embroiderSafe({
-        name: 'embroider-safe-with-mocha',
-        env: {
-          EMBROIDER_TEST_SETUP_OPTIONS: 'safe'
-        },
-        npm: {
-          devDependencies: {
-            'ember-mocha': '*',
-          },
-        },
-      }),
+      embroiderSafe(
+        mochaScenario({
+          name: 'embroider-safe-with-mocha'
+        })
+      ),
       embroiderOptimized(),
-      embroiderOptimized({
-        name: 'embroider-optimized-with-mocha',
-        env: {
-          EMBROIDER_TEST_SETUP_OPTIONS: 'optimized'
-        },
-        npm: {
-          devDependencies: {
-            'ember-mocha': '*',
-          },
-        }
-      }),
+      embroiderOptimized(
+        mochaScenario({
+          name: 'embroider-optimized-with-mocha'
+        })
+      )
     ]
   };
 };
