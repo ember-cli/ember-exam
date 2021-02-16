@@ -32,10 +32,10 @@ export default function start(qunitOptions) {
   loadTests(testLoader);
 
   let emberTestFramework;
-  if (macroCondition(dependencySatisfies('ember-qunit', '*'))){
-    emberTestFramework = importSync('ember-qunit');
-  } else if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
+  if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
     emberTestFramework = importSync('ember-mocha');
+  } else if (macroCondition(dependencySatisfies('ember-qunit', '*'))){
+    emberTestFramework = importSync('ember-qunit');
   }
 
   if (emberTestFramework.start) {

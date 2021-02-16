@@ -8,12 +8,12 @@ import { dependencySatisfies, macroCondition, importSync } from '@embroider/macr
  * @return {Object}
  */
 export default function getTestLoader() {
-  if (macroCondition(dependencySatisfies('ember-qunit', '*'))){
-    const EmberExamQUnitTestLoader = importSync('./ember-exam-qunit-test-loader');
-    return EmberExamQUnitTestLoader['default'];
-  } else if (macroCondition(dependencySatisfies('ember-mocha', '*'))){
+  if (macroCondition(dependencySatisfies('ember-mocha', '*'))){
     const EmberExamMochaTestLoader = importSync('./ember-exam-mocha-test-loader');
     return EmberExamMochaTestLoader['default'];
+  } else if (macroCondition(dependencySatisfies('ember-qunit', '*'))){
+    const EmberExamQUnitTestLoader = importSync('./ember-exam-qunit-test-loader');
+    return EmberExamQUnitTestLoader['default'];
   }
 
   throw new Error(
