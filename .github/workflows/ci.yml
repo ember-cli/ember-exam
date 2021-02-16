@@ -47,6 +47,7 @@ jobs:
           - embroider-safe-with-mocha
           - embroider-optimized
           - embroider-optimized-with-mocha
+          - ember-lts-3.24
           - ember-lts-3.20
           - ember-lts-3.16
           - ember-lts-3.12
