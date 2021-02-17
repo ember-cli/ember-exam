@@ -6,9 +6,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
   let { module, test } = importSync('qunit');
   let { setupTest } = importSync('ember-qunit');
 
-  module('Unit | Qunit | filter-test-modules', function(hooks) {
-    setupTest(hooks);
-
+  module('Unit | Qunit | filter-test-modules', function() {
     module('covertFilePathToModulePath', function(hooks) {
       setupTest(hooks);
 
