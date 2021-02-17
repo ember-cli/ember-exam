@@ -2,7 +2,7 @@ import EmberExamTestLoader from 'ember-exam/test-support/-private/ember-exam-qun
 import { macroCondition, dependencySatisfies, importSync } from '@embroider/macros';
 
 if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
-  let QUnit = importSync('qunit');
+  let QUnit = importSync('qunit').default;
   let { module, test } = QUnit;
 
   module('Unit | Qunit | test-loader', {

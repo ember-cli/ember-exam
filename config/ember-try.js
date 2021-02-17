@@ -134,7 +134,6 @@ module.exports = async function() {
         name: 'ember-qunit-4',
         npm: {
           devDependencies: {
-            'ember-source': await getChannelURL('release'),
             'ember-qunit': '^4.6.0'
           }
         }
