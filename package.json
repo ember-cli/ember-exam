@@ -99,7 +99,6 @@
     "testdouble": "^3.16.1"
   },
   "peerDependencies": {
-    "@ember/test-helpers": "*",
     "ember-mocha": "*",
     "ember-qunit": "*",
     "qunit": "*"
@@ -109,6 +108,9 @@
       "optional": true
     },
     "ember-qunit": {
+      "optional": true
+    },
+    "qunit": {
       "optional": true
     }
   },

@@ -129,7 +129,16 @@ module.exports = async function() {
         mochaScenario({
           name: 'embroider-optimized-with-mocha'
         })
-      )
+      ),
+      {
+        name: 'ember-qunit-4',
+        npm: {
+          devDependencies: {
+            'ember-source': await getChannelURL('release'),
+            'ember-qunit': '^4.6.0'
+          }
+        }
+      },
     ]
   };
 };
