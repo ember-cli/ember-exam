@@ -1,8 +1,12 @@
-import { describe, it } from 'mocha';
-import { expect } from 'chai';
+import { macroCondition, dependencySatisfies, importSync } from '@embroider/macros';
 
-describe('Mocha | #3: Module With Multiple Edge Case Tests', function() {
-  it('#1 RegExp test', function() {
-    expect(/derp/.test('derp')).to.be.ok;
+if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
+  let { describe, it } = importSync('mocha');
+  let { expect } = importSync('chai');
+
+  describe('Mocha | #3: Module With Multiple Edge Case Tests', function() {
+    it('#1 RegExp test', function() {
+      expect(/derp/.test('derp')).to.be.ok;
+    });
   });
-});
+}
