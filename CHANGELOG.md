@@ -1,3 +1,12 @@
+## v6.1.0 (2021-02-17)
+
+#### :rocket: Enhancement
+* [#652](https://github.com/ember-cli/ember-exam/pull/652) Update to support `ember-qunit@5` ([@thoov](https://github.com/thoov))
+
+#### Committers: 1
+- Travis Hoover ([@thoov](https://github.com/thoov))
+
+
 ## v6.0.1 (2020-10-28)
 
 #### :bug: Bug Fix
