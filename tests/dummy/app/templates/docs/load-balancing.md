@@ -39,7 +39,7 @@ ok 3 Chrome 66.0 - Exam Partition 1 - browser Id 3 - some the other test
 1. The `--load-balance` option is currently only supported in CI mode and for that reason no-launch cannot be used with load-balance.
 2. You must be using `ember-cli` version 3.2.0 or greater for load balancing and test failure reproduction features to work properly.
 3. You must be using `ember-qunit` version 4.1.1 or greater for this feature to work properly.
-4. You must be using `qunit` version 2.8.0 or greater for this feature to work properly.
+4. You must be using `qunit` version 2.13.0 or greater for this feature to work properly.
 5. This feature is not currently supported by Mocha.
 
 ## Test Failure Reproduction
