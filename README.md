@@ -302,7 +302,7 @@ You can also specify the `split` and `partition` options with `load-balance` to 
 $ ember exam --split=<num> --partition=<num> --parallel=<num> --load-balance
 ```
 
-This command will split test files and load-balance tests from the specified partition across the browsers. For example `ember exam --split=2 -partition=1 --parallel=3 --load-balance`, the complete list of test files are split into two halves. With the first half of the list load balanced against three browsers. The output will look something like below:
+This command will split test files and load-balance tests from the specified partition across the browsers. For example `ember exam --split=2 --partition=1 --parallel=3 --load-balance`, the complete list of test files are split into two halves. With the first half of the list load balanced against three browsers. The output will look something like below:
 
 ```bash
 # ember exam --split=2 --partition=1 --parallel=3 --load-balance
