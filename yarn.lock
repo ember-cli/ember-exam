@@ -14,7 +14,7 @@
   dependencies:
     "@babel/highlight" "^7.10.4"
 
-"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.10.4", "@babel/code-frame@^7.12.13":
+"@babel/code-frame@^7.0.0", "@babel/code-frame@^7.12.13":
   version "7.12.13"
   resolved "https://registry.yarnpkg.com/@babel/code-frame/-/code-frame-7.12.13.tgz#dcfc826beef65e75c50e21d3837d7d95798dd658"
   integrity sha512-HV1Cm0Q3ZrpCR93tkWOYiuYIgLxZXZFVG2VgK+MBWjUqZTundupbfx2aXarXuw5Ko5aMcjtJgbSs4vUGBS5v6g==
@@ -47,7 +47,7 @@
     semver "^5.4.1"
     source-map "^0.5.0"
 
-"@babel/generator@^7.12.1", "@babel/generator@^7.12.13", "@babel/generator@^7.12.15":
+"@babel/generator@^7.12.13", "@babel/generator@^7.12.15":
   version "7.12.15"
   resolved "https://registry.yarnpkg.com/@babel/generator/-/generator-7.12.15.tgz#4617b5d0b25cc572474cc1aafee1edeaf9b5368f"
   integrity sha512-6F2xHxBiFXWNSGb7vyCUTBF8RCLY66rS0zEPcP8t/nQyXjha5EuK4z7H5o7fWG8B4M7y6mqVWq1J+1PuwRhecQ==
@@ -127,7 +127,7 @@
     "@babel/template" "^7.12.13"
     "@babel/types" "^7.12.13"
 
-"@babel/helper-get-function-arity@^7.10.4", "@babel/helper-get-function-arity@^7.12.13":
+"@babel/helper-get-function-arity@^7.12.13":
   version "7.12.13"
   resolved "https://registry.yarnpkg.com/@babel/helper-get-function-arity/-/helper-get-function-arity-7.12.13.tgz#bc63451d403a3b3082b97e1d8b3fe5bd4091e583"
   integrity sha512-DjEVzQNz5LICkzN0REdpD5prGoidvbdYk1BVgRUOINaWJP2t6avB27X1guXK1kXNrX0WMfsrm1A/ZBthYuIMQg==
@@ -222,7 +222,7 @@
   dependencies:
     "@babel/types" "^7.12.1"
 
-"@babel/helper-split-export-declaration@^7.10.4", "@babel/helper-split-export-declaration@^7.11.0", "@babel/helper-split-export-declaration@^7.12.13":
+"@babel/helper-split-export-declaration@^7.10.4", "@babel/helper-split-export-declaration@^7.12.13":
   version "7.12.13"
   resolved "https://registry.yarnpkg.com/@babel/helper-split-export-declaration/-/helper-split-export-declaration-7.12.13.tgz#e9430be00baf3e88b0e13e6f9d4eaf2136372b05"
   integrity sha512-tCJDltF83htUtXx5NLcaDqRmknv652ZWCHyoTETf1CXYJdPC7nohZohjUgieXhv0hTJdRf2FjDueFehdNucpzg==
@@ -267,7 +267,7 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.10.4", "@babel/parser@^7.12.1", "@babel/parser@^7.12.13", "@babel/parser@^7.12.16", "@babel/parser@^7.12.3", "@babel/parser@^7.4.5", "@babel/parser@^7.7.0", "@babel/parser@^7.7.5":
+"@babel/parser@^7.12.13", "@babel/parser@^7.12.16", "@babel/parser@^7.12.3", "@babel/parser@^7.4.5", "@babel/parser@^7.7.0", "@babel/parser@^7.7.5":
   version "7.12.16"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.12.16.tgz#cc31257419d2c3189d394081635703f549fc1ed4"
   integrity sha512-c/+u9cqV6F0+4Hpq01jnJO+GLp2DdT63ppz9Xa+6cHaajM9VFzK/iDXiKK65YtpeVwu+ctfS6iqlMqRgQRzeCw==
@@ -900,7 +900,7 @@
     globals "^11.1.0"
     lodash "^4.17.19"
 
-"@babel/types@^7.1.6", "@babel/types@^7.10.4", "@babel/types@^7.11.0", "@babel/types@^7.12.1", "@babel/types@^7.12.13", "@babel/types@^7.4.4", "@babel/types@^7.7.0", "@babel/types@^7.7.2":
+"@babel/types@^7.1.6", "@babel/types@^7.10.4", "@babel/types@^7.12.1", "@babel/types@^7.12.13", "@babel/types@^7.4.4", "@babel/types@^7.7.0", "@babel/types@^7.7.2":
   version "7.12.13"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.12.13.tgz#8be1aa8f2c876da11a9cf650c0ecf656913ad611"
   integrity sha512-oKrdZTld2im1z8bDwTOQvUbxKwE+854zc16qWZQlcTqMN00pWxHQ4ZeOq0yDMnisOpRykH2/5Qqcrk/OlbAjiQ==
@@ -6117,7 +6117,7 @@ ember-cli-typescript@^3.1.3, ember-cli-typescript@^3.1.4:
     stagehand "^1.0.0"
     walk-sync "^2.0.0"
 
-ember-cli-version-checker@^2.0.0, ember-cli-version-checker@^2.1.0, ember-cli-version-checker@^2.1.1, ember-cli-version-checker@^2.1.2:
+ember-cli-version-checker@^2.0.0, ember-cli-version-checker@^2.1.0, ember-cli-version-checker@^2.1.2:
   version "2.2.0"
   resolved "https://registry.yarnpkg.com/ember-cli-version-checker/-/ember-cli-version-checker-2.2.0.tgz#47771b731fe0962705e27c8199a9e3825709f3b3"
   integrity sha512-G+KtYIVlSOWGcNaTFHk76xR4GdzDLzAS4uxZUKdASuFX0KJE43C6DaqL+y3VTpUFLI2FIkAS6HZ4I1YBi+S3hg==
@@ -6645,11 +6645,6 @@ emoji-regex@^8.0.0:
   version "8.0.0"
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-8.0.0.tgz#e818fd69ce5ccfcb404594f842963bf53164cc37"
   integrity sha512-MSjYzcWNOA0ewAHpz0MxpYFvwg6yjy1NG3xteoqz644VCo/RPgnr1/GGt+ic3iJTzQ8Eu3TdM14SawnVUmGE6A==
-
-emojis-list@^2.0.0:
-  version "2.1.0"
-  resolved "https://registry.yarnpkg.com/emojis-list/-/emojis-list-2.1.0.tgz#4daa4d9db00f9819880c79fa457ae5b09a1fd389"
-  integrity sha1-TapNnbAPmBmIDHn6RXrlsJof04k=
 
 emojis-list@^3.0.0:
   version "3.0.0"
@@ -9451,11 +9446,6 @@ jquery@^3.5.1:
   resolved "https://registry.yarnpkg.com/jquery/-/jquery-3.6.0.tgz#c72a09f15c1bdce142f49dbf1170bdf8adac2470"
   integrity sha512-JVzAR/AjBvVt2BmYhxRCSYysDsPcssdmTFnzyLEts9qNwmjmu4JTAMYubEfwVOSwpQ1I1sKKFcxhZCI2buerfw==
 
-js-reporters@2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/js-reporters/-/js-reporters-2.0.0.tgz#62ad6a512f1740d3ab4686b0059dd9f57cc0708b"
-  integrity sha512-VJd/86niT7GzsaVc+Yxrs8QPrYl1orzv8bYZPuSOtxU6rk/pv8aOXTcIa7HaANvtvdLMTsZspAiucNQ6T2QFHw==
-
 js-string-escape@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/js-string-escape/-/js-string-escape-1.0.1.tgz#e2625badbc0d67c7533e9edc1068c587ae4137ef"
@@ -12101,13 +12091,12 @@ quick-temp@^0.1.2, quick-temp@^0.1.3, quick-temp@^0.1.5, quick-temp@^0.1.8:
     rimraf "^2.5.4"
     underscore.string "~3.3.4"
 
-qunit@^2.15.0:
-  version "2.15.0"
-  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.15.0.tgz#8ba3a3c5d13369ab1740337680600a98a7f8b591"
-  integrity sha512-9ZoOILeyRZzrdvy2m7M4S76bneGD75Bh4B2aot3uKRKZuoEvA9gevvzU339L805Ys0AN2C7cnAV9nIBD5t72IQ==
+qunit@^2.16.0:
+  version "2.16.0"
+  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.16.0.tgz#b8ed63d512e5d4eaada5afc0c6c9e8b844181ba1"
+  integrity sha512-88x9t+rRMbB6IrCIUZvYU4pJy7NiBEv7SX8jD4LZAsIj+dV+kwGnFStOmPNvqa6HM96VZMD8CIIFKH2+3qvluA==
   dependencies:
     commander "7.1.0"
-    js-reporters "2.0.0"
     node-watch "0.7.1"
     tiny-glob "0.2.8"
 
