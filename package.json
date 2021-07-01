@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "@embroider/macros": "^0.41.0",
-    "chalk": "^4.1.0",
+    "chalk": "^4.1.1",
     "cli-table3": "^0.6.0",
     "debug": "^4.2.0",
     "ember-auto-import": "^1.10.1",
