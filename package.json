@@ -81,7 +81,7 @@
     "ember-template-lint": "^2.13.0",
     "ember-try": "^1.4.0",
     "eslint": "^7.21.0",
-    "eslint-plugin-ember": "^8.9.1",
+    "eslint-plugin-ember": "^10.5.1",
     "eslint-plugin-node": "^11.1.0",
     "fixturify": "^1.2.0",
     "istanbul": "^0.4.3",
