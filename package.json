@@ -47,7 +47,7 @@
     "ember-cli-version-checker": "^5.1.2",
     "execa": "^4.0.3",
     "fs-extra": "^9.0.1",
-    "js-yaml": "^3.14.0",
+    "js-yaml": "^4.1.0",
     "npmlog": "^4.1.2",
     "rimraf": "^3.0.2",
     "semver": "^7.3.2",
