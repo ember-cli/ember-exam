@@ -38,7 +38,7 @@
     ]
   },
   "dependencies": {
-    "@embroider/macros": "^0.41.0",
+    "@embroider/macros": "^0.42.3",
     "chalk": "^4.1.1",
     "cli-table3": "^0.6.0",
     "debug": "^4.2.0",
