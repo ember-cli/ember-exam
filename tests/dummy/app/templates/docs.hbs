@@ -1,7 +1,7 @@
-{{docs-header}}
+<DocsHeader />
 
-{{#docs-viewer as |viewer|}}
-  {{#viewer.nav as |nav|}}
+<DocsViewer as |viewer|>
+  <viewer.nav as |nav|>
     {{nav.section "Introduction"}}
     {{nav.item "Quickstart" "docs.index"}}
 
@@ -17,9 +17,9 @@
     {{nav.section "Advanced Configuration"}}
     {{nav.item "Ember Try & CI Integration" "docs.ember-try-and-ci"}}
     {{nav.item "Test Suite Segmentation" "docs.test-suite-segmentation"}}
-  {{/viewer.nav}}
+  </viewer.nav>
 
-  {{#viewer.main}}
+  <viewer.main>
     {{outlet}}
-  {{/viewer.main}}
-{{/docs-viewer}}
+  </viewer.main>
+</DocsViewer>
