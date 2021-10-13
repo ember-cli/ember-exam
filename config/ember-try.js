@@ -37,6 +37,7 @@ module.exports = async function () {
         name: 'ember-lts-3.12',
         npm: {
           devDependencies: {
+            'ember-cli': '~3.12.0',
             'ember-source': '~3.12.0',
           },
         },
@@ -53,7 +54,7 @@ module.exports = async function () {
         name: 'ember-lts-3.20',
         npm: {
           devDependencies: {
-            'ember-source': '~3.20.0',
+            'ember-source': '~3.20.5',
           },
         },
       },
@@ -61,7 +62,7 @@ module.exports = async function () {
         name: 'ember-lts-3.24',
         npm: {
           devDependencies: {
-            'ember-source': '~3.24.0',
+            'ember-source': '~3.24.3',
           },
         },
       },
@@ -98,7 +99,7 @@ module.exports = async function () {
         },
         npm: {
           devDependencies: {
-            '@ember/jquery': '^0.5.1',
+            '@ember/jquery': '^1.1.0',
           },
         },
       },
@@ -115,6 +116,9 @@ module.exports = async function () {
           }),
         },
         npm: {
+          devDependencies: {
+            'ember-source': '~3.28.0',
+          },
           ember: {
             edition: 'classic',
           },
