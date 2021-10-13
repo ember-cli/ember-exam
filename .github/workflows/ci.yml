@@ -52,9 +52,8 @@ jobs:
           - ember-lts-3.16
           - ember-lts-3.12
           - ember-release
-          # temporarily disabled until we've fixed support for Ember.js v4
-          # - ember-beta
-          # - ember-canary
+          - ember-beta
+          - ember-canary
           - ember-qunit-4
 
     steps:
