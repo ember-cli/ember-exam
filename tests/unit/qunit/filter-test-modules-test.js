@@ -17,21 +17,21 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
       setupTest(hooks);
 
       test('should return an input string without file extension when the input contains file extension', function (assert) {
-        assert.equal(
+        assert.strictEqual(
           convertFilePathToModulePath('/tests/integration/foo.js'),
           '/tests/integration/foo'
         );
       });
 
       test(`should return an input string without file extension when the input doesn't contain file extension`, function (assert) {
-        assert.equal(
+        assert.strictEqual(
           convertFilePathToModulePath('/tests/integration/foo'),
           '/tests/integration/foo'
         );
       });
 
       test('should return an input string after `tests` when the input is a full test file path', function (assert) {
-        assert.equal(
+        assert.strictEqual(
           convertFilePathToModulePath('dummy/tests/integration/foo.js'),
           '/tests/integration/foo'
         );
@@ -126,7 +126,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
           );
         });
 
-        test('should return a test module matched with test file path with wildcard', function (assert) {
+        test('should return a test module matched with test folder path with wildcard', function (assert) {
           assert.deepEqual(
             ['dummy/tests/unit/foo-test', 'dummy/tests/unit/bar-test'],
             filterTestModules(this.modules, null, '/unit/*')
