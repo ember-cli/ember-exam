@@ -42,7 +42,7 @@
     "chalk": "^4.1.1",
     "cli-table3": "^0.6.0",
     "debug": "^4.2.0",
-    "ember-auto-import": "^1.10.1",
+    "ember-auto-import": "^2.2.3",
     "ember-cli-babel": "^7.21.0",
     "ember-cli-version-checker": "^5.1.2",
     "execa": "^4.0.3",
@@ -97,7 +97,8 @@
     "release-it-lerna-changelog": "^2.4.0",
     "rsvp": "^4.8.5",
     "sinon": "^11.1.2",
-    "testdouble": "^3.16.1"
+    "testdouble": "^3.16.1",
+    "webpack": "^5.59.1"
   },
   "peerDependencies": {
     "ember-mocha": "*",
