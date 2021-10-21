@@ -7,12 +7,12 @@ const TestOptionsValidator = require('../../../lib/utils/tests-options-validator
 const TestExecutionJson = {
   numberOfBrowsers: 2,
   browserToModuleMap: {
-    '1': ['/tests/integration/components/my-component-test'],
-    '2': ['/tests/integration/components/navigating-component-test']
-  }
+    1: ['/tests/integration/components/my-component-test'],
+    2: ['/tests/integration/components/navigating-component-test'],
+  },
 };
 
-describe('TestOptionsValidator', function() {
+describe('TestOptionsValidator', function () {
   function validateCommand(validator, cmd) {
     switch (cmd) {
       case 'Split':
@@ -55,7 +55,7 @@ describe('TestOptionsValidator', function() {
     let originalWarn = console.warn;
     let warnCalled = 0;
     let warnMessage = '';
-    console.warn = function(message) {
+    console.warn = function (message) {
       warnCalled++;
       warnMessage = message;
     };
@@ -73,7 +73,7 @@ describe('TestOptionsValidator', function() {
     /* eslint-enable no-console */
   }
 
-  describe('shouldSplit', function() {
+  describe('shouldSplit', function () {
     function shouldSplitThrows(options, message) {
       shouldThrow('Split', options, message);
     }
@@ -82,7 +82,7 @@ describe('TestOptionsValidator', function() {
       shouldEqual('Split', options, message);
     }
 
-    it('should log a warning if `split` is less than 2', function() {
+    it('should log a warning if `split` is less than 2', function () {
       shouldWarn(
         'Split',
         { split: 1 },
@@ -90,69 +90,69 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should throw an error if `partition` is used without `split`', function() {
+    it('should throw an error if `partition` is used without `split`', function () {
       shouldSplitThrows(
         { partition: [1] },
         /You must specify a `split` value in order to use `partition`/
       );
     });
 
-    it('should throw an error if `partition` contains a value less than 1', function() {
+    it('should throw an error if `partition` contains a value less than 1', function () {
       shouldSplitThrows(
         { split: 2, partition: [1, 0] },
         /Split tests are one-indexed, so you must specify partition values greater than or equal to 1./
       );
     });
 
-    it('should throw an error if `partition` contains a value greater than `split`', function() {
+    it('should throw an error if `partition` contains a value greater than `split`', function () {
       shouldSplitThrows(
         { split: 2, partition: [1, 3] },
         /You must specify `partition` values that are less than or equal to your `split` value./
       );
     });
 
-    it('should throw an error if `partition` contains duplicate values', function() {
+    it('should throw an error if `partition` contains duplicate values', function () {
       shouldSplitThrows(
         { split: 2, partition: [1, 2, 1] },
         /You cannot specify the same partition value twice. 1 is repeated./
       );
     });
 
-    it('should return true if using `split`', function() {
+    it('should return true if using `split`', function () {
       shouldSplitEqual({ split: 2 }, true);
     });
 
-    it('should return true if using `split` and `partition`', function() {
+    it('should return true if using `split` and `partition`', function () {
       shouldSplitEqual({ split: 2, partition: [1] }, true);
     });
 
-    it('should return false if not using `split`', function() {
+    it('should return false if not using `split`', function () {
       shouldSplitEqual({}, false);
     });
   });
 
-  describe('shouldRandomize', function() {
+  describe('shouldRandomize', function () {
     function shouldRandomizeEqual(options, message) {
       shouldEqual('Random', options, message);
     }
 
-    it('should return true if `random` is an empty string', function() {
+    it('should return true if `random` is an empty string', function () {
       shouldRandomizeEqual({ random: '' }, true);
     });
 
-    it('should return true if `random` is set to a string', function() {
+    it('should return true if `random` is set to a string', function () {
       shouldRandomizeEqual({ random: '1337' }, true);
     });
 
-    it('should return false if `random` is a non-string', function() {
+    it('should return false if `random` is a non-string', function () {
       shouldRandomizeEqual({ random: true }, false);
     });
 
-    it('should return false if `random` is not used', function() {
+    it('should return false if `random` is not used', function () {
       shouldRandomizeEqual({}, false);
     });
 
-    it('should warn that randomization is not supported in mocha', function() {
+    it('should warn that randomization is not supported in mocha', function () {
       shouldWarn(
         'Random',
         { random: '', framework: 'mocha' },
@@ -161,8 +161,8 @@ describe('TestOptionsValidator', function() {
     });
   });
 
-  describe('shouldParallelize', function() {
-    it('should throw an error if `parallel` is not a numeric value', function() {
+  describe('shouldParallelize', function () {
+    it('should throw an error if `parallel` is not a numeric value', function () {
       shouldThrow(
         'Parallel',
         { parallel: '--reporter' },
@@ -170,7 +170,7 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should throw an error if `split` is not being used', function() {
+    it('should throw an error if `split` is not being used', function () {
       shouldThrow(
         'Parallel',
         { parallel: 1 },
@@ -178,7 +178,7 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should throw an error if used with `replay-execution`', function() {
+    it('should throw an error if used with `replay-execution`', function () {
       shouldThrow(
         'Parallel',
         { replayExecution: 'abc', parallel: 1 },
@@ -186,7 +186,7 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should throw an error if used with `replay-browser`', function() {
+    it('should throw an error if used with `replay-browser`', function () {
       shouldThrow(
         'Parallel',
         { replayBrowser: 2, parallel: 1 },
@@ -194,7 +194,7 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should throw an error if parallel is > 1 when used with `split`', function() {
+    it('should throw an error if parallel is > 1 when used with `split`', function () {
       shouldThrow(
         'Parallel',
         { split: 2, parallel: 2 },
@@ -202,7 +202,7 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should throw an error if 0 is passed while loadBalance is specified', function() {
+    it('should throw an error if 0 is passed while loadBalance is specified', function () {
       shouldThrow(
         'Parallel',
         { loadBalance: 2, parallel: 0 },
@@ -210,25 +210,25 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should return true', function() {
+    it('should return true', function () {
       shouldEqual('Parallel', { split: 2, parallel: 1 }, true);
     });
   });
 
-  describe('ShouldWriteExecutionFile', function() {
-    it('should return false when not passed', function() {
+  describe('ShouldWriteExecutionFile', function () {
+    it('should return false when not passed', function () {
       shouldEqual(
         'writeExecutionFile',
         {
           loadBalance: true,
           parallel: 2,
-          launch: 'false'
+          launch: 'false',
         },
         false
       );
     });
 
-    it('should throw an error if `write-execution-file` is used without `load-balance`', function() {
+    it('should throw an error if `write-execution-file` is used without `load-balance`', function () {
       shouldThrow(
         'writeExecutionFile',
         { writeExecutionFile: true },
@@ -236,58 +236,58 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should throw an error if `write-execution-file` is used without `load-balance`', function() {
+    it('should throw an error if `write-execution-file` is used without `load-balance`', function () {
       shouldThrow(
         'writeExecutionFile',
         {
           split: 2,
           partition: 1,
-          writeExecutionFile: true
+          writeExecutionFile: true,
         },
         /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./
       );
     });
 
-    it('should throw an error if `write-execution-file` is used without `load-balance`', function() {
+    it('should throw an error if `write-execution-file` is used without `load-balance`', function () {
       shouldThrow(
         'writeExecutionFile',
         {
           replayExecution: 'test-execution-0000000.json',
           replayBrowser: [1, 2],
-          writeExecutionFile: true
+          writeExecutionFile: true,
         },
         /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./
       );
     });
 
-    it('should throw an error if `write-execution-file` is used with `no-launch`', function() {
+    it('should throw an error if `write-execution-file` is used with `no-launch`', function () {
       shouldThrow(
         'writeExecutionFile',
         {
           loadBalance: true,
           parallel: 1,
           launch: 'false',
-          writeExecutionFile: true
+          writeExecutionFile: true,
         },
         /You must not use no-launch with write-execution-file option./
       );
     });
 
-    it('should return true', function() {
+    it('should return true', function () {
       shouldEqual(
         'writeExecutionFile',
         {
           loadBalance: true,
           parallel: 2,
-          writeExecutionFile: true
+          writeExecutionFile: true,
         },
         true
       );
     });
   });
 
-  describe('shouldLoadBalance', function() {
-    it('should throw an error if ember-cli version is below 3.2.0', function() {
+  describe('shouldLoadBalance', function () {
+    it('should throw an error if ember-cli version is below 3.2.0', function () {
       shouldThrow(
         'LoadBalance',
         { loadBalance: true, replayExecution: 'abc' },
@@ -296,7 +296,7 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should throw an error if ember-cli version is ~3.1.0', function() {
+    it('should throw an error if ember-cli version is ~3.1.0', function () {
       shouldThrow(
         'LoadBalance',
         { loadBalance: true, replayExecution: 'abc' },
@@ -305,7 +305,7 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should throw an error if `replayExecution` is passed', function() {
+    it('should throw an error if `replayExecution` is passed', function () {
       shouldThrow(
         'LoadBalance',
         { loadBalance: true, replayExecution: 'abc' },
@@ -313,7 +313,7 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should throw an error if `replayBrowser` is passed', function() {
+    it('should throw an error if `replayBrowser` is passed', function () {
       shouldThrow(
         'LoadBalance',
         { loadBalance: true, replayBrowser: 3 },
@@ -321,7 +321,7 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should throw an error if `parallel` is not defined', function() {
+    it('should throw an error if `parallel` is not defined', function () {
       shouldThrow(
         'LoadBalance',
         { loadBalance: true },
@@ -329,7 +329,7 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should throw an error if `parallel` has a value less than 1', function() {
+    it('should throw an error if `parallel` has a value less than 1', function () {
       shouldThrow(
         'LoadBalance',
         { loadBalance: true, parallel: 0 },
@@ -337,7 +337,7 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should throw an error if `no-launch` is passed', function() {
+    it('should throw an error if `no-launch` is passed', function () {
       shouldThrow(
         'LoadBalance',
         { loadBalance: true, parallel: 0, launch: 'false' },
@@ -345,71 +345,71 @@ describe('TestOptionsValidator', function() {
       );
     });
 
-    it('should return true', function() {
+    it('should return true', function () {
       shouldEqual('LoadBalance', { loadBalance: true, parallel: 3 }, true);
     });
   });
 
-  describe('shouldReplayExecution', function() {
-    before(function() {
+  describe('shouldReplayExecution', function () {
+    before(function () {
       fixturify.writeSync(process.cwd(), {
-        'test-execution-0000000.json': JSON.stringify(TestExecutionJson)
+        'test-execution-0000000.json': JSON.stringify(TestExecutionJson),
       });
     });
-    after(function() {
+    after(function () {
       fs.unlink('test-execution-0000000.json');
     });
 
-    it('should throw an error if `replay-browser` contains a value less than 1', function() {
+    it('should throw an error if `replay-browser` contains a value less than 1', function () {
       shouldThrow(
         'ReplayExecution',
         {
           replayExecution: 'test-execution-0000000.json',
-          replayBrowser: [1, 0]
+          replayBrowser: [1, 0],
         },
         /You must specify replay-browser values greater than or equal to 1./
       );
     });
 
-    it('should throw an error if `replay-browser` contains duplicate values', function() {
+    it('should throw an error if `replay-browser` contains duplicate values', function () {
       shouldThrow(
         'ReplayExecution',
         {
           replayExecution: 'test-execution-0000000.json',
-          replayBrowser: [1, 2, 1]
+          replayBrowser: [1, 2, 1],
         },
         /You cannot specify the same replayBrowser value twice. 1 is repeated./
       );
     });
 
-    it('should throw an error if `replay-browser` contains an invalid browser number', function() {
+    it('should throw an error if `replay-browser` contains an invalid browser number', function () {
       shouldThrow(
         'ReplayExecution',
         {
           replayExecution: 'test-execution-0000000.json',
-          replayBrowser: [3, 1]
+          replayBrowser: [3, 1],
         },
         /You must specify replayBrowser value smaller than a number of browsers in the specified json file./
       );
     });
 
-    it('should throw an error if `no-launch` is used with `replay-execution`.', function() {
+    it('should throw an error if `no-launch` is used with `replay-execution`.', function () {
       shouldThrow(
         'ReplayExecution',
         {
           replayExecution: 'test-execution-0000000.json',
-          launch: 'false'
+          launch: 'false',
         },
         /You must not use `no-launch` option with the `replay-execution` option./
       );
     });
 
-    it('should return true', function() {
+    it('should return true', function () {
       shouldEqual(
         'ReplayExecution',
         {
           replayExecution: 'test-execution-0000000.json',
-          replayBrowser: [1, 2]
+          replayBrowser: [1, 2],
         },
         true
       );

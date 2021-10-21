@@ -7,18 +7,13 @@ module.exports = {
     ecmaVersion: 2018,
     sourceType: 'module',
     ecmaFeatures: {
-      legacyDecorators: true
-    }
+      legacyDecorators: true,
+    },
   },
-  plugins: [
-    'ember'
-  ],
-  extends: [
-    'eslint:recommended',
-    'plugin:ember/recommended'
-  ],
+  plugins: ['ember'],
+  extends: ['eslint:recommended', 'plugin:ember/recommended'],
   env: {
-    browser: true
+    browser: true,
   },
   rules: {},
   overrides: [
@@ -26,6 +21,7 @@ module.exports = {
     {
       files: [
         '.eslintrc.js',
+        '.prettierrc.js',
         '.template-lintrc.js',
         'ember-cli-build.js',
         'index.js',
@@ -36,7 +32,7 @@ module.exports = {
         'blueprints/*/index.js',
         'config/**/*.js',
         'tests/dummy/config/**/*.js',
-        'lib/**/*'
+        'lib/**/*',
       ],
       excludedFiles: [
         'addon/**',
@@ -45,22 +41,18 @@ module.exports = {
         'tests/dummy/app/**',
       ],
       parserOptions: {
-        sourceType: 'script'
+        sourceType: 'script',
       },
       env: {
         browser: false,
-        node: true
+        node: true,
       },
       plugins: ['node'],
-      extends: ['plugin:node/recommended']
+      extends: ['plugin:node/recommended'],
     },
     {
-      files: [
-        'node-tests/**/*',
-      ],
-      excludedFiles: [
-        'testem.multiple-test-page.js'
-      ],
+      files: ['node-tests/**/*'],
+      excludedFiles: ['testem.multiple-test-page.js'],
       parserOptions: {
         ecmaVersion: 2018,
       },
@@ -68,8 +60,7 @@ module.exports = {
         node: true,
         mocha: true,
       },
-      rules: {
-      }
-    }
-  ]
+      rules: {},
+    },
+  ],
 };

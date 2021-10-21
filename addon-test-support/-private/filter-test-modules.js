@@ -10,7 +10,7 @@ const TEST_PATH_REGEX = /\/tests\/(.*?)$/;
  * @param {*} modulePath
  */
 function getRegexFilter(modulePath) {
-  return MODULE_PATH_REGEXP.exec( modulePath );
+  return MODULE_PATH_REGEXP.exec(modulePath);
 }
 
 /**
@@ -23,7 +23,11 @@ function getRegexFilter(modulePath) {
  */
 function wildcardFilter(module, moduleFilter) {
   // Generate a regular expression to handle wildcard from path filter
-  const moduleFilterRule = ['^.*', moduleFilter.split('*').join('.*'), '$'].join('');
+  const moduleFilterRule = [
+    '^.*',
+    moduleFilter.split('*').join('.*'),
+    '$',
+  ].join('');
   return new RegExp(moduleFilterRule).test(module);
 }
 
@@ -35,7 +39,10 @@ function wildcardFilter(module, moduleFilter) {
  * @param {string} moduleFilter
  */
 function stringFilter(modules, moduleFilter) {
-  return modules.filter( module => module.includes(moduleFilter) || wildcardFilter(module, moduleFilter) );
+  return modules.filter(
+    (module) =>
+      module.includes(moduleFilter) || wildcardFilter(module, moduleFilter)
+  );
 }
 
 /**
@@ -49,7 +56,9 @@ function regexFilter(modules, modulePathRegexFilter) {
   const re = new RegExp(modulePathRegexFilter[2], modulePathRegexFilter[3]);
   const exclude = modulePathRegexFilter[1];
 
-  return modules.filter( module => !exclude && re.test(module) || exclude && !re.test(module) );
+  return modules.filter(
+    (module) => (!exclude && re.test(module)) || (exclude && !re.test(module))
+  );
 }
 
 /**
@@ -60,7 +69,7 @@ function regexFilter(modules, modulePathRegexFilter) {
  */
 function convertFilePathToModulePath(filePath) {
   const filePathWithNoExtension = filePath.replace(/\.[^/.]+$/, '');
-  const testFilePathMatch =  TEST_PATH_REGEX.exec( filePathWithNoExtension );
+  const testFilePathMatch = TEST_PATH_REGEX.exec(filePathWithNoExtension);
   if (typeof filePath !== 'undefined' && testFilePathMatch !== null) {
     return testFilePathMatch[0];
   }
@@ -78,26 +87,35 @@ function convertFilePathToModulePath(filePath) {
  */
 function filterTestModules(modules, modulePath, filePath) {
   // Generates an array with module filter value seperated by comma (,).
-  const moduleFilters = (filePath || modulePath).split(',').map( value => value.trim());
+  const moduleFilters = (filePath || modulePath)
+    .split(',')
+    .map((value) => value.trim());
 
   const filteredTestModules = moduleFilters.reduce((result, moduleFilter) => {
     const modulePath = convertFilePathToModulePath(moduleFilter);
     const modulePathRegex = getRegexFilter(modulePath);
 
     if (modulePathRegex) {
-      return result.concat(regexFilter(modules, modulePathRegex).filter( module => result.indexOf(module) === -1 ));
+      return result.concat(
+        regexFilter(modules, modulePathRegex).filter(
+          (module) => result.indexOf(module) === -1
+        )
+      );
     } else {
-      return result.concat(stringFilter(modules, modulePath).filter( module => result.indexOf(module) === -1 ));
+      return result.concat(
+        stringFilter(modules, modulePath).filter(
+          (module) => result.indexOf(module) === -1
+        )
+      );
     }
   }, []);
 
   if (filteredTestModules.length === 0) {
-    throw new Error(`No tests matched with the filter: ${modulePath || filePath}.`);
+    throw new Error(
+      `No tests matched with the filter: ${modulePath || filePath}.`
+    );
   }
   return filteredTestModules;
 }
 
-export {
-  convertFilePathToModulePath,
-  filterTestModules
-}
+export { convertFilePathToModulePath, filterTestModules };

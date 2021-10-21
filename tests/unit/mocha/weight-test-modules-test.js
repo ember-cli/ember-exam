@@ -1,4 +1,8 @@
-import { macroCondition, dependencySatisfies, importSync } from '@embroider/macros';
+import {
+  macroCondition,
+  dependencySatisfies,
+  importSync,
+} from '@embroider/macros';
 import weightTestModules from 'ember-exam/test-support/-private/weight-test-modules';
 
 if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
@@ -6,13 +10,13 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
   let { expect } = importSync('chai');
 
   describe('Unit | Mocha | weight-test-modules', () => {
-    it('should sort a list of file paths by weight', function() {
+    it('should sort a list of file paths by weight', function () {
       const listOfModules = [
         '/eslint/test-1-test',
         '/acceptance/test-1-test',
         '/unit/test-1-test',
         '/integration/test-1-test',
-        'test-1-test'
+        'test-1-test',
       ];
 
       expect(weightTestModules(listOfModules)).to.deep.equal([
@@ -20,11 +24,11 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         'test-1-test',
         '/integration/test-1-test',
         '/unit/test-1-test',
-        '/eslint/test-1-test'
+        '/eslint/test-1-test',
       ]);
     });
 
-    it('should sort a list of file paths by weight and alphbetical order', function() {
+    it('should sort a list of file paths by weight and alphbetical order', function () {
       const listOfModules = [
         'test-b-test',
         'test-a-test',
@@ -35,7 +39,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         '/acceptance/test-b-test',
         '/acceptance/test-a-test',
         '/unit/test-a-test',
-        '/eslint/test-a-test'
+        '/eslint/test-a-test',
       ];
 
       expect(weightTestModules(listOfModules)).to.deep.equal([
@@ -48,7 +52,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         '/unit/test-a-test',
         '/unit/test-b-test',
         '/eslint/test-a-test',
-        '/eslint/test-b-test'
+        '/eslint/test-b-test',
       ]);
     });
   });

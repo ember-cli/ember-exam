@@ -6,8 +6,8 @@ const Router = AddonDocsRouter.extend({
   rootURL: config.rootURL,
 });
 
-Router.map(function() {
-  docsRoute(this, function() {
+Router.map(function () {
+  docsRoute(this, function () {
     this.route('randomization');
     this.route('randomization-iterator');
     this.route('module-metadata');

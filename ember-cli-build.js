@@ -2,11 +2,11 @@
 
 const EmberAddon = require('ember-cli/lib/broccoli/ember-addon');
 
-module.exports = function(defaults) {
+module.exports = function (defaults) {
   const self = defaults.project.findAddonByName('ember-exam');
   const autoImport = self.options.autoImport;
   let app = new EmberAddon(defaults, {
-    autoImport
+    autoImport,
   });
 
   const { maybeEmbroider } = require('@embroider/test-setup');
@@ -14,9 +14,9 @@ module.exports = function(defaults) {
     packagerOptions: {
       webpackConfig: {
         externals: {
-          mocha: 'mocha'
-        }
-      }
-    }
+          mocha: 'mocha',
+        },
+      },
+    },
   });
 };

@@ -1,11 +1,15 @@
-import { macroCondition, dependencySatisfies, importSync } from '@embroider/macros';
+import {
+  macroCondition,
+  dependencySatisfies,
+  importSync,
+} from '@embroider/macros';
 
 if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
   let { module, test } = importSync('qunit');
 
   module('Qunit | #3: Module With Multiple Edge Case Tests');
 
-  test('#1 RegExp test', function(assert) {
+  test('#1 RegExp test', function (assert) {
     assert.ok(/derp/.test('derp'));
   });
 }

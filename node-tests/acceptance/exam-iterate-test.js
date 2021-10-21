@@ -10,11 +10,11 @@ function assertExpectRejection() {
   assert.ok(false, 'Expected promise to reject, but it fullfilled');
 }
 
-describe('Acceptance | Exam Iterate Command', function() {
+describe('Acceptance | Exam Iterate Command', function () {
   this.timeout(300000);
 
-  it('should build the app, test it a number of times, and clean it up', function() {
-    return execa('ember', ['exam:iterate', '2'], child => {
+  it('should build the app, test it a number of times, and clean it up', function () {
+    return execa('ember', ['exam:iterate', '2'], (child) => {
       const stdout = child.stdout;
       assert.ok(
         stdout.includes('Building app for test iterations.'),
@@ -58,15 +58,16 @@ describe('Acceptance | Exam Iterate Command', function() {
     });
   });
 
-  it('should test the app with additional options passed in and catch failure cases', function() {
+  it('should test the app with additional options passed in and catch failure cases', function () {
     const execution = execa('ember', [
       'exam:iterate',
       '2',
       '--options',
-      '--parallel'
+      '--parallel',
     ]);
-    return execution.then(assertExpectRejection, error => {
-      const splitErrorRE = /You must specify the `split` option in order to run your tests in parallel./g;
+    return execution.then(assertExpectRejection, (error) => {
+      const splitErrorRE =
+        /You must specify the `split` option in order to run your tests in parallel./g;
 
       assert.ok(
         splitErrorRE.test(error.stderr),
@@ -78,16 +79,16 @@ describe('Acceptance | Exam Iterate Command', function() {
     });
   });
 
-  describe('building', function() {
+  describe('building', function () {
     const buildDir = path.join(process.cwd(), 'dist');
 
     afterEach(() => rimraf.sync(buildDir));
 
-    it('should not build the app or clean it up, but use an existing build to test', function() {
+    it('should not build the app or clean it up, but use an existing build to test', function () {
       execa.sync('ember', ['build']);
 
       return execa('ember', ['exam:iterate', '2', '--path', 'dist']).then(
-        child => {
+        (child) => {
           const stdout = child.stdout;
 
           assert.ok(
@@ -139,7 +140,7 @@ describe('Acceptance | Exam Iterate Command', function() {
     });
   });
 
-  describe('Exit Code', function() {
+  describe('Exit Code', function () {
     const destPath = path.join(
       __dirname,
       '..',
@@ -149,7 +150,7 @@ describe('Acceptance | Exam Iterate Command', function() {
       'failing-test.js'
     );
 
-    beforeEach(function() {
+    beforeEach(function () {
       const failingTestPath = path.join(
         __dirname,
         '..',
@@ -159,14 +160,14 @@ describe('Acceptance | Exam Iterate Command', function() {
       fs.copySync(failingTestPath, destPath);
     });
 
-    afterEach(function() {
+    afterEach(function () {
       fs.removeSync(destPath);
     });
 
-    it('should have an exitCode of 1 when a test fails', function() {
+    it('should have an exitCode of 1 when a test fails', function () {
       return execa('ember', ['exam:iterate', '1']).then(
         assertExpectRejection,
-        error => {
+        (error) => {
           assert.equal(error.exitCode, 1);
           assert.equal(error.killed, false);
         }
