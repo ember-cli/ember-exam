@@ -93,7 +93,7 @@
     "nyc": "^15.1.0",
     "prettier": "^2.4.1",
     "qunit": "^2.16.0",
-    "release-it": "^14.10.1",
+    "release-it": "^14.11.6",
     "release-it-lerna-changelog": "^2.4.0",
     "rsvp": "^4.8.5",
     "sinon": "^9.2.4",
