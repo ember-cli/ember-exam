@@ -20,7 +20,7 @@ module.exports = {
       .lt('5.0.0-beta.1');
 
     let options = {
-      exclude: ['ember-mocha', 'mocha']
+      exclude: ['ember-mocha', 'mocha'],
     };
 
     // Ember-qunit < 5 provides an AMD shim for qunit but newer versions now use
@@ -38,5 +38,5 @@ module.exports = {
     } else {
       this.options.autoImport = options;
     }
-  }
+  },
 };

@@ -1,11 +1,15 @@
 import * as TestemOutput from 'ember-exam/test-support/-private/patch-testem-output';
-import { macroCondition, dependencySatisfies, importSync } from '@embroider/macros';
+import {
+  macroCondition,
+  dependencySatisfies,
+  importSync,
+} from '@embroider/macros';
 
 if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
   let { module, test } = importSync('qunit');
 
   module('Unit | Qunit | patch-testem-output', () => {
-    test('add partition number to test name when `split` is passed', function(assert) {
+    test('add partition number to test name when `split` is passed', function (assert) {
       assert.deepEqual(
         'Exam Partition 1 - test_module | test_name',
         TestemOutput.updateTestName(
@@ -15,7 +19,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
       );
     });
 
-    test('add partition number to test name when `split` and `partition` are passed', function(assert) {
+    test('add partition number to test name when `split` and `partition` are passed', function (assert) {
       assert.deepEqual(
         'Exam Partition 2 - test_module | test_name',
         TestemOutput.updateTestName(
@@ -25,7 +29,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
       );
     });
 
-    test('add browser number to test name when `loadBalance` and `browser` are passed', function(assert) {
+    test('add browser number to test name when `loadBalance` and `browser` are passed', function (assert) {
       assert.deepEqual(
         'Browser Id 1 - test_module | test_name',
         TestemOutput.updateTestName(
@@ -35,7 +39,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
       );
     });
 
-    test('add partition number, browser number to test name when `split`, `partition`, `browser`, and `loadBalance` are  passed', function(assert) {
+    test('add partition number, browser number to test name when `split`, `partition`, `browser`, and `loadBalance` are  passed', function (assert) {
       assert.deepEqual(
         'Exam Partition 2 - Browser Id 1 - test_module | test_name',
         TestemOutput.updateTestName(

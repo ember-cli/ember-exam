@@ -51,9 +51,9 @@ export default function splitTestModules(modules, split, partitions) {
     const partition = parseInt(partitions[i], 10);
     if (isNaN(partition)) {
       throw new Error(
-        'You must specify numbers for partition (you specified \'' +
+        "You must specify numbers for partition (you specified '" +
           partitions +
-          '\')'
+          "')"
       );
     }
 

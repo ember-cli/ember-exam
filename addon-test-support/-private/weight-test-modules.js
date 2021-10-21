@@ -2,7 +2,7 @@ const TEST_TYPE_WEIGHT = {
   eslint: 1,
   unit: 10,
   integration: 20,
-  acceptance: 150
+  acceptance: 150,
 };
 const WEIGHT_REGEX = /\/(eslint|unit|integration|acceptance)\//;
 const DEFAULT_WEIGHT = 50;

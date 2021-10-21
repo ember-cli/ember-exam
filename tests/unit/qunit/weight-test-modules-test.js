@@ -1,17 +1,21 @@
 import weightTestModules from 'ember-exam/test-support/-private/weight-test-modules';
-import { macroCondition, dependencySatisfies, importSync } from '@embroider/macros';
+import {
+  macroCondition,
+  dependencySatisfies,
+  importSync,
+} from '@embroider/macros';
 
 if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
   let { module, test } = importSync('qunit');
 
   module('Unit | Qunit | weight-test-modules', () => {
-    test('should sort a list of file paths by weight', function(assert) {
+    test('should sort a list of file paths by weight', function (assert) {
       const listOfModules = [
         '/eslint/test-1-test',
         '/acceptance/test-1-test',
         '/unit/test-1-test',
         '/integration/test-1-test',
-        'test-1-test'
+        'test-1-test',
       ];
 
       assert.deepEqual(
@@ -20,13 +24,13 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
           'test-1-test',
           '/integration/test-1-test',
           '/unit/test-1-test',
-          '/eslint/test-1-test'
+          '/eslint/test-1-test',
         ],
         weightTestModules(listOfModules)
       );
     });
 
-    test('should sort a list of file paths by weight and alphbetical order', function(assert) {
+    test('should sort a list of file paths by weight and alphbetical order', function (assert) {
       const listOfModules = [
         'test-b-test',
         'test-a-test',
@@ -37,7 +41,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
         '/acceptance/test-b-test',
         '/acceptance/test-a-test',
         '/unit/test-a-test',
-        '/eslint/test-a-test'
+        '/eslint/test-a-test',
       ];
 
       assert.deepEqual(
@@ -51,7 +55,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
           '/unit/test-a-test',
           '/unit/test-b-test',
           '/eslint/test-a-test',
-          '/eslint/test-b-test'
+          '/eslint/test-b-test',
         ],
         weightTestModules(listOfModules)
       );
