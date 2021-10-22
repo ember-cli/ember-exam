@@ -95,7 +95,7 @@
     "prettier": "^2.4.1",
     "qunit": "^2.16.0",
     "release-it": "^14.11.6",
-    "release-it-lerna-changelog": "^2.4.0",
+    "release-it-lerna-changelog": "^3.1.0",
     "rsvp": "^4.8.5",
     "sinon": "^11.1.2",
     "testdouble": "^3.16.1",
