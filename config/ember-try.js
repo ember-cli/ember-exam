@@ -37,6 +37,7 @@ module.exports = async function () {
         name: 'ember-lts-3.12',
         npm: {
           devDependencies: {
+            'ember-cli': '~3.12.0',
             'ember-source': '~3.12.0',
           },
         },
@@ -78,6 +79,7 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': await getChannelURL('beta'),
+            'ember-template-lint': '^3.10.0',
           },
         },
       },
