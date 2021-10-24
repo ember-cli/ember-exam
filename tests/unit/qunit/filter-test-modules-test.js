@@ -126,7 +126,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
           );
         });
 
-        test('should return a test module matched with test file path with wildcard', function (assert) {
+        test('should return a test module matched with test folder path with wildcard', function (assert) {
           assert.deepEqual(
             ['dummy/tests/unit/foo-test', 'dummy/tests/unit/bar-test'],
             filterTestModules(this.modules, null, '/unit/*')
