@@ -41,7 +41,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
       response: 'next-module-response',
     });
 
-    assert.deepEqual(iteratorOfPromises.done, false);
+    assert.false(iteratorOfPromises.done);
     assert.deepEqual(typeof iteratorOfPromises.next, 'function');
     assert.deepEqual(typeof iteratorOfPromises.dispose, 'function');
   });
@@ -62,7 +62,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     });
 
     iteratorOfPromises.next().then((result) => {
-      assert.deepEqual('a', result.value);
+      assert.deepEqual(result.value, 'a');
       done();
     });
   });
@@ -112,7 +112,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
 
     iteratorOfPromises.dispose();
 
-    assert.deepEqual(iteratorOfPromises.done, true);
+    assert.true(iteratorOfPromises.done);
   });
 
   test('should dispose after iteration.', function (assert) {
@@ -136,19 +136,19 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     iteratorOfPromises
       .next()
       .then((res) => {
-        assert.deepEqual(res.done, false);
+        assert.false(res.done);
         return iteratorOfPromises.next();
       })
       .then((res) => {
-        assert.deepEqual(res.done, false);
+        assert.false(res.done);
         return iteratorOfPromises.next();
       })
       .then((res) => {
-        assert.deepEqual(res.done, false);
+        assert.false(res.done);
         return iteratorOfPromises.next();
       })
       .then((res) => {
-        assert.deepEqual(res.done, true);
+        assert.true(res.done);
         done();
       });
   });
@@ -162,7 +162,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     });
 
     return iteratorOfPromises.next().then((res) => {
-      assert.deepEqual(res.done, true);
+      assert.true(res.done);
     });
   });
 

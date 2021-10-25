@@ -84,6 +84,7 @@
     "eslint-plugin-ember": "^8.9.1",
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-prettier": "^4.0.0",
+    "eslint-plugin-qunit": "^6.2.0",
     "fixturify": "^1.2.0",
     "istanbul": "^0.4.3",
     "loader.js": "^4.7.0",
