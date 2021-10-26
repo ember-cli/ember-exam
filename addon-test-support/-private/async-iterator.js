@@ -39,9 +39,7 @@ export default class AsyncIterator {
    * @return {String} the stringified value of the iterator.
    */
   toString() {
-    return `<AsyncIterator (request: ${this._request} response: ${
-      this._response
-    })>`;
+    return `<AsyncIterator (request: ${this._request} response: ${this._response})>`;
   }
 
   /**
@@ -113,16 +111,14 @@ export default class AsyncIterator {
 
       if (this._emberExamExitOnError) {
         let err = new Error(
-          `EmberExam: Promise timed out after ${
-            this._timeout
-          } s while waiting for response for ${this._request}`
+          `EmberExam: Promise timed out after ${this._timeout} s while waiting for response for ${this._request}`
         );
         reject(err);
       } else {
         // eslint-disable-next-line no-console
-        console.error(`EmberExam: Promise timed out after ${
-          this._timeout
-        } s while waiting for response for ${this._request}. Closing browser to exit gracefully.`);
+        console.error(
+          `EmberExam: Promise timed out after ${this._timeout} s while waiting for response for ${this._request}. Closing browser to exit gracefully.`
+        );
         resolve(iteratorCompleteResponse);
       }
     }, this._timeout * 1000);
@@ -153,7 +149,7 @@ export default class AsyncIterator {
     this._current = {
       resolve,
       reject,
-      promise
+      promise,
     };
 
     this._makeNextRequest();

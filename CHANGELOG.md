@@ -1,3 +1,31 @@
+# Changelog
+
+## v7.0.0 (2021-10-22)
+
+#### :boom: Breaking Change
+* [#739](https://github.com/ember-cli/ember-exam/pull/739) Update `ember-auto-import` to v2.x ([@Turbo87](https://github.com/Turbo87))
+* [#690](https://github.com/ember-cli/ember-exam/pull/690) Drop support for Node 10 and upgrade deps ([@nlfurniss](https://github.com/nlfurniss))
+
+#### :bug: Bug Fix
+* [#688](https://github.com/ember-cli/ember-exam/pull/688) Fix embroider tests ([@nlfurniss](https://github.com/nlfurniss))
+
+#### :memo: Documentation
+* [#687](https://github.com/ember-cli/ember-exam/pull/687) Update README.md: Fix typo in flag name ([@bantic](https://github.com/bantic))
+* [#644](https://github.com/ember-cli/ember-exam/pull/644) Docs: Fix information on Load Balancing ([@brkn](https://github.com/brkn))
+
+#### :house: Internal
+* [#743](https://github.com/ember-cli/ember-exam/pull/743) CI: Add `release` workflow ([@Turbo87](https://github.com/Turbo87))
+* [#737](https://github.com/ember-cli/ember-exam/pull/737) Use `prettier` to format JS files ([@Turbo87](https://github.com/Turbo87))
+* [#736](https://github.com/ember-cli/ember-exam/pull/736) CI: Disable Ember.js v4 scenarios ([@Turbo87](https://github.com/Turbo87))
+* [#689](https://github.com/ember-cli/ember-exam/pull/689) Set ember edition to Octane to quiet build logging ([@nlfurniss](https://github.com/nlfurniss))
+
+#### Committers: 4
+- Berkan Ünal ([@brkn](https://github.com/brkn))
+- Cory Forsyth ([@bantic](https://github.com/bantic))
+- Nathaniel Furniss ([@nlfurniss](https://github.com/nlfurniss))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
+
 ## v6.1.0 (2021-02-17)
 
 #### :rocket: Enhancement

@@ -1,5 +1,9 @@
 import AsyncIterator from 'ember-exam/test-support/-private/async-iterator';
-import { macroCondition, dependencySatisfies, importSync } from '@embroider/macros';
+import {
+  macroCondition,
+  dependencySatisfies,
+  importSync,
+} from '@embroider/macros';
 
 if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
   let { module, test } = importSync('qunit');
@@ -8,7 +12,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     beforeEach() {
       this.testem = {
         eventHandler: new Array(),
-        emit: function(event) {
+        emit: function (event) {
           const argsWithoutFirst = Array.prototype.slice.call(arguments, 1);
           if (this.eventHandler && this.eventHandler[event]) {
             let handlers = this.eventHandler[event];
@@ -17,7 +21,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
             }
           }
         },
-        on: function(event, callBack) {
+        on: function (event, callBack) {
           if (!this.eventHandler) {
             this.eventHandler = {};
           }
@@ -26,44 +30,44 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
           }
           this.eventHandler[event].push(callBack);
         },
-        removeEventCallbacks: () => {}
+        removeEventCallbacks: () => {},
       };
-    }
+    },
   });
 
-  test('should instantiate', function(assert) {
+  test('should instantiate', function (assert) {
     let iteratorOfPromises = new AsyncIterator(this.testem, {
       request: 'next-module-request',
-      response: 'next-module-response'
+      response: 'next-module-response',
     });
 
-    assert.deepEqual(iteratorOfPromises.done, false);
+    assert.false(iteratorOfPromises.done);
     assert.deepEqual(typeof iteratorOfPromises.next, 'function');
     assert.deepEqual(typeof iteratorOfPromises.dispose, 'function');
   });
 
-  test('should get the value from response.', function(assert) {
+  test('should get the value from response.', function (assert) {
     assert.expect(1);
     const done = assert.async();
     this.testem.on('next-module-request', () => {
       this.testem.emit('next-module-response', {
         done: false,
-        value: 'a'
+        value: 'a',
       });
     });
 
     const iteratorOfPromises = new AsyncIterator(this.testem, {
       request: 'next-module-request',
-      response: 'next-module-response'
+      response: 'next-module-response',
     });
 
-    iteratorOfPromises.next().then(result => {
-      assert.deepEqual('a', result.value);
+    iteratorOfPromises.next().then((result) => {
+      assert.deepEqual(result.value, 'a');
       done();
     });
   });
 
-  test('should iterate promises until there is no response.', function(assert) {
+  test('should iterate promises until there is no response.', function (assert) {
     assert.expect(1);
     const done = assert.async();
     const testem = this.testem;
@@ -72,46 +76,46 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     testem.on('next-module-request', () => {
       testem.emit('next-module-response', {
         done: responses.length === 0,
-        value: responses.shift()
+        value: responses.shift(),
       });
     });
 
     const iteratorOfPromises = new AsyncIterator(testem, {
       request: 'next-module-request',
-      response: 'next-module-response'
+      response: 'next-module-response',
     });
 
     let values = [];
 
     iteratorOfPromises
       .next()
-      .then(res => {
+      .then((res) => {
         values.push(res.value);
         return iteratorOfPromises.next();
       })
-      .then(res => {
+      .then((res) => {
         values.push(res.value);
         return iteratorOfPromises.next();
       })
-      .then(res => {
+      .then((res) => {
         values.push(res.value);
         assert.deepEqual(values, ['a', 'b', 'c']);
         done();
       });
   });
 
-  test('should return false after disposing', function(assert) {
+  test('should return false after disposing', function (assert) {
     const iteratorOfPromises = new AsyncIterator(this.testem, {
       request: 'next-module-request',
-      response: 'next-module-response'
+      response: 'next-module-response',
     });
 
     iteratorOfPromises.dispose();
 
-    assert.deepEqual(iteratorOfPromises.done, true);
+    assert.true(iteratorOfPromises.done);
   });
 
-  test('should dispose after iteration.', function(assert) {
+  test('should dispose after iteration.', function (assert) {
     assert.expect(4);
     const done = assert.async();
     const testem = this.testem;
@@ -120,49 +124,49 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     testem.on('next-module-request', () => {
       testem.emit('next-module-response', {
         done: responses.length === 0,
-        value: responses.shift()
+        value: responses.shift(),
       });
     });
 
     const iteratorOfPromises = new AsyncIterator(testem, {
       request: 'next-module-request',
-      response: 'next-module-response'
+      response: 'next-module-response',
     });
 
     iteratorOfPromises
       .next()
-      .then(res => {
-        assert.deepEqual(res.done, false);
+      .then((res) => {
+        assert.false(res.done);
         return iteratorOfPromises.next();
       })
-      .then(res => {
-        assert.deepEqual(res.done, false);
+      .then((res) => {
+        assert.false(res.done);
         return iteratorOfPromises.next();
       })
-      .then(res => {
-        assert.deepEqual(res.done, false);
+      .then((res) => {
+        assert.false(res.done);
         return iteratorOfPromises.next();
       })
-      .then(res => {
-        assert.deepEqual(res.done, true);
+      .then((res) => {
+        assert.true(res.done);
         done();
       });
   });
 
-  test('should resolve with iterator finishing if request is not handled within 2s', function(assert) {
+  test('should resolve with iterator finishing if request is not handled within 2s', function (assert) {
     assert.expect(1);
     const iteratorOfPromises = new AsyncIterator(this.testem, {
       request: 'next-module-request',
       response: 'next-module-response',
-      timeout: 2
+      timeout: 2,
     });
 
-    return iteratorOfPromises.next().then(res => {
-      assert.deepEqual(res.done, true);
+    return iteratorOfPromises.next().then((res) => {
+      assert.true(res.done);
     });
   });
 
-  test('should resolve a timeout error if request is not handled within 2s when emberExamExitOnError is true', function(assert) {
+  test('should resolve a timeout error if request is not handled within 2s when emberExamExitOnError is true', function (assert) {
     assert.expect(1);
     const iteratorOfPromises = new AsyncIterator(this.testem, {
       request: 'next-module-request',
@@ -171,20 +175,23 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
       emberExamExitOnError: true,
     });
 
-    return iteratorOfPromises.next().then(() => {
-      assert.ok(false, 'Promise should not resolve, expecting reject');
-    },err => {
-      assert.deepEqual(
-        err.message,
-        'EmberExam: Promise timed out after 2 s while waiting for response for next-module-request'
-      );
-    });
+    return iteratorOfPromises.next().then(
+      () => {
+        assert.ok(false, 'Promise should not resolve, expecting reject');
+      },
+      (err) => {
+        assert.deepEqual(
+          err.message,
+          'EmberExam: Promise timed out after 2 s while waiting for response for next-module-request'
+        );
+      }
+    );
   });
 
-  test('should throw an error if handleResponse is invoked while not waiting for a response', function(assert) {
+  test('should throw an error if handleResponse is invoked while not waiting for a response', function (assert) {
     const iteratorOfPromises = new AsyncIterator(this.testem, {
       request: 'next-module-request',
-      response: 'next-module-response'
+      response: 'next-module-response',
     });
 
     assert.throws(

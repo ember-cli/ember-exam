@@ -33,7 +33,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
    * @method load
    */
   static load() {
-    throw new Error('`EmberExamQUnitTestLoader` doesn\'t support `load()`.');
+    throw new Error("`EmberExamQUnitTestLoader` doesn't support `load()`.");
   }
 
   /**
@@ -178,8 +178,13 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
               return nextModuleHandler();
             }
           }
-        }).catch(e => {
-          if (typeof e === 'object' && e !== null && typeof e.message === 'string') {
+        })
+        .catch((e) => {
+          if (
+            typeof e === 'object' &&
+            e !== null &&
+            typeof e.message === 'string'
+          ) {
             e.message = `EmberExam: Failed to get next test module: ${e.message}`;
           }
           throw new Error(`EmberExam: Failed to get next test module: ${e}`);

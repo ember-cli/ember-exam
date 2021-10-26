@@ -12,29 +12,29 @@ const testExecutionJson = {
   numberOfBrowsers: 1,
   failedBrowsers: [],
   executionMapping: {
-    "1": ['path/to/testmodule', 'path/to/another/testmodule']
-  }
+    1: ['path/to/testmodule', 'path/to/another/testmodule'],
+  },
 };
 
-describe('TestemEvents', function() {
-  beforeEach(function() {
+describe('TestemEvents', function () {
+  beforeEach(function () {
     fs.mkdirpSync(fixtureDir);
     this.testemEvents = new TestemEvents(fixtureDir);
     this.moduleQueue = ['foo', 'bar', 'baz', 'boo', 'far', 'faz'];
   });
 
-  afterEach(function() {
+  afterEach(function () {
     fs.removeSync(fixtureDir);
   });
 
-  describe('setModuleQueue', function() {
-    beforeEach(function() {
+  describe('setModuleQueue', function () {
+    beforeEach(function () {
       fixturify.writeSync(fixtureDir, {
-        'test-execution-123.json': JSON.stringify(testExecutionJson)
+        'test-execution-123.json': JSON.stringify(testExecutionJson),
       });
     });
 
-    it('set TestModuleQueue for load-balance mode', function() {
+    it('set TestModuleQueue for load-balance mode', function () {
       this.testemEvents.setModuleQueue(1, this.moduleQueue, true, false);
 
       assert.deepEqual(
@@ -43,10 +43,10 @@ describe('TestemEvents', function() {
       );
     });
 
-    it('ignore subsequent setModuleQueue if moduleQueue is already set for load-balance mode', function() {
+    it('ignore subsequent setModuleQueue if moduleQueue is already set for load-balance mode', function () {
       const anotherModuleQueue = ['a', 'b', 'c'];
-      this.testemEvents.setModuleQueue("1", this.moduleQueue, true, false);
-      this.testemEvents.setModuleQueue("2", anotherModuleQueue, true, false);
+      this.testemEvents.setModuleQueue('1', this.moduleQueue, true, false);
+      this.testemEvents.setModuleQueue('2', anotherModuleQueue, true, false);
 
       assert.deepEqual(
         this.testemEvents.stateManager.getTestModuleQueue(),
@@ -54,27 +54,27 @@ describe('TestemEvents', function() {
       );
     });
 
-    it('set replayExecutionModuleQueue for replay-execution mode', function() {
-      this.testemEvents.setReplayExecutionMap(testExecutionJsonPath, ["1"]);
-      this.testemEvents.setModuleQueue("1", this.moduleQueue, false, true);
+    it('set replayExecutionModuleQueue for replay-execution mode', function () {
+      this.testemEvents.setReplayExecutionMap(testExecutionJsonPath, ['1']);
+      this.testemEvents.setModuleQueue('1', this.moduleQueue, false, true);
 
       assert.deepEqual(
-        this.testemEvents.stateManager.getReplayExecutionModuleQueue("1"),
-        testExecutionJson.executionMapping["1"]
+        this.testemEvents.stateManager.getReplayExecutionModuleQueue('1'),
+        testExecutionJson.executionMapping['1']
       );
     });
 
-    it('set replayExecutionModuleQueue for replay-execution mode when replay-browser is undefined', function() {
+    it('set replayExecutionModuleQueue for replay-execution mode when replay-browser is undefined', function () {
       this.testemEvents.setReplayExecutionMap(testExecutionJsonPath);
-      this.testemEvents.setModuleQueue("1", this.moduleQueue, false, true);
+      this.testemEvents.setModuleQueue('1', this.moduleQueue, false, true);
 
       assert.deepEqual(
-        this.testemEvents.stateManager.getReplayExecutionModuleQueue("1"),
-        testExecutionJson.executionMapping["1"]
+        this.testemEvents.stateManager.getReplayExecutionModuleQueue('1'),
+        testExecutionJson.executionMapping['1']
       );
     });
 
-    it('throws error if ReplayExecutionMap is not set when setting replayExecutionModuleQueue for replay-execution mode', function() {
+    it('throws error if ReplayExecutionMap is not set when setting replayExecutionModuleQueue for replay-execution mode', function () {
       assert.throws(
         () =>
           this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true),
@@ -84,33 +84,33 @@ describe('TestemEvents', function() {
     });
   });
 
-  describe('nextModuleResponse', function() {
+  describe('nextModuleResponse', function () {
     const socket = {
       events: [],
-      emit: function(event, payload) {
+      emit: function (event, payload) {
         this.events.push(event);
 
         if (payload) {
           this.events.push(payload);
         }
       },
-      reset: function() {
+      reset: function () {
         this.events.length = 0;
-      }
+      },
     };
 
     const fooResponse = {
       done: false,
-      value: 'foo'
+      value: 'foo',
     };
 
     const emptyMap = new Map();
 
-    afterEach(function() {
+    afterEach(function () {
       socket.reset();
     });
 
-    it('should fire next-module-response event and save the moduleName to stateManager.moduleMap when write-execution-file is true', function() {
+    it('should fire next-module-response event and save the moduleName to stateManager.moduleMap when write-execution-file is true', function () {
       this.testemEvents.stateManager.setTestModuleQueue(this.moduleQueue);
       this.testemEvents.nextModuleResponse(1, socket, true);
 
@@ -120,16 +120,13 @@ describe('TestemEvents', function() {
         'testem:next-module-response event was emitted with payload foo'
       );
       assert.deepEqual(
-        this.testemEvents.stateManager
-          .getModuleMap()
-          .values()
-          .next().value,
+        this.testemEvents.stateManager.getModuleMap().values().next().value,
         ['foo'],
         'module was correctly saved to the moduleMap'
       );
     });
 
-    it('should not save the moduleName to stateManager.moduleMap when write-execution-file is false', function() {
+    it('should not save the moduleName to stateManager.moduleMap when write-execution-file is false', function () {
       this.testemEvents.stateManager.setReplayExecutionModuleQueue([], 1);
       this.testemEvents.nextModuleResponse(1, socket, false);
 
@@ -140,7 +137,7 @@ describe('TestemEvents', function() {
       );
     });
 
-    it('should throw error if no moduleQueues were set', function() {
+    it('should throw error if no moduleQueues were set', function () {
       assert.throws(
         () => this.testemEvents.nextModuleResponse(1, socket, false, 'dev'),
         /No moduleQueue was set/,
@@ -149,14 +146,14 @@ describe('TestemEvents', function() {
     });
   });
 
-  describe('recordFailedBrowserId', function() {
+  describe('recordFailedBrowserId', function () {
     const launcher = {
       settings: {
-        test_page: 'browser=1'
-      }
-    }
+        test_page: 'browser=1',
+      },
+    };
 
-    it('record new browserId if test failed', function() {
+    it('record new browserId if test failed', function () {
       this.testemEvents.recordFailedBrowserId(launcher, {});
 
       assert.deepEqual(
@@ -166,7 +163,7 @@ describe('TestemEvents', function() {
       );
     });
 
-    it('does not record browserId that has already been recorded', function() {
+    it('does not record browserId that has already been recorded', function () {
       this.testemEvents.recordFailedBrowserId(launcher, {});
       this.testemEvents.recordFailedBrowserId(launcher, {});
 
@@ -178,19 +175,19 @@ describe('TestemEvents', function() {
     });
   });
 
-  describe('completedBrowsersHandler', function() {
+  describe('completedBrowsersHandler', function () {
     const mockUi = {
-      writeLine: () => {}
+      writeLine: () => {},
     };
 
-    it('should increment completedBrowsers only when completedBrowsers is less than browserCount', function() {
+    it('should increment completedBrowsers only when completedBrowsers is less than browserCount', function () {
       this.testemEvents.completedBrowsersHandler(
         2,
         1,
         mockUi,
         new Map([
           ['loadBalance', true],
-          ['writeExecutionFile', false]
+          ['writeExecutionFile', false],
         ]),
         '0000'
       );
@@ -202,7 +199,7 @@ describe('TestemEvents', function() {
       );
     });
 
-    it('should write test-execution file and cleanup state when completedBrowsers equals browserCount and load-balance is true', function() {
+    it('should write test-execution file and cleanup state when completedBrowsers equals browserCount and load-balance is true', function () {
       this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('a', 1);
       this.testemEvents.stateManager.addToStartedLaunchers(1010);
 
@@ -212,7 +209,7 @@ describe('TestemEvents', function() {
         mockUi,
         new Map([
           ['loadBalance', true],
-          ['writeExecutionFile', true]
+          ['writeExecutionFile', true],
         ]),
         '0000'
       );
@@ -225,13 +222,20 @@ describe('TestemEvents', function() {
         numberOfBrowsers: 1,
         failedBrowsers: [],
         executionMapping: {
-          1: ['a']
-        }
+          1: ['a'],
+        },
       });
     });
 
-    it('should write module-run-details file and cleanup state when completedBrowsers equals browserCount, load-balance is true, and write-execution-file is false', function() {
-      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test', passed: true, failed: false, skipped: false, duration: 1});
+    it('should write module-run-details file and cleanup state when completedBrowsers equals browserCount, load-balance is true, and write-execution-file is false', function () {
+      this.testemEvents.stateManager.addToModuleMetadata({
+        moduleName: 'a',
+        testName: 'test',
+        passed: true,
+        failed: false,
+        skipped: false,
+        duration: 1,
+      });
       this.testemEvents.stateManager.addToStartedLaunchers(1010);
 
       this.testemEvents.completedBrowsersHandler(
@@ -240,7 +244,7 @@ describe('TestemEvents', function() {
         mockUi,
         new Map([
           ['loadBalance', true],
-          ['writeModuleMetadataFile', true]
+          ['writeModuleMetadataFile', true],
         ]),
         '0000'
       );
@@ -257,15 +261,36 @@ describe('TestemEvents', function() {
           failed: 0,
           skipped: 0,
           duration: 1,
-          failedTests: []
-        }
+          failedTests: [],
+        },
       ]);
     });
 
-    it('should write module-run-details file with sorted by duration', function() {
-      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 1', passed: true, failed: false, skipped: false, duration: 1});
-      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 2', passed: false, failed: true, skipped: false, duration: 8});
-      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', passed: true, failed: false, skipped: false, duration: 1});
+    it('should write module-run-details file with sorted by duration', function () {
+      this.testemEvents.stateManager.addToModuleMetadata({
+        moduleName: 'a',
+        testName: 'test 1',
+        passed: true,
+        failed: false,
+        skipped: false,
+        duration: 1,
+      });
+      this.testemEvents.stateManager.addToModuleMetadata({
+        moduleName: 'a',
+        testName: 'test 2',
+        passed: false,
+        failed: true,
+        skipped: false,
+        duration: 8,
+      });
+      this.testemEvents.stateManager.addToModuleMetadata({
+        moduleName: 'b',
+        testName: 'test 1',
+        passed: true,
+        failed: false,
+        skipped: false,
+        duration: 1,
+      });
 
       this.testemEvents.stateManager.addToStartedLaunchers(1010);
 
@@ -275,7 +300,7 @@ describe('TestemEvents', function() {
         mockUi,
         new Map([
           ['loadBalance', true],
-          ['writeModuleMetadataFile', true]
+          ['writeModuleMetadataFile', true],
         ]),
         '0000'
       );
@@ -292,7 +317,7 @@ describe('TestemEvents', function() {
           failed: 1,
           skipped: 0,
           duration: 9,
-          failedTests: ['test 2']
+          failedTests: ['test 2'],
         },
         {
           moduleName: 'b',
@@ -301,17 +326,52 @@ describe('TestemEvents', function() {
           failed: 0,
           skipped: 0,
           duration: 1,
-          failedTests: []
-        }
+          failedTests: [],
+        },
       ]);
     });
 
-    it('should add skipped test number to write module-metadata-file with sorted by duration', function() {
-      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 1', passed: true, failed: false, skipped: true, duration: 0});
-      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'a', testName: 'test 2', passed: false, failed: true, skipped: false, duration: 8});
-      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', passed: true, failed: false, skipped: false, duration: 1});
-      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', passed: true, failed: false, skipped: false, duration: 0});
-      this.testemEvents.stateManager.addToModuleMetadata({ moduleName: 'b', testName: 'test 1', paseed: true, failed: false, skipped: true, duration: 1});
+    it('should add skipped test number to write module-metadata-file with sorted by duration', function () {
+      this.testemEvents.stateManager.addToModuleMetadata({
+        moduleName: 'a',
+        testName: 'test 1',
+        passed: true,
+        failed: false,
+        skipped: true,
+        duration: 0,
+      });
+      this.testemEvents.stateManager.addToModuleMetadata({
+        moduleName: 'a',
+        testName: 'test 2',
+        passed: false,
+        failed: true,
+        skipped: false,
+        duration: 8,
+      });
+      this.testemEvents.stateManager.addToModuleMetadata({
+        moduleName: 'b',
+        testName: 'test 1',
+        passed: true,
+        failed: false,
+        skipped: false,
+        duration: 1,
+      });
+      this.testemEvents.stateManager.addToModuleMetadata({
+        moduleName: 'b',
+        testName: 'test 1',
+        passed: true,
+        failed: false,
+        skipped: false,
+        duration: 0,
+      });
+      this.testemEvents.stateManager.addToModuleMetadata({
+        moduleName: 'b',
+        testName: 'test 1',
+        paseed: true,
+        failed: false,
+        skipped: true,
+        duration: 1,
+      });
 
       this.testemEvents.stateManager.addToStartedLaunchers(1010);
 
@@ -321,7 +381,7 @@ describe('TestemEvents', function() {
         mockUi,
         new Map([
           ['loadBalance', true],
-          ['writeModuleMetadataFile', true]
+          ['writeModuleMetadataFile', true],
         ]),
         '0000'
       );
@@ -338,7 +398,7 @@ describe('TestemEvents', function() {
           failed: 1,
           skipped: 1,
           duration: 8,
-          failedTests: ['test 2']
+          failedTests: ['test 2'],
         },
         {
           moduleName: 'b',
@@ -347,19 +407,19 @@ describe('TestemEvents', function() {
           failed: 0,
           skipped: 1,
           duration: 2,
-          failedTests: []
-        }
+          failedTests: [],
+        },
       ]);
     });
 
-    it('should increment completedBrowsers when load-balance is false', function() {
+    it('should increment completedBrowsers when load-balance is false', function () {
       this.testemEvents.completedBrowsersHandler(
         2,
         1,
         mockUi,
         new Map([
           ['loadBalance', false],
-          ['writeExecutionFile', false]
+          ['writeExecutionFile', false],
         ]),
         '0000'
       );
@@ -371,7 +431,7 @@ describe('TestemEvents', function() {
       );
     });
 
-    it('should not clean up states from stateManager when test execution is not completed', function() {
+    it('should not clean up states from stateManager when test execution is not completed', function () {
       this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('a', 1);
       this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('b', 2);
 
@@ -379,16 +439,14 @@ describe('TestemEvents', function() {
         1,
         1,
         mockUi,
-        new Map([
-          ['loadBalance', true]
-        ]),
+        new Map([['loadBalance', true]]),
         '0000'
       );
 
       assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 2);
     });
 
-    it('should clean up states from stateManager when test execution is completed', function() {
+    it('should clean up states from stateManager when test execution is completed', function () {
       const mockReplayExecutionMap = { 1: ['a'] };
       this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('a', 1);
       this.testemEvents.stateManager.setReplayExecutionMap(
@@ -400,9 +458,7 @@ describe('TestemEvents', function() {
         1,
         1,
         mockUi,
-        new Map([
-          ['loadBalance', true]
-        ]),
+        new Map([['loadBalance', true]]),
         '0000'
       );
 
@@ -421,7 +477,7 @@ describe('TestemEvents', function() {
       );
     });
 
-    it('should clean up states from stateManager when all launched browsers complete tests', function() {
+    it('should clean up states from stateManager when all launched browsers complete tests', function () {
       const mockReplayExecutionMap = { 1: ['a'] };
       this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('a', 1);
       this.testemEvents.stateManager.setReplayExecutionMap(
@@ -433,9 +489,7 @@ describe('TestemEvents', function() {
         4,
         1,
         mockUi,
-        new Map([
-          ['loadBalance', true]
-        ]),
+        new Map([['loadBalance', true]]),
         '0000'
       );
 

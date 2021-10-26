@@ -1,4 +1,8 @@
-import { dependencySatisfies, macroCondition, importSync } from '@embroider/macros';
+import {
+  dependencySatisfies,
+  macroCondition,
+  importSync,
+} from '@embroider/macros';
 
 /**
  * Returns ember-exam-qunit-test-loader or ember-exam-mocha-test-loader
@@ -8,11 +12,15 @@ import { dependencySatisfies, macroCondition, importSync } from '@embroider/macr
  * @return {Object}
  */
 export default function getTestLoader() {
-  if (macroCondition(dependencySatisfies('ember-qunit', '*'))){
-    const EmberExamQUnitTestLoader = importSync('./ember-exam-qunit-test-loader');
+  if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
+    const EmberExamQUnitTestLoader = importSync(
+      './ember-exam-qunit-test-loader'
+    );
     return EmberExamQUnitTestLoader['default'];
-  } else if (macroCondition(dependencySatisfies('ember-mocha', '*'))){
-    const EmberExamMochaTestLoader = importSync('./ember-exam-mocha-test-loader');
+  } else if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
+    const EmberExamMochaTestLoader = importSync(
+      './ember-exam-mocha-test-loader'
+    );
     return EmberExamMochaTestLoader['default'];
   }
 

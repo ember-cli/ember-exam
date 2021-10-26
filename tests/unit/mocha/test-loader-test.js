@@ -1,15 +1,19 @@
-import { macroCondition, dependencySatisfies, importSync } from '@embroider/macros';
+import {
+  macroCondition,
+  dependencySatisfies,
+  importSync,
+} from '@embroider/macros';
 import EmberExamTestLoader from 'ember-exam/test-support/-private/ember-exam-mocha-test-loader';
 
 if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
   let { describe, it, beforeEach, afterEach } = importSync('mocha');
   let { expect } = importSync('chai');
 
-  describe('Unit | Mocha | test-loader', function() {
-    beforeEach(function() {
+  describe('Unit | Mocha | test-loader', function () {
+    beforeEach(function () {
       this.originalRequire = window.require;
       this.requiredModules = [];
-      window.require = name => {
+      window.require = (name) => {
         this.requiredModules.push(name);
       };
 
@@ -21,16 +25,16 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         'test-3-test': true,
         'test-3-test.jshint': true,
         'test-4-test': true,
-        'test-4-test.jshint': true
+        'test-4-test.jshint': true,
       };
       this.originalURLParams = EmberExamTestLoader._urlParams;
     });
 
-    afterEach(function() {
+    afterEach(function () {
       window.require = this.originalRequire;
     });
 
-    it('loads all test modules by default', function() {
+    it('loads all test modules by default', function () {
       const testLoader = new EmberExamTestLoader(this.testem, new Map());
       testLoader.loadModules();
 
@@ -42,11 +46,11 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         'test-1-test',
         'test-2-test',
         'test-3-test',
-        'test-4-test'
+        'test-4-test',
       ]);
     });
 
-    it('loads modules from a specified partition', function() {
+    it('loads modules from a specified partition', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
         new Map().set('partition', 3).set('split', 4)
@@ -55,11 +59,11 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
 
       expect(this.requiredModules).to.deep.equal([
         'test-3-test.jshint',
-        'test-3-test'
+        'test-3-test',
       ]);
     });
 
-    it('loads modules from multiple specified partitions', function() {
+    it('loads modules from multiple specified partitions', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
         new Map().set('partition', [1, 3]).set('split', 4)
@@ -70,11 +74,11 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         'test-1-test.jshint',
         'test-1-test',
         'test-3-test.jshint',
-        'test-3-test'
+        'test-3-test',
       ]);
     });
 
-    it('loads modules from the first partition by default', function() {
+    it('loads modules from the first partition by default', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
         new Map().set('split', 4)
@@ -83,11 +87,11 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
 
       expect(this.requiredModules).to.deep.equal([
         'test-1-test.jshint',
-        'test-1-test'
+        'test-1-test',
       ]);
     });
 
-    it('handles params as strings', function() {
+    it('handles params as strings', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
         new Map().set('partition', '3').set('split', '4')
@@ -96,11 +100,11 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
 
       expect(this.requiredModules).to.deep.equal([
         'test-3-test.jshint',
-        'test-3-test'
+        'test-3-test',
       ]);
     });
 
-    it('throws an error if splitting less than one', function() {
+    it('throws an error if splitting less than one', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
         new Map().set('split', 0)
@@ -111,7 +115,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       }).to.throw(/You must specify a split greater than 0/);
     });
 
-    it('throws an error if partition isn\'t a number', function() {
+    it("throws an error if partition isn't a number", function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
         new Map().set('split', 2).set('partition', 'foo')
@@ -124,7 +128,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       );
     });
 
-    it('throws an error if partition isn\'t a number with multiple partitions', function() {
+    it("throws an error if partition isn't a number with multiple partitions", function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
         new Map().set('split', 2).set('partition', [1, 'foo'])
@@ -137,7 +141,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       );
     });
 
-    it('throws an error if loading partition greater than split number', function() {
+    it('throws an error if loading partition greater than split number', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
         new Map().set('split', 2).set('partition', 3)
@@ -150,7 +154,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       );
     });
 
-    it('throws an error if loading partition greater than split number with multiple partitions', function() {
+    it('throws an error if loading partition greater than split number with multiple partitions', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
         new Map().set('split', 2).set('partition', [2, 3])
@@ -163,7 +167,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       );
     });
 
-    it('throws an error if loading partition less than one', function() {
+    it('throws an error if loading partition less than one', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
         new Map().set('split', 2).set('partition', 0)
@@ -174,24 +178,21 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       }).to.throw(/You must specify partitions numbered greater than 0/);
     });
 
-    it('load works without lint tests', function() {
+    it('load works without lint tests', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
-        new Map()
-          .set('nolint', true)
-          .set('partition', 4)
-          .set('split', 4)
+        new Map().set('nolint', true).set('partition', 4).set('split', 4)
       );
       testLoader.loadModules();
 
       // ember-cli-mocha doesn't support disabling linting by url param
       expect(this.requiredModules).to.deep.equal([
         'test-4-test.jshint',
-        'test-4-test'
+        'test-4-test',
       ]);
     });
 
-    it('load works without non-lint tests', function() {
+    it('load works without non-lint tests', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
         new Map().set('partition', 4).set('split', 4)
@@ -201,7 +202,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         'test-1-test.jshint': true,
         'test-2-test.jshint': true,
         'test-3-test.jshint': true,
-        'test-4-test.jshint': true
+        'test-4-test.jshint': true,
       };
 
       testLoader.loadModules();
@@ -209,7 +210,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       expect(this.requiredModules).to.deep.equal(['test-4-test.jshint']);
     });
 
-    it('load works with a double-digit single partition', function() {
+    it('load works with a double-digit single partition', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
         new Map().set('partition', '10').set('split', 10)
@@ -225,7 +226,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         'test-7-test': true,
         'test-8-test': true,
         'test-9-test': true,
-        'test-10-test': true
+        'test-10-test': true,
       };
 
       testLoader.loadModules();
@@ -233,7 +234,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       expect(this.requiredModules).to.deep.equal(['test-10-test']);
     });
 
-    it('dummy test to even out the number of tests', function() {
+    it('dummy test to even out the number of tests', function () {
       expect(true).to.be.ok;
     });
   });

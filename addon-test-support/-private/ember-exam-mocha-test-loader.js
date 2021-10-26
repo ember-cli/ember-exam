@@ -1,6 +1,6 @@
 import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
-import { filterTestModules} from './filter-test-modules';
+import { filterTestModules } from './filter-test-modules';
 import { TestLoader } from 'ember-mocha/test-loader';
 
 /**
@@ -28,7 +28,7 @@ export default class EmberExamMochaTestLoader extends TestLoader {
    * @method load
    */
   static load() {
-    throw new Error('`EmberExamMochaTestLoader` doesn\'t support `load()`.');
+    throw new Error("`EmberExamMochaTestLoader` doesn't support `load()`.");
   }
 
   /**
