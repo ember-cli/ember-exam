@@ -436,8 +436,8 @@ describe('TestemEvents', function () {
       this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('b', 2);
 
       this.testemEvents.completedBrowsersHandler(
-        1,
-        1,
+        2,
+        1011,
         mockUi,
         new Map([['loadBalance', true]]),
         '0000'
@@ -456,7 +456,7 @@ describe('TestemEvents', function () {
 
       this.testemEvents.completedBrowsersHandler(
         1,
-        1,
+        1010,
         mockUi,
         new Map([['loadBalance', true]]),
         '0000'
@@ -486,8 +486,8 @@ describe('TestemEvents', function () {
       this.testemEvents.stateManager.addToStartedLaunchers(1010);
 
       this.testemEvents.completedBrowsersHandler(
-        4,
         1,
+        1010,
         mockUi,
         new Map([['loadBalance', true]]),
         '0000'
@@ -505,6 +505,36 @@ describe('TestemEvents', function () {
       assert.deepEqual(
         this.testemEvents.stateManager.getReplayExecutionMap(),
         mockReplayExecutionMap
+      );
+    });
+
+    it('should clean up states from stateManager when all launched browsers exited', function () {
+      this.testemEvents.stateManager.setTestModuleQueue([]);
+      this.testemEvents.stateManager.addToStartedLaunchers(1010);
+      this.testemEvents.stateManager.addToStartedLaunchers(1011);
+
+      this.testemEvents.completedBrowsersHandler(
+        2,
+        1010,
+        mockUi,
+        new Map([['loadBalance', true]]),
+        '0000'
+      );
+
+      assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 0);
+      assert.deepEqual(this.testemEvents.stateManager.getTestModuleQueue(), []);
+
+      this.testemEvents.completedBrowsersHandler(
+        2,
+        1011,
+        mockUi,
+        new Map([['loadBalance', true]]),
+        '0000'
+      );
+
+      assert.deepEqual(
+        this.testemEvents.stateManager.getTestModuleQueue(),
+        null
       );
     });
   });
