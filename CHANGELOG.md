@@ -1,5 +1,19 @@
 # Changelog
 
+## v7.0.1 (2021-11-02)
+#### :bug: Bug Fix
+* [#760](https://github.com/ember-cli/ember-exam/pull/760) Wait for all browser to completet beforer cleaning up StateManager([@step2yeung](https://github.com/step2yeung))
+* [#750](https://github.com/ember-cli/ember-exam/pull/750) Ember exam failing when browser ID not found, return 0([@step2yeung](https://github.com/step2yeung))
+
+#### :house: Internal
+* [#748](https://github.com/ember-cli/ember-exam/pull/748) Add eslint-plugin-qunit per latest addon blueprint  internal ([@SergeAstapov](https://github.com/SergeAstapov))
+* [#744](https://github.com/ember-cli/ember-exam/pull/744) Update npmignore file internal([@Turbo87](https://github.com/Turbo87))
+#### Committers: 4
+
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+- Stephen Yeung ([@step2yeung](https://github.com/step2yeung))
+
 ## v7.0.0 (2021-10-22)
 
 #### :boom: Breaking Change
