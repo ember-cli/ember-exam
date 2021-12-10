@@ -49,8 +49,6 @@ jobs:
           - embroider-optimized-with-mocha
           - ember-lts-3.24
           - ember-lts-3.20
-          - ember-lts-3.16
-          - ember-lts-3.12
           # temporarily disabled until we've fixed support for Ember.js v4
           # - ember-release
           # - ember-beta
