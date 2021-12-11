@@ -150,7 +150,7 @@
   },
   "volta": {
     "node": "12.22.7",
-    "yarn": "1.22.10"
+    "yarn": "1.22.17"
   },
   "ember": {
     "edition": "octane"
