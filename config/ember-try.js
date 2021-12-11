@@ -2,18 +2,13 @@
 
 const getChannelURL = require('ember-source-channel-url');
 const { embroiderSafe, embroiderOptimized } = require('@embroider/test-setup');
-const mergeWith = require('lodash.mergewith');
 
-function mochaScenario(scenario = {}) {
-  return mergeWith({}, scenario, {
-    devDependencies: {
-      'chai-dom': '*',
-      'ember-cli-chai': '*',
-      'ember-mocha': '*',
-      'ember-qunit': null,
-    },
-  });
-}
+const MOCHA_DEPS = {
+  'chai-dom': '*',
+  'ember-cli-chai': '*',
+  'ember-mocha': '*',
+  'ember-qunit': null,
+};
 
 const command = [
   'ember',
@@ -87,9 +82,12 @@ module.exports = async function () {
           },
         },
       },
-      mochaScenario({
+      {
         name: 'ember-default-with-mocha',
-      }),
+        npm: {
+          devDependencies: { ...MOCHA_DEPS },
+        },
+      },
       {
         name: 'ember-classic',
         env: {
@@ -109,17 +107,19 @@ module.exports = async function () {
         },
       },
       embroiderSafe(),
-      embroiderSafe(
-        mochaScenario({
-          name: 'embroider-safe-with-mocha',
-        })
-      ),
+      embroiderSafe({
+        name: 'embroider-safe-with-mocha',
+        npm: {
+          devDependencies: { ...MOCHA_DEPS },
+        },
+      }),
       embroiderOptimized(),
-      embroiderOptimized(
-        mochaScenario({
-          name: 'embroider-optimized-with-mocha',
-        })
-      ),
+      embroiderOptimized({
+        name: 'embroider-optimized-with-mocha',
+        npm: {
+          devDependencies: { ...MOCHA_DEPS },
+        },
+      }),
       {
         name: 'ember-qunit-4',
         npm: {
