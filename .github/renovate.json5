@@ -1,0 +1,15 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "config:base",
+    ":automergeLinters",
+    ":automergeTesters",
+    ":dependencyDashboard",
+    ":maintainLockFilesWeekly",
+    ":pinOnlyDevDependencies",
+    ":prConcurrentLimitNone",
+    ":semanticCommitsDisabled",
+    "github>Turbo87/renovate-config:automergeCaretConstraint",
+    "github>Turbo87/renovate-config:commitTopics",
+  ],
+}
