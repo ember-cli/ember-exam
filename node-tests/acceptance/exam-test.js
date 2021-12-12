@@ -62,7 +62,7 @@ describe('Acceptance | Exam Command', function () {
 
   function assertAllPartitions(output) {
     assertOutput(output, 'Exam Partition', [1, 2, 3]);
-    assert.equal(
+    assert.strictEqual(
       getNumberOfTests(output),
       getTotalNumberOfTests(output),
       'ran all of the tests in the suite'
@@ -85,7 +85,7 @@ describe('Acceptance | Exam Command', function () {
           !stdout.includes('Exam Partition'),
           'does not add any sort of partition info'
         );
-        assert.equal(
+        assert.strictEqual(
           getNumberOfTests(stdout),
           getTotalNumberOfTests(stdout),
           'ran all of the tests in the suite'
@@ -149,7 +149,7 @@ describe('Acceptance | Exam Command', function () {
           !stdout.includes('Exam Partition'),
           'does not add any sort of partition info'
         );
-        assert.equal(
+        assert.strictEqual(
           getNumberOfTests(stdout),
           getTotalNumberOfTests(stdout),
           'ran all of the tests in the suite'
@@ -280,7 +280,7 @@ describe('Acceptance | Exam Command', function () {
           stdout.includes('Randomizing tests with seed: 1337'),
           'logged the seed value'
         );
-        assert.equal(
+        assert.strictEqual(
           getNumberOfTests(stdout),
           getTotalNumberOfTests(stdout),
           'ran all of the tests in the suite'
@@ -306,7 +306,7 @@ describe('Acceptance | Exam Command', function () {
 
       const testExecutionFile = fs.readJsonSync(testExecutionPath);
 
-      assert.equal(
+      assert.strictEqual(
         testExecutionFile.failedBrowsers.length,
         numberOfFailedBrowsers,
         'failed browsers array is correctly recorded'
@@ -361,7 +361,7 @@ describe('Acceptance | Exam Command', function () {
 
         assertTestExecutionFailedBrowsers(output, 0);
         assertOutput(output, 'Browser Id', [1]);
-        assert.equal(
+        assert.strictEqual(
           getNumberOfTests(output),
           getTotalNumberOfTests(output),
           'ran all of the tests in the suite'
@@ -397,7 +397,7 @@ describe('Acceptance | Exam Command', function () {
 
         assertTestExecutionFailedBrowsers(output, 0);
         assertOutput(output, 'Browser Id', [1, 2, 3]);
-        assert.equal(
+        assert.strictEqual(
           getNumberOfTests(output),
           getTotalNumberOfTests(output),
           'ran all of the tests in the suite'
@@ -546,14 +546,14 @@ describe('Acceptance | Exam Command', function () {
         'acceptance-dist',
       ]).then((child) => {
         const output = child.stdout;
-        assert.equal(
+        assert.strictEqual(
           output.match(/test-execution-([0-9]*).json/g),
           null,
           'no test execution json should be written'
         );
 
         assertOutput(output, 'Browser Id', [1]);
-        assert.equal(
+        assert.strictEqual(
           getNumberOfTests(output),
           27,
           'ran all of the tests for browser one'
@@ -574,14 +574,14 @@ describe('Acceptance | Exam Command', function () {
         'acceptance-dist',
       ]).then((child) => {
         const output = child.stdout;
-        assert.equal(
+        assert.strictEqual(
           output.match(/test-execution-([0-9]*).json/g),
           null,
           'no test execution json should be written'
         );
 
         assertOutput(output, 'Browser Id', [1, 2]);
-        assert.equal(
+        assert.strictEqual(
           getNumberOfTests(output),
           getTotalNumberOfTests(output),
           'ran all of the tests in the suite'
@@ -604,14 +604,14 @@ describe('Acceptance | Exam Command', function () {
         'acceptance-dist',
       ]).then((child) => {
         const output = child.stdout;
-        assert.equal(
+        assert.strictEqual(
           output.match(/test-execution-([0-9]*).json/g),
           null,
           'no test execution json should be written'
         );
 
         assertOutput(output, 'Browser Id', ['2']);
-        assert.equal(
+        assert.strictEqual(
           getNumberOfTests(output),
           40,
           'ran all of the tests for browser two'

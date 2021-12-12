@@ -17,21 +17,21 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
       setupTest(hooks);
 
       test('should return an input string without file extension when the input contains file extension', function (assert) {
-        assert.equal(
+        assert.strictEqual(
           convertFilePathToModulePath('/tests/integration/foo.js'),
           '/tests/integration/foo'
         );
       });
 
       test(`should return an input string without file extension when the input doesn't contain file extension`, function (assert) {
-        assert.equal(
+        assert.strictEqual(
           convertFilePathToModulePath('/tests/integration/foo'),
           '/tests/integration/foo'
         );
       });
 
       test('should return an input string after `tests` when the input is a full test file path', function (assert) {
-        assert.equal(
+        assert.strictEqual(
           convertFilePathToModulePath('dummy/tests/integration/foo.js'),
           '/tests/integration/foo'
         );

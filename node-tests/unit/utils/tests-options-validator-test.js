@@ -47,7 +47,7 @@ describe('TestOptionsValidator', function () {
       options.framework,
       emberCliVer
     );
-    assert.equal(validateCommand(validator, cmd), value);
+    assert.strictEqual(validateCommand(validator, cmd), value);
   }
 
   function shouldWarn(cmd, options, value, emberCliVer = '3.7.0') {
@@ -66,8 +66,8 @@ describe('TestOptionsValidator', function () {
       emberCliVer
     );
     assert.notEqual(validateCommand(validator, cmd), undefined);
-    assert.equal(warnCalled, 1);
-    assert.equal(warnMessage, value);
+    assert.strictEqual(warnCalled, 1);
+    assert.strictEqual(warnMessage, value);
 
     console.warn = originalWarn;
     /* eslint-enable no-console */

@@ -192,7 +192,7 @@ describe('TestemEvents', function () {
         '0000'
       );
 
-      assert.equal(
+      assert.strictEqual(
         this.testemEvents.stateManager.getCompletedBrowser(),
         1,
         'completedBrowsers was incremented'
@@ -424,7 +424,7 @@ describe('TestemEvents', function () {
         '0000'
       );
 
-      assert.equal(
+      assert.strictEqual(
         this.testemEvents.stateManager.getCompletedBrowser(),
         1,
         'completedBrowsers was incremented'
