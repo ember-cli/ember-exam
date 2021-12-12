@@ -8364,18 +8364,7 @@ fixturify-project@^2.1.1:
     tmp "^0.0.33"
     type-fest "^0.11.0"
 
-fixturify@1.3.0, fixturify@^1.2.0:
-  version "1.3.0"
-  resolved "https://registry.yarnpkg.com/fixturify/-/fixturify-1.3.0.tgz#163c468093c7c4d90b70cde39fd6325f6528b25d"
-  integrity sha512-tL0svlOy56pIMMUQ4bU1xRe6NZbFSa/ABTWMxW2mH38lFGc9TrNAKWcMBQ7eIjo3wqSS8f2ICabFaatFyFmrVQ==
-  dependencies:
-    "@types/fs-extra" "^5.0.5"
-    "@types/minimatch" "^3.0.3"
-    "@types/rimraf" "^2.0.2"
-    fs-extra "^7.0.1"
-    matcher-collection "^2.0.0"
-
-fixturify@^2.1.0:
+fixturify@2.1.1, fixturify@^2.1.0:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/fixturify/-/fixturify-2.1.1.tgz#e962d72f062600cb81a9651086f60d822c72d998"
   integrity sha512-SRgwIMXlxkb6AUgaVjIX+jCEqdhyXu9hah7mcK+lWynjKtX73Ux1TDv71B7XyaQ+LJxkYRHl5yCL8IycAvQRUw==
@@ -8386,6 +8375,17 @@ fixturify@^2.1.0:
     fs-extra "^8.1.0"
     matcher-collection "^2.0.1"
     walk-sync "^2.0.2"
+
+fixturify@^1.2.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/fixturify/-/fixturify-1.3.0.tgz#163c468093c7c4d90b70cde39fd6325f6528b25d"
+  integrity sha512-tL0svlOy56pIMMUQ4bU1xRe6NZbFSa/ABTWMxW2mH38lFGc9TrNAKWcMBQ7eIjo3wqSS8f2ICabFaatFyFmrVQ==
+  dependencies:
+    "@types/fs-extra" "^5.0.5"
+    "@types/minimatch" "^3.0.3"
+    "@types/rimraf" "^2.0.2"
+    fs-extra "^7.0.1"
+    matcher-collection "^2.0.0"
 
 flat-cache@^3.0.4:
   version "3.0.4"
