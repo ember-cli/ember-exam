@@ -83,6 +83,7 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             '@ember/jquery': '^0.5.1',
+            'ember-source': '^3.28.0',
           },
         },
       },
@@ -99,6 +100,9 @@ module.exports = async function () {
           }),
         },
         npm: {
+          devDependencies: {
+            'ember-source': '^3.28.0',
+          },
           ember: {
             edition: 'classic',
           },
@@ -121,6 +125,7 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-qunit': '^4.6.0',
+            'ember-source': '^3.28.0',
           },
         },
       },
