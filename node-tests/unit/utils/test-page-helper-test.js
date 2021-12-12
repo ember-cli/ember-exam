@@ -47,7 +47,7 @@ describe('TestPageHelper', function () {
           test_page: 'loadBalance&browser=1',
         },
       };
-      assert.equal(getBrowserId(launcher), 1);
+      assert.strictEqual(getBrowserId(launcher), 1);
     });
 
     it('should throw an error if the launcher does not have test page set', function () {

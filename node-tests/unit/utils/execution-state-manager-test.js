@@ -31,7 +31,7 @@ describe('ExecutionStateManager', function () {
     it('returns the next module from the shared moduleQueue and state is preserved', function () {
       this.stateManager.setTestModuleQueue(this.moduleQueue);
 
-      assert.equal(
+      assert.strictEqual(
         this.stateManager.getNextModuleTestModuleQueue(),
         'foo',
         'correctly returns the next module'
@@ -44,7 +44,7 @@ describe('ExecutionStateManager', function () {
     });
 
     it('get next module returns null if shared moduleQueue is not set', function () {
-      assert.equal(
+      assert.strictEqual(
         this.stateManager.getNextModuleTestModuleQueue(),
         null,
         'returns null when moduleQueue has not been set'
@@ -69,7 +69,7 @@ describe('ExecutionStateManager', function () {
     it('returns the next module from the browser specific moduleQueue and state is preserved', function () {
       this.stateManager.setReplayExecutionModuleQueue(this.moduleQueue, 1);
 
-      assert.equal(
+      assert.strictEqual(
         this.stateManager.getNextModuleReplayExecutionModuleQueue(1),
         'foo',
         'correctly returns the next module'
@@ -82,7 +82,7 @@ describe('ExecutionStateManager', function () {
     });
 
     it('get next module returns null if browser moduleQueue is not set', function () {
-      assert.equal(
+      assert.strictEqual(
         this.stateManager.getNextModuleReplayExecutionModuleQueue(1),
         null,
         'returns null when moduleQueue has not been set'
@@ -101,7 +101,7 @@ describe('ExecutionStateManager', function () {
 
   describe('moduleRunDetails', function () {
     it('returns a map size of 0', function () {
-      assert.equal(this.stateManager.getModuleMetadata().size, 0);
+      assert.strictEqual(this.stateManager.getModuleMetadata().size, 0);
     });
 
     it('adds a single testDone module metadata to moduleMetadata.', function () {
@@ -122,11 +122,11 @@ describe('ExecutionStateManager', function () {
         .getModuleMetadata()
         .get(testModuleName);
 
-      assert.equal(fooModuleMetadata.passed, 1);
-      assert.equal(fooModuleMetadata.failed, 0);
-      assert.equal(fooModuleMetadata.skipped, 0);
-      assert.equal(fooModuleMetadata.duration, 1);
-      assert.equal(fooModuleMetadata.failedTests.length, 0);
+      assert.strictEqual(fooModuleMetadata.passed, 1);
+      assert.strictEqual(fooModuleMetadata.failed, 0);
+      assert.strictEqual(fooModuleMetadata.skipped, 0);
+      assert.strictEqual(fooModuleMetadata.duration, 1);
+      assert.strictEqual(fooModuleMetadata.failedTests.length, 0);
     });
 
     it('adds two test metadata and returns cumulative module data', function () {
@@ -158,12 +158,12 @@ describe('ExecutionStateManager', function () {
         .getModuleMetadata()
         .get(fooTestModule);
 
-      assert.equal(fooModuleMetadata.total, 2);
-      assert.equal(fooModuleMetadata.passed, 1);
-      assert.equal(fooModuleMetadata.failed, 1);
-      assert.equal(fooModuleMetadata.skipped, 0);
-      assert.equal(fooModuleMetadata.duration, 2.8);
-      assert.equal(fooModuleMetadata.failedTests.length, 1);
+      assert.strictEqual(fooModuleMetadata.total, 2);
+      assert.strictEqual(fooModuleMetadata.passed, 1);
+      assert.strictEqual(fooModuleMetadata.failed, 1);
+      assert.strictEqual(fooModuleMetadata.skipped, 0);
+      assert.strictEqual(fooModuleMetadata.duration, 2.8);
+      assert.strictEqual(fooModuleMetadata.failedTests.length, 1);
     });
   });
 });

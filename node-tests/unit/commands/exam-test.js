@@ -58,32 +58,32 @@ describe('ExamCommand', function () {
 
     it('should defer to super with normal build task', function () {
       return command.run({}).then(function () {
-        assert.equal(called.testRun, true);
-        assert.equal(called.buildRun, true);
+        assert.strictEqual(called.testRun, true);
+        assert.strictEqual(called.buildRun, true);
       });
     });
 
     it('should set `modulePath` in the query option', function () {
       return command.run({ modulePath: 'foo' }).then(function () {
-        assert.equal(called.testRunOptions.query, 'modulePath=foo');
+        assert.strictEqual(called.testRunOptions.query, 'modulePath=foo');
       });
     });
 
     it('should set `partition` in the query option with one partition', function () {
       return command.run({ split: 2, partition: [2] }).then(function () {
-        assert.equal(called.testRunOptions.query, 'split=2&partition=2');
+        assert.strictEqual(called.testRunOptions.query, 'split=2&partition=2');
       });
     });
 
     it('should set `load-balance` in the query option', function () {
       return command.run({ loadBalance: true, parallel: 1 }).then(function () {
-        assert.equal(called.testRunOptions.query, 'loadBalance');
+        assert.strictEqual(called.testRunOptions.query, 'loadBalance');
       });
     });
 
     it('should set `partition` in the query option with multiple partitions', function () {
       return command.run({ split: 2, partition: [1, 2] }).then(function () {
-        assert.equal(
+        assert.strictEqual(
           called.testRunOptions.query,
           'split=2&partition=1&partition=2'
         );
@@ -94,7 +94,7 @@ describe('ExamCommand', function () {
       return command
         .run({ split: 2, partition: [2], query: 'someQuery=derp&hidepassed' })
         .then(function () {
-          assert.equal(
+          assert.strictEqual(
             called.testRunOptions.query,
             'someQuery=derp&hidepassed&split=2&partition=2'
           );
@@ -105,19 +105,19 @@ describe('ExamCommand', function () {
       return command
         .run({ split: 2, partition: [1, 2], parallel: 1 })
         .then(function () {
-          assert.equal(called.testRunOptions.query, 'split=2');
+          assert.strictEqual(called.testRunOptions.query, 'split=2');
         });
     });
 
     it('should not append `partition` to the query option when not parallelizing without partitions', function () {
       return command.run({ split: 2 }).then(function () {
-        assert.equal(called.testRunOptions.query, 'split=2');
+        assert.strictEqual(called.testRunOptions.query, 'split=2');
       });
     });
 
     it('should set  `seed=1337` in the query option', function () {
       return command.run({ random: '1337' }).then(function () {
-        assert.equal(called.testRunOptions.query, 'seed=1337');
+        assert.strictEqual(called.testRunOptions.query, 'seed=1337');
       });
     });
 
@@ -125,7 +125,7 @@ describe('ExamCommand', function () {
       return command
         .run({ random: '1337', query: 'someQuery=derp&hidepassed' })
         .then(function () {
-          assert.equal(
+          assert.strictEqual(
             called.testRunOptions.query,
             'someQuery=derp&hidepassed&seed=1337'
           );
@@ -135,14 +135,14 @@ describe('ExamCommand', function () {
     it('should set `seed=random_seed` in the query option', function () {
       const randomStub = sinon.stub(Math, 'random').returns('  random_seed');
       return command.run({ random: '' }).then(function () {
-        assert.equal(called.testRunOptions.query, 'seed=random_seed');
+        assert.strictEqual(called.testRunOptions.query, 'seed=random_seed');
         randomStub.restore();
       });
     });
 
     it('should set split env var', function () {
       return command.run({ split: 5 }).then(function () {
-        assert.equal(process.env.EMBER_EXAM_SPLIT_COUNT, '5');
+        assert.strictEqual(process.env.EMBER_EXAM_SPLIT_COUNT, '5');
       });
     });
   });
@@ -151,7 +151,7 @@ describe('ExamCommand', function () {
     let command;
 
     function assertFramework(command, name) {
-      assert.equal(command._getTestFramework(), name);
+      assert.strictEqual(command._getTestFramework(), name);
     }
 
     beforeEach(function () {

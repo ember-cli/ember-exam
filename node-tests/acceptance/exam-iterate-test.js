@@ -73,9 +73,9 @@ describe('Acceptance | Exam Iterate Command', function () {
         splitErrorRE.test(error.stderr),
         'expected stderr to contain the appropriate error message'
       );
-      assert.equal(error.exitCode, 1);
-      assert.equal(error.failed, true);
-      assert.equal(error.killed, false);
+      assert.strictEqual(error.exitCode, 1);
+      assert.strictEqual(error.failed, true);
+      assert.strictEqual(error.killed, false);
     });
   });
 
@@ -168,8 +168,8 @@ describe('Acceptance | Exam Iterate Command', function () {
       return execa('ember', ['exam:iterate', '1']).then(
         assertExpectRejection,
         (error) => {
-          assert.equal(error.exitCode, 1);
-          assert.equal(error.killed, false);
+          assert.strictEqual(error.exitCode, 1);
+          assert.strictEqual(error.killed, false);
         }
       );
     });
