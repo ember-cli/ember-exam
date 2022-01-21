@@ -5,7 +5,7 @@ import {
 } from '@embroider/macros';
 
 if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
-  let { module, test } = importSync('qunit');
+  let { module, test } = importSync('qunit').default;
 
   module('Qunit | #2: Module With Multiple Tests');
 
