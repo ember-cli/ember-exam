@@ -9,7 +9,7 @@ import {
 } from '@embroider/macros';
 
 if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
-  let { module, test } = importSync('qunit');
+  let { module, test } = importSync('qunit').default;
   let { setupTest } = importSync('ember-qunit');
 
   module('Unit | Qunit | filter-test-modules', function () {

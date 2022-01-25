@@ -6,7 +6,7 @@ import {
 } from '@embroider/macros';
 
 if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
-  let { module, test } = importSync('qunit');
+  let { module, test } = importSync('qunit').default;
 
   module('Unit | Qunit | patch-testem-output', () => {
     test('add partition number to test name when `split` is passed', function (assert) {
