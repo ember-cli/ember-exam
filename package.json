@@ -56,7 +56,7 @@
   "devDependencies": {
     "@ember/optional-features": "2.0.0",
     "@ember/test-helpers": "2.6.0",
-    "@embroider/test-setup": "^1.0.0",
+    "@embroider/test-setup": "1.0.0",
     "auto-dist-tag": "2.1.1",
     "babel-eslint": "10.1.0",
     "codeclimate-test-reporter": "0.5.1",
