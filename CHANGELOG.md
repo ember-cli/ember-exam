@@ -1,5 +1,29 @@
 # Changelog
 
+
+## v8.0.0 (2022-01-25)
+
+#### :boom: Breaking Change
+* [#769](https://github.com/ember-cli/ember-exam/pull/769) Drop support for Ember 3.19 and below ([@Turbo87](https://github.com/Turbo87))
+
+#### :house: Internal
+* [#840](https://github.com/ember-cli/ember-exam/pull/840) Upgrade `@embroider/*` packages to 1.0.0 ([@SergeAstapov](https://github.com/SergeAstapov))
+* [#745](https://github.com/ember-cli/ember-exam/pull/745) Upgrade eslint-plugin-ember from v8.9.1 to v10.5.8 ([@SergeAstapov](https://github.com/SergeAstapov))
+* [#813](https://github.com/ember-cli/ember-exam/pull/813) Use `assert.strictEqual()` instead of `assert.equal()` ([@Turbo87](https://github.com/Turbo87))
+* [#775](https://github.com/ember-cli/ember-exam/pull/775) Delete unused `herp-derp` component ([@Turbo87](https://github.com/Turbo87))
+* [#774](https://github.com/ember-cli/ember-exam/pull/774) Migrate dummy app templates to use angle bracket invocation syntax ([@Turbo87](https://github.com/Turbo87))
+* [#740](https://github.com/ember-cli/ember-exam/pull/740) CI: Enable Ember v4 scenarios again ([@Turbo87](https://github.com/Turbo87))
+* [#768](https://github.com/ember-cli/ember-exam/pull/768) Upgrade `ember-cli-addon-docs` dependency ([@Turbo87](https://github.com/Turbo87))
+* [#766](https://github.com/ember-cli/ember-exam/pull/766) CI: Disable failing `ember-release` scenario ([@Turbo87](https://github.com/Turbo87))
+* [#748](https://github.com/ember-cli/ember-exam/pull/748) Add eslint-plugin-qunit per latest addon blueprint ([@SergeAstapov](https://github.com/SergeAstapov))
+* [#744](https://github.com/ember-cli/ember-exam/pull/744) Update npmignore file ([@Turbo87](https://github.com/Turbo87))
+
+#### Committers: 3
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
+- Stephen Yeung ([@step2yeung](https://github.com/step2yeung))
+- Tobias Bieniek ([@Turbo87](https://github.com/Turbo87))
+
+
 ## v7.0.1 (2021-11-02)
 #### :bug: Bug Fix
 * [#760](https://github.com/ember-cli/ember-exam/pull/760) Wait for all browser to completet beforer cleaning up StateManager([@step2yeung](https://github.com/step2yeung))
