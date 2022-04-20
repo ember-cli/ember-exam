@@ -100,7 +100,7 @@
     "release-it-lerna-changelog": "4.0.1",
     "rsvp": "4.8.5",
     "sinon": "13.0.2",
-    "testdouble": "3.16.4",
+    "testdouble": "3.16.5",
     "webpack": "5.72.0"
   },
   "peerDependencies": {
