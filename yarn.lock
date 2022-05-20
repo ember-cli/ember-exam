@@ -7142,10 +7142,10 @@ ember-svg-jar@^2.2.3:
     mkdirp "^0.5.1"
     path-posix "^1.0.0"
 
-ember-template-lint@4.9.0:
-  version "4.9.0"
-  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-4.9.0.tgz#982830ec949e77dc39fd14c44bcfd1903e11f63c"
-  integrity sha512-corIvZ0DxcO6VUiBScePSrXCNT/aP1l3U4/6pL9+34iGMVVpkOKdkAr8ENJ0YTF3LszK8LfKNRMXM5IK1OaKWg==
+ember-template-lint@4.9.1:
+  version "4.9.1"
+  resolved "https://registry.yarnpkg.com/ember-template-lint/-/ember-template-lint-4.9.1.tgz#9faa57cfd54171fc5fb50bd41b62278b08d80a7c"
+  integrity sha512-ShIRqIhNbJQTzkqGUN9mLY7mOHWQs4btGV57uHSA1GooUsEK34HRQIXASTOZCWR/W3XCDEc7cv/TWXfQWlsZRQ==
   dependencies:
     "@lint-todo/utils" "^13.0.3"
     aria-query "^5.0.0"
