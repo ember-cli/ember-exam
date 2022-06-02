@@ -101,7 +101,7 @@
     "rsvp": "4.8.5",
     "sinon": "14.0.0",
     "testdouble": "3.16.5",
-    "webpack": "5.72.1"
+    "webpack": "5.73.0"
   },
   "peerDependencies": {
     "ember-mocha": "*",
