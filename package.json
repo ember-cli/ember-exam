@@ -46,7 +46,7 @@
     "ember-cli-babel": "^7.21.0",
     "ember-cli-version-checker": "^5.1.2",
     "execa": "^4.0.3",
-    "fs-extra": "^10.0.0",
+    "fs-extra": "^11.0.0",
     "js-yaml": "^4.0.0",
     "npmlog": "^6.0.0",
     "rimraf": "^3.0.2",
