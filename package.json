@@ -55,7 +55,7 @@
   },
   "devDependencies": {
     "@ember/optional-features": "2.0.0",
-    "@ember/test-helpers": "2.8.1",
+    "@ember/test-helpers": "2.9.0",
     "@embroider/test-setup": "1.8.3",
     "auto-dist-tag": "2.1.1",
     "babel-eslint": "10.1.0",
