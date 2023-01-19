@@ -15,6 +15,7 @@ Router.map(function () {
     this.route('split-parallel');
     this.route('filtering');
     this.route('load-balancing');
+    this.route('preserve-test-name');
 
     this.route('ember-try-and-ci');
     this.route('test-suite-segmentation');

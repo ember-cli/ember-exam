@@ -81,6 +81,12 @@ describe('ExamCommand', function () {
       });
     });
 
+    it('should set `preserve-test-name` in the query option', function () {
+      return command.run({ preserveTestName: true }).then(function () {
+        assert.strictEqual(called.testRunOptions.query, 'preserveTestName');
+      });
+    });
+
     it('should set `partition` in the query option with multiple partitions', function () {
       return command.run({ split: 2, partition: [1, 2] }).then(function () {
         assert.strictEqual(
