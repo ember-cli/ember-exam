@@ -20,13 +20,9 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
 
       window.requirejs.entries = {
         'test-1-test': true,
-        'test-1-test.jshint': true,
         'test-2-test': true,
-        'test-2-test.jshint': true,
         'test-3-test': true,
-        'test-3-test.jshint': true,
         'test-4-test': true,
-        'test-4-test.jshint': true,
       };
       this.testem = {
         eventQueue: new Array(),
@@ -59,10 +55,6 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     testLoader.loadModules();
 
     assert.deepEqual(this.requiredModules, [
-      'test-1-test.jshint',
-      'test-2-test.jshint',
-      'test-3-test.jshint',
-      'test-4-test.jshint',
       'test-1-test',
       'test-2-test',
       'test-3-test',
@@ -80,10 +72,6 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     testLoader.loadModules();
 
     assert.deepEqual(this.requiredModules, [
-      'test-1-test.jshint',
-      'test-2-test.jshint',
-      'test-3-test.jshint',
-      'test-4-test.jshint',
       'test-1-test',
       'test-2-test',
       'test-3-test',
@@ -100,7 +88,6 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     testLoader.loadModules();
 
     assert.deepEqual(this.requiredModules, [
-      'test-3-test.jshint',
       'test-3-test',
     ]);
   });
@@ -114,9 +101,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     testLoader.loadModules();
 
     assert.deepEqual(this.requiredModules, [
-      'test-1-test.jshint',
       'test-1-test',
-      'test-3-test.jshint',
       'test-3-test',
     ]);
   });
@@ -130,7 +115,6 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     testLoader.loadModules();
 
     assert.deepEqual(this.requiredModules, [
-      'test-1-test.jshint',
       'test-1-test',
     ]);
   });
@@ -144,7 +128,6 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     testLoader.loadModules();
 
     assert.deepEqual(this.requiredModules, [
-      'test-3-test.jshint',
       'test-3-test',
     ]);
   });
@@ -219,40 +202,6 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     assert.throws(() => {
       testLoader.loadModules();
     }, /You must specify partitions numbered greater than 0/);
-  });
-
-  test('load works without lint tests', function (assert) {
-    QUnit.urlParams.nolint = true;
-    const testLoader = new EmberExamTestLoader(
-      this.testem,
-      new Map().set('partition', 4).set('split', 4),
-      this.qunit
-    );
-
-    testLoader.loadModules();
-
-    assert.deepEqual(this.requiredModules, ['test-4-test']);
-
-    QUnit.urlParams.nolint = false;
-  });
-
-  test('load works without non-lint tests', function (assert) {
-    window.requirejs.entries = {
-      'test-1-test.jshint': true,
-      'test-2-test.jshint': true,
-      'test-3-test.jshint': true,
-      'test-4-test.jshint': true,
-    };
-
-    const testLoader = new EmberExamTestLoader(
-      this.testem,
-      new Map().set('partition', 4).set('split', 4),
-      this.qunit
-    );
-
-    testLoader.loadModules();
-
-    assert.deepEqual(this.requiredModules, ['test-4-test.jshint']);
   });
 
   test('load works with a double-digit single partition', function (assert) {

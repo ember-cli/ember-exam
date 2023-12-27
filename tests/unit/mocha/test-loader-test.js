@@ -19,13 +19,9 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
 
       window.requirejs.entries = {
         'test-1-test': true,
-        'test-1-test.jshint': true,
         'test-2-test': true,
-        'test-2-test.jshint': true,
         'test-3-test': true,
-        'test-3-test.jshint': true,
         'test-4-test': true,
-        'test-4-test.jshint': true,
       };
       this.originalURLParams = EmberExamTestLoader._urlParams;
     });
@@ -39,10 +35,6 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       testLoader.loadModules();
 
       expect(this.requiredModules).to.deep.equal([
-        'test-1-test.jshint',
-        'test-2-test.jshint',
-        'test-3-test.jshint',
-        'test-4-test.jshint',
         'test-1-test',
         'test-2-test',
         'test-3-test',
@@ -58,7 +50,6 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       testLoader.loadModules();
 
       expect(this.requiredModules).to.deep.equal([
-        'test-3-test.jshint',
         'test-3-test',
       ]);
     });
@@ -71,9 +62,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       testLoader.loadModules();
 
       expect(this.requiredModules).to.deep.equal([
-        'test-1-test.jshint',
         'test-1-test',
-        'test-3-test.jshint',
         'test-3-test',
       ]);
     });
@@ -86,7 +75,6 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       testLoader.loadModules();
 
       expect(this.requiredModules).to.deep.equal([
-        'test-1-test.jshint',
         'test-1-test',
       ]);
     });
@@ -99,7 +87,6 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       testLoader.loadModules();
 
       expect(this.requiredModules).to.deep.equal([
-        'test-3-test.jshint',
         'test-3-test',
       ]);
     });
@@ -176,38 +163,6 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       expect(() => {
         testLoader.loadModules();
       }).to.throw(/You must specify partitions numbered greater than 0/);
-    });
-
-    it('load works without lint tests', function () {
-      const testLoader = new EmberExamTestLoader(
-        this.testem,
-        new Map().set('nolint', true).set('partition', 4).set('split', 4)
-      );
-      testLoader.loadModules();
-
-      // ember-cli-mocha doesn't support disabling linting by url param
-      expect(this.requiredModules).to.deep.equal([
-        'test-4-test.jshint',
-        'test-4-test',
-      ]);
-    });
-
-    it('load works without non-lint tests', function () {
-      const testLoader = new EmberExamTestLoader(
-        this.testem,
-        new Map().set('partition', 4).set('split', 4)
-      );
-
-      window.requirejs.entries = {
-        'test-1-test.jshint': true,
-        'test-2-test.jshint': true,
-        'test-3-test.jshint': true,
-        'test-4-test.jshint': true,
-      };
-
-      testLoader.loadModules();
-
-      expect(this.requiredModules).to.deep.equal(['test-4-test.jshint']);
     });
 
     it('load works with a double-digit single partition', function () {

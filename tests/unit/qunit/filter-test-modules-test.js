@@ -42,9 +42,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
         hooks.beforeEach(function () {
           this.modules = [
             'foo-test',
-            'foo-test.jshint',
             'bar-test',
-            'bar-test.jshint',
           ];
         });
 
@@ -52,10 +50,10 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
           this.modules = [];
         });
 
-        test('should return a list of jshint tests', function (assert) {
+        test('should return a list of filtered tests', function (assert) {
           assert.deepEqual(
-            ['foo-test.jshint', 'bar-test.jshint'],
-            filterTestModules(this.modules, 'jshint')
+            ['foo-test'],
+            filterTestModules(this.modules, 'foo')
           );
         });
 
@@ -68,28 +66,28 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
 
         test('should return a list of tests matched with a regular expression', function (assert) {
           assert.deepEqual(
-            ['foo-test.jshint', 'bar-test.jshint'],
-            filterTestModules(this.modules, '/jshint/')
+            ['foo-test'],
+            filterTestModules(this.modules, '/foo/')
           );
         });
 
-        test('should return a list of tests matched with a regular expression that excluse jshint', function (assert) {
+        test('should return a list of tests matched with a regular expression that excluse foo', function (assert) {
           assert.deepEqual(
-            ['foo-test', 'bar-test'],
-            filterTestModules(this.modules, '!/jshint/')
+            ['bar-test'],
+            filterTestModules(this.modules, '!/foo/')
           );
         });
 
         test('should return a list of tests matches with a list of string options', function (assert) {
           assert.deepEqual(
-            ['foo-test', 'foo-test.jshint', 'bar-test', 'bar-test.jshint'],
+            ['foo-test', 'bar-test'],
             filterTestModules(this.modules, 'foo, bar')
           );
         });
 
         test('should return a list of unique tests matches when options are repeated', function (assert) {
           assert.deepEqual(
-            ['foo-test', 'foo-test.jshint'],
+            ['foo-test'],
             filterTestModules(this.modules, 'foo, foo')
           );
         });

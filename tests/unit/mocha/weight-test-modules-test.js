@@ -12,7 +12,6 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
   describe('Unit | Mocha | weight-test-modules', () => {
     it('should sort a list of file paths by weight', function () {
       const listOfModules = [
-        '/eslint/test-1-test',
         '/acceptance/test-1-test',
         '/unit/test-1-test',
         '/integration/test-1-test',
@@ -24,7 +23,6 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         'test-1-test',
         '/integration/test-1-test',
         '/unit/test-1-test',
-        '/eslint/test-1-test',
       ]);
     });
 
@@ -32,14 +30,12 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       const listOfModules = [
         'test-b-test',
         'test-a-test',
-        '/eslint/test-b-test',
         '/integration/test-b-test',
         '/integration/test-a-test',
         '/unit/test-b-test',
         '/acceptance/test-b-test',
         '/acceptance/test-a-test',
         '/unit/test-a-test',
-        '/eslint/test-a-test',
       ];
 
       expect(weightTestModules(listOfModules)).to.deep.equal([
@@ -51,8 +47,6 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         '/integration/test-b-test',
         '/unit/test-a-test',
         '/unit/test-b-test',
-        '/eslint/test-a-test',
-        '/eslint/test-b-test',
       ]);
     });
   });

@@ -11,7 +11,6 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
   module('Unit | Qunit | weight-test-modules', () => {
     test('should sort a list of file paths by weight', function (assert) {
       const listOfModules = [
-        '/eslint/test-1-test',
         '/acceptance/test-1-test',
         '/unit/test-1-test',
         '/integration/test-1-test',
@@ -24,9 +23,8 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
           'test-1-test',
           '/integration/test-1-test',
           '/unit/test-1-test',
-          '/eslint/test-1-test',
         ],
-        weightTestModules(listOfModules)
+        weightTestModules(listOfModules),
       );
     });
 
@@ -34,14 +32,12 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
       const listOfModules = [
         'test-b-test',
         'test-a-test',
-        '/eslint/test-b-test',
         '/integration/test-b-test',
         '/integration/test-a-test',
         '/unit/test-b-test',
         '/acceptance/test-b-test',
         '/acceptance/test-a-test',
         '/unit/test-a-test',
-        '/eslint/test-a-test',
       ];
 
       assert.deepEqual(
@@ -54,10 +50,8 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
           '/integration/test-b-test',
           '/unit/test-a-test',
           '/unit/test-b-test',
-          '/eslint/test-a-test',
-          '/eslint/test-b-test',
         ],
-        weightTestModules(listOfModules)
+        weightTestModules(listOfModules),
       );
     });
   });

@@ -39,9 +39,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       beforeEach(() => {
         modules = [
           'foo-test',
-          'foo-test.jshint',
           'bar-test',
-          'bar-test.jshint',
         ];
       });
 
@@ -49,11 +47,8 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         modules = [];
       });
 
-      it('should return a list of jshint tests', () => {
-        expect(filterTestModules(modules, 'jshint')).to.deep.equal([
-          'foo-test.jshint',
-          'bar-test.jshint',
-        ]);
+      it('should return a list of filtered tests', () => {
+        expect(filterTestModules(modules, 'foo')).to.deep.equal(['foo-test']);
       });
 
       it('should return an empty list when there is no match', () => {
@@ -63,33 +58,22 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
       });
 
       it('should return a list of tests matched with a regular expression', () => {
-        expect(filterTestModules(modules, '/jshint/')).to.deep.equal([
-          'foo-test.jshint',
-          'bar-test.jshint',
-        ]);
+        expect(filterTestModules(modules, '/foo/')).to.deep.equal(['foo-test']);
       });
 
-      it('should return a list of tests matched with a regular expression that excluses jshint', () => {
-        expect(filterTestModules(modules, '!/jshint/')).to.deep.equal([
-          'foo-test',
-          'bar-test',
-        ]);
+      it('should return a list of tests matched with a regular expression that excluses foo', () => {
+        expect(filterTestModules(modules, '!/foo/')).to.deep.equal(['bar-test']);
       });
 
       it('should return a list of tests matches with a list of string options', () => {
         expect(filterTestModules(modules, 'foo, bar')).to.deep.equal([
           'foo-test',
-          'foo-test.jshint',
           'bar-test',
-          'bar-test.jshint',
         ]);
       });
 
       it('should return a list of unique tests matches when options are repeated', () => {
-        expect(filterTestModules(modules, 'foo, foo')).to.deep.equal([
-          'foo-test',
-          'foo-test.jshint',
-        ]);
+        expect(filterTestModules(modules, 'foo, foo')).to.deep.equal(['foo-test']);
       });
     });
 

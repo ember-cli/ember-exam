@@ -8,23 +8,14 @@ function createGroups(num) {
   return groups;
 }
 
-function filterIntoGroups(arr, filter, numGroups) {
-  const filtered = arr.filter(filter);
+function splitIntoGroups(arr, numGroups) {
   const groups = createGroups(numGroups);
 
-  for (let i = 0; i < filtered.length; i++) {
-    groups[i % numGroups].push(filtered[i]);
+  for (let i = 0; i < arr.length; i++) {
+    groups[i % numGroups].push(arr[i]);
   }
 
   return groups;
-}
-
-function isLintTest(name) {
-  return name.match(/\.(jshint|(es)?lint-test)$/);
-}
-
-function isNotLintTest(name) {
-  return !isLintTest(name);
 }
 
 /**
@@ -43,8 +34,7 @@ export default function splitTestModules(modules, split, partitions) {
     throw new Error('You must specify a split greater than 0');
   }
 
-  const lintTestGroups = filterIntoGroups(modules, isLintTest, split);
-  const otherTestGroups = filterIntoGroups(modules, isNotLintTest, split);
+  const testGroups = splitIntoGroups(modules, split);
   const tests = [];
 
   for (let i = 0; i < partitions.length; i++) {
@@ -67,7 +57,7 @@ export default function splitTestModules(modules, split, partitions) {
     }
 
     const group = partition - 1;
-    tests.push(...lintTestGroups[group], ...otherTestGroups[group]);
+    tests.push(...testGroups[group]);
   }
 
   return tests;

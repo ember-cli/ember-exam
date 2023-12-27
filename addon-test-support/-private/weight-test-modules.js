@@ -1,15 +1,14 @@
 const TEST_TYPE_WEIGHT = {
-  eslint: 1,
   unit: 10,
   integration: 20,
   acceptance: 150,
 };
-const WEIGHT_REGEX = /\/(eslint|unit|integration|acceptance)\//;
+const WEIGHT_REGEX = /\/(unit|integration|acceptance)\//;
 const DEFAULT_WEIGHT = 50;
 
 /**
  * Return the weight for a given module name, a file path to the module
- * Ember tests consist of Acceptance, Integration, Unit, and lint tests. In general, acceptance takes
+ * Ember tests consist of Acceptance, Integration, and Unit tests. In general, acceptance takes
  * longest time to execute, followed by integration and unit.
  * The weight assigned to a module corresponds to its test type execution speed, with slowest being the highest in weight.
  * If the test type is not identifiable from the modulePath, weight default to 50 (ordered after acceptance, but before integration)

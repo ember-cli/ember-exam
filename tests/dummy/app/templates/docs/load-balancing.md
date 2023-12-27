@@ -4,7 +4,7 @@
 ember exam --parallel=<num> --load-balance
 ```
 
-The `load-balance` option allows you to load balance test files against multiple browsers. It will order the test files by test types, e.g. acceptance | integration | unit | eslint, and load balance the ordered test files between the browsers dynamically rather than statically.
+The `load-balance` option allows you to load balance test files against multiple browsers. It will order the test files by test types, e.g. acceptance | integration | unit, and load balance the ordered test files between the browsers dynamically rather than statically.
 **Note:** parallel must be used along with load-balance to specify a number of browser(s)
 
 The `load-balance` option was added to version 1.1 to address execution performance when running against a large test suite.
