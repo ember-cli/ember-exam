@@ -73,41 +73,9 @@ module.exports = async function () {
           },
         },
       },
-      {
-        name: 'ember-default-with-jquery',
-        env: {
-          EMBER_OPTIONAL_FEATURES: JSON.stringify({
-            'jquery-integration': true,
-          }),
-        },
-        npm: {
-          devDependencies: {
-            '@ember/jquery': '^0.5.1',
-            'ember-source': '^3.28.0',
-          },
-        },
-      },
       mochaScenario({
         name: 'ember-default-with-mocha',
       }),
-      {
-        name: 'ember-classic',
-        env: {
-          EMBER_OPTIONAL_FEATURES: JSON.stringify({
-            'application-template-wrapper': true,
-            'default-async-observers': false,
-            'template-only-glimmer-components': false,
-          }),
-        },
-        npm: {
-          devDependencies: {
-            'ember-source': '^3.28.0',
-          },
-          ember: {
-            edition: 'classic',
-          },
-        },
-      },
       embroiderSafe(),
       embroiderSafe(
         mochaScenario({
