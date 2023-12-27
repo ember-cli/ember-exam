@@ -6,11 +6,16 @@ const mergeWith = require('lodash.mergewith');
 
 function mochaScenario(scenario = {}) {
   return mergeWith({}, scenario, {
-    devDependencies: {
-      'chai-dom': '*',
-      'ember-cli-chai': '*',
-      'ember-mocha': '*',
-      'ember-qunit': null,
+    npm: {
+      devDependencies: {
+        'chai-dom': '*',
+        'ember-cli-chai': '*',
+        'ember-mocha': '*',
+        'ember-qunit': null,
+      },
+      peerDependencies: {
+        'ember-qunit': null,
+      }
     },
   });
 }
