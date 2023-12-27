@@ -15,6 +15,7 @@ The [documentation website](https://ember-cli.github.io/ember-exam/) contains ex
 
 ## Table of Contents
 
+- [Compatibility](#compatibility)
 - [Installation](#installation)
 - [How To Use](#how-to-use)
   * [Version < `3.0.0`](#version--300)
@@ -29,6 +30,11 @@ The [documentation website](https://ember-cli.github.io/ember-exam/) contains ex
   * [Ember Try & CI Integration](#ember-try--ci-integration)
   * [Test Suite Segmentation](#test-suite-segmentation)
 
+## Compatibility
+
+* Ember.js v4.8 or above
+* Ember CLI v4.8 or above
+* Node.js v18 or above
 
 ## Installation
 
@@ -386,7 +392,7 @@ ok 1 Chrome 66.0 - Exam Partition 1 - browser Id 1 - some test
 ok 2 Chrome 66.0 - Exam Partition 1 - browser Id 2 - another test
 ok 3 Chrome 66.0 - Exam Partition 1 - browser Id 3 - some the other test
 ```
-However, if you change the amount of parallelization, or randomize across partitions, the output will change for the same test, which may be an issue if you are tracking test insights over time. 
+However, if you change the amount of parallelization, or randomize across partitions, the output will change for the same test, which may be an issue if you are tracking test insights over time.
 
 ```bash
 # ember exam --split=2 --partition=1 --parallel=2 --load-balance
