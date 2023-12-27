@@ -18,20 +18,20 @@ describe('Acceptance | Exam Iterate Command', function () {
       const stdout = child.stdout;
       assert.ok(
         stdout.includes('Building app for test iterations.'),
-        'Logged building message from command'
+        'Logged building message from command',
       );
       assert.ok(
         stdout.includes('Built project successfully.'),
-        'Built successfully according to Ember-CLI'
+        'Built successfully according to Ember-CLI',
       );
 
       assert.ok(
         stdout.includes('Running iteration #1.'),
-        'Logs first iteration'
+        'Logs first iteration',
       );
       assert.ok(
         stdout.includes('Running iteration #2.'),
-        'Logs second iteration'
+        'Logs second iteration',
       );
 
       const seedRE = /Randomizing tests with seed: (.*)/g;
@@ -44,16 +44,16 @@ describe('Acceptance | Exam Iterate Command', function () {
       assert.notEqual(
         firstSeed,
         secondSeed,
-        'the first and second seeds are not the same'
+        'the first and second seeds are not the same',
       );
 
       assert.ok(
         stdout.includes('Cleaning up test iterations.'),
-        'Logged cleaning up message from command'
+        'Logged cleaning up message from command',
       );
       assert.throws(
         () => fs.accessSync('iteration-dist', fs.F_OK),
-        'iteration-dist is cleaned up'
+        'iteration-dist is cleaned up',
       );
     });
   });
@@ -71,7 +71,7 @@ describe('Acceptance | Exam Iterate Command', function () {
 
       assert.ok(
         splitErrorRE.test(error.stderr),
-        'expected stderr to contain the appropriate error message'
+        'expected stderr to contain the appropriate error message',
       );
       assert.strictEqual(error.exitCode, 1);
       assert.strictEqual(error.failed, true);
@@ -93,20 +93,20 @@ describe('Acceptance | Exam Iterate Command', function () {
 
           assert.ok(
             !stdout.includes('Building app for test iterations.'),
-            'No logged building message from command'
+            'No logged building message from command',
           );
           assert.ok(
             !stdout.includes('Built project successfully.'),
-            'Not built successfully according to Ember-CLI'
+            'Not built successfully according to Ember-CLI',
           );
 
           assert.ok(
             stdout.includes('Running iteration #1.'),
-            'Logs first iteration'
+            'Logs first iteration',
           );
           assert.ok(
             stdout.includes('Running iteration #2.'),
-            'Logs second iteration'
+            'Logs second iteration',
           );
 
           const seedRE = /Randomizing tests with seed: (.*)/g;
@@ -119,23 +119,23 @@ describe('Acceptance | Exam Iterate Command', function () {
           assert.notEqual(
             firstSeed,
             secondSeed,
-            'the first and second seeds are not the same'
+            'the first and second seeds are not the same',
           );
 
           assert.ok(
             !stdout.includes('Cleaning up test iterations.'),
-            'No logged cleaning up message from command'
+            'No logged cleaning up message from command',
           );
           assert.throws(
             () => fs.accessSync('iteration-dist', fs.F_OK),
-            'iteration-dist is non-existent'
+            'iteration-dist is non-existent',
           );
 
           assert.doesNotThrow(
             () => fs.accessSync(buildDir, fs.F_OK),
-            'dist is not cleaned up'
+            'dist is not cleaned up',
           );
-        }
+        },
       );
     });
   });
@@ -147,7 +147,7 @@ describe('Acceptance | Exam Iterate Command', function () {
       '..',
       'tests',
       'unit',
-      'failing-test.js'
+      'failing-test.js',
     );
 
     beforeEach(function () {
@@ -155,7 +155,7 @@ describe('Acceptance | Exam Iterate Command', function () {
         __dirname,
         '..',
         'fixtures',
-        'failure.js'
+        'failure.js',
       );
       fs.copySync(failingTestPath, destPath);
     });
@@ -170,7 +170,7 @@ describe('Acceptance | Exam Iterate Command', function () {
         (error) => {
           assert.strictEqual(error.exitCode, 1);
           assert.strictEqual(error.killed, false);
-        }
+        },
       );
     });
   });

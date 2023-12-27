@@ -45,19 +45,17 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
     it('loads modules from a specified partition', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
-        new Map().set('partition', 3).set('split', 4)
+        new Map().set('partition', 3).set('split', 4),
       );
       testLoader.loadModules();
 
-      expect(this.requiredModules).to.deep.equal([
-        'test-3-test',
-      ]);
+      expect(this.requiredModules).to.deep.equal(['test-3-test']);
     });
 
     it('loads modules from multiple specified partitions', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
-        new Map().set('partition', [1, 3]).set('split', 4)
+        new Map().set('partition', [1, 3]).set('split', 4),
       );
       testLoader.loadModules();
 
@@ -70,31 +68,27 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
     it('loads modules from the first partition by default', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
-        new Map().set('split', 4)
+        new Map().set('split', 4),
       );
       testLoader.loadModules();
 
-      expect(this.requiredModules).to.deep.equal([
-        'test-1-test',
-      ]);
+      expect(this.requiredModules).to.deep.equal(['test-1-test']);
     });
 
     it('handles params as strings', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
-        new Map().set('partition', '3').set('split', '4')
+        new Map().set('partition', '3').set('split', '4'),
       );
       testLoader.loadModules();
 
-      expect(this.requiredModules).to.deep.equal([
-        'test-3-test',
-      ]);
+      expect(this.requiredModules).to.deep.equal(['test-3-test']);
     });
 
     it('throws an error if splitting less than one', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
-        new Map().set('split', 0)
+        new Map().set('split', 0),
       );
 
       expect(() => {
@@ -105,59 +99,59 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
     it("throws an error if partition isn't a number", function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
-        new Map().set('split', 2).set('partition', 'foo')
+        new Map().set('split', 2).set('partition', 'foo'),
       );
 
       expect(() => {
         testLoader.loadModules();
       }).to.throw(
-        /You must specify numbers for partition \(you specified 'foo'\)/
+        /You must specify numbers for partition \(you specified 'foo'\)/,
       );
     });
 
     it("throws an error if partition isn't a number with multiple partitions", function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
-        new Map().set('split', 2).set('partition', [1, 'foo'])
+        new Map().set('split', 2).set('partition', [1, 'foo']),
       );
 
       expect(() => {
         testLoader.loadModules();
       }).to.throw(
-        /You must specify numbers for partition \(you specified '1,foo'\)/
+        /You must specify numbers for partition \(you specified '1,foo'\)/,
       );
     });
 
     it('throws an error if loading partition greater than split number', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
-        new Map().set('split', 2).set('partition', 3)
+        new Map().set('split', 2).set('partition', 3),
       );
 
       expect(() => {
         testLoader.loadModules();
       }).to.throw(
-        /You must specify partitions numbered less than or equal to your split value/
+        /You must specify partitions numbered less than or equal to your split value/,
       );
     });
 
     it('throws an error if loading partition greater than split number with multiple partitions', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
-        new Map().set('split', 2).set('partition', [2, 3])
+        new Map().set('split', 2).set('partition', [2, 3]),
       );
 
       expect(() => {
         testLoader.loadModules();
       }).to.throw(
-        /You must specify partitions numbered less than or equal to your split value/
+        /You must specify partitions numbered less than or equal to your split value/,
       );
     });
 
     it('throws an error if loading partition less than one', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
-        new Map().set('split', 2).set('partition', 0)
+        new Map().set('split', 2).set('partition', 0),
       );
 
       expect(() => {
@@ -168,7 +162,7 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
     it('load works with a double-digit single partition', function () {
       const testLoader = new EmberExamTestLoader(
         this.testem,
-        new Map().set('partition', '10').set('split', 10)
+        new Map().set('partition', '10').set('split', 10),
       );
 
       window.requirejs.entries = {

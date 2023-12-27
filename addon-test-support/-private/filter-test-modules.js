@@ -41,7 +41,7 @@ function wildcardFilter(module, moduleFilter) {
 function stringFilter(modules, moduleFilter) {
   return modules.filter(
     (module) =>
-      module.includes(moduleFilter) || wildcardFilter(module, moduleFilter)
+      module.includes(moduleFilter) || wildcardFilter(module, moduleFilter),
   );
 }
 
@@ -57,7 +57,7 @@ function regexFilter(modules, modulePathRegexFilter) {
   const exclude = modulePathRegexFilter[1];
 
   return modules.filter(
-    (module) => (!exclude && re.test(module)) || (exclude && !re.test(module))
+    (module) => (!exclude && re.test(module)) || (exclude && !re.test(module)),
   );
 }
 
@@ -98,21 +98,21 @@ function filterTestModules(modules, modulePath, filePath) {
     if (modulePathRegex) {
       return result.concat(
         regexFilter(modules, modulePathRegex).filter(
-          (module) => result.indexOf(module) === -1
-        )
+          (module) => result.indexOf(module) === -1,
+        ),
       );
     } else {
       return result.concat(
         stringFilter(modules, modulePath).filter(
-          (module) => result.indexOf(module) === -1
-        )
+          (module) => result.indexOf(module) === -1,
+        ),
       );
     }
   }, []);
 
   if (filteredTestModules.length === 0) {
     throw new Error(
-      `No tests matched with the filter: ${modulePath || filePath}.`
+      `No tests matched with the filter: ${modulePath || filePath}.`,
     );
   }
   return filteredTestModules;

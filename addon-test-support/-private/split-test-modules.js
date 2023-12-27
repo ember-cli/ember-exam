@@ -43,14 +43,14 @@ export default function splitTestModules(modules, split, partitions) {
       throw new Error(
         "You must specify numbers for partition (you specified '" +
           partitions +
-          "')"
+          "')",
       );
     }
 
     if (split < partition) {
       throw new Error(
         'You must specify partitions numbered less than or equal to your split value of ' +
-          split
+          split,
       );
     } else if (partition < 1) {
       throw new Error('You must specify partitions numbered greater than 0');

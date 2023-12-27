@@ -6,7 +6,7 @@ import start from 'ember-exam/test-support/start';
 import { macroCondition, dependencySatisfies } from '@embroider/macros';
 
 const oppositeFramework = macroCondition(
-  dependencySatisfies('ember-qunit', '*')
+  dependencySatisfies('ember-qunit', '*'),
 )
   ? 'mocha'
   : 'qunit';

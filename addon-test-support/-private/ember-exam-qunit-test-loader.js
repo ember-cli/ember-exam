@@ -82,7 +82,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
       this._testModules = filterTestModules(
         this._testModules,
         modulePath,
-        filePath
+        filePath,
       );
     }
 
@@ -91,18 +91,18 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
       this._testModules = splitTestModules(
         weightTestModules(this._testModules),
         split,
-        partitions
+        partitions,
       );
       this._testem.emit(
         'testem:set-modules-queue',
         this._testModules,
-        browserId
+        browserId,
       );
     } else {
       this._testModules = splitTestModules(
         this._testModules,
         split,
-        partitions
+        partitions,
       );
       this._testModules.forEach((moduleName) => {
         super.require(moduleName);
@@ -120,7 +120,7 @@ export default class EmberExamQUnitTestLoader extends TestLoader {
   loadIndividualModule(moduleName) {
     if (moduleName === undefined) {
       throw new Error(
-        'Failed to load a test module. `moduleName` is undefined in `loadIndividualModule`.'
+        'Failed to load a test module. `moduleName` is undefined in `loadIndividualModule`.',
       );
     }
     super.require(moduleName);

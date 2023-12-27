@@ -91,7 +91,7 @@ describe('ExamCommand', function () {
       return command.run({ split: 2, partition: [1, 2] }).then(function () {
         assert.strictEqual(
           called.testRunOptions.query,
-          'split=2&partition=1&partition=2'
+          'split=2&partition=1&partition=2',
         );
       });
     });
@@ -102,7 +102,7 @@ describe('ExamCommand', function () {
         .then(function () {
           assert.strictEqual(
             called.testRunOptions.query,
-            'someQuery=derp&hidepassed&split=2&partition=2'
+            'someQuery=derp&hidepassed&split=2&partition=2',
           );
         });
     });
@@ -133,7 +133,7 @@ describe('ExamCommand', function () {
         .then(function () {
           assert.strictEqual(
             called.testRunOptions.query,
-            'someQuery=derp&hidepassed&seed=1337'
+            'someQuery=derp&hidepassed&seed=1337',
           );
         });
     });

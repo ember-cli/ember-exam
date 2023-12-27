@@ -50,7 +50,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map(),
-      this.qunit
+      this.qunit,
     );
     testLoader.loadModules();
 
@@ -67,7 +67,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       undefinedTestem,
       new Map(),
-      this.qunit
+      this.qunit,
     );
     testLoader.loadModules();
 
@@ -83,60 +83,51 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('partition', 3).set('split', 4),
-      this.qunit
+      this.qunit,
     );
     testLoader.loadModules();
 
-    assert.deepEqual(this.requiredModules, [
-      'test-3-test',
-    ]);
+    assert.deepEqual(this.requiredModules, ['test-3-test']);
   });
 
   test('loads modules from multiple specified partitions', function (assert) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('partition', [1, 3]).set('split', 4),
-      this.qunit
+      this.qunit,
     );
     testLoader.loadModules();
 
-    assert.deepEqual(this.requiredModules, [
-      'test-1-test',
-      'test-3-test',
-    ]);
+    assert.deepEqual(this.requiredModules, ['test-1-test', 'test-3-test']);
   });
 
   test('loads modules from the first partition by default', function (assert) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 4),
-      this.qunit
+      this.qunit,
     );
     testLoader.loadModules();
 
-    assert.deepEqual(this.requiredModules, [
-      'test-1-test',
-    ]);
+    assert.deepEqual(this.requiredModules, ['test-1-test']);
   });
 
   test('handles params as strings', function (assert) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('partition', 3).set('split', 4),
-      this.qunit
+      this.qunit,
     );
     testLoader.loadModules();
 
-    assert.deepEqual(this.requiredModules, [
-      'test-3-test',
-    ]);
+    assert.deepEqual(this.requiredModules, ['test-3-test']);
   });
 
   test('throws an error if splitting less than one', function (assert) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 0),
-      this.qunit
+      this.qunit,
     );
 
     assert.throws(() => {
@@ -148,7 +139,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 2).set('partition', 'foo'),
-      this.qunit
+      this.qunit,
     );
 
     assert.throws(() => {
@@ -160,7 +151,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 2).set('partition', [1, 'foo']),
-      this.qunit
+      this.qunit,
     );
 
     assert.throws(() => {
@@ -172,7 +163,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 2).set('partition', 3),
-      this.qunit
+      this.qunit,
     );
 
     assert.throws(() => {
@@ -184,7 +175,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 2).set('partition', [2, 3]),
-      this.qunit
+      this.qunit,
     );
 
     assert.throws(() => {
@@ -196,7 +187,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 2).set('partition', 0),
-      this.qunit
+      this.qunit,
     );
 
     assert.throws(() => {
@@ -221,7 +212,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('partition', '10').set('split', 10),
-      this.qunit
+      this.qunit,
     );
 
     testLoader.loadModules();
@@ -233,7 +224,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('loadBalance', true),
-      this.qunit
+      this.qunit,
     );
 
     testLoader.loadModules();
@@ -241,7 +232,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     assert.deepEqual(
       this.testem.eventQueue,
       ['testem:set-modules-queue'],
-      'testem:set-modules-queue event was fired'
+      'testem:set-modules-queue event was fired',
     );
   });
 }

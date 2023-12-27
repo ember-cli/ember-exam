@@ -36,7 +36,7 @@ describe('TestOptionsValidator', function () {
     const validator = new TestOptionsValidator(
       options,
       options.framework,
-      emberCliVer
+      emberCliVer,
     );
     assert.throws(() => validateCommand(validator, cmd), message);
   }
@@ -45,7 +45,7 @@ describe('TestOptionsValidator', function () {
     const validator = new TestOptionsValidator(
       options,
       options.framework,
-      emberCliVer
+      emberCliVer,
     );
     assert.strictEqual(validateCommand(validator, cmd), value);
   }
@@ -63,7 +63,7 @@ describe('TestOptionsValidator', function () {
     const validator = new TestOptionsValidator(
       options,
       options.framework,
-      emberCliVer
+      emberCliVer,
     );
     assert.notEqual(validateCommand(validator, cmd), undefined);
     assert.strictEqual(warnCalled, 1);
@@ -86,35 +86,35 @@ describe('TestOptionsValidator', function () {
       shouldWarn(
         'Split',
         { split: 1 },
-        'You should specify a number of files greater than 1 to split your tests across. Defaulting to 1 split which is the same as not using `split`.'
+        'You should specify a number of files greater than 1 to split your tests across. Defaulting to 1 split which is the same as not using `split`.',
       );
     });
 
     it('should throw an error if `partition` is used without `split`', function () {
       shouldSplitThrows(
         { partition: [1] },
-        /You must specify a `split` value in order to use `partition`/
+        /You must specify a `split` value in order to use `partition`/,
       );
     });
 
     it('should throw an error if `partition` contains a value less than 1', function () {
       shouldSplitThrows(
         { split: 2, partition: [1, 0] },
-        /Split tests are one-indexed, so you must specify partition values greater than or equal to 1./
+        /Split tests are one-indexed, so you must specify partition values greater than or equal to 1./,
       );
     });
 
     it('should throw an error if `partition` contains a value greater than `split`', function () {
       shouldSplitThrows(
         { split: 2, partition: [1, 3] },
-        /You must specify `partition` values that are less than or equal to your `split` value./
+        /You must specify `partition` values that are less than or equal to your `split` value./,
       );
     });
 
     it('should throw an error if `partition` contains duplicate values', function () {
       shouldSplitThrows(
         { split: 2, partition: [1, 2, 1] },
-        /You cannot specify the same partition value twice. 1 is repeated./
+        /You cannot specify the same partition value twice. 1 is repeated./,
       );
     });
 
@@ -156,7 +156,7 @@ describe('TestOptionsValidator', function () {
       shouldWarn(
         'Random',
         { random: '', framework: 'mocha' },
-        'Mocha does not currently support randomizing test order, so tests will run in normal order. Please see https://github.com/mochajs/mocha/issues/902 for more info.'
+        'Mocha does not currently support randomizing test order, so tests will run in normal order. Please see https://github.com/mochajs/mocha/issues/902 for more info.',
       );
     });
   });
@@ -166,7 +166,7 @@ describe('TestOptionsValidator', function () {
       shouldThrow(
         'Parallel',
         { parallel: '--reporter' },
-        /EmberExam: You must specify a Numeric value to 'parallel'. Value passed: --reporter/
+        /EmberExam: You must specify a Numeric value to 'parallel'. Value passed: --reporter/,
       );
     });
 
@@ -174,7 +174,7 @@ describe('TestOptionsValidator', function () {
       shouldThrow(
         'Parallel',
         { parallel: 1 },
-        /You must specify the `split` option in order to run your tests in parallel/
+        /You must specify the `split` option in order to run your tests in parallel/,
       );
     });
 
@@ -182,7 +182,7 @@ describe('TestOptionsValidator', function () {
       shouldThrow(
         'Parallel',
         { replayExecution: 'abc', parallel: 1 },
-        /You must not use the `replay-execution` option with the `parallel` option./
+        /You must not use the `replay-execution` option with the `parallel` option./,
       );
     });
 
@@ -190,7 +190,7 @@ describe('TestOptionsValidator', function () {
       shouldThrow(
         'Parallel',
         { replayBrowser: 2, parallel: 1 },
-        /You must not use the `replay-browser` option with the `parallel` option./
+        /You must not use the `replay-browser` option with the `parallel` option./,
       );
     });
 
@@ -198,7 +198,7 @@ describe('TestOptionsValidator', function () {
       shouldThrow(
         'Parallel',
         { split: 2, parallel: 2 },
-        /When used with `split` or `partition`, `parallel` does not accept a value other than 1./
+        /When used with `split` or `partition`, `parallel` does not accept a value other than 1./,
       );
     });
 
@@ -206,7 +206,7 @@ describe('TestOptionsValidator', function () {
       shouldThrow(
         'Parallel',
         { loadBalance: 2, parallel: 0 },
-        /You must specify a value greater than 1 to `parallel`./
+        /You must specify a value greater than 1 to `parallel`./,
       );
     });
 
@@ -224,7 +224,7 @@ describe('TestOptionsValidator', function () {
           parallel: 2,
           launch: 'false',
         },
-        false
+        false,
       );
     });
 
@@ -232,7 +232,7 @@ describe('TestOptionsValidator', function () {
       shouldThrow(
         'writeExecutionFile',
         { writeExecutionFile: true },
-        /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./
+        /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./,
       );
     });
 
@@ -244,7 +244,7 @@ describe('TestOptionsValidator', function () {
           partition: 1,
           writeExecutionFile: true,
         },
-        /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./
+        /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./,
       );
     });
 
@@ -256,7 +256,7 @@ describe('TestOptionsValidator', function () {
           replayBrowser: [1, 2],
           writeExecutionFile: true,
         },
-        /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./
+        /You must run test suite with the `load-balance` option in order to use the `write-execution-file` option./,
       );
     });
 
@@ -269,7 +269,7 @@ describe('TestOptionsValidator', function () {
           launch: 'false',
           writeExecutionFile: true,
         },
-        /You must not use no-launch with write-execution-file option./
+        /You must not use no-launch with write-execution-file option./,
       );
     });
 
@@ -281,7 +281,7 @@ describe('TestOptionsValidator', function () {
           parallel: 2,
           writeExecutionFile: true,
         },
-        true
+        true,
       );
     });
   });
@@ -292,7 +292,7 @@ describe('TestOptionsValidator', function () {
         'LoadBalance',
         { loadBalance: true, replayExecution: 'abc' },
         /You must be using ember-cli version \^3.2.0 for this feature to work properly./,
-        '3.0.0'
+        '3.0.0',
       );
     });
 
@@ -301,7 +301,7 @@ describe('TestOptionsValidator', function () {
         'LoadBalance',
         { loadBalance: true, replayExecution: 'abc' },
         /You must be using ember-cli version \^3.2.0 for this feature to work properly./,
-        '~3.1.0'
+        '~3.1.0',
       );
     });
 
@@ -309,7 +309,7 @@ describe('TestOptionsValidator', function () {
       shouldThrow(
         'LoadBalance',
         { loadBalance: true, replayExecution: 'abc' },
-        /You must not use the `replay-execution` option with the `load-balance` option./
+        /You must not use the `replay-execution` option with the `load-balance` option./,
       );
     });
 
@@ -317,7 +317,7 @@ describe('TestOptionsValidator', function () {
       shouldThrow(
         'LoadBalance',
         { loadBalance: true, replayBrowser: 3 },
-        /You must not use the `replay-browser` option with the `load-balance` option./
+        /You must not use the `replay-browser` option with the `load-balance` option./,
       );
     });
 
@@ -325,7 +325,7 @@ describe('TestOptionsValidator', function () {
       shouldThrow(
         'LoadBalance',
         { loadBalance: true },
-        /You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`./
+        /You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`./,
       );
     });
 
@@ -333,7 +333,7 @@ describe('TestOptionsValidator', function () {
       shouldThrow(
         'LoadBalance',
         { loadBalance: true, parallel: 0 },
-        /You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`./
+        /You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`./,
       );
     });
 
@@ -341,7 +341,7 @@ describe('TestOptionsValidator', function () {
       shouldThrow(
         'LoadBalance',
         { loadBalance: true, parallel: 0, launch: 'false' },
-        /You must not use `no-launch` option with the `load-balance` option./
+        /You must not use `no-launch` option with the `load-balance` option./,
       );
     });
 
@@ -367,7 +367,7 @@ describe('TestOptionsValidator', function () {
           replayExecution: 'test-execution-0000000.json',
           replayBrowser: [1, 0],
         },
-        /You must specify replay-browser values greater than or equal to 1./
+        /You must specify replay-browser values greater than or equal to 1./,
       );
     });
 
@@ -378,7 +378,7 @@ describe('TestOptionsValidator', function () {
           replayExecution: 'test-execution-0000000.json',
           replayBrowser: [1, 2, 1],
         },
-        /You cannot specify the same replayBrowser value twice. 1 is repeated./
+        /You cannot specify the same replayBrowser value twice. 1 is repeated./,
       );
     });
 
@@ -389,7 +389,7 @@ describe('TestOptionsValidator', function () {
           replayExecution: 'test-execution-0000000.json',
           replayBrowser: [3, 1],
         },
-        /You must specify replayBrowser value smaller than a number of browsers in the specified json file./
+        /You must specify replayBrowser value smaller than a number of browsers in the specified json file./,
       );
     });
 
@@ -400,7 +400,7 @@ describe('TestOptionsValidator', function () {
           replayExecution: 'test-execution-0000000.json',
           launch: 'false',
         },
-        /You must not use `no-launch` option with the `replay-execution` option./
+        /You must not use `no-launch` option with the `replay-execution` option./,
       );
     });
 
@@ -411,7 +411,7 @@ describe('TestOptionsValidator', function () {
           replayExecution: 'test-execution-0000000.json',
           replayBrowser: [1, 2],
         },
-        true
+        true,
       );
     });
   });

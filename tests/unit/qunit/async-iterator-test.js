@@ -182,9 +182,9 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
       (err) => {
         assert.deepEqual(
           err.message,
-          'EmberExam: Promise timed out after 2 s while waiting for response for next-module-request'
+          'EmberExam: Promise timed out after 2 s while waiting for response for next-module-request',
         );
-      }
+      },
     );
   });
 
@@ -196,7 +196,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
 
     assert.throws(
       () => iteratorOfPromises.handleResponse({}),
-      /Was not expecting a response, but got a response/
+      /Was not expecting a response, but got a response/,
     );
   });
 }

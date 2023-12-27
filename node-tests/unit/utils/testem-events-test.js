@@ -39,7 +39,7 @@ describe('TestemEvents', function () {
 
       assert.deepEqual(
         this.testemEvents.stateManager.getTestModuleQueue(),
-        this.moduleQueue
+        this.moduleQueue,
       );
     });
 
@@ -50,7 +50,7 @@ describe('TestemEvents', function () {
 
       assert.deepEqual(
         this.testemEvents.stateManager.getTestModuleQueue(),
-        this.moduleQueue
+        this.moduleQueue,
       );
     });
 
@@ -60,7 +60,7 @@ describe('TestemEvents', function () {
 
       assert.deepEqual(
         this.testemEvents.stateManager.getReplayExecutionModuleQueue('1'),
-        testExecutionJson.executionMapping['1']
+        testExecutionJson.executionMapping['1'],
       );
     });
 
@@ -70,7 +70,7 @@ describe('TestemEvents', function () {
 
       assert.deepEqual(
         this.testemEvents.stateManager.getReplayExecutionModuleQueue('1'),
-        testExecutionJson.executionMapping['1']
+        testExecutionJson.executionMapping['1'],
       );
     });
 
@@ -79,7 +79,7 @@ describe('TestemEvents', function () {
         () =>
           this.testemEvents.setModuleQueue(1, this.moduleQueue, false, true),
         /No replay execution map was set on the stateManager/,
-        'Error is thrown'
+        'Error is thrown',
       );
     });
   });
@@ -117,12 +117,12 @@ describe('TestemEvents', function () {
       assert.deepEqual(
         socket.events,
         ['testem:next-module-response', fooResponse],
-        'testem:next-module-response event was emitted with payload foo'
+        'testem:next-module-response event was emitted with payload foo',
       );
       assert.deepEqual(
         this.testemEvents.stateManager.getModuleMap().values().next().value,
         ['foo'],
-        'module was correctly saved to the moduleMap'
+        'module was correctly saved to the moduleMap',
       );
     });
 
@@ -133,7 +133,7 @@ describe('TestemEvents', function () {
       assert.deepEqual(
         this.testemEvents.stateManager.getModuleMap(),
         emptyMap,
-        'moduleMap should be in its initial state'
+        'moduleMap should be in its initial state',
       );
     });
 
@@ -141,7 +141,7 @@ describe('TestemEvents', function () {
       assert.throws(
         () => this.testemEvents.nextModuleResponse(1, socket, false, 'dev'),
         /No moduleQueue was set/,
-        'No moduleQueue error was thrown'
+        'No moduleQueue error was thrown',
       );
     });
   });
@@ -159,7 +159,7 @@ describe('TestemEvents', function () {
       assert.deepEqual(
         this.testemEvents.stateManager.getFailedBrowsers(),
         [1],
-        'failed browserId 1 is correctly recorded'
+        'failed browserId 1 is correctly recorded',
       );
     });
 
@@ -170,7 +170,7 @@ describe('TestemEvents', function () {
       assert.deepEqual(
         this.testemEvents.stateManager.getFailedBrowsers(),
         [1],
-        'failed browserId 1 is correctly recorded only once'
+        'failed browserId 1 is correctly recorded only once',
       );
     });
   });
@@ -189,13 +189,13 @@ describe('TestemEvents', function () {
           ['loadBalance', true],
           ['writeExecutionFile', false],
         ]),
-        '0000'
+        '0000',
       );
 
       assert.strictEqual(
         this.testemEvents.stateManager.getCompletedBrowser(),
         1,
-        'completedBrowsers was incremented'
+        'completedBrowsers was incremented',
       );
     });
 
@@ -211,11 +211,11 @@ describe('TestemEvents', function () {
           ['loadBalance', true],
           ['writeExecutionFile', true],
         ]),
-        '0000'
+        '0000',
       );
 
       const actual = fs.readFileSync(
-        path.join(fixtureDir, 'test-execution-0000.json')
+        path.join(fixtureDir, 'test-execution-0000.json'),
       );
 
       assert.deepEqual(JSON.parse(actual), {
@@ -246,11 +246,11 @@ describe('TestemEvents', function () {
           ['loadBalance', true],
           ['writeModuleMetadataFile', true],
         ]),
-        '0000'
+        '0000',
       );
 
       const actual = fs.readFileSync(
-        path.join(fixtureDir, 'module-metadata-0000.json')
+        path.join(fixtureDir, 'module-metadata-0000.json'),
       );
 
       assert.deepEqual(JSON.parse(actual).modules, [
@@ -302,11 +302,11 @@ describe('TestemEvents', function () {
           ['loadBalance', true],
           ['writeModuleMetadataFile', true],
         ]),
-        '0000'
+        '0000',
       );
 
       const actual = fs.readFileSync(
-        path.join(fixtureDir, 'module-metadata-0000.json')
+        path.join(fixtureDir, 'module-metadata-0000.json'),
       );
 
       assert.deepEqual(JSON.parse(actual).modules, [
@@ -383,11 +383,11 @@ describe('TestemEvents', function () {
           ['loadBalance', true],
           ['writeModuleMetadataFile', true],
         ]),
-        '0000'
+        '0000',
       );
 
       const actual = fs.readFileSync(
-        path.join(fixtureDir, 'module-metadata-0000.json')
+        path.join(fixtureDir, 'module-metadata-0000.json'),
       );
 
       assert.deepEqual(JSON.parse(actual).modules, [
@@ -421,13 +421,13 @@ describe('TestemEvents', function () {
           ['loadBalance', false],
           ['writeExecutionFile', false],
         ]),
-        '0000'
+        '0000',
       );
 
       assert.strictEqual(
         this.testemEvents.stateManager.getCompletedBrowser(),
         1,
-        'completedBrowsers was incremented'
+        'completedBrowsers was incremented',
       );
     });
 
@@ -440,7 +440,7 @@ describe('TestemEvents', function () {
         1011,
         mockUi,
         new Map([['loadBalance', true]]),
-        '0000'
+        '0000',
       );
 
       assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 2);
@@ -450,7 +450,7 @@ describe('TestemEvents', function () {
       const mockReplayExecutionMap = { 1: ['a'] };
       this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('a', 1);
       this.testemEvents.stateManager.setReplayExecutionMap(
-        mockReplayExecutionMap
+        mockReplayExecutionMap,
       );
       this.testemEvents.stateManager.addToStartedLaunchers(1010);
 
@@ -459,21 +459,21 @@ describe('TestemEvents', function () {
         1010,
         mockUi,
         new Map([['loadBalance', true]]),
-        '0000'
+        '0000',
       );
 
       assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 0);
       assert.deepEqual(
         this.testemEvents.stateManager.getTestModuleQueue(),
-        null
+        null,
       );
       assert.deepEqual(
         this.testemEvents.stateManager.getReplayExecutionModuleQueue(),
-        null
+        null,
       );
       assert.deepEqual(
         this.testemEvents.stateManager.getReplayExecutionMap(),
-        mockReplayExecutionMap
+        mockReplayExecutionMap,
       );
     });
 
@@ -481,7 +481,7 @@ describe('TestemEvents', function () {
       const mockReplayExecutionMap = { 1: ['a'] };
       this.testemEvents.stateManager.addModuleNameToReplayExecutionMap('a', 1);
       this.testemEvents.stateManager.setReplayExecutionMap(
-        mockReplayExecutionMap
+        mockReplayExecutionMap,
       );
       this.testemEvents.stateManager.addToStartedLaunchers(1010);
 
@@ -490,21 +490,21 @@ describe('TestemEvents', function () {
         1010,
         mockUi,
         new Map([['loadBalance', true]]),
-        '0000'
+        '0000',
       );
 
       assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 0);
       assert.deepEqual(
         this.testemEvents.stateManager.getTestModuleQueue(),
-        null
+        null,
       );
       assert.deepEqual(
         this.testemEvents.stateManager.getReplayExecutionModuleQueue(),
-        null
+        null,
       );
       assert.deepEqual(
         this.testemEvents.stateManager.getReplayExecutionMap(),
-        mockReplayExecutionMap
+        mockReplayExecutionMap,
       );
     });
 
@@ -518,7 +518,7 @@ describe('TestemEvents', function () {
         1010,
         mockUi,
         new Map([['loadBalance', true]]),
-        '0000'
+        '0000',
       );
 
       assert.deepEqual(this.testemEvents.stateManager.getModuleMap().size, 0);
@@ -529,12 +529,12 @@ describe('TestemEvents', function () {
         1011,
         mockUi,
         new Map([['loadBalance', true]]),
-        '0000'
+        '0000',
       );
 
       assert.deepEqual(
         this.testemEvents.stateManager.getTestModuleQueue(),
-        null
+        null,
       );
     });
   });

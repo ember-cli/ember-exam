@@ -14,9 +14,9 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
         assert.deepEqual(
           TestemOutput.updateTestName(
             new Map().set('split', 2).set('preserveTestName', true),
-            'test_module | test_name'
+            'test_module | test_name',
           ),
-          'test_module | test_name'
+          'test_module | test_name',
         );
       });
 
@@ -27,9 +27,9 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
               .set('split', 2)
               .set('partition', 2)
               .set('preserveTestName', true),
-            'test_module | test_name'
+            'test_module | test_name',
           ),
-          'test_module | test_name'
+          'test_module | test_name',
         );
       });
 
@@ -40,9 +40,9 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
               .set('loadBalance', 2)
               .set('browser', 1)
               .set('preserveTestName', true),
-            'test_module | test_name'
+            'test_module | test_name',
           ),
-          'test_module | test_name'
+          'test_module | test_name',
         );
       });
 
@@ -55,9 +55,9 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
               .set('browser', 1)
               .set('loadBalance', 2)
               .set('preserveTestName', true),
-            'test_module | test_name'
+            'test_module | test_name',
           ),
-          'test_module | test_name'
+          'test_module | test_name',
         );
       });
     });
@@ -66,9 +66,9 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
         assert.deepEqual(
           TestemOutput.updateTestName(
             new Map().set('split', 2),
-            'test_module | test_name'
+            'test_module | test_name',
           ),
-          'Exam Partition 1 - test_module | test_name'
+          'Exam Partition 1 - test_module | test_name',
         );
       });
 
@@ -76,9 +76,9 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
         assert.deepEqual(
           TestemOutput.updateTestName(
             new Map().set('split', 2).set('partition', 2),
-            'test_module | test_name'
+            'test_module | test_name',
           ),
-          'Exam Partition 2 - test_module | test_name'
+          'Exam Partition 2 - test_module | test_name',
         );
       });
 
@@ -86,9 +86,9 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
         assert.deepEqual(
           TestemOutput.updateTestName(
             new Map().set('loadBalance', 2).set('browser', 1),
-            'test_module | test_name'
+            'test_module | test_name',
           ),
-          'Browser Id 1 - test_module | test_name'
+          'Browser Id 1 - test_module | test_name',
         );
       });
 
@@ -100,9 +100,9 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
               .set('partition', 2)
               .set('browser', 1)
               .set('loadBalance', 2),
-            'test_module | test_name'
+            'test_module | test_name',
           ),
-          'Exam Partition 2 - Browser Id 1 - test_module | test_name'
+          'Exam Partition 2 - Browser Id 1 - test_module | test_name',
         );
       });
     });

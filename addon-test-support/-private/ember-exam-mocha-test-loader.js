@@ -74,7 +74,7 @@ export default class EmberExamMochaTestLoader extends TestLoader {
       this._testModules = filterTestModules(
         this._testModules,
         modulePath,
-        filePath
+        filePath,
       );
     }
 

@@ -112,13 +112,13 @@ module.exports = async function () {
       embroiderSafe(
         mochaScenario({
           name: 'embroider-safe-with-mocha',
-        })
+        }),
       ),
       embroiderOptimized(),
       embroiderOptimized(
         mochaScenario({
           name: 'embroider-optimized-with-mocha',
-        })
+        }),
       ),
       {
         name: 'ember-qunit-4',

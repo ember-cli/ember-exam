@@ -24,7 +24,7 @@ describe('ExecutionStateManager', function () {
       assert.deepEqual(
         this.stateManager.getTestModuleQueue(),
         this.moduleQueue,
-        'the correct moduleQueue was returned'
+        'the correct moduleQueue was returned',
       );
     });
 
@@ -34,12 +34,12 @@ describe('ExecutionStateManager', function () {
       assert.strictEqual(
         this.stateManager.getNextModuleTestModuleQueue(),
         'foo',
-        'correctly returns the next module'
+        'correctly returns the next module',
       );
       assert.deepEqual(
         this.stateManager.getTestModuleQueue(),
         ['bar', 'baz', 'boo', 'far', 'faz'],
-        'the moduleQueue state was updated'
+        'the moduleQueue state was updated',
       );
     });
 
@@ -47,7 +47,7 @@ describe('ExecutionStateManager', function () {
       assert.strictEqual(
         this.stateManager.getNextModuleTestModuleQueue(),
         null,
-        'returns null when moduleQueue has not been set'
+        'returns null when moduleQueue has not been set',
       );
     });
 
@@ -58,11 +58,11 @@ describe('ExecutionStateManager', function () {
 
       assert.deepEqual(
         this.stateManager.getReplayExecutionModuleQueue(1),
-        this.moduleQueue
+        this.moduleQueue,
       );
       assert.deepEqual(
         this.stateManager.getReplayExecutionModuleQueue(2),
-        anotherQueue
+        anotherQueue,
       );
     });
 
@@ -72,12 +72,12 @@ describe('ExecutionStateManager', function () {
       assert.strictEqual(
         this.stateManager.getNextModuleReplayExecutionModuleQueue(1),
         'foo',
-        'correctly returns the next module'
+        'correctly returns the next module',
       );
       assert.deepEqual(
         this.stateManager.getReplayExecutionModuleQueue(1),
         ['bar', 'baz', 'boo', 'far', 'faz'],
-        'the moduleQueue state was updated'
+        'the moduleQueue state was updated',
       );
     });
 
@@ -85,7 +85,7 @@ describe('ExecutionStateManager', function () {
       assert.strictEqual(
         this.stateManager.getNextModuleReplayExecutionModuleQueue(1),
         null,
-        'returns null when moduleQueue has not been set'
+        'returns null when moduleQueue has not been set',
       );
     });
   });

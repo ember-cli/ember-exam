@@ -15,8 +15,8 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         expect(
           TestemOutput.updateTestName(
             new Map().set('split', 2).set('preserveTestName', true),
-            'test_module | test_name'
-          )
+            'test_module | test_name',
+          ),
         ).to.equal('test_module | test_name');
       });
 
@@ -27,8 +27,8 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
               .set('split', 2)
               .set('partition', 2)
               .set('preserveTestName', true),
-            'test_module | test_name'
-          )
+            'test_module | test_name',
+          ),
         ).to.equal('test_module | test_name');
       });
 
@@ -39,8 +39,8 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
               .set('loadBalance', 2)
               .set('browser', 1)
               .set('preserveTestName', true),
-            'test_module | test_name'
-          )
+            'test_module | test_name',
+          ),
         ).to.equal('test_module | test_name');
       });
 
@@ -53,8 +53,8 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
               .set('browser', 1)
               .set('loadBalance', 2)
               .set('preserveTestName', true),
-            'test_module | test_name'
-          )
+            'test_module | test_name',
+          ),
         ).to.equal('test_module | test_name');
       });
     });
@@ -63,8 +63,8 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         expect(
           TestemOutput.updateTestName(
             new Map().set('split', 2),
-            'test_module | test_name'
-          )
+            'test_module | test_name',
+          ),
         ).to.equal('Exam Partition 1 - test_module | test_name');
       });
 
@@ -72,8 +72,8 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         expect(
           TestemOutput.updateTestName(
             new Map().set('split', 2).set('partition', 2),
-            'test_module | test_name'
-          )
+            'test_module | test_name',
+          ),
         ).to.equal('Exam Partition 2 - test_module | test_name');
       });
 
@@ -81,8 +81,8 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
         expect(
           TestemOutput.updateTestName(
             new Map().set('loadBalance', 2).set('browser', 1),
-            'test_module | test_name'
-          )
+            'test_module | test_name',
+          ),
         ).to.equal('Browser Id 1 - test_module | test_name');
       });
 
@@ -94,8 +94,8 @@ if (macroCondition(dependencySatisfies('ember-mocha', '*'))) {
               .set('partition', 2)
               .set('browser', 1)
               .set('loadBalance', 2),
-            'test_module | test_name'
-          )
+            'test_module | test_name',
+          ),
         ).to.equal('Exam Partition 2 - Browser Id 1 - test_module | test_name');
       });
     });

@@ -24,7 +24,7 @@ function getTotalNumberOfTests(output) {
   // which adds this Ember.onerror validation test.
   // As Ember.onerror validation test is added per browser the total number of tests executed should be the sum of TOTAL_NUM_TESTS defined and a number of browsers.
   const emberOnerror = output.match(
-    /ember-qunit: Ember.onerror validation: Ember.onerror is functioning properly/g
+    /ember-qunit: Ember.onerror validation: Ember.onerror is functioning properly/g,
   );
   return TOTAL_NUM_TESTS + (emberOnerror ? emberOnerror.length : 0);
 }
@@ -48,14 +48,14 @@ describe('Acceptance | Exam Command', function () {
     good.forEach(function (partition) {
       assert.ok(
         output.includes(`${text} ${partition} `),
-        `output has ${text} ${partition}`
+        `output has ${text} ${partition}`,
       );
     });
 
     (bad || []).forEach(function (partition) {
       assert.ok(
         !output.includes(`${text} ${partition} `),
-        `output does not have ${text} ${partition}`
+        `output does not have ${text} ${partition}`,
       );
     });
   }
@@ -65,7 +65,7 @@ describe('Acceptance | Exam Command', function () {
     assert.strictEqual(
       getNumberOfTests(output),
       getTotalNumberOfTests(output),
-      'ran all of the tests in the suite'
+      'ran all of the tests in the suite',
     );
   }
 
@@ -73,7 +73,7 @@ describe('Acceptance | Exam Command', function () {
     assertOutput(output, 'Exam Partition', good, bad);
     assert.ok(
       getNumberOfTests(output) < getTotalNumberOfTests(output),
-      'did not run all of the tests in the suite'
+      'did not run all of the tests in the suite',
     );
   }
 
@@ -83,14 +83,14 @@ describe('Acceptance | Exam Command', function () {
         const stdout = child.stdout;
         assert.ok(
           !stdout.includes('Exam Partition'),
-          'does not add any sort of partition info'
+          'does not add any sort of partition info',
         );
         assert.strictEqual(
           getNumberOfTests(stdout),
           getTotalNumberOfTests(stdout),
-          'ran all of the tests in the suite'
+          'ran all of the tests in the suite',
         );
-      }
+      },
     );
   });
 
@@ -100,7 +100,7 @@ describe('Acceptance | Exam Command', function () {
       '..',
       '..',
       'tests',
-      'test-helper.js'
+      'test-helper.js',
     );
 
     const renamedOriginalTestHelperPath = path.join(
@@ -108,14 +108,14 @@ describe('Acceptance | Exam Command', function () {
       '..',
       '..',
       'tests',
-      'test-helper-orig.js'
+      'test-helper-orig.js',
     );
 
     const testHelperWithLoadPath = path.join(
       __dirname,
       '..',
       'fixtures',
-      'test-helper-with-load.js'
+      'test-helper-with-load.js',
     );
     before(function () {
       // Use test-helper-with-load.js as the test-helper.js file
@@ -147,12 +147,12 @@ describe('Acceptance | Exam Command', function () {
         const stdout = child.stdout;
         assert.ok(
           !stdout.includes('Exam Partition'),
-          'does not add any sort of partition info'
+          'does not add any sort of partition info',
         );
         assert.strictEqual(
           getNumberOfTests(stdout),
           getTotalNumberOfTests(stdout),
-          'ran all of the tests in the suite'
+          'ran all of the tests in the suite',
         );
       });
     });
@@ -212,8 +212,8 @@ describe('Acceptance | Exam Command', function () {
         ]).then(assertExpectRejection, (error) => {
           assert.ok(
             error.stderr.includes(
-              'You must specify `partition` values that are less than or equal to your `split` value.'
-            )
+              'You must specify `partition` values that are less than or equal to your `split` value.',
+            ),
           );
         });
       });
@@ -228,8 +228,8 @@ describe('Acceptance | Exam Command', function () {
         ]).then(assertExpectRejection, (error) => {
           assert.ok(
             error.stderr.includes(
-              'You must specify a `split` value in order to use `partition`.'
-            )
+              'You must specify a `split` value in order to use `partition`.',
+            ),
           );
         });
       });
@@ -278,12 +278,12 @@ describe('Acceptance | Exam Command', function () {
         const stdout = child.stdout;
         assert.ok(
           stdout.includes('Randomizing tests with seed: 1337'),
-          'logged the seed value'
+          'logged the seed value',
         );
         assert.strictEqual(
           getNumberOfTests(stdout),
           getTotalNumberOfTests(stdout),
-          'ran all of the tests in the suite'
+          'ran all of the tests in the suite',
         );
       });
     });
@@ -295,13 +295,13 @@ describe('Acceptance | Exam Command', function () {
     function assertTestExecutionFailedBrowsers(output, numberOfFailedBrowsers) {
       const testExecutionPath = path.join(
         process.cwd(),
-        output.match(/test-execution-([0-9]*).json/g)[0]
+        output.match(/test-execution-([0-9]*).json/g)[0],
       );
       unlinkFiles.push(testExecutionPath);
 
       assert.ok(
         fs.existsSync(testExecutionPath),
-        'test execution json written to root'
+        'test execution json written to root',
       );
 
       const testExecutionFile = fs.readJsonSync(testExecutionPath);
@@ -309,19 +309,19 @@ describe('Acceptance | Exam Command', function () {
       assert.strictEqual(
         testExecutionFile.failedBrowsers.length,
         numberOfFailedBrowsers,
-        'failed browsers array is correctly recorded'
+        'failed browsers array is correctly recorded',
       );
     }
 
     function assertModuleDetailJson(output) {
       let moduleRunDetailJsonPath = path.join(
         process.cwd(),
-        output.match(/module-metadata-([0-9]*).json/g)[0]
+        output.match(/module-metadata-([0-9]*).json/g)[0],
       );
       unlinkFiles.push(moduleRunDetailJsonPath);
       assert.ok(
         fs.existsSync(moduleRunDetailJsonPath),
-        'module run detail json written to root'
+        'module run detail json written to root',
       );
     }
 
@@ -342,8 +342,8 @@ describe('Acceptance | Exam Command', function () {
       ]).then(assertExpectRejection, (error) => {
         assert.ok(
           error.stderr.includes(
-            'You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`.'
-          )
+            'You should specify the number of browsers to load-balance against using `parallel` when using `load-balance`.',
+          ),
         );
       });
     });
@@ -364,7 +364,7 @@ describe('Acceptance | Exam Command', function () {
         assert.strictEqual(
           getNumberOfTests(output),
           getTotalNumberOfTests(output),
-          'ran all of the tests in the suite'
+          'ran all of the tests in the suite',
         );
       });
     });
@@ -400,7 +400,7 @@ describe('Acceptance | Exam Command', function () {
         assert.strictEqual(
           getNumberOfTests(output),
           getTotalNumberOfTests(output),
-          'ran all of the tests in the suite'
+          'ran all of the tests in the suite',
         );
       });
     });
@@ -426,7 +426,7 @@ describe('Acceptance | Exam Command', function () {
         assertOutput(output, 'Browser Id', [1, 2, 3]);
         assert.ok(
           getNumberOfTests(output) < getTotalNumberOfTests(output),
-          'did not run all of the tests in the suite'
+          'did not run all of the tests in the suite',
         );
       });
     });
@@ -438,14 +438,14 @@ describe('Acceptance | Exam Command', function () {
         '..',
         'tests',
         'unit',
-        'browser-exit-test.js'
+        'browser-exit-test.js',
       );
       beforeEach(function () {
         const failingTestPath = path.join(
           __dirname,
           '..',
           'fixtures',
-          'browser-exit.js'
+          'browser-exit.js',
         );
         fs.copySync(failingTestPath, destPath);
         return execa('ember', ['build', '--output-path', 'failure-dist']);
@@ -469,9 +469,9 @@ describe('Acceptance | Exam Command', function () {
           const output = error.stdout;
           assert.ok(
             output.includes(
-              'Error: Browser exited on request from test driver'
+              'Error: Browser exited on request from test driver',
             ),
-            `browser exited during the test execution:\n${output}`
+            `browser exited during the test execution:\n${output}`,
           );
           assertTestExecutionFailedBrowsers(output, 1);
         });
@@ -490,9 +490,9 @@ describe('Acceptance | Exam Command', function () {
           const output = error.stdout;
           assert.ok(
             output.includes(
-              'Error: Browser exited on request from test driver'
+              'Error: Browser exited on request from test driver',
             ),
-            `browser exited during the test execution:\n${output}`
+            `browser exited during the test execution:\n${output}`,
           );
           assertModuleDetailJson(output);
         });
@@ -549,14 +549,14 @@ describe('Acceptance | Exam Command', function () {
         assert.strictEqual(
           output.match(/test-execution-([0-9]*).json/g),
           null,
-          'no test execution json should be written'
+          'no test execution json should be written',
         );
 
         assertOutput(output, 'Browser Id', [1]);
         assert.strictEqual(
           getNumberOfTests(output),
           27,
-          'ran all of the tests for browser one'
+          'ran all of the tests for browser one',
         );
       });
     });
@@ -577,14 +577,14 @@ describe('Acceptance | Exam Command', function () {
         assert.strictEqual(
           output.match(/test-execution-([0-9]*).json/g),
           null,
-          'no test execution json should be written'
+          'no test execution json should be written',
         );
 
         assertOutput(output, 'Browser Id', [1, 2]);
         assert.strictEqual(
           getNumberOfTests(output),
           getTotalNumberOfTests(output),
-          'ran all of the tests in the suite'
+          'ran all of the tests in the suite',
         );
       });
     });
@@ -607,14 +607,14 @@ describe('Acceptance | Exam Command', function () {
         assert.strictEqual(
           output.match(/test-execution-([0-9]*).json/g),
           null,
-          'no test execution json should be written'
+          'no test execution json should be written',
         );
 
         assertOutput(output, 'Browser Id', ['2']);
         assert.strictEqual(
           getNumberOfTests(output),
           40,
-          'ran all of the tests for browser two'
+          'ran all of the tests for browser two',
         );
       });
     });

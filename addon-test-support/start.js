@@ -14,7 +14,7 @@ import {
 function loadTests(testLoader) {
   if (testLoader === undefined) {
     throw new Error(
-      'A testLoader instance has not been created. You must call `loadEmberExam()` before calling `loadTest()`.'
+      'A testLoader instance has not been created. You must call `loadEmberExam()` before calling `loadTest()`.',
     );
   }
 
