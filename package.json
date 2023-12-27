@@ -33,7 +33,6 @@
   },
   "nyc": {
     "exclude": [
-      "bower_components",
       "config",
       "node-tests",
       "tests"
