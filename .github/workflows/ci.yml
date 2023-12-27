@@ -56,7 +56,6 @@ jobs:
           - ember-release
           - ember-beta
           - ember-canary
-          - ember-qunit-4
 
     steps:
       - uses: actions/checkout@v2

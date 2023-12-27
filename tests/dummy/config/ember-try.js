@@ -120,15 +120,6 @@ module.exports = async function () {
           name: 'embroider-optimized-with-mocha',
         }),
       ),
-      {
-        name: 'ember-qunit-4',
-        npm: {
-          devDependencies: {
-            'ember-qunit': '^4.6.0',
-            'ember-source': '^3.28.0',
-          },
-        },
-      },
     ],
   };
 };
