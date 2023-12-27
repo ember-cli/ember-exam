@@ -1,8 +1,7 @@
 'use strict';
 
 const assert = require('assert');
-const execa = require('execa');
-const rimraf = require('rimraf');
+const { rimrafSync } = require('rimraf');
 const fs = require('fs-extra');
 const path = require('path');
 
@@ -10,11 +9,16 @@ function assertExpectRejection() {
   assert.ok(false, 'Expected promise to reject, but it fullfilled');
 }
 
+async function execa(command, args) {
+  const { execa: originalExeca } = await import('execa');
+  return originalExeca(command, args);
+}
+
 describe('Acceptance | Exam Iterate Command', function () {
   this.timeout(300000);
 
   it('should build the app, test it a number of times, and clean it up', function () {
-    return execa('ember', ['exam:iterate', '2'], (child) => {
+    return execa('ember', ['exam:iterate', '2']).then((child) => {
       const stdout = child.stdout;
       assert.ok(
         stdout.includes('Building app for test iterations.'),
@@ -82,61 +86,61 @@ describe('Acceptance | Exam Iterate Command', function () {
   describe('building', function () {
     const buildDir = path.join(process.cwd(), 'dist');
 
-    afterEach(() => rimraf.sync(buildDir));
+    afterEach(() => rimrafSync(buildDir));
 
     it('should not build the app or clean it up, but use an existing build to test', function () {
-      execa.sync('ember', ['build']);
+      return execa('ember', ['build']).then(() => {
+        execa('ember', ['exam:iterate', '2', '--path', 'dist']).then(
+          (child) => {
+            const stdout = child.stdout;
 
-      return execa('ember', ['exam:iterate', '2', '--path', 'dist']).then(
-        (child) => {
-          const stdout = child.stdout;
+            assert.ok(
+              !stdout.includes('Building app for test iterations.'),
+              'No logged building message from command',
+            );
+            assert.ok(
+              !stdout.includes('Built project successfully.'),
+              'Not built successfully according to Ember-CLI',
+            );
 
-          assert.ok(
-            !stdout.includes('Building app for test iterations.'),
-            'No logged building message from command',
-          );
-          assert.ok(
-            !stdout.includes('Built project successfully.'),
-            'Not built successfully according to Ember-CLI',
-          );
+            assert.ok(
+              stdout.includes('Running iteration #1.'),
+              'Logs first iteration',
+            );
+            assert.ok(
+              stdout.includes('Running iteration #2.'),
+              'Logs second iteration',
+            );
 
-          assert.ok(
-            stdout.includes('Running iteration #1.'),
-            'Logs first iteration',
-          );
-          assert.ok(
-            stdout.includes('Running iteration #2.'),
-            'Logs second iteration',
-          );
+            const seedRE = /Randomizing tests with seed: (.*)/g;
 
-          const seedRE = /Randomizing tests with seed: (.*)/g;
+            const firstSeed = seedRE.exec(stdout)[1];
+            const secondSeed = seedRE.exec(stdout)[1];
 
-          const firstSeed = seedRE.exec(stdout)[1];
-          const secondSeed = seedRE.exec(stdout)[1];
+            assert.ok(firstSeed, 'first seed exists');
+            assert.ok(secondSeed, 'second seed exists');
+            assert.notEqual(
+              firstSeed,
+              secondSeed,
+              'the first and second seeds are not the same',
+            );
 
-          assert.ok(firstSeed, 'first seed exists');
-          assert.ok(secondSeed, 'second seed exists');
-          assert.notEqual(
-            firstSeed,
-            secondSeed,
-            'the first and second seeds are not the same',
-          );
+            assert.ok(
+              !stdout.includes('Cleaning up test iterations.'),
+              'No logged cleaning up message from command',
+            );
+            assert.throws(
+              () => fs.accessSync('iteration-dist', fs.F_OK),
+              'iteration-dist is non-existent',
+            );
 
-          assert.ok(
-            !stdout.includes('Cleaning up test iterations.'),
-            'No logged cleaning up message from command',
-          );
-          assert.throws(
-            () => fs.accessSync('iteration-dist', fs.F_OK),
-            'iteration-dist is non-existent',
-          );
-
-          assert.doesNotThrow(
-            () => fs.accessSync(buildDir, fs.F_OK),
-            'dist is not cleaned up',
-          );
-        },
-      );
+            assert.doesNotThrow(
+              () => fs.accessSync(buildDir, fs.F_OK),
+              'dist is not cleaned up',
+            );
+          },
+        );
+      });
     });
   });
 

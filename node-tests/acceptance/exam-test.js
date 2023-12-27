@@ -1,15 +1,19 @@
 'use strict';
 
 const assert = require('assert');
-const execa = require('execa');
 const fixturify = require('fixturify');
 const fs = require('fs-extra');
 const path = require('path');
-const rimraf = require('rimraf');
+const { rimrafSync } = require('rimraf');
 const glob = require('glob');
 
 function assertExpectRejection() {
   assert.ok(false, 'Expected promise to reject, but it fullfilled');
+}
+
+async function execa(command, args) {
+  const { execa: originalExeca } = await import('execa');
+  return originalExeca(command, args);
 }
 
 function getNumberOfTests(str) {
@@ -34,14 +38,14 @@ describe('Acceptance | Exam Command', function () {
 
   before(function () {
     // Cleanup any previous runs
-    rimraf.sync('acceptance-dist');
+    rimrafSync('acceptance-dist');
 
     // Build the app
     return execa('ember', ['build', '--output-path', 'acceptance-dist']);
   });
 
   after(function () {
-    rimraf.sync('acceptance-dist');
+    rimrafSync('acceptance-dist');
   });
 
   function assertOutput(output, text, good, bad) {
@@ -131,7 +135,7 @@ describe('Acceptance | Exam Command', function () {
     });
 
     after(function () {
-      rimraf.sync('acceptance-with-load-dist');
+      rimrafSync('acceptance-with-load-dist');
 
       // restore the original test-helper.js file
       fs.unlinkSync(originalTestHelperPath);
@@ -452,7 +456,7 @@ describe('Acceptance | Exam Command', function () {
       });
 
       afterEach(function () {
-        rimraf.sync('failure-dist');
+        rimrafSync('failure-dist');
         fs.removeSync(destPath);
       });
 
