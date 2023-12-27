@@ -62,7 +62,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: volta-cli/action@v1
         with:
-          node-version: 12.x
+          node-version: 18
       - name: install dependencies
         run: yarn install --frozen-lockfile
       - name: test
