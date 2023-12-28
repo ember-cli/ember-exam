@@ -514,16 +514,16 @@ describe('Acceptance | Exam Command', function () {
         executionMapping: {
           1: [
             'ember-test',
-            'dummy/tests/unit/qunit/test-loader-test',
-            'dummy/tests/unit/qunit/multiple-edge-cases-test',
-            'dummy/tests/unit/qunit/multiple-ember-tests-test',
+            'dummy/tests/unit/test-loader-test',
+            'dummy/tests/unit/multiple-edge-cases-test',
+            'dummy/tests/unit/multiple-ember-tests-test',
           ],
           2: [
-            'dummy/tests/unit/qunit/multiple-tests-test',
-            'dummy/tests/unit/qunit/testem-output-test',
-            'dummy/tests/unit/qunit/weight-test-modules-test',
-            'dummy/tests/unit/qunit/async-iterator-test',
-            'dummy/tests/unit/qunit/filter-test-modules-test',
+            'dummy/tests/unit/multiple-tests-test',
+            'dummy/tests/unit/testem-output-test',
+            'dummy/tests/unit/weight-test-modules-test',
+            'dummy/tests/unit/async-iterator-test',
+            'dummy/tests/unit/filter-test-modules-test',
           ],
         },
       };
