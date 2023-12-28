@@ -21,7 +21,7 @@ function getNumberOfTests(str) {
   return match && parseInt(match[1], 10);
 }
 
-const TOTAL_NUM_TESTS = 65; // Total Number of tests without the global 'Ember.onerror validation tests'
+const TOTAL_NUM_TESTS = 67; // Total Number of tests without the global 'Ember.onerror validation tests'
 
 function getTotalNumberOfTests(output) {
   // In ember-qunit 3.4.0, this new check was added: https://github.com/emberjs/ember-qunit/commit/a7e93c4b4b535dae62fed992b46c00b62bfc83f4
@@ -513,7 +513,6 @@ describe('Acceptance | Exam Command', function () {
         failedBrowsers: [],
         executionMapping: {
           1: [
-            'ember-test',
             'dummy/tests/unit/test-loader-test',
             'dummy/tests/unit/multiple-edge-cases-test',
             'dummy/tests/unit/multiple-ember-tests-test',
@@ -559,7 +558,7 @@ describe('Acceptance | Exam Command', function () {
         assertOutput(output, 'Browser Id', [1]);
         assert.strictEqual(
           getNumberOfTests(output),
-          27,
+          25,
           'ran all of the tests for browser one',
         );
       });
@@ -617,7 +616,7 @@ describe('Acceptance | Exam Command', function () {
         assertOutput(output, 'Browser Id', ['2']);
         assert.strictEqual(
           getNumberOfTests(output),
-          40,
+          44,
           'ran all of the tests for browser two',
         );
       });
