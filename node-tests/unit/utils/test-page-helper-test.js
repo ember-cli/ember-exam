@@ -47,16 +47,18 @@ describe('TestPageHelper', function () {
           test_page: 'loadBalance&browser=1',
         },
       };
-      assert.strictEqual(getBrowserId(launcher), 1);
+      assert.strictEqual(getBrowserId(launcher), '1');
     });
 
     it('should throw an error if the launcher does not have test page set', function () {
+      const warnStub = sinon.stub(console, 'warn');
       const launcher = {
         foo: 'bar',
       };
-      assert.throws(() => {
-        getBrowserId(launcher);
-      }, /Launcher Settings:/);
+      assert.strictEqual(getBrowserId(launcher), 0);
+      sinon.assert.calledOnce(warnStub);
+      sinon.assert.calledWithMatch(warnStub, /Launcher Settings:/);
+      warnStub.restore();
     });
   });
 
