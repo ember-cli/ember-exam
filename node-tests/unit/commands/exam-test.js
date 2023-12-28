@@ -152,35 +152,4 @@ describe('ExamCommand', function () {
       });
     });
   });
-
-  describe('_getTestFramework', function () {
-    let command;
-
-    function assertFramework(command, name) {
-      assert.strictEqual(command._getTestFramework(), name);
-    }
-
-    beforeEach(function () {
-      command = createCommand();
-    });
-
-    it('returns mocha if ember-mocha is a dependency', function () {
-      command.project.pkg.dependencies = {
-        'ember-mocha': '*',
-      };
-      assertFramework(command, 'mocha');
-    });
-
-    it('returns mocha if ember-mocha is a dev-dependency', function () {
-      command.project.pkg.devDependencies = {
-        'ember-mocha': '*',
-      };
-      assertFramework(command, 'mocha');
-    });
-
-    it('returns qunit if ember-mocha is not a dependency of any kind', function () {
-      command = createCommand();
-      assertFramework(command, 'qunit');
-    });
-  });
 });

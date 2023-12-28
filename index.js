@@ -8,12 +8,4 @@ module.exports = {
   includedCommands() {
     return require('./lib/commands');
   },
-
-  init() {
-    this._super.init.apply(this, arguments);
-
-    this.options.autoImport = {
-      exclude: ['ember-mocha', 'mocha'],
-    };
-  },
 };

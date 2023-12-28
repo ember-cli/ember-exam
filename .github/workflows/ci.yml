@@ -44,11 +44,8 @@ jobs:
       fail-fast: false
       matrix:
         ember-try-scenario:
-          - ember-default-with-mocha
           - embroider-safe
-          - embroider-safe-with-mocha
           - embroider-optimized
-          - embroider-optimized-with-mocha
           - ember-lts-4.8
           - ember-lts-4.12
           - ember-release

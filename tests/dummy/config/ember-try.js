@@ -2,23 +2,6 @@
 
 const getChannelURL = require('ember-source-channel-url');
 const { embroiderSafe, embroiderOptimized } = require('@embroider/test-setup');
-const mergeWith = require('lodash.mergewith');
-
-function mochaScenario(scenario = {}) {
-  return mergeWith({}, scenario, {
-    npm: {
-      devDependencies: {
-        'chai-dom': '*',
-        'ember-cli-chai': '*',
-        'ember-mocha': '*',
-        'ember-qunit': null,
-      },
-      peerDependencies: {
-        'ember-qunit': null,
-      }
-    },
-  });
-}
 
 const command = [
   'ember',
@@ -78,21 +61,8 @@ module.exports = async function () {
           },
         },
       },
-      mochaScenario({
-        name: 'ember-default-with-mocha',
-      }),
       embroiderSafe(),
-      embroiderSafe(
-        mochaScenario({
-          name: 'embroider-safe-with-mocha',
-        }),
-      ),
       embroiderOptimized(),
-      embroiderOptimized(
-        mochaScenario({
-          name: 'embroider-optimized-with-mocha',
-        }),
-      ),
     ],
   };
 };

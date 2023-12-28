@@ -33,20 +33,12 @@ describe('TestOptionsValidator', function () {
   }
 
   function shouldThrow(cmd, options, message, emberCliVer = '3.7.0') {
-    const validator = new TestOptionsValidator(
-      options,
-      options.framework,
-      emberCliVer,
-    );
+    const validator = new TestOptionsValidator(options, emberCliVer);
     assert.throws(() => validateCommand(validator, cmd), message);
   }
 
   function shouldEqual(cmd, options, value, emberCliVer = '3.7.0') {
-    const validator = new TestOptionsValidator(
-      options,
-      options.framework,
-      emberCliVer,
-    );
+    const validator = new TestOptionsValidator(options, emberCliVer);
     assert.strictEqual(validateCommand(validator, cmd), value);
   }
 
@@ -60,11 +52,7 @@ describe('TestOptionsValidator', function () {
       warnMessage = message;
     };
 
-    const validator = new TestOptionsValidator(
-      options,
-      options.framework,
-      emberCliVer,
-    );
+    const validator = new TestOptionsValidator(options, emberCliVer);
     assert.notEqual(validateCommand(validator, cmd), undefined);
     assert.strictEqual(warnCalled, 1);
     assert.strictEqual(warnMessage, value);
@@ -150,14 +138,6 @@ describe('TestOptionsValidator', function () {
 
     it('should return false if `random` is not used', function () {
       shouldRandomizeEqual({}, false);
-    });
-
-    it('should warn that randomization is not supported in mocha', function () {
-      shouldWarn(
-        'Random',
-        { random: '', framework: 'mocha' },
-        'Mocha does not currently support randomizing test order, so tests will run in normal order. Please see https://github.com/mochajs/mocha/issues/902 for more info.',
-      );
     });
   });
 

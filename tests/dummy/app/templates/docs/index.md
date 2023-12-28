@@ -35,13 +35,13 @@ ember exam --load-balance --parallel --server --no-launch
 
 The idea is that you can replace `ember test` with `ember exam` and never look back.
 
-To get the unique features of Ember Exam (described in-depth below), you will need to **replace** the use of `start()` from `Ember-Qunit` or `Ember-Mocha` in `test-helper.js` with `start()` from `ember-exam`:
+To get the unique features of Ember Exam (described in-depth below), you will need to **replace** the use of `start()` from `ember-qunit` in `test-helper.js` with `start()` from `ember-exam`:
 
 ```js
 // test-helper.js
 import start from 'ember-exam/test-support/start';
 
-// start() triggers qunit or mocha start after instantiating either qunit or mocha test-loader instance and loading test modules.
+// start() triggers qunit start after instantiating qunit test-loader instance and loading test modules.
 start();
 ```
 

@@ -1,49 +1,39 @@
-import EmberExamTestLoader from 'ember-exam/test-support/-private/ember-exam-qunit-test-loader';
-import {
-  macroCondition,
-  dependencySatisfies,
-  importSync,
-} from '@embroider/macros';
+import EmberExamTestLoader from 'ember-exam/test-support/-private/ember-exam-test-loader';
+import { module, test } from 'qunit';
 
-if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
-  let QUnit = importSync('qunit').default;
+module('Unit | test-loader', function (hooks) {
+  hooks.beforeEach(function () {
+    this.originalRequire = window.require;
+    this.requiredModules = [];
+    window.require = (name) => {
+      this.requiredModules.push(name);
+    };
 
-  let { module, test } = QUnit;
+    window.requirejs.entries = {
+      'test-1-test': true,
+      'test-2-test': true,
+      'test-3-test': true,
+      'test-4-test': true,
+    };
+    this.testem = {
+      eventQueue: new Array(),
+      emit: function (event) {
+        this.eventQueue.push(event);
+      },
+      on: () => {},
+    };
+    this.qunit = {
+      config: {
+        queue: [],
+      },
+      begin: () => {},
+      moduleDone: () => {},
+      testDone: () => {},
+    };
+  });
 
-  module('Unit | Qunit | test-loader', {
-    beforeEach() {
-      this.originalRequire = window.require;
-      this.requiredModules = [];
-      window.require = (name) => {
-        this.requiredModules.push(name);
-      };
-
-      window.requirejs.entries = {
-        'test-1-test': true,
-        'test-2-test': true,
-        'test-3-test': true,
-        'test-4-test': true,
-      };
-      this.testem = {
-        eventQueue: new Array(),
-        emit: function (event) {
-          this.eventQueue.push(event);
-        },
-        on: () => {},
-      };
-      this.qunit = {
-        config: {
-          queue: [],
-        },
-        begin: () => {},
-        moduleDone: () => {},
-        testDone: () => {},
-      };
-    },
-
-    afterEach() {
-      window.require = this.originalRequire;
-    },
+  hooks.afterEach(function () {
+    window.require = this.originalRequire;
   });
 
   test('loads all test modules by default', function (assert) {
@@ -235,4 +225,4 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
       'testem:set-modules-queue event was fired',
     );
   });
-}
+});

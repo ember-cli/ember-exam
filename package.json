@@ -28,7 +28,6 @@
     "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
     "test:ember": "ember test",
     "test:ember-compatibility": "ember try:each",
-    "test:mocha": "TEST_FRAMEWORK=ember-mocha bin/install-test-framework.sh && ember test",
     "test:node": "nyc mocha 'node-tests/**/*-test.js'"
   },
   "nyc": {
@@ -40,7 +39,6 @@
   },
   "dependencies": {
     "@babel/core": "^7.23.6",
-    "@embroider/macros": "^1.13.4",
     "chalk": "^5.3.0",
     "cli-table3": "^0.6.0",
     "debug": "^4.2.0",
@@ -92,7 +90,6 @@
     "eslint-plugin-qunit": "8.0.1",
     "fixturify": "3.0.0",
     "loader.js": "4.7.0",
-    "lodash.mergewith": "4.6.2",
     "mocha": "10.2.0",
     "mocha-eslint": "7.0.0",
     "nyc": "15.1.0",
@@ -107,21 +104,9 @@
     "webpack": "5.89.0"
   },
   "peerDependencies": {
-    "ember-mocha": "*",
     "ember-qunit": "*",
     "ember-source": ">= 4.0.0",
     "qunit": "*"
-  },
-  "peerDependenciesMeta": {
-    "ember-mocha": {
-      "optional": true
-    },
-    "ember-qunit": {
-      "optional": true
-    },
-    "qunit": {
-      "optional": true
-    }
   },
   "engines": {
     "node": ">= 18"

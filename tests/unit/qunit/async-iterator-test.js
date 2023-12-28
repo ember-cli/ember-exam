@@ -1,38 +1,30 @@
 import AsyncIterator from 'ember-exam/test-support/-private/async-iterator';
-import {
-  macroCondition,
-  dependencySatisfies,
-  importSync,
-} from '@embroider/macros';
+import { module, test } from 'qunit';
 
-if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
-  let { module, test } = importSync('qunit').default;
-
-  module('Unit | Qunit | async-iterator', {
-    beforeEach() {
-      this.testem = {
-        eventHandler: new Array(),
-        emit: function (event) {
-          const argsWithoutFirst = Array.prototype.slice.call(arguments, 1);
-          if (this.eventHandler && this.eventHandler[event]) {
-            let handlers = this.eventHandler[event];
-            for (let i = 0; i < handlers.length; i++) {
-              handlers[i].apply(this, argsWithoutFirst);
-            }
+module('Unit | async-iterator', function (hooks) {
+  hooks.beforeEach(function () {
+    this.testem = {
+      eventHandler: new Array(),
+      emit: function (event) {
+        const argsWithoutFirst = Array.prototype.slice.call(arguments, 1);
+        if (this.eventHandler && this.eventHandler[event]) {
+          let handlers = this.eventHandler[event];
+          for (let i = 0; i < handlers.length; i++) {
+            handlers[i].apply(this, argsWithoutFirst);
           }
-        },
-        on: function (event, callBack) {
-          if (!this.eventHandler) {
-            this.eventHandler = {};
-          }
-          if (!this.eventHandler[event]) {
-            this.eventHandler[event] = [];
-          }
-          this.eventHandler[event].push(callBack);
-        },
-        removeEventCallbacks: () => {},
-      };
-    },
+        }
+      },
+      on: function (event, callBack) {
+        if (!this.eventHandler) {
+          this.eventHandler = {};
+        }
+        if (!this.eventHandler[event]) {
+          this.eventHandler[event] = [];
+        }
+        this.eventHandler[event].push(callBack);
+      },
+      removeEventCallbacks: () => {},
+    };
   });
 
   test('should instantiate', function (assert) {
@@ -199,4 +191,4 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
       /Was not expecting a response, but got a response/,
     );
   });
-}
+});

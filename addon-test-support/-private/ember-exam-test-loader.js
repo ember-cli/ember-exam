@@ -13,7 +13,7 @@ import QUnit from 'qunit';
  * @class EmberExamQUnitTestLoader
  * @extends {TestLoader}
  */
-export default class EmberExamQUnitTestLoader extends TestLoader {
+export default class EmberExamTestLoader extends TestLoader {
   constructor(testem, urlParams, qunit = QUnit) {
     super();
     this._testModules = [];

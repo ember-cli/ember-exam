@@ -59,7 +59,6 @@ module.exports = {
       },
       env: {
         node: true,
-        mocha: true,
       },
       rules: {
         'ember/no-test-support-import': 'off',
