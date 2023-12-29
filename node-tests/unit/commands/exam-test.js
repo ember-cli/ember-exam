@@ -91,7 +91,7 @@ describe('ExamCommand', function () {
       return command.run({ split: 2, partition: [1, 2] }).then(function () {
         assert.strictEqual(
           called.testRunOptions.query,
-          'split=2&partition=1&partition=2'
+          'split=2&partition=1&partition=2',
         );
       });
     });
@@ -102,7 +102,7 @@ describe('ExamCommand', function () {
         .then(function () {
           assert.strictEqual(
             called.testRunOptions.query,
-            'someQuery=derp&hidepassed&split=2&partition=2'
+            'someQuery=derp&hidepassed&split=2&partition=2',
           );
         });
     });
@@ -133,7 +133,7 @@ describe('ExamCommand', function () {
         .then(function () {
           assert.strictEqual(
             called.testRunOptions.query,
-            'someQuery=derp&hidepassed&seed=1337'
+            'someQuery=derp&hidepassed&seed=1337',
           );
         });
     });
@@ -150,37 +150,6 @@ describe('ExamCommand', function () {
       return command.run({ split: 5 }).then(function () {
         assert.strictEqual(process.env.EMBER_EXAM_SPLIT_COUNT, '5');
       });
-    });
-  });
-
-  describe('_getTestFramework', function () {
-    let command;
-
-    function assertFramework(command, name) {
-      assert.strictEqual(command._getTestFramework(), name);
-    }
-
-    beforeEach(function () {
-      command = createCommand();
-    });
-
-    it('returns mocha if ember-mocha is a dependency', function () {
-      command.project.pkg.dependencies = {
-        'ember-mocha': '*',
-      };
-      assertFramework(command, 'mocha');
-    });
-
-    it('returns mocha if ember-mocha is a dev-dependency', function () {
-      command.project.pkg.devDependencies = {
-        'ember-mocha': '*',
-      };
-      assertFramework(command, 'mocha');
-    });
-
-    it('returns qunit if ember-mocha is not a dependency of any kind', function () {
-      command = createCommand();
-      assertFramework(command, 'qunit');
     });
   });
 });

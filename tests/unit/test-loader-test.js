@@ -1,68 +1,50 @@
-import EmberExamTestLoader from 'ember-exam/test-support/-private/ember-exam-qunit-test-loader';
-import {
-  macroCondition,
-  dependencySatisfies,
-  importSync,
-} from '@embroider/macros';
+import EmberExamTestLoader from 'ember-exam/test-support/-private/ember-exam-test-loader';
+import { module, test } from 'qunit';
 
-if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
-  let QUnit = importSync('qunit').default;
+module('Unit | test-loader', function (hooks) {
+  hooks.beforeEach(function () {
+    this.originalRequire = window.require;
+    this.requiredModules = [];
+    window.require = (name) => {
+      this.requiredModules.push(name);
+    };
 
-  let { module, test } = QUnit;
+    window.requirejs.entries = {
+      'test-1-test': true,
+      'test-2-test': true,
+      'test-3-test': true,
+      'test-4-test': true,
+    };
+    this.testem = {
+      eventQueue: new Array(),
+      emit: function (event) {
+        this.eventQueue.push(event);
+      },
+      on: () => {},
+    };
+    this.qunit = {
+      config: {
+        queue: [],
+      },
+      begin: () => {},
+      moduleDone: () => {},
+      testDone: () => {},
+    };
+  });
 
-  module('Unit | Qunit | test-loader', {
-    beforeEach() {
-      this.originalRequire = window.require;
-      this.requiredModules = [];
-      window.require = (name) => {
-        this.requiredModules.push(name);
-      };
-
-      window.requirejs.entries = {
-        'test-1-test': true,
-        'test-1-test.jshint': true,
-        'test-2-test': true,
-        'test-2-test.jshint': true,
-        'test-3-test': true,
-        'test-3-test.jshint': true,
-        'test-4-test': true,
-        'test-4-test.jshint': true,
-      };
-      this.testem = {
-        eventQueue: new Array(),
-        emit: function (event) {
-          this.eventQueue.push(event);
-        },
-        on: () => {},
-      };
-      this.qunit = {
-        config: {
-          queue: [],
-        },
-        begin: () => {},
-        moduleDone: () => {},
-        testDone: () => {},
-      };
-    },
-
-    afterEach() {
-      window.require = this.originalRequire;
-    },
+  hooks.afterEach(function () {
+    window.require = this.originalRequire;
   });
 
   test('loads all test modules by default', function (assert) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map(),
-      this.qunit
+      this.qunit,
     );
     testLoader.loadModules();
 
     assert.deepEqual(this.requiredModules, [
-      'test-1-test.jshint',
-      'test-2-test.jshint',
-      'test-3-test.jshint',
-      'test-4-test.jshint',
       'test-1-test',
       'test-2-test',
       'test-3-test',
@@ -75,15 +57,11 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       undefinedTestem,
       new Map(),
-      this.qunit
+      this.qunit,
     );
     testLoader.loadModules();
 
     assert.deepEqual(this.requiredModules, [
-      'test-1-test.jshint',
-      'test-2-test.jshint',
-      'test-3-test.jshint',
-      'test-4-test.jshint',
       'test-1-test',
       'test-2-test',
       'test-3-test',
@@ -95,65 +73,51 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('partition', 3).set('split', 4),
-      this.qunit
+      this.qunit,
     );
     testLoader.loadModules();
 
-    assert.deepEqual(this.requiredModules, [
-      'test-3-test.jshint',
-      'test-3-test',
-    ]);
+    assert.deepEqual(this.requiredModules, ['test-3-test']);
   });
 
   test('loads modules from multiple specified partitions', function (assert) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('partition', [1, 3]).set('split', 4),
-      this.qunit
+      this.qunit,
     );
     testLoader.loadModules();
 
-    assert.deepEqual(this.requiredModules, [
-      'test-1-test.jshint',
-      'test-1-test',
-      'test-3-test.jshint',
-      'test-3-test',
-    ]);
+    assert.deepEqual(this.requiredModules, ['test-1-test', 'test-3-test']);
   });
 
   test('loads modules from the first partition by default', function (assert) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 4),
-      this.qunit
+      this.qunit,
     );
     testLoader.loadModules();
 
-    assert.deepEqual(this.requiredModules, [
-      'test-1-test.jshint',
-      'test-1-test',
-    ]);
+    assert.deepEqual(this.requiredModules, ['test-1-test']);
   });
 
   test('handles params as strings', function (assert) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('partition', 3).set('split', 4),
-      this.qunit
+      this.qunit,
     );
     testLoader.loadModules();
 
-    assert.deepEqual(this.requiredModules, [
-      'test-3-test.jshint',
-      'test-3-test',
-    ]);
+    assert.deepEqual(this.requiredModules, ['test-3-test']);
   });
 
   test('throws an error if splitting less than one', function (assert) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 0),
-      this.qunit
+      this.qunit,
     );
 
     assert.throws(() => {
@@ -165,7 +129,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 2).set('partition', 'foo'),
-      this.qunit
+      this.qunit,
     );
 
     assert.throws(() => {
@@ -177,7 +141,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 2).set('partition', [1, 'foo']),
-      this.qunit
+      this.qunit,
     );
 
     assert.throws(() => {
@@ -189,7 +153,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 2).set('partition', 3),
-      this.qunit
+      this.qunit,
     );
 
     assert.throws(() => {
@@ -201,7 +165,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 2).set('partition', [2, 3]),
-      this.qunit
+      this.qunit,
     );
 
     assert.throws(() => {
@@ -213,46 +177,12 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('split', 2).set('partition', 0),
-      this.qunit
+      this.qunit,
     );
 
     assert.throws(() => {
       testLoader.loadModules();
     }, /You must specify partitions numbered greater than 0/);
-  });
-
-  test('load works without lint tests', function (assert) {
-    QUnit.urlParams.nolint = true;
-    const testLoader = new EmberExamTestLoader(
-      this.testem,
-      new Map().set('partition', 4).set('split', 4),
-      this.qunit
-    );
-
-    testLoader.loadModules();
-
-    assert.deepEqual(this.requiredModules, ['test-4-test']);
-
-    QUnit.urlParams.nolint = false;
-  });
-
-  test('load works without non-lint tests', function (assert) {
-    window.requirejs.entries = {
-      'test-1-test.jshint': true,
-      'test-2-test.jshint': true,
-      'test-3-test.jshint': true,
-      'test-4-test.jshint': true,
-    };
-
-    const testLoader = new EmberExamTestLoader(
-      this.testem,
-      new Map().set('partition', 4).set('split', 4),
-      this.qunit
-    );
-
-    testLoader.loadModules();
-
-    assert.deepEqual(this.requiredModules, ['test-4-test.jshint']);
   });
 
   test('load works with a double-digit single partition', function (assert) {
@@ -272,7 +202,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('partition', '10').set('split', 10),
-      this.qunit
+      this.qunit,
     );
 
     testLoader.loadModules();
@@ -284,7 +214,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     const testLoader = new EmberExamTestLoader(
       this.testem,
       new Map().set('loadBalance', true),
-      this.qunit
+      this.qunit,
     );
 
     testLoader.loadModules();
@@ -292,7 +222,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     assert.deepEqual(
       this.testem.eventQueue,
       ['testem:set-modules-queue'],
-      'testem:set-modules-queue event was fired'
+      'testem:set-modules-queue event was fired',
     );
   });
-}
+});

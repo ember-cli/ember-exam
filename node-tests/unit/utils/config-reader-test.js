@@ -40,7 +40,7 @@ describe('ConfigReader | readTestemConfig', function () {
   it('should require a specified `js` file and return an object in the module when the file exsits and potential files are empty list', function () {
     assert.deepEqual(
       readTestemConfig('testem.simple-test-page.js', []).foo,
-      'bar'
+      'bar',
     );
   });
 
@@ -51,7 +51,7 @@ describe('ConfigReader | readTestemConfig', function () {
     assert.deepEqual(
       readTestemConfig(path.join(fixturifyDir, 'testem.json-file.json'), [])
         .foo,
-      'bar'
+      'bar',
     );
   });
 
@@ -62,7 +62,7 @@ describe('ConfigReader | readTestemConfig', function () {
     assert.deepEqual(
       readTestemConfig(path.join(fixturifyDir, 'testem.yaml-file.yaml'), [])
         .foo,
-      'bar'
+      'bar',
     );
   });
 });

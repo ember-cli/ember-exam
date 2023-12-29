@@ -20,4 +20,3 @@ ember exam:iterate <num> --options <options>
 
 The `options` should be a string matching what you would use via the CLI.
 
-_Note: This feature is not currently supported by Mocha._

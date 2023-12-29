@@ -46,4 +46,3 @@ and it looks something like below:
 ]
 ```
 
-_Note: This feature is not currently supported by Mocha._

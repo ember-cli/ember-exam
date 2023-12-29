@@ -6,11 +6,15 @@ on:
   pull_request:
     branches: [ master ]
 
+concurrency:
+  group: ci-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
     name: Tests
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v2
@@ -22,6 +26,7 @@ jobs:
   floating-dependencies:
     name: "Floating Dependencies"
     runs-on: ubuntu-latest
+    timeout-minutes: 10
 
     steps:
       - uses: actions/checkout@v2
@@ -31,34 +36,27 @@ jobs:
 
   try-scenarios:
     name: "Try: ${{ matrix.ember-try-scenario }}"
-
     runs-on: ubuntu-latest
-
+    timeout-minutes: 10
     needs: test
 
     strategy:
       fail-fast: false
       matrix:
         ember-try-scenario:
-          - ember-default-with-jquery
-          - ember-default-with-mocha
-          - ember-classic
           - embroider-safe
-          - embroider-safe-with-mocha
           - embroider-optimized
-          - embroider-optimized-with-mocha
-          - ember-lts-3.24
-          - ember-lts-3.20
+          - ember-lts-4.8
+          - ember-lts-4.12
           - ember-release
           - ember-beta
           - ember-canary
-          - ember-qunit-4
 
     steps:
       - uses: actions/checkout@v2
       - uses: volta-cli/action@v1
         with:
-          node-version: 12.x
+          node-version: 18
       - name: install dependencies
         run: yarn install --frozen-lockfile
       - name: test

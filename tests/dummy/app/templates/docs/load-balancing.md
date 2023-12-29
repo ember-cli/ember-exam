@@ -4,7 +4,7 @@
 ember exam --parallel=<num> --load-balance
 ```
 
-The `load-balance` option allows you to load balance test files against multiple browsers. It will order the test files by test types, e.g. acceptance | integration | unit | eslint, and load balance the ordered test files between the browsers dynamically rather than statically.
+The `load-balance` option allows you to load balance test files against multiple browsers. It will order the test files by test types, e.g. acceptance | integration | unit, and load balance the ordered test files between the browsers dynamically rather than statically.
 **Note:** parallel must be used along with load-balance to specify a number of browser(s)
 
 The `load-balance` option was added to version 1.1 to address execution performance when running against a large test suite.
@@ -40,7 +40,6 @@ ok 3 Chrome 66.0 - Exam Partition 1 - browser Id 3 - some the other test
 2. You must be using `ember-cli` version 3.2.0 or greater for load balancing and test failure reproduction features to work properly.
 3. You must be using `ember-qunit` version 4.1.1 or greater for this feature to work properly.
 4. You must be using `qunit` version 2.13.0 or greater for this feature to work properly.
-5. This feature is not currently supported by Mocha.
 
 ## Test Failure Reproduction
 
@@ -95,4 +94,3 @@ ember exam --replay-execution=test-execution-000000.json
 1. You must be using `ember-cli` version 3.2.0 or greater for load-balnce and test failure reproduction features to work properly.
 2. You must be using `ember-qunit` version 4.1.1 or greater for this feature to work properly.
 3. You must be using `qunit` version 2.8.0 or greater for this feature to work properly.
-4. This feature is not currently supported by Mocha.

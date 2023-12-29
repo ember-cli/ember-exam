@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/trentmwillis/ember-exam/badges/gpa.svg)](https://codeclimate.com/github/trentmwillis/ember-exam)
 [![Node Test Coverage](https://codeclimate.com/github/trentmwillis/ember-exam/badges/coverage.svg)](https://codeclimate.com/github/trentmwillis/ember-exam/coverage)
 
-Ember Exam is an addon to allow you more control over how you run your tests when used in conjunction with [Ember QUnit](https://github.com/emberjs/ember-qunit) or [Ember Mocha](https://github.com/emberjs/ember-mocha). It provides the ability to randomize, split, parallelize, and load-balance your test suite by adding a more robust CLI command.
+Ember Exam is an addon to allow you more control over how you run your tests when used in conjunction with [ember-qunit](https://github.com/emberjs/ember-qunit). It provides the ability to randomize, split, parallelize, and load-balance your test suite by adding a more robust CLI command.
 
 It started as a way to help reduce flaky tests and encourage healthy test driven development. It's like [Head & Shoulders](http://www.headandshoulders.com/) for your tests!
 
@@ -15,6 +15,7 @@ The [documentation website](https://ember-cli.github.io/ember-exam/) contains ex
 
 ## Table of Contents
 
+- [Compatibility](#compatibility)
 - [Installation](#installation)
 - [How To Use](#how-to-use)
   * [Version < `3.0.0`](#version--300)
@@ -29,6 +30,11 @@ The [documentation website](https://ember-cli.github.io/ember-exam/) contains ex
   * [Ember Try & CI Integration](#ember-try--ci-integration)
   * [Test Suite Segmentation](#test-suite-segmentation)
 
+## Compatibility
+
+* Ember.js v4.8 or above
+* Ember CLI v4.8 or above
+* Node.js v18 or above
 
 ## Installation
 
@@ -64,13 +70,13 @@ $ ember exam --load-balance --parallel --server
 
 The idea is that you can replace `ember test` with `ember exam` and never look back.
 
-To get the unique features of Ember Exam (described in-depth below), you will need to **replace** the use of `start()` from `Ember-Qunit` or `Ember-Mocha` in `test-helper.js` with `start()` from `ember-exam`:
+To get the unique features of Ember Exam (described in-depth below), you will need to **replace** the use of `start()` from `ember-qunit` in `test-helper.js` with `start()` from `ember-exam`:
 
 ```js
 // test-helper.js
 import start from 'ember-exam/test-support/start';
 
-// Options passed to `start` will be passed-through to ember-qunit or ember-mocha
+// Options passed to `start` will be passed-through to ember-qunit
 start();
 ```
 
@@ -115,7 +121,7 @@ ember exam --split=2 --random
 Randomizing tests with seed: hwr74nkk55vzpvi
 ```
 
-_Note: You must be using QUnit version `1.23.0` or greater for this feature to work properly. This feature is not currently supported by Mocha._
+_Note: You must be using QUnit version `1.23.0` or greater for this feature to work properly.
 
 #### Randomization Iterator
 
@@ -138,8 +144,6 @@ $ ember exam:iterate <num> --options <options>
 ```
 
 The `options` should be a string matching what you would use via the CLI.
-
-_Note: This feature is not currently supported by Mocha._
 
 ### Generating Module Metadata File For Test Execution
 
@@ -189,8 +193,6 @@ and it looks something like below:
 ]
 ```
 
-_Note: This feature is not currently supported by Mocha._
-
 
 ### Splitting
 
@@ -210,7 +212,7 @@ The `partition` option allows you to specify which test group to run after using
 $ ember exam --split=4 --partition=1 --partition=2
 ```
 
-_Note: Ember Exam splits tests by modifying the Ember-QUnit/Ember-Mocha's `TestLoader` to bucket each test file into a partition, where each partition has an even number of test files. This makes it possible to have unbalanced partitions. To run your tests with balanced partitions, consider using `--load-balance`. For more info, see [_Test Load Balancing_](#test-load-balancing).
+_Note: Ember Exam splits tests by modifying the ember-qunit's `TestLoader` to bucket each test file into a partition, where each partition has an even number of test files. This makes it possible to have unbalanced partitions. To run your tests with balanced partitions, consider using `--load-balance`. For more info, see [_Test Load Balancing_](#test-load-balancing).
 
 #### Split Test Parallelization
 
@@ -282,7 +284,7 @@ $ ember exam --file-path='/my-application/tests/unit/*.js'
 $ ember exam --parallel=<num> --load-balance
 ```
 
-The `load-balance` option allows you to load balance test files against multiple browsers. It will order the test files by test types, e.g. acceptance | integration | unit | eslint, and load balance the ordered test files between the browsers dynamically rather than statically.
+The `load-balance` option allows you to load balance test files against multiple browsers. It will order the test files by test types, e.g. acceptance | integration | unit, and load balance the ordered test files between the browsers dynamically rather than statically.
 **Note:** parallel must be used along with load-balance to specify a number of browser(s)
 
 The `load-balance` option was added to version 1.1 to address execution performance when running against a large test suite.
@@ -319,7 +321,6 @@ ok 3 Chrome 66.0 - Exam Partition 1 - browser Id 3 - some the other test
 2. You must be using `ember-cli` version 3.2.0 or greater for load balancing and test failure reproduction features to work properly.
 3. You must be using `ember-qunit` version 4.1.1 or greater for this feature to work properly.
 4. You must be using `qunit` version 2.13.0 or greater for this feature to work properly.
-5. This feature is not currently supported by Mocha.
 
 ##### Test Failure Reproduction
 
@@ -374,7 +375,6 @@ $ ember exam --replay-execution=test-execution-000000.json
 1. You must be using `ember-cli` version 3.2.0 or greater for load-balnce and test failure reproduction features to work properly.
 2. You must be using `ember-qunit` version 4.1.1 or greater for this feature to work properly.
 3. You must be using `qunit` version 2.8.0 or greater for this feature to work properly.
-4. This feature is not currently supported by Mocha.
 
 #### Preserve Test Name
 
@@ -386,7 +386,7 @@ ok 1 Chrome 66.0 - Exam Partition 1 - browser Id 1 - some test
 ok 2 Chrome 66.0 - Exam Partition 1 - browser Id 2 - another test
 ok 3 Chrome 66.0 - Exam Partition 1 - browser Id 3 - some the other test
 ```
-However, if you change the amount of parallelization, or randomize across partitions, the output will change for the same test, which may be an issue if you are tracking test insights over time. 
+However, if you change the amount of parallelization, or randomize across partitions, the output will change for the same test, which may be an issue if you are tracking test insights over time.
 
 ```bash
 # ember exam --split=2 --partition=1 --parallel=2 --load-balance

@@ -1,14 +1,6 @@
-import {
-  macroCondition,
-  dependencySatisfies,
-  importSync,
-} from '@embroider/macros';
+import { module, test } from 'qunit';
 
-if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
-  let { module, test } = importSync('qunit').default;
-
-  module('Qunit | #2: Module With Multiple Tests');
-
+module('#2: Module With Multiple Tests', function () {
   test('#1', function (assert) {
     assert.ok(true);
   });
@@ -36,4 +28,4 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
   test('#9', function (assert) {
     assert.ok(true);
   });
-}
+});

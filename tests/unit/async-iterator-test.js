@@ -1,38 +1,30 @@
 import AsyncIterator from 'ember-exam/test-support/-private/async-iterator';
-import {
-  macroCondition,
-  dependencySatisfies,
-  importSync,
-} from '@embroider/macros';
+import { module, test } from 'qunit';
 
-if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
-  let { module, test } = importSync('qunit').default;
-
-  module('Unit | Qunit | async-iterator', {
-    beforeEach() {
-      this.testem = {
-        eventHandler: new Array(),
-        emit: function (event) {
-          const argsWithoutFirst = Array.prototype.slice.call(arguments, 1);
-          if (this.eventHandler && this.eventHandler[event]) {
-            let handlers = this.eventHandler[event];
-            for (let i = 0; i < handlers.length; i++) {
-              handlers[i].apply(this, argsWithoutFirst);
-            }
+module('Unit | async-iterator', function (hooks) {
+  hooks.beforeEach(function () {
+    this.testem = {
+      eventHandler: new Array(),
+      emit: function (event) {
+        const argsWithoutFirst = Array.prototype.slice.call(arguments, 1);
+        if (this.eventHandler && this.eventHandler[event]) {
+          let handlers = this.eventHandler[event];
+          for (let i = 0; i < handlers.length; i++) {
+            handlers[i].apply(this, argsWithoutFirst);
           }
-        },
-        on: function (event, callBack) {
-          if (!this.eventHandler) {
-            this.eventHandler = {};
-          }
-          if (!this.eventHandler[event]) {
-            this.eventHandler[event] = [];
-          }
-          this.eventHandler[event].push(callBack);
-        },
-        removeEventCallbacks: () => {},
-      };
-    },
+        }
+      },
+      on: function (event, callBack) {
+        if (!this.eventHandler) {
+          this.eventHandler = {};
+        }
+        if (!this.eventHandler[event]) {
+          this.eventHandler[event] = [];
+        }
+        this.eventHandler[event].push(callBack);
+      },
+      removeEventCallbacks: () => {},
+    };
   });
 
   test('should instantiate', function (assert) {
@@ -47,7 +39,6 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
   });
 
   test('should get the value from response.', function (assert) {
-    assert.expect(1);
     const done = assert.async();
     this.testem.on('next-module-request', () => {
       this.testem.emit('next-module-response', {
@@ -68,7 +59,6 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
   });
 
   test('should iterate promises until there is no response.', function (assert) {
-    assert.expect(1);
     const done = assert.async();
     const testem = this.testem;
     const responses = ['a', 'b', 'c'];
@@ -116,7 +106,6 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
   });
 
   test('should dispose after iteration.', function (assert) {
-    assert.expect(4);
     const done = assert.async();
     const testem = this.testem;
     const responses = ['a', 'b', 'c'];
@@ -154,7 +143,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
   });
 
   test('should resolve with iterator finishing if request is not handled within 2s', function (assert) {
-    assert.expect(1);
+    const done = assert.async();
     const iteratorOfPromises = new AsyncIterator(this.testem, {
       request: 'next-module-request',
       response: 'next-module-response',
@@ -163,11 +152,12 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
 
     return iteratorOfPromises.next().then((res) => {
       assert.true(res.done);
+      done();
     });
   });
 
   test('should resolve a timeout error if request is not handled within 2s when emberExamExitOnError is true', function (assert) {
-    assert.expect(1);
+    const done = assert.async();
     const iteratorOfPromises = new AsyncIterator(this.testem, {
       request: 'next-module-request',
       response: 'next-module-response',
@@ -178,13 +168,15 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
     return iteratorOfPromises.next().then(
       () => {
         assert.ok(false, 'Promise should not resolve, expecting reject');
+        done();
       },
       (err) => {
         assert.deepEqual(
           err.message,
-          'EmberExam: Promise timed out after 2 s while waiting for response for next-module-request'
+          'EmberExam: Promise timed out after 2 s while waiting for response for next-module-request',
         );
-      }
+        done();
+      },
     );
   });
 
@@ -196,7 +188,7 @@ if (macroCondition(dependencySatisfies('ember-qunit', '*'))) {
 
     assert.throws(
       () => iteratorOfPromises.handleResponse({}),
-      /Was not expecting a response, but got a response/
+      /Was not expecting a response, but got a response/,
     );
   });
-}
+});

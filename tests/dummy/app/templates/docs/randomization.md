@@ -26,4 +26,4 @@ ember exam --split=2 --random
 Randomizing tests with seed: hwr74nkk55vzpvi
 ```
 
-_Note: You must be using QUnit version `1.23.0` or greater for this feature to work properly. This feature is not currently supported by Mocha._
+_Note: You must be using QUnit version `1.23.0` or greater for this feature to work properly.

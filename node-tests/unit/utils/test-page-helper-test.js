@@ -35,7 +35,7 @@ describe('TestPageHelper', function () {
     it('should have a number of array when a specified option is a combination of number and string in range', function () {
       assert.deepEqual(
         combineOptionValueIntoArray([1, '3..6']),
-        [1, 3, 4, 5, 6]
+        [1, 3, 4, 5, 6],
       );
     });
   });
@@ -47,16 +47,18 @@ describe('TestPageHelper', function () {
           test_page: 'loadBalance&browser=1',
         },
       };
-      assert.strictEqual(getBrowserId(launcher), 1);
+      assert.strictEqual(getBrowserId(launcher), '1');
     });
 
     it('should throw an error if the launcher does not have test page set', function () {
+      const warnStub = sinon.stub(console, 'warn');
       const launcher = {
         foo: 'bar',
       };
-      assert.throws(() => {
-        getBrowserId(launcher);
-      }, /Launcher Settings:/);
+      assert.strictEqual(getBrowserId(launcher), 0);
+      sinon.assert.calledOnce(warnStub);
+      sinon.assert.calledWithMatch(warnStub, /Launcher Settings:/);
+      warnStub.restore();
     });
   });
 
@@ -76,7 +78,7 @@ describe('TestPageHelper', function () {
       sinon.assert.calledOnce(warnStub);
       sinon.assert.calledWithExactly(
         warnStub,
-        'No test_page value found in the config. Defaulting to "tests/index.html?hidepassed"'
+        'No test_page value found in the config. Defaulting to "tests/index.html?hidepassed"',
       );
 
       warnStub.restore();
@@ -84,7 +86,7 @@ describe('TestPageHelper', function () {
 
     it('should have multiple test pages specified in testem config file with test-page specified in the file', function () {
       const testPages = getTestUrlFromTestemConfig(
-        'testem.multiple-test-page.js'
+        'testem.multiple-test-page.js',
       );
 
       assert.deepEqual(testPages, [
@@ -98,7 +100,7 @@ describe('TestPageHelper', function () {
     it('should add `split` when `split` option is used', function () {
       const appendedUrl = getCustomBaseUrl(
         { split: 3 },
-        'tests/index.html?hidepassed'
+        'tests/index.html?hidepassed',
       );
 
       assert.deepEqual(appendedUrl, 'tests/index.html?hidepassed&split=3');
@@ -107,7 +109,7 @@ describe('TestPageHelper', function () {
     it('should add `split` when `split` and `parallel` option are used', function () {
       const appendedUrl = getCustomBaseUrl(
         { split: 5, parallel: true },
-        'tests/index.html?hidepassed'
+        'tests/index.html?hidepassed',
       );
 
       assert.deepEqual(appendedUrl, 'tests/index.html?hidepassed&split=5');
@@ -116,7 +118,7 @@ describe('TestPageHelper', function () {
     it('should add `loadBalance` when `load-balance` option is used', function () {
       const appendedUrl = getCustomBaseUrl(
         { loadBalance: 2 },
-        'tests/index.html?hidepassed'
+        'tests/index.html?hidepassed',
       );
 
       assert.deepEqual(appendedUrl, 'tests/index.html?hidepassed&loadBalance');
@@ -125,12 +127,12 @@ describe('TestPageHelper', function () {
     it('should add `split`, `loadBalance`, and `partition` when `split`, `loadBalance`, and `partition` are used.', function () {
       const appendedUrl = getCustomBaseUrl(
         { split: 5, partition: [1, 2, 3], loadBalance: 2 },
-        'tests/index.html?hidepassed'
+        'tests/index.html?hidepassed',
       );
 
       assert.deepEqual(
         appendedUrl,
-        'tests/index.html?hidepassed&split=5&loadBalance&partition=1&partition=2&partition=3'
+        'tests/index.html?hidepassed&split=5&loadBalance&partition=1&partition=2&partition=3',
       );
     });
 
@@ -140,7 +142,7 @@ describe('TestPageHelper', function () {
           replayExecution: 'test-execution-0000000.json',
           replayBrowser: [1, 2],
         },
-        'tests/index.html?hidepassed'
+        'tests/index.html?hidepassed',
       );
 
       assert.deepEqual(appendedUrl, 'tests/index.html?hidepassed&loadBalance');
@@ -188,7 +190,7 @@ describe('TestPageHelper', function () {
         [
           'tests/index.html?hidepassed&derp=herp',
           'tests/index.html?hidepassed&foo=bar',
-        ]
+        ],
       );
 
       assert.deepEqual(appendedUrl, [
@@ -206,7 +208,7 @@ describe('TestPageHelper', function () {
         [
           'tests/index.html?hidepassed&derp=herp',
           'tests/index.html?hidepassed&foo=bar',
-        ]
+        ],
       );
 
       assert.deepEqual(appendedUrl, [
@@ -220,7 +222,7 @@ describe('TestPageHelper', function () {
     it('should have multiple test pages with no partitions specified', function () {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { parallel: 1, split: 2 }
+        { parallel: 1, split: 2 },
       );
 
       assert.deepEqual(testPages, [
@@ -232,7 +234,7 @@ describe('TestPageHelper', function () {
     it('should have multiple test pages with specified partitions', function () {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { parallel: 1, split: 4, partition: [3, 4] }
+        { parallel: 1, split: 4, partition: [3, 4] },
       );
 
       assert.deepEqual(testPages, [
@@ -244,7 +246,7 @@ describe('TestPageHelper', function () {
     it('should have multiple test pages for each test_page in the config file with no partitions specified', function () {
       const testPages = getMultipleTestPages(
         { configFile: 'testem.multiple-test-page.js' },
-        { parallel: 1, split: 2 }
+        { parallel: 1, split: 2 },
       );
 
       assert.deepEqual(testPages, [
@@ -258,7 +260,7 @@ describe('TestPageHelper', function () {
     it('should have multiple test pages for each test_page in the config file with partitions specified', function () {
       const testPages = getMultipleTestPages(
         { configFile: 'testem.multiple-test-page.js' },
-        { parallel: 1, split: 4, partition: [3, 4] }
+        { parallel: 1, split: 4, partition: [3, 4] },
       );
 
       assert.deepEqual(testPages, [
@@ -272,7 +274,7 @@ describe('TestPageHelper', function () {
     it('should have a test page with `loadBalance` when no specified number of browser', function () {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { loadBalance: true, parallel: 1 }
+        { loadBalance: true, parallel: 1 },
       );
 
       assert.deepEqual(testPages, [
@@ -283,7 +285,7 @@ describe('TestPageHelper', function () {
     it('should have multiple test page with `loadBalance` with splitting when no specified number of browser', function () {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { loadBalance: true, parallel: 1, split: 2 }
+        { loadBalance: true, parallel: 1, split: 2 },
       );
 
       assert.deepEqual(testPages, [
@@ -294,7 +296,7 @@ describe('TestPageHelper', function () {
     it('should have multiple test pages with test loading balanced, no specified partitions and no splitting', function () {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { loadBalance: true, parallel: 2 }
+        { loadBalance: true, parallel: 2 },
       );
 
       assert.deepEqual(testPages, [
@@ -306,7 +308,7 @@ describe('TestPageHelper', function () {
     it('should have multiple test pages with test loading balanced, no specified partitions and no splitting', function () {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { loadBalance: true, parallel: 2, split: 3, partition: [2, 3] }
+        { loadBalance: true, parallel: 2, split: 3, partition: [2, 3] },
       );
 
       assert.deepEqual(testPages, [
@@ -318,7 +320,7 @@ describe('TestPageHelper', function () {
     it('should have multiple test pages for each test_page in the config file with partitions specified and test loading balanced', function () {
       const testPages = getMultipleTestPages(
         { configFile: 'testem.multiple-test-page.js' },
-        { loadBalance: true, parallel: 1, split: 4, partition: [3, 4] }
+        { loadBalance: true, parallel: 1, split: 4, partition: [3, 4] },
       );
 
       assert.deepEqual(testPages, [
@@ -330,7 +332,7 @@ describe('TestPageHelper', function () {
     it('should have multiple test pages with test replay execution', function () {
       const testPages = getMultipleTestPages(
         { testPage: 'tests/index.html?hidepassed' },
-        { replayExecution: 'abc.json', replayBrowser: [2] }
+        { replayExecution: 'abc.json', replayBrowser: [2] },
       );
 
       assert.deepEqual(testPages, [
