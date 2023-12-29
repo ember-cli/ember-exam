@@ -26,6 +26,20 @@ jobs:
       - run: yarn lint
       - run: yarn test:ember
 
+  test-node:
+    name: Node Tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'yarn'
+      - run: yarn install --frozen-lockfile
+      - run: yarn test:node
+
   floating-dependencies:
     name: "Floating Dependencies"
     runs-on: ubuntu-latest
