@@ -1,6 +1,23 @@
 # Changelog
 
 
+
+## v9.0.0 (2023-12-29)
+
+#### :boom: Breaking Change
+* [#1125](https://github.com/ember-cli/ember-exam/pull/1125) Update ember to 5.5, drop Nodes below 18, drop Mocha support ([@andreyfel](https://github.com/andreyfel))
+
+#### :rocket: Enhancement
+* [#963](https://github.com/ember-cli/ember-exam/pull/963) Add preserveTestName CLI flag to remove partition and browser ([@tasha-urbancic](https://github.com/tasha-urbancic))
+
+#### :house: Internal
+* [#1127](https://github.com/ember-cli/ember-exam/pull/1127) Run node tests in CI ([@andreyfel](https://github.com/andreyfel))
+
+#### Committers: 2
+- Andrey Fel ([@andreyfel](https://github.com/andreyfel))
+- Natasha Urbancic ([@tasha-urbancic](https://github.com/tasha-urbancic))
+
+
 ## v8.0.0 (2022-01-25)
 
 #### :boom: Breaking Change
