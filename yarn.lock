@@ -2089,10 +2089,10 @@
     "@pnpm/network.ca-file" "^1.0.1"
     config-chain "^1.1.11"
 
-"@release-it-plugins/lerna-changelog@6.0.0":
-  version "6.0.0"
-  resolved "https://registry.yarnpkg.com/@release-it-plugins/lerna-changelog/-/lerna-changelog-6.0.0.tgz#f6c163a2b929c67c6878ae5a034dab08e23c17d9"
-  integrity sha512-/1xNLriHKKTdM+/LSQIng5V25gipw0brAXtWVQcOBR63NmW/Ftnd2IJpnM5WzFkOCcL9hoqc8rcIMMv1EOcaIg==
+"@release-it-plugins/lerna-changelog@6.1.0":
+  version "6.1.0"
+  resolved "https://registry.yarnpkg.com/@release-it-plugins/lerna-changelog/-/lerna-changelog-6.1.0.tgz#680287d4ff5b3f8e9413a66d028f67c0979d7e0e"
+  integrity sha512-zcgiUHiQkqAo1p5HN3xw6+0zmgRs1wzveRreC4CTNs2vErW8L5sCkEZQfSJLd918q+GR43L1/HudjlsiKQK8QA==
   dependencies:
     execa "^5.1.1"
     lerna-changelog "^2.2.0"
