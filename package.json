@@ -63,7 +63,7 @@
     "auto-dist-tag": "2.1.1",
     "codeclimate-test-reporter": "0.5.1",
     "concurrently": "8.2.2",
-    "ember-cli": "5.5.0",
+    "ember-cli": "5.6.0",
     "ember-cli-addon-docs": "7.0.0",
     "ember-cli-addon-docs-yuidoc": "1.0.0",
     "ember-cli-clean-css": "3.0.0",
