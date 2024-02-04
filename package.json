@@ -92,7 +92,7 @@
     "loader.js": "4.7.0",
     "mocha": "10.2.0",
     "nyc": "15.1.0",
-    "prettier": "3.2.4",
+    "prettier": "3.2.5",
     "qunit": "2.20.0",
     "release-it": "16.3.0",
     "rsvp": "4.8.5",
