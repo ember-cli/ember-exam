@@ -57,7 +57,7 @@
     "@babel/plugin-proposal-decorators": "7.23.9",
     "@ember/optional-features": "2.0.0",
     "@ember/string": "3.1.1",
-    "@ember/test-helpers": "3.2.1",
+    "@ember/test-helpers": "3.3.0",
     "@embroider/test-setup": "3.0.3",
     "@release-it-plugins/lerna-changelog": "6.1.0",
     "auto-dist-tag": "2.1.1",
