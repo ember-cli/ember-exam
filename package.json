@@ -74,7 +74,7 @@
     "ember-cli-deploy-git-ci": "1.0.1",
     "ember-cli-htmlbars": "6.3.0",
     "ember-cli-inject-live-reload": "2.1.0",
-    "ember-data": "5.3.3",
+    "ember-data": "5.3.8",
     "ember-load-initializers": "2.1.2",
     "ember-qunit": "8.1.0",
     "ember-resolver": "11.0.1",
