@@ -97,7 +97,7 @@
     "release-it": "16.3.0",
     "rsvp": "4.8.5",
     "sinon": "18.0.0",
-    "stylelint": "16.7.0",
+    "stylelint": "16.8.1",
     "stylelint-config-standard": "36.0.1",
     "stylelint-prettier": "5.0.2",
     "webpack": "5.93.0"
