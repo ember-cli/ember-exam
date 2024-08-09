@@ -90,7 +90,7 @@
     "eslint-plugin-qunit": "8.1.1",
     "fixturify": "3.0.0",
     "loader.js": "4.7.0",
-    "mocha": "10.7.0",
+    "mocha": "10.7.3",
     "nyc": "17.0.0",
     "prettier": "3.3.3",
     "qunit": "2.21.1",
