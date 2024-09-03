@@ -100,7 +100,7 @@
     "stylelint": "16.7.0",
     "stylelint-config-standard": "36.0.1",
     "stylelint-prettier": "5.0.2",
-    "webpack": "5.93.0"
+    "webpack": "5.94.0"
   },
   "peerDependencies": {
     "ember-qunit": "*",
