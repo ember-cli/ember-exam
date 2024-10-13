@@ -44,7 +44,7 @@
     "debug": "^4.2.0",
     "ember-auto-import": "^2.7.0",
     "ember-cli-babel": "^8.2.0",
-    "execa": "^8.0.1",
+    "execa": "^9.0.0",
     "fs-extra": "^11.2.0",
     "js-yaml": "^4.0.0",
     "npmlog": "^7.0.0",
