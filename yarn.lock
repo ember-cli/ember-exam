@@ -8228,10 +8228,10 @@ ember-modifier-manager-polyfill@^1.2.0:
     ember-cli-normalize-entity-name "^1.0.0"
     ember-cli-string-utils "^1.1.0"
 
-ember-qunit@8.1.0:
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/ember-qunit/-/ember-qunit-8.1.0.tgz#c9dcd5bc97d3b122db7e416e3aef09fba7db39f9"
-  integrity sha512-55/xqvVQwhiNcnh/tCzWyvlYzrYqwDY0/cIPyDQbAxGKtkUt9jCfRUGllfyOofC6LX0fL/0fIi+5e9sg1m6vXw==
+ember-qunit@8.1.1:
+  version "8.1.1"
+  resolved "https://registry.yarnpkg.com/ember-qunit/-/ember-qunit-8.1.1.tgz#1fc25d8e00f9e08765e4ebd740f99dce23179460"
+  integrity sha512-nT+6s74j3BKNn+QQY/hINC3Xw3kn0NF0cU9zlgVQmCBWoyis1J24xWrY2LFOMThPmF6lHqcrUb5JwvBD4BXEXg==
   dependencies:
     "@embroider/addon-shim" "^1.8.6"
     "@embroider/macros" "^1.13.1"
