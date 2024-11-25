@@ -8335,10 +8335,10 @@ ember-qunit@8.1.1:
     ember-cli-test-loader "^3.1.0"
     qunit-theme-ember "^1.0.0"
 
-ember-resolver@11.0.1:
-  version "11.0.1"
-  resolved "https://registry.yarnpkg.com/ember-resolver/-/ember-resolver-11.0.1.tgz#5914e67aec7053f7148e4b0ae2d6918e830f7909"
-  integrity sha512-ucBk3oM+PR+AfYoSUXeQh8cDQS1sSiEKp4Pcgbew5cFMSqPxJfqd1zyZsfQKNTuyubeGmWxBOyMVSTvX2LeCyg==
+ember-resolver@13.1.0:
+  version "13.1.0"
+  resolved "https://registry.yarnpkg.com/ember-resolver/-/ember-resolver-13.1.0.tgz#8e04034c43fb20b7b92b76f7492f984dd635542e"
+  integrity sha512-t/PjXLCl5tM9EQXGIFoBgHiA41HkLJpfo17Nud5Cy9eyUPGcnsMjWJqQ+O5QHA0E63Sp+zTn4y/RS5Tu2v2ydg==
   dependencies:
     ember-cli-babel "^7.26.11"
 
