@@ -4996,6 +4996,16 @@ babel-register@^6.26.0:
     mkdirp "^0.5.1"
     source-map-support "^0.4.15"
 
+babel-remove-types@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/babel-remove-types/-/babel-remove-types-1.0.0.tgz#21d443909dc9b00fed359f6074060f3c147b3db8"
+  integrity sha512-Kg+NZLwfe1E+LoGrkX9I9nFDM1FVBoiIdyW4bjNGGvrqWhvgcdauqijOFn5/WYkdoGXpUEDRWvU4X100ghVx4A==
+  dependencies:
+    "@babel/core" "^7.16.10"
+    "@babel/plugin-syntax-decorators" "^7.16.7"
+    "@babel/plugin-transform-typescript" "^7.16.8"
+    prettier "^2.5.1"
+
 babel-runtime@^6.18.0, babel-runtime@^6.22.0, babel-runtime@^6.26.0:
   version "6.26.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.26.0.tgz#965c7058668e82b55d7bfe04ff2337bc8b5647fe"
@@ -8069,12 +8079,13 @@ ember-cli-version-checker@^5.1.1, ember-cli-version-checker@^5.1.2:
     semver "^7.3.4"
     silent-error "^1.1.1"
 
-ember-cli@5.12.0:
-  version "5.12.0"
-  resolved "https://registry.yarnpkg.com/ember-cli/-/ember-cli-5.12.0.tgz#8f62a8124a02468e2dc2fe49b3044975d0e8affc"
-  integrity sha512-48ZOoUZTXsav37RIYY9gyCR35yo64mhzfv5YHtTbsZZwLv/HjvTz27X0CTvkfVQaOWHYDFekxdp9ppaKz84VNA==
+ember-cli@6.0.1:
+  version "6.0.1"
+  resolved "https://registry.yarnpkg.com/ember-cli/-/ember-cli-6.0.1.tgz#ff8e66d48db8bfa1db39801b5449f0dc278e9300"
+  integrity sha512-UD9szFnZS27uC66iaFMBPEHcDDmtEy7+mwzjoCmDnYT85ZIXsEh5r+aEry2NSJnTXayOItbhDtSbd0eTqKPyUQ==
   dependencies:
     "@pnpm/find-workspace-dir" "^6.0.2"
+    babel-remove-types "^1.0.0"
     broccoli "^3.5.2"
     broccoli-builder "^0.18.14"
     broccoli-concat "^4.2.5"
@@ -8141,7 +8152,6 @@ ember-cli@5.12.0:
     promise-map-series "^0.3.0"
     promise.hash.helper "^1.0.8"
     quick-temp "^0.1.8"
-    remove-types "^1.0.0"
     resolve "^1.22.1"
     resolve-package-path "^4.0.3"
     safe-stable-stringify "^2.4.3"
