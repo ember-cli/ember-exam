@@ -7603,10 +7603,10 @@ ember-cli-addon-docs-yuidoc@1.1.0:
     lodash "^4.17.20"
     yuidocjs "^0.10.2"
 
-ember-cli-addon-docs@7.2.2:
-  version "7.2.2"
-  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-7.2.2.tgz#2d273eb7e16e1a79e0a801ce4559ebc292af951b"
-  integrity sha512-aYh4T0QGAHHroiTiP7OrZ7eoG7118rzt0ehIB+GXCsQxHZI9zjKJ9/mxhsEuOIwHHI/gVxEmEHlkxQuvH04qUw==
+ember-cli-addon-docs@8.0.8:
+  version "8.0.8"
+  resolved "https://registry.yarnpkg.com/ember-cli-addon-docs/-/ember-cli-addon-docs-8.0.8.tgz#a07d543b43552a225418e99803f0ab5bf99b80a8"
+  integrity sha512-yQxysY5/yJo9XY7OExQL2CeF2qhBnt26TvoyeAXP+SkuIDerSq4Ncx3FoYvuOUgijHarz8xT/9LnPo69NVecSA==
   dependencies:
     "@csstools/postcss-sass" "^5.1.1"
     "@ember/render-modifiers" "^2.1.0"
@@ -7637,7 +7637,7 @@ ember-cli-addon-docs@7.2.2:
     ember-code-snippet "^3.0.0"
     ember-composable-helpers "^5.0.0"
     ember-concurrency "^3.1.1"
-    ember-keyboard "^8.2.1"
+    ember-keyboard "^9.0.1"
     ember-modal-dialog "^4.1.4"
     ember-responsive "^5.0.0"
     ember-router-generator "^2.0.0"
@@ -8319,10 +8319,10 @@ ember-inflector@^4.0.2:
   dependencies:
     ember-cli-babel "^7.26.5"
 
-ember-keyboard@^8.2.1:
-  version "8.2.1"
-  resolved "https://registry.yarnpkg.com/ember-keyboard/-/ember-keyboard-8.2.1.tgz#945a8a71068d81c06ad26851008ef81061db2a59"
-  integrity sha512-wT9xpt3GKsiodGZoifKU4OyeRjXWlmKV9ZHHsp6wJBwMFpl4wWPjTNdINxivk2qg/WFNIh8nUiwuG4+soWXPdw==
+ember-keyboard@^9.0.1:
+  version "9.0.1"
+  resolved "https://registry.yarnpkg.com/ember-keyboard/-/ember-keyboard-9.0.1.tgz#65b1b07aba39462dddd7a3ba836cda12ca62eb18"
+  integrity sha512-zCIrs8ktI8nxDTBLodASYrWtg5I5ZTZ7hdfFr+upfyRKzbLub5Pnvlj60zpvSAVDyNJBlQJ7eSn3sZlwEA01wQ==
   dependencies:
     "@embroider/addon-shim" "^1.8.4"
     ember-destroyable-polyfill "^2.0.3"
