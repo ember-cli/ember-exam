@@ -14683,10 +14683,10 @@ qunit-theme-ember@^1.0.0:
   resolved "https://registry.yarnpkg.com/qunit-theme-ember/-/qunit-theme-ember-1.0.0.tgz#3b750b9e3ab2837cc3b31cc5b73a0b71b964b0db"
   integrity sha512-vdMVVo6ecdCkWttMTKeyq1ZTLGHcA6zdze2zhguNuc3ritlJMhOXY5RDseqazOwqZVfCg3rtlmL3fMUyIzUyFQ==
 
-qunit@2.23.0:
-  version "2.23.0"
-  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.23.0.tgz#203c19bd966390f97835e6e6bd7366301745c705"
-  integrity sha512-r4hCsZqUvSyuUUHbCt2kYW1AECD7KTdhKW9mSUuCu51UO44o6oz6L+F3coeryj79MWF7o+S+szJ9Icrr9yalvQ==
+qunit@2.23.1:
+  version "2.23.1"
+  resolved "https://registry.yarnpkg.com/qunit/-/qunit-2.23.1.tgz#392874807cb904d0a9a906d72064bbbdcd793acf"
+  integrity sha512-CGrsGy7NhkQmfiyOixBpbexh2PT7ekIb35uWiBi/hBNdTJF1W98UonyACFJJs8UmcP96lH+YJlX99dYZi5rZkg==
   dependencies:
     commander "7.2.0"
     node-watch "0.7.3"
