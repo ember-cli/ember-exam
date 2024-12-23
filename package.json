@@ -94,7 +94,7 @@
     "nyc": "17.1.0",
     "prettier": "3.4.2",
     "qunit": "2.23.1",
-    "release-it": "16.3.0",
+    "release-it": "17.11.0",
     "rsvp": "4.8.5",
     "sinon": "19.0.2",
     "stylelint": "16.11.0",
