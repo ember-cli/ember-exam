@@ -108,5 +108,12 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
+  },
+  "typesVersions": {
+    "*": {
+      "*": [
+        "types/*"
+      ]
+    }
   }
 }
