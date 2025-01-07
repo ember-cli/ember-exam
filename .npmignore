@@ -3,6 +3,7 @@
 /tmp/
 
 # misc
+/.codeclimate.yml
 /.editorconfig
 /.ember-cli
 /.env*
