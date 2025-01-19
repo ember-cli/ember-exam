@@ -98,7 +98,7 @@
     "rsvp": "4.8.5",
     "sinon": "19.0.2",
     "stylelint": "16.13.2",
-    "stylelint-config-standard": "36.0.1",
+    "stylelint-config-standard": "37.0.0",
     "stylelint-prettier": "5.0.2",
     "webpack": "5.97.1"
   },
