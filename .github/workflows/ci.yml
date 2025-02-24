@@ -90,7 +90,5 @@ jobs:
         with:
           node-version: 18
           cache: 'pnpm'
-      - name: install dependencies
-        run: pnpm install
-      - name: test
-        run: node_modules/.bin/ember try:one ${{ matrix.ember-try-scenario }} --skip-cleanup
+      - run: pnpm install
+      - run: node_modules/.bin/ember try:one ${{ matrix.ember-try-scenario }} --skip-cleanup
