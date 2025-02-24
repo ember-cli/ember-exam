@@ -39,7 +39,7 @@ The [documentation website](https://ember-cli.github.io/ember-exam/) contains ex
 Installation is as easy as running:
 
 ```bash
-$ ember install ember-exam
+$ npm install --save-dev ember-exam
 ```
 
 ## How To Use
@@ -76,6 +76,15 @@ import start from 'ember-exam/test-support/start';
 
 // Options passed to `start` will be passed-through to ember-qunit
 start();
+```
+
+## How to use with Vite
+
+All of the above applies, but we need to tell vite to build the app before telling ember/exam to run tests on that output.
+
+```bash
+vite build --mode test
+ember exam --path dist
 ```
 
 ### Version < `3.0.0`
