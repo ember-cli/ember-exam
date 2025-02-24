@@ -107,6 +107,7 @@
     "ember-source": ">= 4.0.0",
     "qunit": "*"
   },
+  "packageManager": "pnpm@10.4.1",
   "engines": {
     "node": ">= 18"
   },
@@ -140,7 +141,6 @@
     }
   },
   "volta": {
-    "node": "18.20.7",
-    "yarn": "1.22.19"
+    "node": "18.20.7"
   }
 }
