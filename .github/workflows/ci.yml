@@ -82,7 +82,7 @@ jobs:
           - ember-canary
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
         with:
           run_install: false
