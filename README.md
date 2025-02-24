@@ -82,6 +82,25 @@ start();
 
 All of the above applies, but we need to tell vite to build the app before telling ember/exam to run tests on that output.
 
+Update your test-helper.js or test-helper.ts, to have add the ember-exam `start` function:
+```diff
+  // ...
+  import { setApplication } from '@ember/test-helpers';
+  import { setup } from 'qunit-dom';
+- import { start as qunitStart, setupEmberOnerrorValidation } from 'ember-qunit';
++ import { setupEmberOnerrorValidation } from 'ember-qunit';
++ import { startEmberExam } from 'ember-exam/test-support';
+
+  export function start() {
+    setApplication(Application.create(config.APP));
+
+    setup(QUnit.assert);
+    setupEmberOnerrorValidation();
+
+    startEmberExam();
+  }
+```
+
 ```bash
 vite build --mode test
 ember exam --path dist
