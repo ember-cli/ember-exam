@@ -62,7 +62,7 @@
     "@release-it-plugins/lerna-changelog": "6.1.0",
     "auto-dist-tag": "2.1.1",
     "codeclimate-test-reporter": "0.5.1",
-    "concurrently": "8.2.2",
+    "concurrently": "9.1.2",
     "ember-cli": "5.12.0",
     "ember-cli-addon-docs": "7.2.2",
     "ember-cli-addon-docs-yuidoc": "1.1.0",
