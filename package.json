@@ -95,6 +95,7 @@
     "prettier": "3.5.3",
     "qunit": "2.24.1",
     "release-it": "16.3.0",
+    "release-plan": "^0.13.1",
     "rsvp": "4.8.5",
     "sinon": "19.0.2",
     "stylelint": "16.15.0",
@@ -110,6 +111,9 @@
   "packageManager": "pnpm@10.4.1",
   "engines": {
     "node": ">= 18"
+  },
+  "volta": {
+    "node": "18.20.7"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
@@ -139,8 +143,5 @@
     "npm": {
       "publish": false
     }
-  },
-  "volta": {
-    "node": "18.20.7"
   }
 }
