@@ -59,7 +59,7 @@
     "@ember/string": "3.1.1",
     "@ember/test-helpers": "3.3.1",
     "@embroider/test-setup": "3.0.3",
-    "@release-it-plugins/lerna-changelog": "6.1.0",
+    "@release-it-plugins/lerna-changelog": "7.0.0",
     "auto-dist-tag": "2.1.1",
     "codeclimate-test-reporter": "0.5.1",
     "concurrently": "8.2.2",
