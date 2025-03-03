@@ -169,7 +169,7 @@ importers:
         specifier: 2.24.1
         version: 2.24.1
       release-plan:
-        specifier: ^0.13.1
+        specifier: 0.13.1
         version: 0.13.1
       rsvp:
         specifier: 4.8.5
@@ -10157,7 +10157,7 @@ snapshots:
     dependencies:
       '@typescript-eslint/types': 8.25.0
       '@typescript-eslint/visitor-keys': 8.25.0
-      debug: 4.4.0
+      debug: 4.4.0(supports-color@8.1.1)
       fast-glob: 3.3.3
       is-glob: 4.0.3
       minimatch: 9.0.5
@@ -18299,8 +18299,7 @@ snapshots:
 
   typescript-memoize@1.1.1: {}
 
-  typescript@5.7.3:
-    optional: true
+  typescript@5.7.3: {}
 
   uc.micro@1.0.6: {}
 
