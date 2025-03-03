@@ -18,13 +18,14 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile
-      - run: yarn lint
-      - run: yarn test:ember
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm lint
+      - run: pnpm test:ember
 
   test-node:
     name: Node Tests
@@ -33,12 +34,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'yarn'
-      - run: yarn install --frozen-lockfile
-      - run: yarn test:node
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm test:node
 
   floating-dependencies:
     name: "Floating Dependencies"
@@ -47,12 +49,13 @@ jobs:
 
     steps:
       - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'yarn'
-      - run: yarn install --no-lockfile
-      - run: yarn test:ember
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: pnpm test:ember
 
   try-scenarios:
     name: "Try: ${{ matrix.ember-try-scenario }}"
@@ -73,12 +76,11 @@ jobs:
           - ember-canary
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 18
-          cache: 'yarn'
-      - name: install dependencies
-        run: yarn install --frozen-lockfile
-      - name: test
-        run: node_modules/.bin/ember try:one ${{ matrix.ember-try-scenario }} --skip-cleanup
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: node_modules/.bin/ember try:one ${{ matrix.ember-try-scenario }} --skip-cleanup
