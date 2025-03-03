@@ -59,7 +59,6 @@
     "@ember/string": "3.1.1",
     "@ember/test-helpers": "3.3.1",
     "@embroider/test-setup": "3.0.3",
-    "@release-it-plugins/lerna-changelog": "6.1.0",
     "auto-dist-tag": "2.1.1",
     "codeclimate-test-reporter": "0.5.1",
     "concurrently": "8.2.2",
@@ -94,7 +93,6 @@
     "nyc": "17.1.0",
     "prettier": "3.5.3",
     "qunit": "2.24.1",
-    "release-it": "16.3.0",
     "release-plan": "^0.13.1",
     "rsvp": "4.8.5",
     "sinon": "19.0.2",
@@ -123,25 +121,5 @@
   },
   "ember-addon": {
     "configPath": "tests/dummy/config"
-  },
-  "release-it": {
-    "plugins": {
-      "@release-it-plugins/lerna-changelog": {
-        "infile": "CHANGELOG.md",
-        "launchEditor": true
-      }
-    },
-    "git": {
-      "commitMessage": "v${version}",
-      "tagName": "v${version}"
-    },
-    "github": {
-      "release": true,
-      "releaseName": "v${version}",
-      "tokenRef": "GITHUB_AUTH"
-    },
-    "npm": {
-      "publish": false
-    }
   }
 }
