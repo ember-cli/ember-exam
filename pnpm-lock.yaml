@@ -49,11 +49,11 @@ importers:
         version: 1.1.1
     devDependencies:
       '@babel/eslint-parser':
-        specifier: 7.24.8
-        version: 7.24.8(@babel/core@7.26.9)(eslint@8.57.1)
+        specifier: 7.26.8
+        version: 7.26.8(@babel/core@7.26.9)(eslint@8.57.1)
       '@babel/plugin-proposal-decorators':
-        specifier: 7.24.7
-        version: 7.24.7(@babel/core@7.26.9)
+        specifier: 7.25.9
+        version: 7.25.9(@babel/core@7.26.9)
       '@ember/optional-features':
         specifier: 2.2.0
         version: 2.2.0
@@ -214,8 +214,8 @@ packages:
     resolution: {integrity: sha512-lWBYIrF7qK5+GjY5Uy+/hEgp8OJWOD/rpy74GplYRhEauvbHDeFB8t5hPOZxCZ0Oxf4Cc36tK51/l3ymJysrKw==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/eslint-parser@7.24.8':
-    resolution: {integrity: sha512-nYAikI4XTGokU2QX7Jx+v4rxZKhKivaQaREZjuW3mrJrbdWJ5yUfohnoUULge+zEEaKjPYNxhoRgUKktjXtbwA==}
+  '@babel/eslint-parser@7.26.8':
+    resolution: {integrity: sha512-3tBctaHRW6xSub26z7n8uyOTwwUsCdvIug/oxBH9n6yCO5hMj2vwDJAo7RbBMKrM7P+W2j61zLKviJQFGOYKMg==}
     engines: {node: ^10.13.0 || ^12.13.0 || >=14.0.0}
     peerDependencies:
       '@babel/core': ^7.11.0
@@ -350,8 +350,8 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/plugin-proposal-decorators@7.24.7':
-    resolution: {integrity: sha512-RL9GR0pUG5Kc8BUWLNDm2T5OpYwSX15r98I0IkgmRQTXuELq/OynH8xtMTMvTJFjXbMWFVTKtYkTaYQsuAwQlQ==}
+  '@babel/plugin-proposal-decorators@7.25.9':
+    resolution: {integrity: sha512-smkNLL/O1ezy9Nhy4CNosc4Va+1wo5w4gzSZeLe6y6dM4mmHfYOCPolXQPHQxonZCF+ZyebxN9vqOolkYrSn5g==}
     engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
@@ -8279,7 +8279,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/eslint-parser@7.24.8(@babel/core@7.26.9)(eslint@8.57.1)':
+  '@babel/eslint-parser@7.26.8(@babel/core@7.26.9)(eslint@8.57.1)':
     dependencies:
       '@babel/core': 7.26.9
       '@nicolo-ribaudo/eslint-scope-5-internals': 5.1.1-v1
@@ -8458,7 +8458,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/plugin-proposal-decorators@7.24.7(@babel/core@7.26.9)':
+  '@babel/plugin-proposal-decorators@7.25.9(@babel/core@7.26.9)':
     dependencies:
       '@babel/core': 7.26.9
       '@babel/helper-create-class-features-plugin': 7.26.9(@babel/core@7.26.9)
@@ -12456,7 +12456,7 @@ snapshots:
     dependencies:
       '@babel/core': 7.26.9
       '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.26.9)
-      '@babel/plugin-proposal-decorators': 7.24.7(@babel/core@7.26.9)
+      '@babel/plugin-proposal-decorators': 7.25.9(@babel/core@7.26.9)
       '@babel/plugin-proposal-private-methods': 7.18.6(@babel/core@7.26.9)
       '@babel/plugin-transform-class-static-block': 7.26.0(@babel/core@7.26.9)
       '@babel/preset-env': 7.26.9(@babel/core@7.26.9)
@@ -12640,7 +12640,7 @@ snapshots:
       '@babel/core': 7.26.9
       '@babel/helper-compilation-targets': 7.26.5
       '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.26.9)
-      '@babel/plugin-proposal-decorators': 7.24.7(@babel/core@7.26.9)
+      '@babel/plugin-proposal-decorators': 7.25.9(@babel/core@7.26.9)
       '@babel/plugin-proposal-private-methods': 7.18.6(@babel/core@7.26.9)
       '@babel/plugin-proposal-private-property-in-object': 7.21.11(@babel/core@7.26.9)
       '@babel/plugin-transform-modules-amd': 7.25.9(@babel/core@7.26.9)
@@ -12675,7 +12675,7 @@ snapshots:
       '@babel/core': 7.26.9
       '@babel/helper-compilation-targets': 7.26.5
       '@babel/plugin-proposal-class-properties': 7.18.6(@babel/core@7.26.9)
-      '@babel/plugin-proposal-decorators': 7.24.7(@babel/core@7.26.9)
+      '@babel/plugin-proposal-decorators': 7.25.9(@babel/core@7.26.9)
       '@babel/plugin-proposal-private-methods': 7.18.6(@babel/core@7.26.9)
       '@babel/plugin-proposal-private-property-in-object': 7.21.11(@babel/core@7.26.9)
       '@babel/plugin-transform-class-static-block': 7.26.0(@babel/core@7.26.9)
@@ -12740,7 +12740,7 @@ snapshots:
 
   ember-cli-deploy-build@3.0.0(@babel/core@7.26.9)(eslint@8.57.1):
     dependencies:
-      '@babel/eslint-parser': 7.24.8(@babel/core@7.26.9)(eslint@8.57.1)
+      '@babel/eslint-parser': 7.26.8(@babel/core@7.26.9)(eslint@8.57.1)
       chalk: 4.1.2
       ember-cli-deploy-plugin: 0.2.9
       glob: 10.4.5
