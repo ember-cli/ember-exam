@@ -39,7 +39,7 @@ The [documentation website](https://ember-cli.github.io/ember-exam/) contains ex
 Installation is as easy as running:
 
 ```bash
-$ ember install ember-exam
+$ npm install --save-dev ember-exam
 ```
 
 ## How To Use
@@ -72,10 +72,47 @@ To get the unique features of Ember Exam (described in-depth below), you will ne
 
 ```js
 // test-helper.js
-import start from 'ember-exam/test-support/start';
+import { start } from 'ember-exam/test-support';
 
 // Options passed to `start` will be passed-through to ember-qunit
 start();
+```
+
+## How to use with Vite
+
+All of the above applies, but we need to tell vite to build the app before telling ember/exam to run tests on that output.
+
+Update your test-helper.js or test-helper.ts, to have add the ember-exam `start` function:
+```diff
+  // ...
+  import { setApplication } from '@ember/test-helpers';
+  import { setup } from 'qunit-dom';
+- import { start as qunitStart, setupEmberOnerrorValidation } from 'ember-qunit';
++ import { setupEmberOnerrorValidation } from 'ember-qunit';
++ import { start as startEmberExam } from 'ember-exam/test-support';
+
+  export function start() {
+    setApplication(Application.create(config.APP));
+
+    setup(QUnit.assert);
+    setupEmberOnerrorValidation();
+
+-   qunitStart();
++   // Options passed to `start` will be passed-through to ember-qunit
++   startEmberExam();
+  }
+```
+
+Testing development:
+```bash 
+NODE_ENV=development vite build --mode test
+ember exam --path dist
+```
+
+Testing production:
+```bash
+vite build --mode test
+ember exam --path dist
 ```
 
 ### Version < `3.0.0`
