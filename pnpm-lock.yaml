@@ -133,7 +133,7 @@ importers:
         specifier: 3.0.0
         version: 3.0.0(encoding@0.1.13)
       eslint:
-        specifier: ^8.57.1
+        specifier: 8.57.1
         version: 8.57.1
       eslint-config-prettier:
         specifier: 10.0.2
