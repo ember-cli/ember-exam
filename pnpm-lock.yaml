@@ -169,7 +169,7 @@ importers:
         specifier: 2.24.1
         version: 2.24.1
       release-plan:
-        specifier: 0.13.1
+        specifier: ^0.13.1
         version: 0.13.1
       rsvp:
         specifier: 4.8.5
