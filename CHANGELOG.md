@@ -1,5 +1,28 @@
 # Changelog
 
+## Release (2025-03-05)
+
+ember-exam 9.1.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-exam`
+  * [#1313](https://github.com/ember-cli/ember-exam/pull/1313) Use ember-exam with vite ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `ember-exam`
+  * [#1336](https://github.com/ember-cli/ember-exam/pull/1336) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1333](https://github.com/ember-cli/ember-exam/pull/1333) Fix lints since eslint-plugin-ember was upgraded ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1332](https://github.com/ember-cli/ember-exam/pull/1332) Revert #1188 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1330](https://github.com/ember-cli/ember-exam/pull/1330) Revert "Update dependency ember-qunit to v9" ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1329](https://github.com/ember-cli/ember-exam/pull/1329) Revert "Update pnpm to v10.5.2" ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1322](https://github.com/ember-cli/ember-exam/pull/1322) Setup Release plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1314](https://github.com/ember-cli/ember-exam/pull/1314) Convert to pnpm ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1289](https://github.com/ember-cli/ember-exam/pull/1289) Add .codeclimate.yml to .npmignore ([@SergeAstapov](https://github.com/SergeAstapov))
+
+#### Committers: 2
+- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 
 
 ## v9.0.0 (2023-12-29)

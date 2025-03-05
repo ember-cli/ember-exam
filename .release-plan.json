@@ -1,0 +1,21 @@
+{
+  "solution": {
+    "ember-exam": {
+      "impact": "minor",
+      "oldVersion": "9.0.0",
+      "newVersion": "9.1.0",
+      "constraints": [
+        {
+          "impact": "minor",
+          "reason": "Appears in changelog section :rocket: Enhancement"
+        },
+        {
+          "impact": "patch",
+          "reason": "Appears in changelog section :house: Internal"
+        }
+      ],
+      "pkgJSONPath": "./package.json"
+    }
+  },
+  "description": "## Release (2025-03-05)\n\nember-exam 9.1.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-exam`\n  * [#1313](https://github.com/ember-cli/ember-exam/pull/1313) Use ember-exam with vite ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `ember-exam`\n  * [#1336](https://github.com/ember-cli/ember-exam/pull/1336) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#1333](https://github.com/ember-cli/ember-exam/pull/1333) Fix lints since eslint-plugin-ember was upgraded ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#1332](https://github.com/ember-cli/ember-exam/pull/1332) Revert #1188 ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#1330](https://github.com/ember-cli/ember-exam/pull/1330) Revert \"Update dependency ember-qunit to v9\" ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#1329](https://github.com/ember-cli/ember-exam/pull/1329) Revert \"Update pnpm to v10.5.2\" ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#1322](https://github.com/ember-cli/ember-exam/pull/1322) Setup Release plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#1314](https://github.com/ember-cli/ember-exam/pull/1314) Convert to pnpm ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#1289](https://github.com/ember-cli/ember-exam/pull/1289) Add .codeclimate.yml to .npmignore ([@SergeAstapov](https://github.com/SergeAstapov))\n\n#### Committers: 2\n- Sergey Astapov ([@SergeAstapov](https://github.com/SergeAstapov))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+}
