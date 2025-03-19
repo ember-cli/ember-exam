@@ -175,8 +175,8 @@ importers:
         specifier: 4.8.5
         version: 4.8.5
       sinon:
-        specifier: 19.0.2
-        version: 19.0.2
+        specifier: 19.0.4
+        version: 19.0.4
       stylelint:
         specifier: 16.16.0
         version: 16.16.0(typescript@5.7.3)
@@ -7187,8 +7187,8 @@ packages:
   simple-swizzle@0.2.2:
     resolution: {integrity: sha512-JA//kQgZtbuY83m+xT+tXJkmJncGMTFT+C+g2h2R9uxkYIrE2yy9sgmcLhCnw57/WSD+Eh3J97FPEDFnbXnDUg==}
 
-  sinon@19.0.2:
-    resolution: {integrity: sha512-euuToqM+PjO4UgXeLETsfQiuoyPXlqFezr6YZDFwHR3t4qaX0fZUe1MfPMznTL5f8BWrVS89KduLdMUsxFCO6g==}
+  sinon@19.0.4:
+    resolution: {integrity: sha512-myidFob7fjmYHJb+CHNLtAYScxn3sngGq4t75L2rCGGpE/k4OQVkN3KE5FsN+XkO2+fcDZ65PGvq3KHrlLAm7g==}
 
   slash@1.0.0:
     resolution: {integrity: sha512-3TYDR7xWt4dIqV2JauJr+EJeW356RXijHeUlO+8djJ+uBXPn8/2dpzBc8yQhh583sVvc9CvFAeQVgijsH+PNNg==}
@@ -17354,7 +17354,7 @@ snapshots:
     dependencies:
       is-arrayish: 0.3.2
 
-  sinon@19.0.2:
+  sinon@19.0.4:
     dependencies:
       '@sinonjs/commons': 3.0.1
       '@sinonjs/fake-timers': 13.0.5
