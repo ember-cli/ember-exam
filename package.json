@@ -53,7 +53,7 @@
     "silent-error": "^1.1.1"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "7.26.8",
+    "@babel/eslint-parser": "7.27.0",
     "@babel/plugin-proposal-decorators": "7.25.9",
     "@ember/optional-features": "2.2.0",
     "@ember/string": "3.1.1",
@@ -73,19 +73,19 @@
     "ember-cli-deploy-git-ci": "1.0.1",
     "ember-cli-htmlbars": "6.3.0",
     "ember-cli-inject-live-reload": "2.1.0",
-    "ember-data": "5.3.11",
+    "ember-data": "5.4.1",
     "ember-load-initializers": "2.1.2",
     "ember-qunit": "8.1.1",
     "ember-resolver": "11.0.1",
     "ember-source": "5.12.0",
     "ember-source-channel-url": "3.0.0",
-    "ember-template-lint": "7.0.1",
+    "ember-template-lint": "7.0.6",
     "ember-try": "3.0.0",
     "eslint": "8.57.1",
-    "eslint-config-prettier": "10.0.2",
+    "eslint-config-prettier": "10.1.2",
     "eslint-plugin-ember": "12.5.0",
-    "eslint-plugin-n": "17.16.2",
-    "eslint-plugin-prettier": "5.2.3",
+    "eslint-plugin-n": "17.17.0",
+    "eslint-plugin-prettier": "5.2.6",
     "eslint-plugin-qunit": "8.1.2",
     "fixturify": "3.0.0",
     "loader.js": "4.7.0",
@@ -95,23 +95,23 @@
     "qunit": "2.24.1",
     "release-plan": "^0.13.1",
     "rsvp": "4.8.5",
-    "sinon": "19.0.2",
-    "stylelint": "16.15.0",
-    "stylelint-config-standard": "37.0.0",
+    "sinon": "20.0.0",
+    "stylelint": "16.18.0",
+    "stylelint-config-standard": "38.0.0",
     "stylelint-prettier": "5.0.3",
-    "webpack": "5.98.0"
+    "webpack": "5.99.5"
   },
   "peerDependencies": {
     "ember-qunit": "*",
     "ember-source": ">= 4.0.0",
     "qunit": "*"
   },
-  "packageManager": "pnpm@10.5.2",
+  "packageManager": "pnpm@10.8.0",
   "engines": {
     "node": ">= 18"
   },
   "volta": {
-    "node": "18.20.7"
+    "node": "18.20.8"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

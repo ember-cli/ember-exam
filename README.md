@@ -72,7 +72,9 @@ To get the unique features of Ember Exam (described in-depth below), you will ne
 
 ```js
 // test-helper.js
-import { start } from 'ember-exam/test-support';
+- import { start, setupEmberOnerrorValidation } from 'ember-qunit';
++ import { setupEmberOnerrorValidation } from 'ember-qunit';
++ import { start } from 'ember-exam/test-support';
 
 // Options passed to `start` will be passed-through to ember-qunit
 start();
