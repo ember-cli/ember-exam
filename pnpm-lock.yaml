@@ -127,8 +127,8 @@ importers:
         specifier: 3.0.0
         version: 3.0.0(encoding@0.1.13)
       ember-template-lint:
-        specifier: 7.0.8
-        version: 7.0.8(@babel/core@7.26.9)
+        specifier: 7.2.0
+        version: 7.2.0(@babel/core@7.26.9)
       ember-try:
         specifier: 3.0.0
         version: 3.0.0(encoding@0.1.13)
@@ -3844,8 +3844,8 @@ packages:
     resolution: {integrity: sha512-bDwzecB1DjVMvYCg0QpSsqQoHjK/zRDJ/ob+QbB0VzL8rPbSsThpoyKAsRcNip7m0l+gUxBfyUoHorPlyc0UxA==}
     engines: {node: 12.* || 14.* || >= 16}
 
-  ember-template-lint@7.0.8:
-    resolution: {integrity: sha512-+XRkvdffhOb+UmjBCcx+pAeBmHHchTxUa28JEnH20f9Ka11u0KZxtELnIFgHWQl/HuLnoRy5hyePvXfpQvwtjA==}
+  ember-template-lint@7.2.0:
+    resolution: {integrity: sha512-igRCRVz3kO/7LZk3VjT38+0971LilFC3OSGO6seLp2Ue8/bGGd13cp/f8w76hhr6qeQe2+UyHNZ81EK3KbD78Q==}
     engines: {node: ^18.18.0 || >= 20.9.0}
     hasBin: true
 
@@ -13506,7 +13506,7 @@ snapshots:
       - '@glint/template'
       - supports-color
 
-  ember-template-lint@7.0.8(@babel/core@7.26.9):
+  ember-template-lint@7.2.0(@babel/core@7.26.9):
     dependencies:
       '@babel/generator': 7.26.9
       '@babel/parser': 7.26.9
