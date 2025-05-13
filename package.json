@@ -106,7 +106,7 @@
     "ember-source": ">= 4.0.0",
     "qunit": "*"
   },
-  "packageManager": "pnpm@10.10.0",
+  "packageManager": "pnpm@10.11.0",
   "engines": {
     "node": ">= 18"
   },
