@@ -111,7 +111,7 @@
     "node": ">= 18"
   },
   "volta": {
-    "node": "18.20.8"
+    "node": "22.15.1"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
