@@ -1,0 +1,7 @@
+# Unlabeled Changes
+
+* `ember-exam`
+  * [#1347](https://github.com/ember-cli/ember-exam/pull/1347) Update setup example for new qunit requirements ([@elwayman02](https://github.com/elwayman02))
+
+
+*Cannot plan release until the above changes are labeled*.
