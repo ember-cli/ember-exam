@@ -146,7 +146,7 @@ importers:
         version: 17.20.0(eslint@8.57.1)(typescript@5.7.3)
       eslint-plugin-prettier:
         specifier: 5.5.1
-        version: 5.5.1(@types/eslint@9.6.1)(eslint-config-prettier@10.1.5(eslint@8.57.1))(eslint@8.57.1)(prettier@3.6.0)
+        version: 5.5.1(@types/eslint@9.6.1)(eslint-config-prettier@10.1.5(eslint@8.57.1))(eslint@8.57.1)(prettier@3.6.2)
       eslint-plugin-qunit:
         specifier: 8.1.2
         version: 8.1.2(eslint@8.57.1)
@@ -163,8 +163,8 @@ importers:
         specifier: 17.1.0
         version: 17.1.0
       prettier:
-        specifier: 3.6.0
-        version: 3.6.0
+        specifier: 3.6.2
+        version: 3.6.2
       qunit:
         specifier: 2.24.1
         version: 2.24.1
@@ -185,7 +185,7 @@ importers:
         version: 38.0.0(stylelint@16.21.0(typescript@5.7.3))
       stylelint-prettier:
         specifier: 5.0.3
-        version: 5.0.3(prettier@3.6.0)(stylelint@16.21.0(typescript@5.7.3))
+        version: 5.0.3(prettier@3.6.2)(stylelint@16.21.0(typescript@5.7.3))
       webpack:
         specifier: 5.99.9
         version: 5.99.9
@@ -6618,8 +6618,8 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
-  prettier@3.6.0:
-    resolution: {integrity: sha512-ujSB9uXHJKzM/2GBuE0hBOUgC77CN3Bnpqa+g80bkv3T3A93wL/xlzDATHhnhkzifz/UE2SNOvmbTz5hSkDlHw==}
+  prettier@3.6.2:
+    resolution: {integrity: sha512-I7AIg5boAr5R0FFtJ6rCfD+LFsWHp81dolrFD8S79U9tb8Az2nGrJncnMSnys+bpQJfRUzqs9hnA81OAA3hCuQ==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -13923,10 +13923,10 @@ snapshots:
       - supports-color
       - typescript
 
-  eslint-plugin-prettier@5.5.1(@types/eslint@9.6.1)(eslint-config-prettier@10.1.5(eslint@8.57.1))(eslint@8.57.1)(prettier@3.6.0):
+  eslint-plugin-prettier@5.5.1(@types/eslint@9.6.1)(eslint-config-prettier@10.1.5(eslint@8.57.1))(eslint@8.57.1)(prettier@3.6.2):
     dependencies:
       eslint: 8.57.1
-      prettier: 3.6.0
+      prettier: 3.6.2
       prettier-linter-helpers: 1.0.0
       synckit: 0.11.7
     optionalDependencies:
@@ -16765,7 +16765,7 @@ snapshots:
 
   prettier@2.8.8: {}
 
-  prettier@3.6.0: {}
+  prettier@3.6.2: {}
 
   pretty-hrtime@1.0.3: {}
 
@@ -17819,9 +17819,9 @@ snapshots:
       stylelint: 16.21.0(typescript@5.7.3)
       stylelint-config-recommended: 16.0.0(stylelint@16.21.0(typescript@5.7.3))
 
-  stylelint-prettier@5.0.3(prettier@3.6.0)(stylelint@16.21.0(typescript@5.7.3)):
+  stylelint-prettier@5.0.3(prettier@3.6.2)(stylelint@16.21.0(typescript@5.7.3)):
     dependencies:
-      prettier: 3.6.0
+      prettier: 3.6.2
       prettier-linter-helpers: 1.0.0
       stylelint: 16.21.0(typescript@5.7.3)
 
