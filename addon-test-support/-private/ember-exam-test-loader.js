@@ -59,7 +59,7 @@ export default class EmberExamTestLoader extends TestLoader {
    *
    * @method loadModules
    */
-  loadModules() {
+  loadModules({ availableModules } = {}) {
     const loadBalance = this._urlParams.get('loadBalance');
     const browserId = this._urlParams.get('browser');
     const modulePath = this._urlParams.get('modulePath');
@@ -75,7 +75,13 @@ export default class EmberExamTestLoader extends TestLoader {
       partitions = [partitions];
     }
 
-    super.loadModules();
+    if (!availableModules) {
+      super.loadModules();
+    } else {
+      this._availableModules = availableModules;
+      this._testModules = Object.keys(availableModules);
+    }
+
     this.setupModuleMetadataHandler();
 
     if (modulePath || filePath) {
@@ -104,6 +110,22 @@ export default class EmberExamTestLoader extends TestLoader {
         split,
         partitions,
       );
+
+      /**
+       * availableModules are passed in from loadModules
+       * from loadEmberExam
+       * from start
+       */
+      if (this._availableModules) {
+        this._testModules.forEach((moduleName) => {
+          this._availableModules[moduleName]();
+        });
+        return;
+      }
+
+      /**
+       * Legacy support
+       */
       this._testModules.forEach((moduleName) => {
         super.require(moduleName);
         super.unsee(moduleName);

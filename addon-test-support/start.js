@@ -7,7 +7,7 @@ import { start as qunitStart } from 'ember-qunit';
  * @function loadTests
  * @param {*} testLoader
  */
-function loadTests(testLoader) {
+function loadTests(testLoader, qunitOptions) {
   if (testLoader === undefined) {
     throw new Error(
       'A testLoader instance has not been created. You must call `loadEmberExam()` before calling `loadTest()`.',
@@ -29,6 +29,6 @@ export default function start(qunitOptions) {
   modifiedOptions.loadTests = false;
 
   const testLoader = loadEmberExam();
-  loadTests(testLoader);
+  loadTests(testLoader, qunitOptions);
   qunitStart(modifiedOptions);
 }
