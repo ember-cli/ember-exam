@@ -21,6 +21,11 @@ export default class AsyncIterator {
     this._browserId = options.browserId;
     this._emberExamExitOnError = options.emberExamExitOnError;
 
+    console.log(
+      `AsyncIterator`,
+      JSON.stringify([this._browserId, this._waiting, this._done]),
+    );
+
     testem.on(this._response, this._boundHandleResponse);
   }
 
@@ -49,6 +54,7 @@ export default class AsyncIterator {
    * @param {*} response
    */
   handleResponse(response) {
+    console.log('handleResponse', JSON.stringify(response));
     if (this._waiting === false) {
       throw new Error(
         `${this.toString()} Was not expecting a response, but got a response`,
@@ -93,6 +99,10 @@ export default class AsyncIterator {
    */
   _makeNextRequest() {
     this._waiting = true;
+    console.log(
+      'makeNextRequest',
+      JSON.stringify([this._request, this._browserId]),
+    );
     this._testem.emit(this._request, this._browserId);
   }
 

@@ -6,19 +6,10 @@ const fs = require('fs-extra');
 const path = require('path');
 const { rimrafSync } = require('rimraf');
 const glob = require('glob');
+const { execa, getNumberOfTests } = require('./helpers');
 
 function assertExpectRejection() {
   assert.ok(false, 'Expected promise to reject, but it fullfilled');
-}
-
-async function execa(command, args) {
-  const { execa: originalExeca } = await import('execa');
-  return originalExeca(command, args);
-}
-
-function getNumberOfTests(str) {
-  const match = str.match(/# tests ([0-9]+)/);
-  return match && parseInt(match[1], 10);
 }
 
 const TOTAL_NUM_TESTS = 67; // Total Number of tests without the global 'Ember.onerror validation tests'
