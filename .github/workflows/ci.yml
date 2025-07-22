@@ -56,6 +56,28 @@ jobs:
       - run: pnpm install
       - run: pnpm test:node
 
+  test-e2e:
+    name: "Test e2e: ${{ matrix.app.name }}"
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+
+    strategy:
+      fail-fast: false
+      matrix:
+        app:
+          - { name: "Vite + Compat", dir: './test-apps/vite-with-compat', cmd: 'pnpm build:tests && pnpm test:exam' }
+          - { name: "Vite + Compat (eager)", dir: './test-apps/vite-with-compat', cmd: 'VITE_EAGER=true pnpm build:tests && pnpm test:exam' }
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'pnpm'
+      - run: pnpm install
+      - run: ${{ matrix.app.cmd }}
+        working-directory: ${{ matrix.app.dir }}
+
   floating-dependencies:
     name: "Floating Dependencies"
     runs-on: ubuntu-latest
