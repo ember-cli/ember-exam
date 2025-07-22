@@ -6,7 +6,25 @@ Ember Exam provides options to filter test suites by two types - module path and
 $ ember exam --module-path=<module-path>
 ```
 
-The `module-path` option allows you to filter module paths by a given value. Module paths are mapped by test files and they are generated during `ember build`. After the build, `tests.js` file is created and it resides under [build-directory]/assets. The file is combined of all tests in an application and it has a form of `define("<module-path>", others..`.
+#### For Vite Apps
+
+The `file-path` option allows you to filter modules by the given relative path that is generated from `import.meta.glob(...)` in your `tests/index.html`.
+
+```bash
+# This will run tests that are defined in `/my-application/tests/unit/my-test.js`
+$ ember exam --file-path='/my-application/tests/unit/my-test.js'
+
+# This will run all test files that are under `/my-application/tests/unit/`
+$ ember exam --file-path='/my-application/tests/unit/*.js'
+```
+
+
+#### For non-Vite Apps
+
+
+The `module-path` option allows you to filter module paths by a given value. Module paths are mapped by test files and they are generated during `ember build`. After the build, `tests.js` file is created and it resides under [build-directory]/assets. 
+
+The file is combined of all tests in an application and it has a form of `define("<module-path>", others..`.
 
 The value for `module-path` can have either string or regular expression, for instance:
 
