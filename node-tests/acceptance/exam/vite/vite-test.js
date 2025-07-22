@@ -1,0 +1,91 @@
+const path = require('path');
+const assert = require('assert');
+
+const { rimrafSync } = require('rimraf');
+const { ROOT, execa, getNumberOfTests } = require('../../helpers.js');
+
+const DIR = path.resolve(ROOT, 'test-apps/vite-with-compat');
+const TEST_OUTPUT_DIR = 'dist-acceptance';
+
+describe('Command | exam | vite', function () {
+  this.timeout(300000);
+
+  before(function () {
+    // Cleanup any previous runs
+    rimrafSync(TEST_OUTPUT_DIR);
+
+    // Build the app
+    return execa('pnpm', ['build:tests', '--outDir', TEST_OUTPUT_DIR], {
+      cwd: DIR,
+    });
+  });
+
+  after(function () {
+    rimrafSync(TEST_OUTPUT_DIR);
+  });
+
+  describe('split', function () {
+    describe('parallel', function () {
+      it('has no shared tests between partitions', async function () {
+        let resultA = await execa(
+          'ember',
+          [
+            'exam',
+            '--split',
+            '2',
+            '--partition',
+            '1',
+            '--path',
+            TEST_OUTPUT_DIR,
+            '--parallel',
+          ],
+          { cwd: DIR },
+        );
+
+        let resultB = await execa(
+          'ember',
+          [
+            'exam',
+            '--split',
+            '2',
+            '--partition',
+            '2',
+            '--path',
+            TEST_OUTPUT_DIR,
+            '--parallel',
+          ],
+          { cwd: DIR },
+        );
+
+        assert.strictEqual(getNumberOfTests(resultA.stdout), 4);
+        assert.strictEqual(resultA.stdout.includes('Suite A'), true);
+        assert.strictEqual(resultA.stdout.includes('Suite B'), false);
+
+        assert.strictEqual(getNumberOfTests(resultB.stdout), 4);
+        assert.strictEqual(resultB.stdout.includes('Suite B'), true);
+        assert.strictEqual(resultB.stdout.includes('Suite A'), false);
+      });
+    });
+  });
+
+  describe('loadBalance', function () {
+    it.only('has no shared tests between partitions', async function () {
+      let result = await execa(
+        'ember',
+        [
+          'exam',
+          '--load-balance',
+          '--path',
+          TEST_OUTPUT_DIR,
+          '--parallel',
+          '2',
+        ],
+        { cwd: DIR },
+      );
+
+      assert.strictEqual(getNumberOfTests(result.stdout), 8);
+      assert.strictEqual(result.stdout.includes('Suite A'), true);
+      assert.strictEqual(result.stdout.includes('Suite B'), true);
+    });
+  });
+});
