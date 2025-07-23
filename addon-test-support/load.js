@@ -11,7 +11,7 @@ let loaded = false;
  */
 export default function loadEmberExam() {
   if (loaded) {
-    // eslint-disable-next-line no-console
+     
     console.warn('Attempted to load Ember Exam more than once.');
     return;
   }

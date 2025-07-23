@@ -43,7 +43,7 @@ describe('TestOptionsValidator', function () {
   }
 
   function shouldWarn(cmd, options, value, emberCliVer = '3.7.0') {
-    /* eslint-disable no-console */
+     
     let originalWarn = console.warn;
     let warnCalled = 0;
     let warnMessage = '';
@@ -58,7 +58,7 @@ describe('TestOptionsValidator', function () {
     assert.strictEqual(warnMessage, value);
 
     console.warn = originalWarn;
-    /* eslint-enable no-console */
+     
   }
 
   describe('shouldSplit', function () {
