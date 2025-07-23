@@ -20,10 +20,11 @@
     "build": "ember build --environment=production",
     "coverage": "nyc report --reporter=text-lcov | codeclimate-test-reporter",
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
+    "lint:format": "prettier . --cache --check",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
-    "test": "concurrently \"npm:lint\" \"npm:test:*\" --names \"lint,test:\"",
+    "test": "concurrently \"npm:test:*\"",
     "test:ember": "ember test",
     "test:ember-compatibility": "ember try:each",
     "test:node": "nyc mocha 'node-tests/**/*-test.js'"
