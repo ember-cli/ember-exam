@@ -6,6 +6,7 @@ import { start as qunitStart } from 'ember-qunit';
  *
  * @function loadTests
  * @param {*} testLoader
+ * @param {*} qunitOptions
  */
 function loadTests(testLoader, qunitOptions) {
   if (testLoader === undefined) {
@@ -14,7 +15,7 @@ function loadTests(testLoader, qunitOptions) {
     );
   }
 
-  testLoader.loadModules();
+  testLoader.loadModules(qunitOptions);
 }
 
 /**

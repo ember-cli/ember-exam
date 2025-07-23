@@ -93,7 +93,8 @@ Update your test-helper.js or test-helper.ts, to have add the ember-exam `start`
 + import { setupEmberOnerrorValidation } from 'ember-qunit';
 + import { start as startEmberExam } from 'ember-exam/test-support';
 
-  export function start() {
+- export function start() {
++ export function start({ availableModules }) {
     setApplication(Application.create(config.APP));
 
     setup(QUnit.assert);
@@ -101,13 +102,29 @@ Update your test-helper.js or test-helper.ts, to have add the ember-exam `start`
 
 -   qunitStart();
 +   // Options passed to `start` will be passed-through to ember-qunit
-+   startEmberExam();
++   startEmberExam({ availableModules });
   }
 ```
 
+Then, update your tests/index.html to pass availableModules to start:
+```html
+<script type="module">
+  import { start } from './test-helper.js';
+
+  const availableModules = {
+    ...import.meta.glob('./application/**/*.{js,ts,gjs,gts}', { eager: true }),
+    ...import.meta.glob('./rendering/**/*.{js,ts,gjs,gts}', { eager: true }),
+    ...import.meta.glob('./unit/**/*.{js,ts,gjs,gts}', { eager: true }),
+  };
+
+	start({ availableModules });
+</script>
+```
+
+
 Testing development:
 ```bash 
-NODE_ENV=development vite build --mode test
+NODE_ENV=development vite build --mode development
 ember exam --path dist
 ```
 
