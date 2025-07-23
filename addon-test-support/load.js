@@ -11,7 +11,6 @@ let loaded = false;
  */
 export default function loadEmberExam() {
   if (loaded) {
-     
     console.warn('Attempted to load Ember Exam more than once.');
     return;
   }
