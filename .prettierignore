@@ -17,3 +17,5 @@
 *.yml
 *.yaml
 *.md
+*.html
+*.json
