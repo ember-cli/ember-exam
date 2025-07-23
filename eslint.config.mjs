@@ -9,7 +9,12 @@ export default [
   ...ember.recommended(dirname),
   {
     name: "monorepo-root:ignores",
-    ignores: ["test-apps/**/*", "acceptance-dist/**/*", "failure-dist/**/*"],
+    ignores: [
+      "docs-app/**/*",
+      "test-apps/**/*",
+      "acceptance-dist/**/*",
+      "failure-dist/**/*",
+    ],
   },
   {
     name: "monorepo-root:lib",
