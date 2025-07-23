@@ -1,0 +1,71 @@
+packages:
+  - .
+  - test-apps/*
+
+## We do not want to auto-install peers because
+## We want to ensure we understand what is actually required
+## So that if a consuming app uses strict mode things will work
+##
+## This said, Apps should probably set this to true
+autoInstallPeers: false
+
+## We use so many similarly grouped peers, we want to make the
+## peer-groups easier to distinguish.
+## This forces a shorter sha for all groups (vs the default of 1000)
+peersSuffixMaxLength: 40
+virtualStoreDirMaxLength: 40
+
+## If a dependency is not declared, we do not want to accidentally
+## resolve it from the workspace root. This is a common source of
+## bugs in monorepos.
+resolvePeersFromWorkspaceRoot: false
+
+## This also means we do not want to hoist them to the root
+## As this would both expose them to all other packages AND
+## results in them using symlinks instead of hardlinks
+hoistWorkspacePackages: false
+
+
+## Our Workspace Packages are "injected" so prevent
+## devDependencies from being exposed and to allow
+## for us to test optional peerDependencies.
+injectWorkspacePackages: true
+
+## Update injected dependencies when needed.
+## Unfortunately, this does not run after scripts in
+## the monorepo root, so we have added a special "sync"
+## script to handle this.
+##
+## NOTE: sync always happens after install (automatically from pnpm).
+##       this script exists so we can manually sync injected deps if we need to
+syncInjectedDepsAfterScripts:
+- sync
+
+## It may also be good to understand that we intentionally are
+## not using `hoisting` and using `injected` workspace packages
+## to ensure properly isolated dep trees for test apps.
+#
+## things like `moduleExists` from @embroider/macros will report false answers
+## for the test apps unless we avoid hoisting.
+##
+## Note, if we ever need to hoist something, we can use hoist-pattern[]=""
+## For instance: hoist-pattern[]=*node-fetch*
+## to hoist the specific thing we need and set this to `true`. When true
+## and a hoist-pattern is present only the hoist-pattern will be hoisted.
+hoist: false
+
+## In keeping with our "no hoisting" and "no auto-peers" and
+## "isolated dep trees", we also want to avoid other things
+## that lead to reliance on hoisting.
+## In general, deduping leads to hoisting. This particular
+## setting causes direct-dependencies to resolve from the
+## workspace root if already in root. We don't want this.
+dedupeDirectDeps: false
+
+## We do not want to dedupe peer dependencies as this
+## results in hoisting and violates optional peer isolation.
+dedupePeerDependents: false
+
+## We do not want to dedupe injected dependencies as this
+## results in hoisting and violates optional peer isolation.
+dedupeInjectedDeps: false
