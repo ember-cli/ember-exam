@@ -19,6 +19,7 @@
   "scripts": {
     "build": "ember build --environment=production",
     "coverage": "nyc report --reporter=text-lcov | codeclimate-test-reporter",
+    "format": "prettier . --write",
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
     "lint:format": "prettier . --cache --check",
     "lint:hbs": "ember-template-lint .",
