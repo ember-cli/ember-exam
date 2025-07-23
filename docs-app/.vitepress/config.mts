@@ -4,6 +4,19 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "ember-exam",
   description: "Run your tests with randomization, splitting, and parallelization for beautiful tests.",
+  markdown: {
+    // theme: {
+    //   ...dark,
+    //   settings: [
+    //     {
+    //       scope: 'comment',
+    //       settings: {
+    //         // 'foreground': 'rgb(200, 200, 200)'
+    //       }
+    //     },
+    //   ]
+    // },
+  },
   themeConfig: {
     // https://vitepress.dev/reference/default-theme-config
     nav: [

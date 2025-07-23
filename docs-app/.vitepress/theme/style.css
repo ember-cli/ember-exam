@@ -151,3 +151,11 @@
   }
 
 }
+
+/**
+* Contrast fixes
+*/
+:root {
+  --vp-code-lang-color: rgb(200,200,200);
+  --vp-c-text-2: rgb(200, 200, 200);
+}
