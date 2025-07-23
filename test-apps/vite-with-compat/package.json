@@ -23,6 +23,7 @@
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
     "start": "vite",
+    "sync": "echo 'pnpm will sync injected dependencies. See pnpm-workspace.yaml'",
     "build:tests": "vite build --mode development",
     "test:normal": "testem ci",
     "test:exam": "ember exam --load-balance --parallel=2 --partition=2"
