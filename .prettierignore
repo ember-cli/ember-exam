@@ -3,6 +3,10 @@
 
 # compiled output
 /dist/
+docs-app/
+test-apps/
+acceptance-dist/
+failure-dist/
 
 # misc
 /coverage/
