@@ -1,5 +1,6 @@
 packages:
   - .
+  - ./docs-app
   - test-apps/*
 
 ## We do not want to auto-install peers because

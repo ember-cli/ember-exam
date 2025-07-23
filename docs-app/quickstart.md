@@ -5,7 +5,7 @@
 Installation is as easy as running:
 
 ```bash
-ember install ember-exam
+npm add --save-dev ember-exam
 ```
 
 ## Usage
