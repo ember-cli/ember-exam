@@ -31,6 +31,7 @@
 /yarn.lock
 /*.tgz
 .gitkeep
+eslint.config.mjs
 
 # ember-try
 /.node_modules.ember-try/
