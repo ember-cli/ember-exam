@@ -70,3 +70,7 @@ dedupePeerDependents: false
 ## We do not want to dedupe injected dependencies as this
 ## results in hoisting and violates optional peer isolation.
 dedupeInjectedDeps: false
+
+overrides:
+  # Ember-try brings in old dependencies that include a bad set of private / unpublished glimmer stuff
+  '@glimmer/syntax': '^0.94.0'

@@ -6,6 +6,9 @@ settings:
   peersSuffixMaxLength: 40
   injectWorkspacePackages: true
 
+overrides:
+  '@glimmer/syntax': ^0.94.0
+
 importers:
 
   .:
@@ -1368,9 +1371,6 @@ packages:
 
   '@glimmer/runtime@0.92.4':
     resolution: {integrity: sha512-ISqM/8hVh+fY/gnLAAPKfts4CvnJBOyCYAXgGccIlzzQrSVLaz0NoRiWTLGj5B/3xyPbqLwYPDvlTsOjYtvPoA==}
-
-  '@glimmer/syntax@0.92.3':
-    resolution: {integrity: sha512-7wPKQmULyXCYf0KvbPmfrs/skPISH2QGR9atCnmDWnHyLv5SSZVLm1P0Ctrpta6+Ci3uGQb7hGk0IjsLEavcYQ==}
 
   '@glimmer/syntax@0.94.9':
     resolution: {integrity: sha512-OBw8DqMzKO4LX4kJBhwfTUqtpbd7O9amQXNTfb1aS7pufio5Vu5Qi6mRTfdFj6RyJ//aSI/l0kxWt6beYW0Apg==}
@@ -9000,7 +9000,7 @@ snapshots:
   '@glimmer/compiler@0.92.4':
     dependencies:
       '@glimmer/interfaces': 0.92.3
-      '@glimmer/syntax': 0.92.3
+      '@glimmer/syntax': 0.94.9
       '@glimmer/util': 0.92.3
       '@glimmer/vm': 0.92.3
       '@glimmer/wire-format': 0.92.3
@@ -9105,14 +9105,6 @@ snapshots:
       '@glimmer/validator': 0.92.3
       '@glimmer/vm': 0.92.3
       '@glimmer/wire-format': 0.92.3
-
-  '@glimmer/syntax@0.92.3':
-    dependencies:
-      '@glimmer/interfaces': 0.92.3
-      '@glimmer/util': 0.92.3
-      '@glimmer/wire-format': 0.92.3
-      '@handlebars/parser': 2.0.0
-      simple-html-tokenizer: 0.5.11
 
   '@glimmer/syntax@0.94.9':
     dependencies:
@@ -11933,7 +11925,7 @@ snapshots:
       '@glimmer/program': 0.92.4
       '@glimmer/reference': 0.92.3
       '@glimmer/runtime': 0.92.4
-      '@glimmer/syntax': 0.92.3
+      '@glimmer/syntax': 0.94.9
       '@glimmer/util': 0.92.3
       '@glimmer/validator': 0.92.3
       '@glimmer/vm': 0.92.3
