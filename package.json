@@ -20,8 +20,6 @@
     "build": "ember build --environment=production",
     "coverage": "nyc report --reporter=text-lcov | codeclimate-test-reporter",
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
-    "lint:css": "stylelint \"**/*.css\"",
-    "lint:css:fix": "concurrently \"npm:lint:css -- --fix\"",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint .",
     "start": "ember serve",
@@ -92,9 +90,6 @@
     "release-plan": "^0.13.1",
     "rsvp": "4.8.5",
     "sinon": "21.0.0",
-    "stylelint": "16.21.0",
-    "stylelint-config-standard": "38.0.0",
-    "stylelint-prettier": "5.0.3",
     "webpack": "5.99.9"
   },
   "peerDependencies": {
