@@ -23,7 +23,9 @@
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
     "start": "vite",
-    "test": "vite build --mode development && testem ci"
+    "build:tests": "vite build --mode development",
+    "test:normal": "testem ci",
+    "test:exam": "ember exam --load-balance --parallel=2 --partition=2"
   },
   "exports": {
     "./tests/*": "./tests/*",
