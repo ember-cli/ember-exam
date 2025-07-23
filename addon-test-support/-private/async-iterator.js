@@ -115,7 +115,7 @@ export default class AsyncIterator {
         );
         reject(err);
       } else {
-        // eslint-disable-next-line no-console
+         
         console.error(
           `EmberExam: Promise timed out after ${this._timeout} s while waiting for response for ${this._request}. Closing browser to exit gracefully.`,
         );
