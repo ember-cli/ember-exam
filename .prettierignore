@@ -11,3 +11,9 @@
 
 # ember-try
 /.node_modules.ember-try/
+
+# Ignored when enabling prettier in CI
+# Changes are too much, and also not super functional
+*.yml
+*.yaml
+*.md
