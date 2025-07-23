@@ -6,11 +6,11 @@ import { setup } from 'qunit-dom';
 import { setupEmberOnerrorValidation } from 'ember-qunit';
 import { start as startEmberExam } from 'ember-exam/test-support';
 
-export function start({ availableModules }) {
+export async function start({ availableModules }) {
   setApplication(Application.create(config.APP));
 
   setup(QUnit.assert);
   setupEmberOnerrorValidation();
 
-  startEmberExam({ availableModules });
+  await startEmberExam({ availableModules });
 }

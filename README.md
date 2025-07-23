@@ -125,14 +125,21 @@ Then, update your tests/index.html to pass availableModules to start:
 Testing development:
 ```bash 
 NODE_ENV=development vite build --mode development
-ember exam --path dist
+ember exam --path dist --config-file ./testem.cjs
 ```
 
 Testing production:
 ```bash
 vite build --mode test
-ember exam --path dist
+ember exam --path dist --config-file ./testem.cjs
 ```
+
+> [!NOTE]
+> Specifying the `--path` is important because otherwise ember-cli will try to build your vite app, and it will error. 
+
+> [!NOTE]
+> Specifying the `--config-path` is important because ember-cli (what backs ember-exam) doesn't know about cjs files. 
+
 
 ### Version < `3.0.0`
 

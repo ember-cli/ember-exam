@@ -6,16 +6,16 @@ import { start as qunitStart } from 'ember-qunit';
  *
  * @function loadTests
  * @param {*} testLoader
- * @param {*} qunitOptions
+ * @param {*} loaderOptions
  */
-function loadTests(testLoader, qunitOptions) {
+async function loadTests(testLoader, loaderOptions = {}) {
   if (testLoader === undefined) {
     throw new Error(
       'A testLoader instance has not been created. You must call `loadEmberExam()` before calling `loadTest()`.',
     );
   }
 
-  testLoader.loadModules(qunitOptions);
+  await testLoader.loadModules(loaderOptions);
 }
 
 /**
@@ -25,11 +25,13 @@ function loadTests(testLoader, qunitOptions) {
  * @function start
  * @param {*} qunitOptions
  */
-export default function start(qunitOptions) {
-  const modifiedOptions = qunitOptions || Object.create(null);
+export default async function start(qunitOptions = {}) {
+  const { availableModules, ...modifiedOptions } =
+    qunitOptions || Object.create(null);
+
   modifiedOptions.loadTests = false;
 
   const testLoader = loadEmberExam();
-  loadTests(testLoader, qunitOptions);
+  await loadTests(testLoader, { availableModules });
   qunitStart(modifiedOptions);
 }

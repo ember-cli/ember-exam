@@ -14,7 +14,7 @@ module('Suite A', function (hooks) {
   test('b', async function (assert) {
     await render(<template>b</template>);
 
-    assert.dom().hasText('c');
+    assert.dom().hasText('b');
   });
 
   test('c', async function (assert) {

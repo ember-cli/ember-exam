@@ -26,7 +26,7 @@
     "sync": "echo 'pnpm will sync injected dependencies. See pnpm-workspace.yaml'",
     "build:tests": "vite build --mode development",
     "test:normal": "testem ci",
-    "test:exam": "ember exam --load-balance --parallel=2 --partition=2"
+    "test:exam": "ember exam --config-file ./testem.cjs --path dist --load-balance --parallel 2 --partition 2 --split 2 --random"
   },
   "exports": {
     "./tests/*": "./tests/*",

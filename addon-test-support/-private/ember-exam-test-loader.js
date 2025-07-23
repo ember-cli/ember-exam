@@ -1,3 +1,4 @@
+import { assert } from '@ember/debug';
 import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
 import weightTestModules from './weight-test-modules';
@@ -59,7 +60,7 @@ export default class EmberExamTestLoader extends TestLoader {
    *
    * @method loadModules
    */
-  loadModules({ availableModules } = {}) {
+  async loadModules({ availableModules } = {}) {
     const loadBalance = this._urlParams.get('loadBalance');
     const browserId = this._urlParams.get('browser');
     const modulePath = this._urlParams.get('modulePath');
@@ -78,6 +79,11 @@ export default class EmberExamTestLoader extends TestLoader {
     if (!availableModules) {
       super.loadModules();
     } else {
+      assert(
+        `Available modules must be an object.`,
+        typeof availableModules === 'object',
+      );
+
       this._availableModules = availableModules;
       this._testModules = Object.keys(availableModules);
     }
@@ -117,9 +123,9 @@ export default class EmberExamTestLoader extends TestLoader {
        * from start
        */
       if (this._availableModules) {
-        this._testModules.forEach((moduleName) => {
-          this._availableModules[moduleName]();
-        });
+        await Promise.all(this._testModules.map((moduleName) => {
+          return this._availableModules[moduleName]();
+        }));
         return;
       }
 

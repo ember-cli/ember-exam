@@ -34,8 +34,12 @@
 
     <script type="module">
       import { start } from './test-helper';
-      import.meta.glob("./**/*.{js,ts,gjs,gts}", { eager: true });
-      start();
+
+      const availableModules = {
+        ...import.meta.glob("./**/*.{js,ts,gjs,gts}"),
+      };
+
+      start({ availableModules });
     </script>
 
     {{content-for "body-footer"}}
