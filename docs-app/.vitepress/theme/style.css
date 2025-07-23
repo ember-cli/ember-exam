@@ -155,7 +155,16 @@
 /**
 * Contrast fixes
 */
-:root {
-  --vp-code-lang-color: rgb(200,200,200);
+html {
+  --vp-c-text-2: rgb(40, 40, 40);
+}
+html.dark {
   --vp-c-text-2: rgb(200, 200, 200);
+}
+
+html [class*='language-'] > span.lang {
+  --vp-code-lang-color: rgb(40,40,40);
+}
+html.dark [class*='language-'] > span.lang {
+  --vp-code-lang-color: rgb(200,200,200);
 }
