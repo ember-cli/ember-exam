@@ -69,3 +69,37 @@ dedupePeerDependents: false
 ## We do not want to dedupe injected dependencies as this
 ## results in hoisting and violates optional peer isolation.
 dedupeInjectedDeps: false
+
+
+
+
+
+
+
+
+
+##################################################################
+##
+##
+## hacks for old / broken dependencies
+##
+##
+##################################################################
+packageExtensions:
+  ember-cli-addon-dcos:
+    dependencies:
+      '@glimmer/syntax': '>= 0.94'
+      'ember-concurrency': '^4.0.0'
+  # dep of ember-cli-addon-docs
+  ember-cli-clipboard:
+    dependencies:
+      '@glimmer/component': '*'
+  ember-tether:
+    dependencies:
+      '@glimmer/component': '*'
+
+overrides:
+  # from ember-cli-addon-docs
+  '@glimmer/syntax': '^0.94.9'
+  'ember-concurrency': '^4.0.0'
+  '@handlebars/parser': '2.1.0'

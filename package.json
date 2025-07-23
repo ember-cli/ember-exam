@@ -62,7 +62,7 @@
     "codeclimate-test-reporter": "0.5.1",
     "concurrently": "8.2.2",
     "ember-cli": "5.12.0",
-    "ember-cli-addon-docs": "7.2.2",
+    "ember-cli-addon-docs": "8.0.8",
     "ember-cli-addon-docs-yuidoc": "1.1.0",
     "ember-cli-clean-css": "3.0.0",
     "ember-cli-dependency-checker": "3.3.3",
@@ -72,6 +72,7 @@
     "ember-cli-deploy-git-ci": "1.0.1",
     "ember-cli-htmlbars": "6.3.0",
     "ember-cli-inject-live-reload": "2.1.0",
+    "ember-concurrency": "^4.0.4",
     "ember-data": "5.6.0",
     "ember-eslint": "0.5.0",
     "ember-load-initializers": "2.1.2",
@@ -83,6 +84,7 @@
     "ember-try": "3.0.0",
     "eslint": "9.31.0",
     "fixturify": "3.0.0",
+    "glob": "11.0.3",
     "globals": "16.3.0",
     "loader.js": "4.7.0",
     "mocha": "11.7.1",
@@ -93,6 +95,7 @@
     "release-plan": "0.13.1",
     "rsvp": "4.8.5",
     "sinon": "21.0.0",
+    "typescript": "^5.8.3",
     "webpack": "5.100.2"
   },
   "peerDependencies": {
