@@ -19,14 +19,17 @@ export default defineConfig({
          * This is super try-hard mode, but since we're debugging
          * with built assets, we want to have smaller chunks for easier debugging without sourcemaps.
          */
-        manualChunks(id) {
-          return guessPkgName(id);
-        },
+        // manualChunks(id) {
+        //   let maybePkg = guessPkgName(id);
+        //
+        //   return maybePkg;
+        // },
       },
     },
   },
 });
 
+// eslint-disable-next-line no-unused-vars
 function guessPkgName(id) {
   if (!id.includes('/')) {
     return id;

@@ -1,4 +1,4 @@
-import EmberRouter from '@ember/router';
+import EmberRouter from '@ember/routing/router';
 import config from 'vite-with-compat/config/environment';
 
 export default class Router extends EmberRouter {
