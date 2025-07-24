@@ -11,6 +11,10 @@
     "test": "tests"
   },
   "scripts": {
+    ":exam": "ember exam --config-file ./testem.cjs --path dist --load-balance --parallel 2 --partition 2 --split 2",
+    "start": "vite",
+    "start:test-server": "ember test --config-file ./testem.cjs --path dist --serve --no-launch",
+    "start:exam": "pnpm :exam server",
     "build": "vite build",
     "format": "prettier . --cache --write",
     "lint": "concurrently \"pnpm:lint:*(!fix)\" --names \"lint:\" --prefixColors auto",
@@ -20,11 +24,10 @@
     "lint:hbs:fix": "ember-template-lint . --fix",
     "lint:js": "eslint . --cache",
     "lint:js:fix": "eslint . --fix",
-    "start": "vite",
     "sync": "echo 'pnpm will sync injected dependencies. See pnpm-workspace.yaml'",
     "build:tests": "vite build --mode development",
     "test:normal": "testem ci",
-    "test:exam": "ember exam --config-file ./testem.cjs --path dist --load-balance --parallel 2 --partition 2 --split 2 --random"
+    "test:exam": "pnpm :exam --random"
   },
   "exports": {
     "./tests/*": "./tests/*",

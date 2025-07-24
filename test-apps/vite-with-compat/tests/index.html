@@ -33,13 +33,13 @@
     <script type="module">import "ember-testing";</script>
 
     <script type="module">
-      import { start } from './test-helper';
+      import { start } from './test-helper.js';
 
       const availableModules = {
         ...import.meta.glob("./**/*.{js,ts,gjs,gts}"),
       };
 
-      start({ availableModules });
+      await start({ availableModules });
     </script>
 
     {{content-for "body-footer"}}
