@@ -4,6 +4,7 @@ import { defineConfig } from 'vitepress'
 export default defineConfig({
   title: "ember-exam",
   description: "Run your tests with randomization, splitting, and parallelization for beautiful tests.",
+  base: 'ember-exam',
   markdown: {
     // theme: {
     //   ...dark,
