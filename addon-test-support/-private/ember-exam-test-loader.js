@@ -105,6 +105,9 @@ export default class EmberExamTestLoader extends TestLoader {
         split,
         partitions,
       );
+
+      await this.loadAvailableModules();
+
       this._testem.emit(
         'testem:set-modules-queue',
         this._testModules,
@@ -117,19 +120,7 @@ export default class EmberExamTestLoader extends TestLoader {
         partitions,
       );
 
-      /**
-       * availableModules are passed in from loadModules
-       * from loadEmberExam
-       * from start
-       */
-      if (this._availableModules) {
-        await Promise.all(
-          this._testModules.map(async (moduleName) => {
-            await this._availableModules[moduleName]();
-          }),
-        );
-        return;
-      }
+      await this.loadAvailableModules();
 
       /**
        * Legacy support
@@ -138,6 +129,21 @@ export default class EmberExamTestLoader extends TestLoader {
         super.require(moduleName);
         super.unsee(moduleName);
       });
+    }
+  }
+
+  /**
+   * availableModules are passed in from loadModules
+   * from loadEmberExam
+   * from start
+   */
+  async loadAvailableModules() {
+    if (this._availableModules) {
+      await Promise.all(
+        this._testModules.map(async (moduleName) => {
+          await this._availableModules[moduleName]();
+        }),
+      );
     }
   }
 
