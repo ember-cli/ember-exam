@@ -38,6 +38,10 @@
         ...import.meta.glob("./**/*-test.{js,ts,gjs,gts}"),
       };
 
+      await new Promise(resolve => {
+        requestAnimationFrame(resolve);
+      });
+
       await start({ availableModules });
     </script>
 
