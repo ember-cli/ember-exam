@@ -26,9 +26,9 @@ jobs:
 
       - name: Upload static files as artifact
         id: deployment
-        uses: actions/upload-pages-artifact@v3 # or specific "vX.X.X" version tag for this action
+        uses: actions/upload-pages-artifact@v3
         with:
-          path: docs-app/dist
+          path: docs-app/.vitepress/dist
 
   deploy:
     needs: build
