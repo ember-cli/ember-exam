@@ -11,5 +11,6 @@
     ":semanticCommitsDisabled",
     "github>Turbo87/renovate-config:automergeCaretConstraint",
     "github>Turbo87/renovate-config:commitTopics",
+    "github>NullVoxPopuli/renovate:npm.json5"
   ],
 }
