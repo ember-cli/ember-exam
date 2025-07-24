@@ -98,7 +98,7 @@
   },
   "packageManager": "pnpm@10.13.1",
   "engines": {
-    "node": ">= 22"
+    "node": ">= 18"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
