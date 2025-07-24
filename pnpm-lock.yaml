@@ -63,8 +63,8 @@ importers:
         specifier: 3.1.1
         version: 3.1.1
       '@ember/test-helpers':
-        specifier: 3.3.1
-        version: 3.3.1(01b4f5bc90607a6b27573c0398dfb3a4)
+        specifier: 5.2.2
+        version: 5.2.2(@babel/core@7.28.0)
       '@embroider/test-setup':
         specifier: 3.0.3
         version: 3.0.3
@@ -103,7 +103,7 @@ importers:
         version: 2.1.2(@babel/core@7.28.0)
       ember-qunit:
         specifier: 8.1.1
-        version: 8.1.1(b8f0189ed0f2de4808e53bb03a8818d7)
+        version: 8.1.1(5d67345b58a44c7ae9b2daea818ee013)
       ember-resolver:
         specifier: 11.0.1
         version: 11.0.1(c14a4fb4e0bdba8c4c46d98aa480c4f8)
@@ -888,11 +888,8 @@ packages:
     resolution: {integrity: sha512-UbXJ+k3QOrYN4SRPHgXCqYIJ+yWWUg1+vr0H4DhdQPTy8LJfyqwZ2tc5uqpSSnEXE+/1KopHBE5J8GDagAg5cg==}
     engines: {node: 12.* || 14.* || >= 16}
 
-  '@ember/test-helpers@3.3.1':
-    resolution: {integrity: sha512-h4uFBy4pquBtHsHI+tx9S0wtMmn1L+8dkXiDiyoqG1+3e0Awk6GBujiFM9s4ANq6wC8uIhC3wEFyts10h2OAoQ==}
-    engines: {node: 16.* || >= 18}
-    peerDependencies:
-      ember-source: ^4.0.0 || ^5.0.0
+  '@ember/test-helpers@5.2.2':
+    resolution: {integrity: sha512-Cclqeh0j6RnYvoaElAVC3Nd1fsSUkc3oUTwTsLlNiC3riyPq8lNYxh96VM59/yji2ntrd/cJQ7qhhSZWd6hsEw==}
 
   '@ember/test-waiters@3.1.0':
     resolution: {integrity: sha512-bb9h95ktG2wKY9+ja1sdsFBdOms2lB19VWs8wmNpzgHv1NCetonBoV5jHBV4DHt0uS1tg9z66cZqhUVlYs96KQ==}
@@ -3230,6 +3227,9 @@ packages:
 
   decorator-transforms@1.2.1:
     resolution: {integrity: sha512-UUtmyfdlHvYoX3VSG1w5rbvBQ2r5TX1JsE4hmKU9snleFymadA3VACjl6SRfi9YgBCSjBbfQvR1bs9PRW9yBKw==}
+
+  decorator-transforms@2.3.0:
+    resolution: {integrity: sha512-jo8c1ss9yFPudHuYYcrJ9jpkDZIoi+lOGvt+Uyp9B+dz32i50icRMx9Bfa8hEt7TnX1FyKWKkjV+cUdT/ep2kA==}
 
   deep-extend@0.6.0:
     resolution: {integrity: sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==}
@@ -8472,23 +8472,18 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@ember/test-helpers@3.3.1(01b4f5bc90607a6b27573c0398dfb3a4)':
+  '@ember/test-helpers@5.2.2(@babel/core@7.28.0)':
     dependencies:
       '@ember/test-waiters': 3.1.0
+      '@embroider/addon-shim': 1.10.0
       '@embroider/macros': 1.18.1
       '@simple-dom/interface': 1.4.0
-      broccoli-debug: 0.6.5
-      broccoli-funnel: 3.0.8
+      decorator-transforms: 2.3.0(@babel/core@7.28.0)
       dom-element-descriptors: 0.5.1
-      ember-auto-import: 2.10.0(webpack@5.100.2)
-      ember-cli-babel: 8.2.0(@babel/core@7.28.0)
-      ember-cli-htmlbars: 6.3.0
-      ember-source: 5.12.0(rsvp@4.8.5)(webpack@5.100.2)
     transitivePeerDependencies:
       - '@babel/core'
       - '@glint/template'
       - supports-color
-      - webpack
 
   '@ember/test-waiters@3.1.0':
     dependencies:
@@ -11005,6 +11000,13 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
 
+  decorator-transforms@2.3.0(@babel/core@7.28.0):
+    dependencies:
+      '@babel/plugin-syntax-decorators': 7.27.1(@babel/core@7.28.0)
+      babel-import-util: 3.0.1
+    transitivePeerDependencies:
+      - '@babel/core'
+
   deep-extend@0.6.0: {}
 
   deep-is@0.1.4: {}
@@ -11532,9 +11534,9 @@ snapshots:
       - '@babel/core'
       - supports-color
 
-  ember-qunit@8.1.1(b8f0189ed0f2de4808e53bb03a8818d7):
+  ember-qunit@8.1.1(5d67345b58a44c7ae9b2daea818ee013):
     dependencies:
-      '@ember/test-helpers': 3.3.1(01b4f5bc90607a6b27573c0398dfb3a4)
+      '@ember/test-helpers': 5.2.2(@babel/core@7.28.0)
       '@embroider/addon-shim': 1.10.0
       '@embroider/macros': 1.18.1
       ember-cli-test-loader: 3.1.0
