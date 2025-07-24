@@ -120,7 +120,10 @@ export default class EmberExamTestLoader extends TestLoader {
         partitions,
       );
 
-      await this.loadAvailableModules();
+      if (this._availableModules) {
+        await this.loadAvailableModules();
+        return;
+      }
 
       /**
        * Legacy support
