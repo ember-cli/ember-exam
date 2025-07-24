@@ -11,7 +11,7 @@
     "test": "tests"
   },
   "scripts": {
-    ":exam": "ember exam --config-file ./testem.cjs --path dist --split 2 --parallel",
+    ":exam": "ember exam --config-file ./testem.cjs --path dist --split 2 --parallel 1",
     "start": "vite",
     "start:test-server": "ember test --config-file ./testem.cjs --path dist --serve --no-launch",
     "start:exam": "pnpm :exam server",
