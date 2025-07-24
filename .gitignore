@@ -1,5 +1,6 @@
 # compiled output
 /dist/
+/acceptance-dist/
 /declarations/
 
 # dependencies
@@ -7,6 +8,7 @@
 
 # misc
 /connect.lock
+.log/
 /.env*
 /.pnp*
 /.eslintcache

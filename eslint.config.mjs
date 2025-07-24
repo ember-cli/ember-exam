@@ -8,6 +8,16 @@ const dirname = url.fileURLToPath(new URL(".", import.meta.url));
 export default [
   ...ember.recommended(dirname),
   {
+    name: "monorepo-root:ignores",
+    ignores: [
+      "docs-app/**/*",
+      "test-apps/**/*",
+      "acceptance-dist/**/*",
+      "failure-dist/**/*",
+    ],
+  },
+  {
+    name: "monorepo-root:lib",
     files: ["lib/**/*"],
     languageOptions: {
       globals: {
@@ -16,6 +26,7 @@ export default [
     },
   },
   {
+    name: "monorepo-root:node-tests",
     files: ["node-tests/**/*"],
     languageOptions: {
       globals: {
