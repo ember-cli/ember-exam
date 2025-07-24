@@ -24,7 +24,6 @@
     "lint:format": "prettier . --cache --check",
     "lint:hbs": "ember-template-lint .",
     "lint:js": "eslint . && pnpm --filter ./test-apps/** lint:js",
-    "lint:format": "prettier . --cache --check",
     "start": "ember serve",
     "test": "concurrently \"npm:test:*\"",
     "test:ember": "ember test",
