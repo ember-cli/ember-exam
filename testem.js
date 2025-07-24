@@ -3,7 +3,7 @@ module.exports = {
   disable_watching: true,
   launch_in_ci: ['Chrome'],
   launch_in_dev: ['Chrome'],
-  timeout: 120,
+  timeout: 25,
   browser_args: {
     Chrome: {
       ci: [
