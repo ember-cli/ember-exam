@@ -10,7 +10,6 @@
     {{content-for "test-head"}}
 
     <link rel="stylesheet" href="/@embroider/virtual/vendor.css">
-    <link rel="stylesheet" href="/@embroider/virtual/app.css">
     <link rel="stylesheet" href="/@embroider/virtual/test-support.css">
 
     {{content-for "head-footer"}}
@@ -36,7 +35,7 @@
       import { start } from './test-helper.js';
 
       const availableModules = {
-        ...import.meta.glob("./**/*.{js,ts,gjs,gts}"),
+        ...import.meta.glob("./**/*-test.{js,ts,gjs,gts}"),
       };
 
       await start({ availableModules });

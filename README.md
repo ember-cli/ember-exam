@@ -112,9 +112,9 @@ Then, update your tests/index.html to pass availableModules to start:
   import { start } from './test-helper.js';
 
   const availableModules = {
-    ...import.meta.glob('./application/**/*.{js,ts,gjs,gts}', { eager: true }),
-    ...import.meta.glob('./rendering/**/*.{js,ts,gjs,gts}', { eager: true }),
-    ...import.meta.glob('./unit/**/*.{js,ts,gjs,gts}', { eager: true }),
+    ...import.meta.glob('./application/**/*-test.{js,ts,gjs,gts}', { eager: true }),
+    ...import.meta.glob('./rendering/**/*-test.{js,ts,gjs,gts}', { eager: true }),
+    ...import.meta.glob('./unit/**/*-test.{js,ts,gjs,gts}', { eager: true }),
   };
 
 	start({ availableModules });

@@ -124,8 +124,8 @@ export default class EmberExamTestLoader extends TestLoader {
        */
       if (this._availableModules) {
         await Promise.all(
-          this._testModules.map((moduleName) => {
-            return this._availableModules[moduleName]();
+          this._testModules.map(async (moduleName) => {
+            await this._availableModules[moduleName]();
           }),
         );
         return;
