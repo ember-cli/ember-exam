@@ -1,15 +1,16 @@
-import { setResolver } from '@ember/test-helpers';
-import resolver from './helpers/resolver';
+import Application from 'dummy/app';
+import config from 'dummy/config/environment';
+import { setApplication } from '@ember/test-helpers';
 import * as QUnit from 'qunit';
-import start from 'ember-exam/test-support/start';
+import { start as startEmberExam } from 'ember-exam/test-support';
 import { setupEmberOnerrorValidation } from 'ember-qunit';
-
-setupEmberOnerrorValidation();
 
 QUnit.moduleStart(({ name }) => console.group(name));
 QUnit.testStart(({ name }) => console.group(name));
 QUnit.testDone(() => console.groupEnd());
 QUnit.moduleDone(() => console.groupEnd());
 
-setResolver(resolver);
-start();
+setApplication(Application.create(config.APP));
+setupEmberOnerrorValidation();
+
+startEmberExam();
