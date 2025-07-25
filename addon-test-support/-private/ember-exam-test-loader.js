@@ -144,7 +144,14 @@ export default class EmberExamTestLoader extends TestLoader {
     if (this._availableModules) {
       await Promise.all(
         this._testModules.map(async (moduleName) => {
-          await this._availableModules[moduleName]();
+          let loader = this._availableModules[moduleName];
+
+          /**
+           * If it's not a function, it's already loaded
+           */
+          if (typeof loader === 'function') {
+            await loader();
+          }
         }),
       );
     }
@@ -164,7 +171,15 @@ export default class EmberExamTestLoader extends TestLoader {
     }
 
     if (this._availableModules) {
-      await this._availableModules[moduleName]();
+      let loader = this._availableModules[moduleName];
+
+      /**
+       * If it's not a function, it's already loaded
+       */
+      if (typeof loader === 'function') {
+        await loader();
+      }
+
       return;
     }
 
