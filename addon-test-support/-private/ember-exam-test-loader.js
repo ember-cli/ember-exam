@@ -156,12 +156,18 @@ export default class EmberExamTestLoader extends TestLoader {
    * @method loadIndividualModule
    * @param {string} moduleName
    */
-  loadIndividualModule(moduleName) {
+  async loadIndividualModule(moduleName) {
     if (moduleName === undefined) {
       throw new Error(
         'Failed to load a test module. `moduleName` is undefined in `loadIndividualModule`.',
       );
     }
+
+    if (this._availableModules) {
+      await this._availableModules[moduleName]();
+      return;
+    }
+
     super.require(moduleName);
     super.unsee(moduleName);
   }
@@ -207,10 +213,10 @@ export default class EmberExamTestLoader extends TestLoader {
 
       return nextModuleAsyncIterator
         .next()
-        .then((response) => {
+        .then(async (response) => {
           if (!response.done) {
             const moduleName = response.value;
-            this.loadIndividualModule(moduleName);
+            await this.loadIndividualModule(moduleName);
 
             // if no tests were added, request the next module
             if (this._qunit.config.queue.length === 0) {
