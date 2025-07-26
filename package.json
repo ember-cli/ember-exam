@@ -23,7 +23,7 @@
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
     "lint:format": "prettier . --cache --check",
     "lint:hbs": "ember-template-lint .",
-    "lint:js": "eslint .",
+    "lint:js": "eslint . && pnpm --filter ./test-apps/** lint:js",
     "start": "ember serve",
     "test": "concurrently \"npm:test:*\"",
     "test:ember": "ember test",
@@ -38,7 +38,7 @@
     ]
   },
   "dependencies": {
-    "@babel/core": "^7.23.6",
+    "@babel/core": "^7.28.0",
     "chalk": "^5.3.0",
     "cli-table3": "^0.6.0",
     "debug": "^4.2.0",
@@ -60,7 +60,7 @@
     "@embroider/test-setup": "3.0.3",
     "auto-dist-tag": "2.1.1",
     "codeclimate-test-reporter": "0.5.1",
-    "concurrently": "8.2.2",
+    "concurrently": "9.2.0",
     "ember-cli": "5.12.0",
     "ember-cli-clean-css": "3.0.0",
     "ember-cli-dependency-checker": "3.3.3",
@@ -69,9 +69,9 @@
     "ember-concurrency": "4.0.4",
     "ember-eslint": "0.5.0",
     "ember-load-initializers": "2.1.2",
-    "ember-qunit": "8.1.1",
+    "ember-qunit": "9.0.3",
     "ember-resolver": "11.0.1",
-    "ember-source": "5.12.0",
+    "ember-source": "6.6.0",
     "ember-source-channel-url": "3.0.0",
     "ember-template-lint": "7.9.1",
     "ember-try": "3.0.0",
@@ -99,9 +99,6 @@
   "packageManager": "pnpm@10.13.1",
   "engines": {
     "node": ">= 18"
-  },
-  "volta": {
-    "node": "18.20.8"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"
