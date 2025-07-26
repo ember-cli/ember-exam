@@ -6,8 +6,10 @@ import { setupEmberOnerrorValidation } from 'ember-qunit';
 import { start } from 'ember-qunit';
 
 setApplication(Application.create(config.APP));
-
-loadEmberExam();
 setupEmberOnerrorValidation();
 
-start();
+(async () => {
+  let loader = loadEmberExam();
+  await loader.loadModules();
+  start();
+})();
