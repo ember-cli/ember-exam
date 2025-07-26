@@ -1,9 +1,10 @@
-import { setResolver } from '@ember/test-helpers';
-import resolver from './helpers/resolver';
+import Application from 'dummy/app';
+import config from 'dummy/config/environment';
+import { setApplication } from '@ember/test-helpers';
 import loadEmberExam from 'ember-exam/test-support/load';
 import { start } from 'ember-qunit';
 
-setResolver(resolver);
+setApplication(Application.create(config.APP));
 
 loadEmberExam();
 
