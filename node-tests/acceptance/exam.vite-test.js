@@ -67,4 +67,25 @@ describe('Acceptance | Exam Command', function () {
       });
     });
   });
+
+  describe('loadBalance', function () {
+    it.only('has no shared tests between partitions', async function () {
+      let result = await execa(
+        'ember',
+        [
+          'exam',
+          '--load-balance',
+          '--path',
+          TEST_OUTPUT_DIR,
+          '--parallel',
+          '2',
+        ],
+        { cwd: DIR },
+      );
+
+      assert.strictEqual(getNumberOfTests(result.stdout), 8);
+      assert.strictEqual(result.stdout.includes('Suite A'), true);
+      assert.strictEqual(result.stdout.includes('Suite B'), true);
+    });
+  });
 });
