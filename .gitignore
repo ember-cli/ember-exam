@@ -2,6 +2,7 @@
 /dist/
 /acceptance-dist/
 dist-*/
+test-execution-*.json
 /declarations/
 
 # dependencies
