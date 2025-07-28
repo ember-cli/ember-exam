@@ -106,8 +106,6 @@ export default class EmberExamTestLoader extends TestLoader {
         partitions,
       );
 
-      await this.loadAvailableModules();
-
       this._testem.emit(
         'testem:set-modules-queue',
         this._testModules,
