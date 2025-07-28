@@ -12,7 +12,6 @@ function assertExpectRejection() {
   assert.ok(false, 'Expected promise to reject, but it fullfilled');
 }
 
-
 const TOTAL_NUM_TESTS = 67; // Total Number of tests without the global 'Ember.onerror validation tests'
 
 function getTotalNumberOfTests(output) {
@@ -259,7 +258,6 @@ describe('Acceptance | Exam Command', function () {
           assertSomePartitions(child.stdout, [1, 3], [2]);
         });
       });
-
     });
   });
 

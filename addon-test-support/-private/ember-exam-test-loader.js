@@ -77,14 +77,16 @@ export default class EmberExamTestLoader extends TestLoader {
       partitions = [partitions];
     }
 
-      console.log(JSON.stringify({
+    console.log(
+      JSON.stringify({
         loadBalance,
         browserId,
         modulePath,
         filePath,
         partitions,
         split,
-      }))
+      }),
+    );
 
     if (!availableModules) {
       super.loadModules();
