@@ -34,21 +34,9 @@
     <script type="module">
       import { start } from './test-helper.js';
 
-      const availableModules = {};
-
-      if (import.meta.env.VITE_EAGER) {
-        Object.assign(availableModules, {
-          ...import.meta.glob("./**/*-test.{js,ts,gjs,gts}", { eager: true }),
-        })
-      } else {
-        Object.assign(availableModules, {
-          ...import.meta.glob("./**/*-test.{js,ts,gjs,gts}"),
-        })
-      }
-
-      await new Promise(resolve => {
-        requestAnimationFrame(resolve);
-      });
+      const availableModules = {
+        ...import.meta.glob("./**/*-test.{js,ts,gjs,gts}"),
+      };
 
       start({ availableModules });
     </script>

@@ -1,6 +1,7 @@
 # compiled output
 /dist/
 /acceptance-dist/
+dist-*/
 /declarations/
 
 # dependencies
