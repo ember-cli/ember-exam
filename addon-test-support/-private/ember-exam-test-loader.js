@@ -45,6 +45,7 @@ export default class EmberExamTestLoader extends TestLoader {
    * @param {string} moduleName
    */
   require(moduleName) {
+    throw new Error(`Do not use require`);
     this._testModules.push(moduleName);
   }
 
@@ -75,6 +76,15 @@ export default class EmberExamTestLoader extends TestLoader {
     } else if (!Array.isArray(partitions)) {
       partitions = [partitions];
     }
+
+      console.log(JSON.stringify({
+        loadBalance,
+        browserId,
+        modulePath,
+        filePath,
+        partitions,
+        split,
+      }))
 
     if (!availableModules) {
       super.loadModules();
@@ -139,6 +149,7 @@ export default class EmberExamTestLoader extends TestLoader {
    * from start
    */
   async loadAvailableModules() {
+    console.log('loadAvailableModules', this._testModules);
     if (this._availableModules) {
       await Promise.all(
         this._testModules.map(async (moduleName) => {
@@ -162,6 +173,8 @@ export default class EmberExamTestLoader extends TestLoader {
    * @param {string} moduleName
    */
   async loadIndividualModule(moduleName) {
+    console.log('loadAvailableModule', moduleName);
+
     if (moduleName === undefined) {
       throw new Error(
         'Failed to load a test module. `moduleName` is undefined in `loadIndividualModule`.',
@@ -227,6 +240,7 @@ export default class EmberExamTestLoader extends TestLoader {
       return nextModuleAsyncIterator
         .next()
         .then(async (response) => {
+          console.log('nextModuleHandler', JSON.stringify(response));
           if (!response.done) {
             const moduleName = response.value;
             await this.loadIndividualModule(moduleName);
