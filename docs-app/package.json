@@ -12,9 +12,9 @@
   "license": "MIT",
   "packageManager": "pnpm@10.13.1",
   "devDependencies": {
-    "@algolia/client-search": "5.34.1",
+    "@algolia/client-search": "5.35.0",
     "search-insights": "2.17.3",
-    "typescript": "5.8.3",
+    "typescript": "5.9.2",
     "vite": "7.0.6",
     "vitepress": "1.6.3",
     "vitepress-plugin-llms": "1.7.2",
