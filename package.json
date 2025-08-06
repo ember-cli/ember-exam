@@ -22,7 +22,7 @@
     "format": "prettier . --write",
     "lint": "concurrently \"npm:lint:*(!fix)\" --names \"lint:\"",
     "lint:format": "prettier . --cache --check",
-    "lint:js": "eslint .",
+    "lint:js": "eslint . && pnpm --filter './test-apps/**' lint:js",
     "start": "ember serve",
     "test": "concurrently \"npm:test:*\"",
     "test:ember": "ember test",
