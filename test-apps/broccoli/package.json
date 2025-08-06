@@ -71,6 +71,9 @@
     "tracked-built-ins": "^3.3.0",
     "webpack": "^5.95.0"
   },
+  "dependencies": {
+    "ember-exam": "workspace:*"
+  },
   "engines": {
     "node": ">= 18"
   },
