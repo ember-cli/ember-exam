@@ -96,6 +96,7 @@
   "packageManager": "pnpm@10.14.0",
   "pnpm": {
     "overrides": {
+      "@glimmer/syntax": "^0.95.0",
       "ember-exam": "workspace:*"
     }
   },
