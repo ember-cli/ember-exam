@@ -28,6 +28,7 @@
     "lint:js:fix": "eslint . --fix",
     "sync": "echo 'pnpm will sync injected dependencies. See pnpm-workspace.yaml'",
     "test:normal": "testem ci",
+    "test:ember": "pnpm build:tests && pnpm test:normal",
     "test:exam": "pnpm :exam --random"
   },
   "exports": {
