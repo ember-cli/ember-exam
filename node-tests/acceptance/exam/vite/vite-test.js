@@ -24,6 +24,21 @@ describe('Command | exam | vite', function () {
     rimrafSync(TEST_OUTPUT_DIR);
   });
 
+  describe('without exam', function () {
+    it('has passing tests with just testem', async function () {
+      let result = await execa('testem', ['ci'], {
+        cwd: DIR,
+        env: {
+          TESTEM_DIR: TEST_OUTPUT_DIR,
+        },
+      });
+
+      assert.strictEqual(getNumberOfTests(result.stdout), 6);
+      assert.strictEqual(result.stdout.includes('Suite A'), true);
+      assert.strictEqual(result.stdout.includes('Suite B'), true);
+    });
+  });
+
   describe('split', function () {
     describe('parallel', function () {
       it('has no shared tests between partitions', async function () {
