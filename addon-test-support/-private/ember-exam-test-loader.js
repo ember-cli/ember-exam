@@ -1,3 +1,4 @@
+import { assert } from '@ember/debug';
 import getUrlParams from './get-url-params';
 import splitTestModules from './split-test-modules';
 import weightTestModules from './weight-test-modules';
@@ -59,7 +60,7 @@ export default class EmberExamTestLoader extends TestLoader {
    *
    * @method loadModules
    */
-  loadModules() {
+  async loadModules({ availableModules } = {}) {
     const loadBalance = this._urlParams.get('loadBalance');
     const browserId = this._urlParams.get('browser');
     const modulePath = this._urlParams.get('modulePath');
@@ -75,7 +76,18 @@ export default class EmberExamTestLoader extends TestLoader {
       partitions = [partitions];
     }
 
-    super.loadModules();
+    if (!availableModules) {
+      super.loadModules();
+    } else {
+      assert(
+        `Available modules must be an object.`,
+        typeof availableModules === 'object',
+      );
+
+      this._availableModules = availableModules;
+      this._testModules = Object.keys(availableModules);
+    }
+
     this.setupModuleMetadataHandler();
 
     if (modulePath || filePath) {
@@ -93,6 +105,7 @@ export default class EmberExamTestLoader extends TestLoader {
         split,
         partitions,
       );
+
       this._testem.emit(
         'testem:set-modules-queue',
         this._testModules,
@@ -104,10 +117,41 @@ export default class EmberExamTestLoader extends TestLoader {
         split,
         partitions,
       );
+
+      if (this._availableModules) {
+        await this.loadAvailableModules();
+        return;
+      }
+
+      /**
+       * Legacy support
+       */
       this._testModules.forEach((moduleName) => {
         super.require(moduleName);
         super.unsee(moduleName);
       });
+    }
+  }
+
+  /**
+   * availableModules are passed in from loadModules
+   * from loadEmberExam
+   * from start
+   */
+  async loadAvailableModules() {
+    if (this._availableModules) {
+      await Promise.all(
+        this._testModules.map(async (moduleName) => {
+          let loader = this._availableModules[moduleName];
+
+          /**
+           * If it's not a function, it's already loaded
+           */
+          if (typeof loader === 'function') {
+            await loader();
+          }
+        }),
+      );
     }
   }
 
@@ -117,12 +161,26 @@ export default class EmberExamTestLoader extends TestLoader {
    * @method loadIndividualModule
    * @param {string} moduleName
    */
-  loadIndividualModule(moduleName) {
+  async loadIndividualModule(moduleName) {
     if (moduleName === undefined) {
       throw new Error(
         'Failed to load a test module. `moduleName` is undefined in `loadIndividualModule`.',
       );
     }
+
+    if (this._availableModules) {
+      let loader = this._availableModules[moduleName];
+
+      /**
+       * If it's not a function, it's already loaded
+       */
+      if (typeof loader === 'function') {
+        await loader();
+      }
+
+      return;
+    }
+
     super.require(moduleName);
     super.unsee(moduleName);
   }
@@ -168,10 +226,10 @@ export default class EmberExamTestLoader extends TestLoader {
 
       return nextModuleAsyncIterator
         .next()
-        .then((response) => {
+        .then(async (response) => {
           if (!response.done) {
             const moduleName = response.value;
-            this.loadIndividualModule(moduleName);
+            await this.loadIndividualModule(moduleName);
 
             // if no tests were added, request the next module
             if (this._qunit.config.queue.length === 0) {
