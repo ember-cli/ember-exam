@@ -76,17 +76,6 @@ export default class EmberExamTestLoader extends TestLoader {
       partitions = [partitions];
     }
 
-    console.log(
-      JSON.stringify({
-        loadBalance,
-        browserId,
-        modulePath,
-        filePath,
-        partitions,
-        split,
-      }),
-    );
-
     if (!availableModules) {
       super.loadModules();
     } else {
@@ -150,7 +139,6 @@ export default class EmberExamTestLoader extends TestLoader {
    * from start
    */
   async loadAvailableModules() {
-    console.log('runtime: loadAvailableModules', this._testModules);
     if (this._availableModules) {
       await Promise.all(
         this._testModules.map(async (moduleName) => {
@@ -174,8 +162,6 @@ export default class EmberExamTestLoader extends TestLoader {
    * @param {string} moduleName
    */
   async loadIndividualModule(moduleName) {
-    console.log('runtime: loadAvailableModule', moduleName);
-
     if (moduleName === undefined) {
       throw new Error(
         'Failed to load a test module. `moduleName` is undefined in `loadIndividualModule`.',
@@ -241,11 +227,9 @@ export default class EmberExamTestLoader extends TestLoader {
       return nextModuleAsyncIterator
         .next()
         .then(async (response) => {
-          console.log('runtime: nextModuleHandler', JSON.stringify(response));
           if (!response.done) {
             const moduleName = response.value;
             await this.loadIndividualModule(moduleName);
-            console.log('runtime: finished loadIndividualModule')
 
             // if no tests were added, request the next module
             if (this._qunit.config.queue.length === 0) {
