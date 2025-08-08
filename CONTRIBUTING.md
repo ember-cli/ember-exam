@@ -25,3 +25,14 @@
 - Visit the dummy application at [http://localhost:4200](http://localhost:4200).
 
 For more information on using ember-cli, visit [https://cli.emberjs.com/release/](https://cli.emberjs.com/release/).
+
+## Debugging testem
+
+Terminal 1
+```bash
+pnpm ember exam --load-balance --path ./dist --parallel 2 --testem-debug testem.log
+```
+Terminal 2
+```bash
+tail -f testem.log
+```
