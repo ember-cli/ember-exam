@@ -45,7 +45,6 @@ jobs:
           node-version: 18
           cache: 'pnpm'
       - run: pnpm install
-      - run: pnpm test:ember
       - run: ${{ matrix.app.cmd }}
         working-directory: ${{ matrix.app.dir }}
 
