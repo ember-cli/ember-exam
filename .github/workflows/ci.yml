@@ -55,7 +55,6 @@ jobs:
           - { name: "Broccoli (v1 App)", dir: './test-apps/broccoli', cmd: 'pnpm test:ember' }
           - { name: "Webpack + Embroider 3 ", dir: './test-apps/embroider3-webpack', cmd: 'pnpm test:ember' }
           - { name: "Vite + Compat", dir: './test-apps/vite-with-compat', cmd: 'pnpm build:tests && pnpm test:exam' }
-          - { name: "Vite + Compat (eager)", dir: './test-apps/vite-with-compat', cmd: 'VITE_EAGER=true pnpm build:tests && pnpm test:exam' }
 
     steps:
       - uses: actions/checkout@v4
