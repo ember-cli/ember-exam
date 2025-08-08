@@ -1,4 +1,4 @@
-name: CI Build
+name: CI
 
 on:
   push:
@@ -11,6 +11,23 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  setup:
+    name: 'Setup'
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    outputs:
+      matrix: ${{ steps.set-matrix.outputs.matrix }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          # This version is different, because we want newer node features
+          # so that we can skip pnpm install for this job
+          node-version: 24
+      - id: set-matrix
+        run: |
+          echo "matrix=$(node ./node-tests/list.mjs)" >> $GITHUB_OUTPUT
+
   lint:
     name: Lints
     runs-on: ubuntu-latest
@@ -49,9 +66,13 @@ jobs:
         working-directory: ${{ matrix.app.dir }}
 
   test-node:
-    name: Node Tests
+    name: "Mocha | ${{ matrix.name }}"
+    needs: ["setup"]
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix: ${{fromJson(needs.setup.outputs.matrix)}}
 
     steps:
       - uses: actions/checkout@v4
@@ -61,7 +82,7 @@ jobs:
           node-version: 18
           cache: 'pnpm'
       - run: pnpm install
-      - run: pnpm test:node
+      - run: ${{ matrix.command }}
 
   floating-dependencies:
     name: "Floating Dependencies"
