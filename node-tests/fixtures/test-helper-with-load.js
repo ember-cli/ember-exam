@@ -12,8 +12,3 @@ loadEmberExam();
 
 loadTests();
 start();
-// (async () => {
-//   let loader = loadEmberExam();
-//   await loader.loadModules();
-//   start();
-// })();
