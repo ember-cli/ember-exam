@@ -175,8 +175,8 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
       vite:
-        specifier: 7.0.6
-        version: 7.0.6
+        specifier: 7.1.0
+        version: 7.1.0
       vitepress:
         specifier: 1.6.3
         version: 1.6.3(d1f6c8654b3f37ce4ce740b80110a8b1)
@@ -194,109 +194,109 @@ importers:
         version: file:(097458e80dc5efda9522704578b1bf0c)
     devDependencies:
       '@babel/core':
-        specifier: ^7.25.2
+        specifier: 7.28.0
         version: 7.28.0
       '@babel/plugin-proposal-decorators':
-        specifier: ^7.24.7
+        specifier: 7.28.0
         version: 7.28.0(@babel/core@7.28.0)
       '@ember/optional-features':
-        specifier: ^2.1.0
+        specifier: 2.2.0
         version: 2.2.0
       '@ember/string':
-        specifier: ^4.0.0
+        specifier: 4.0.1
         version: 4.0.1
       '@ember/test-helpers':
-        specifier: ^3.3.1
+        specifier: 3.3.1
         version: 3.3.1(ce2fb5bc73352454e8f0b965f6bcd204)
       '@glimmer/component':
-        specifier: ^1.1.2
+        specifier: 1.1.2
         version: 1.1.2(@babel/core@7.28.0)
       '@glimmer/tracking':
-        specifier: ^1.1.2
+        specifier: 1.1.2
         version: 1.1.2
       broccoli-asset-rev:
-        specifier: ^3.0.0
+        specifier: 3.0.0
         version: 3.0.0
       concurrently:
-        specifier: ^8.2.2
+        specifier: 8.2.2
         version: 8.2.2
       ember-auto-import:
-        specifier: ^2.8.1
+        specifier: 2.10.0
         version: 2.10.0(webpack@5.101.0)
       ember-cli:
-        specifier: ~5.12.0
+        specifier: 5.12.0
         version: 5.12.0
       ember-cli-app-version:
-        specifier: ^7.0.0
+        specifier: 7.0.0
         version: 7.0.0(0f41f33ed92cd90cde514044d3e125b5)
       ember-cli-babel:
-        specifier: ^8.2.0
+        specifier: 8.2.0
         version: 8.2.0(@babel/core@7.28.0)
       ember-cli-clean-css:
-        specifier: ^3.0.0
+        specifier: 3.0.0
         version: 3.0.0
       ember-cli-dependency-checker:
-        specifier: ^3.3.2
+        specifier: 3.3.3
         version: 3.3.3(ember-cli@5.12.0)
       ember-cli-htmlbars:
-        specifier: ^6.3.0
+        specifier: 6.3.0
         version: 6.3.0
       ember-cli-inject-live-reload:
-        specifier: ^2.1.0
+        specifier: 2.1.0
         version: 2.1.0
       ember-cli-sri:
-        specifier: ^2.1.1
+        specifier: 2.1.1
         version: 2.1.1
       ember-cli-terser:
-        specifier: ^4.0.2
+        specifier: 4.0.2
         version: 4.0.2
       ember-eslint:
         specifier: 0.5.0
         version: 0.5.0(@babel/core@7.28.0)(eslint@9.32.0)
       ember-load-initializers:
-        specifier: ^2.1.2
+        specifier: 2.1.2
         version: 2.1.2(@babel/core@7.28.0)
       ember-modifier:
-        specifier: ^4.2.0
+        specifier: 4.2.2
         version: 4.2.2(@babel/core@7.28.0)
       ember-page-title:
-        specifier: ^8.2.3
+        specifier: 8.2.4
         version: 8.2.4(0f41f33ed92cd90cde514044d3e125b5)
       ember-qunit:
-        specifier: ^8.1.0
+        specifier: 8.1.1
         version: 8.1.1(02976ddc6a447b044c32e1f5917b237e)
       ember-resolver:
-        specifier: ^12.0.1
+        specifier: 12.0.1
         version: 12.0.1(0f41f33ed92cd90cde514044d3e125b5)
       ember-source:
-        specifier: ~5.12.0
+        specifier: 5.12.0
         version: 5.12.0(d6331517d416bddbfa7264d16a382b41)
       ember-template-lint:
-        specifier: ^6.0.0
+        specifier: 6.1.0
         version: 6.1.0
       ember-welcome-page:
-        specifier: ^7.0.2
+        specifier: 7.0.2
         version: 7.0.2
       eslint:
-        specifier: ^9.32.0
+        specifier: 9.32.0
         version: 9.32.0
       loader.js:
-        specifier: ^4.7.0
+        specifier: 4.7.0
         version: 4.7.0
       prettier:
-        specifier: ^3.3.3
+        specifier: 3.6.2
         version: 3.6.2
       qunit:
-        specifier: ^2.22.0
+        specifier: 2.24.1
         version: 2.24.1
       qunit-dom:
-        specifier: ^3.2.1
+        specifier: 3.4.0
         version: 3.4.0
       tracked-built-ins:
-        specifier: ^3.3.0
+        specifier: 3.4.0
         version: 3.4.0(@babel/core@7.28.0)
       webpack:
-        specifier: ^5.95.0
+        specifier: 5.101.0
         version: 5.101.0
 
   test-apps/embroider3-webpack:
@@ -306,124 +306,124 @@ importers:
         version: file:(a9d03faab6a92c3378df516069672b18)
     devDependencies:
       '@babel/core':
-        specifier: ^7.28.0
+        specifier: 7.28.0
         version: 7.28.0
       '@babel/plugin-proposal-decorators':
-        specifier: ^7.28.0
+        specifier: 7.28.0
         version: 7.28.0(@babel/core@7.28.0)
       '@ember/optional-features':
-        specifier: ^2.2.0
+        specifier: 2.2.0
         version: 2.2.0
       '@ember/test-helpers':
-        specifier: ^5.2.2
+        specifier: 5.2.2
         version: 5.2.2(@babel/core@7.28.0)
       '@embroider/compat':
-        specifier: ^3.9.1
+        specifier: 3.9.1
         version: 3.9.1(@embroider/core@3.5.7)
       '@embroider/core':
-        specifier: ^3.5.7
+        specifier: 3.5.7
         version: 3.5.7
       '@embroider/macros':
-        specifier: ^1.18.1
+        specifier: 1.18.1
         version: 1.18.1
       '@embroider/webpack':
-        specifier: ^4.1.1
+        specifier: 4.1.1
         version: 4.1.1(@embroider/core@3.5.7)(webpack@5.101.0)
       '@glimmer/component':
-        specifier: ^2.0.0
+        specifier: 2.0.0
         version: 2.0.0
       '@glimmer/tracking':
-        specifier: ^1.1.2
+        specifier: 1.1.2
         version: 1.1.2
       broccoli-asset-rev:
-        specifier: ^3.0.0
+        specifier: 3.0.0
         version: 3.0.0
       concurrently:
-        specifier: ^9.2.0
+        specifier: 9.2.0
         version: 9.2.0
       ember-auto-import:
-        specifier: ^2.10.0
+        specifier: 2.10.0
         version: 2.10.0(webpack@5.101.0)
       ember-cli:
-        specifier: ~6.6.0
+        specifier: 6.6.0
         version: 6.6.0
       ember-cli-app-version:
-        specifier: ^7.0.0
+        specifier: 7.0.0
         version: 7.0.0(8354954e5b80d7b1c35cb7ab63dbceb9)
       ember-cli-babel:
-        specifier: ^8.2.0
+        specifier: 8.2.0
         version: 8.2.0(@babel/core@7.28.0)
       ember-cli-clean-css:
-        specifier: ^3.0.0
+        specifier: 3.0.0
         version: 3.0.0
       ember-cli-dependency-checker:
-        specifier: ^3.3.3
+        specifier: 3.3.3
         version: 3.3.3(ember-cli@6.6.0)
       ember-cli-deprecation-workflow:
-        specifier: ^3.4.0
+        specifier: 3.4.0
         version: 3.4.0(8354954e5b80d7b1c35cb7ab63dbceb9)
       ember-cli-htmlbars:
-        specifier: ^6.3.0
+        specifier: 6.3.0
         version: 6.3.0
       ember-cli-inject-live-reload:
-        specifier: ^2.1.0
+        specifier: 2.1.0
         version: 2.1.0
       ember-eslint:
         specifier: 0.5.0
         version: 0.5.0(@babel/core@7.28.0)(eslint@9.32.0)
       ember-load-initializers:
-        specifier: ^3.0.1
+        specifier: 3.0.1
         version: 3.0.1(8354954e5b80d7b1c35cb7ab63dbceb9)
       ember-modifier:
-        specifier: ^4.2.2
+        specifier: 4.2.2
         version: 4.2.2(@babel/core@7.28.0)
       ember-page-title:
-        specifier: ^9.0.2
+        specifier: 9.0.2
         version: 9.0.2
       ember-qunit:
-        specifier: ^9.0.3
+        specifier: 9.0.3
         version: 9.0.3(73cb4318e1e1caa7f9129598d5a03a67)
       ember-resolver:
-        specifier: ^13.1.1
+        specifier: 13.1.1
         version: 13.1.1
       ember-source:
-        specifier: ~6.6.0
+        specifier: 6.6.0
         version: 6.6.0(@glimmer/component@2.0.0)
       ember-template-imports:
-        specifier: ^4.3.0
+        specifier: 4.3.0
         version: 4.3.0
       ember-template-lint:
-        specifier: ^6.1.0
+        specifier: 6.1.0
         version: 6.1.0
       ember-welcome-page:
-        specifier: ^7.0.2
+        specifier: 7.0.2
         version: 7.0.2
       eslint:
-        specifier: ^9.32.0
+        specifier: 9.32.0
         version: 9.32.0
       globals:
-        specifier: ^15.15.0
+        specifier: 15.15.0
         version: 15.15.0
       loader.js:
-        specifier: ^4.7.0
+        specifier: 4.7.0
         version: 4.7.0
       prettier:
-        specifier: ^3.6.2
+        specifier: 3.6.2
         version: 3.6.2
       prettier-plugin-ember-template-tag:
-        specifier: ^2.1.0
+        specifier: 2.1.0
         version: 2.1.0(prettier@3.6.2)
       qunit:
-        specifier: ^2.24.1
+        specifier: 2.24.1
         version: 2.24.1
       qunit-dom:
-        specifier: ^3.4.0
+        specifier: 3.4.0
         version: 3.4.0
       tracked-built-ins:
-        specifier: ^3.4.0
+        specifier: 3.4.0
         version: 3.4.0(@babel/core@7.28.0)
       webpack:
-        specifier: ^5.101.0
+        specifier: 5.101.0
         version: 5.101.0
 
 packages:
@@ -8225,8 +8225,8 @@ packages:
       terser:
         optional: true
 
-  vite@7.0.6:
-    resolution: {integrity: sha512-MHFiOENNBd+Bd9uvc8GEsIzdkn1JxMmEeYX35tI3fv0sJBUTfW5tQsoaOwuY4KhBI09A3dUJ/DXf2yxPVPUceg==}
+  vite@7.1.0:
+    resolution: {integrity: sha512-3jdAy3NhBJYsa/lCFcnRfbK4kNkO/bhijFCnv5ByUQk/eekYagoV2yQSISUrhpV+5JiY5hmwOh7jNnQ68dFMuQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -19446,7 +19446,7 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  vite@7.0.6:
+  vite@7.1.0:
     dependencies:
       esbuild: 0.25.8
       fdir: 6.4.6(picomatch@4.0.3)
