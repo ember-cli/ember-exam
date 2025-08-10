@@ -144,8 +144,8 @@ importers:
         specifier: 2.24.1
         version: 2.24.1
       release-plan:
-        specifier: 0.17.0
-        version: 0.17.0
+        specifier: 0.17.2
+        version: 0.17.2
       rsvp:
         specifier: 4.8.5
         version: 4.8.5
@@ -178,8 +178,8 @@ importers:
         specifier: 7.1.0
         version: 7.1.0
       vitepress:
-        specifier: 1.6.3
-        version: 1.6.3(d1f6c8654b3f37ce4ce740b80110a8b1)
+        specifier: 1.6.4
+        version: 1.6.4(d1f6c8654b3f37ce4ce740b80110a8b1)
       vitepress-plugin-llms:
         specifier: 1.7.2
         version: 1.7.2
@@ -7061,8 +7061,8 @@ packages:
     resolution: {integrity: sha512-cnE+y8bz4NhMjISKbgeVJtqNbtf5QpjZP+Bslo+UqkIt9QPnX9q095eiRRASJG1/tz6dlNr6Z5NsBiWYokp6EQ==}
     hasBin: true
 
-  release-plan@0.17.0:
-    resolution: {integrity: sha512-mE6ZKEC2FLl0bMeHcd0mKXTxM8rb+gaiaLaEyL6pUmo8zKLAtJxpj6dufaoLd7peKtiw4rDyKKB2IreoGJoqXQ==}
+  release-plan@0.17.2:
+    resolution: {integrity: sha512-LgE/3CU8sFZt28uJR886xvWdw/CL0g5g5YSFTAJUvUy5qdERZdcc1pu317nKpYFs/yEDjiUasLj3rxnXBJf1zA==}
     hasBin: true
 
   release-zalgo@1.0.0:
@@ -8268,8 +8268,8 @@ packages:
   vitepress-plugin-llms@1.7.2:
     resolution: {integrity: sha512-4UxB3PXfRAfzbcKRXizRQajstjmYn1hoFOSCGIQBYyu3qYs9/TEAUe6oLGbiwaDD+wPQ/T1ow59pt2LAMR4/1A==}
 
-  vitepress@1.6.3:
-    resolution: {integrity: sha512-fCkfdOk8yRZT8GD9BFqusW3+GggWYZ/rYncOfmgcDtP3ualNHCAg+Robxp2/6xfH1WwPHtGpPwv7mbA3qomtBw==}
+  vitepress@1.6.4:
+    resolution: {integrity: sha512-+2ym1/+0VVrbhNyRoFFesVvBvHAVMZMK0rw60E3X/5349M1GuVdKeazuksqopEdvkKwKGs21Q729jX81/bkBJg==}
     hasBin: true
     peerDependencies:
       markdown-it-mathjax3: ^4
@@ -17924,7 +17924,7 @@ snapshots:
     dependencies:
       jsesc: 3.0.2
 
-  release-plan@0.17.0:
+  release-plan@0.17.2:
     dependencies:
       '@manypkg/get-packages': 2.2.2
       '@npmcli/package-json': 6.2.0
@@ -19476,7 +19476,7 @@ snapshots:
       - '@75lb/nature'
       - supports-color
 
-  vitepress@1.6.3(d1f6c8654b3f37ce4ce740b80110a8b1):
+  vitepress@1.6.4(d1f6c8654b3f37ce4ce740b80110a8b1):
     dependencies:
       '@docsearch/css': 3.8.2
       '@docsearch/js': 3.8.2(aa7d02c871cc74afa512eb010cad68e5)

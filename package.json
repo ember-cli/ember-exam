@@ -82,7 +82,7 @@
     "prettier": "3.6.2",
     "prettier-plugin-ember-template-tag": "2.1.0",
     "qunit": "2.24.1",
-    "release-plan": "0.17.0",
+    "release-plan": "0.17.2",
     "rsvp": "4.8.5",
     "sinon": "21.0.0",
     "typescript": "5.9.2",
