@@ -7,7 +7,7 @@ if (typeof module !== 'undefined') {
     disable_watching: true,
     launch_in_ci: ['Chrome'],
     launch_in_dev: ['Chrome'],
-    browser_start_timeout: 120,
+    browser_start_timeout: 180,
     browser_args: {
       Chrome: {
         ci: [
