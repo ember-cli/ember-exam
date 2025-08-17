@@ -56,7 +56,7 @@
     "ember-template-imports": "4.3.0",
     "ember-template-lint": "6.1.0",
     "ember-welcome-page": "7.0.2",
-    "eslint": "9.32.0",
+    "eslint": "9.33.0",
     "globals": "15.15.0",
     "loader.js": "4.7.0",
     "prettier": "3.6.2",
