@@ -72,11 +72,11 @@ describe('Command | exam | vite', function () {
           { cwd: DIR },
         );
 
-        assert.strictEqual(getNumberOfTests(resultA.stdout), 4);
+        assert.strictEqual(getNumberOfTests(resultA.stdout), 3);
         assert.strictEqual(resultA.stdout.includes('Suite A'), true);
         assert.strictEqual(resultA.stdout.includes('Suite B'), false);
 
-        assert.strictEqual(getNumberOfTests(resultB.stdout), 4);
+        assert.strictEqual(getNumberOfTests(resultB.stdout), 3);
         assert.strictEqual(resultB.stdout.includes('Suite B'), true);
         assert.strictEqual(resultB.stdout.includes('Suite A'), false);
       });
@@ -84,7 +84,7 @@ describe('Command | exam | vite', function () {
   });
 
   describe('loadBalance', function () {
-    it.only('has no shared tests between partitions', async function () {
+    it('has no shared tests between partitions', async function () {
       let result = await execa(
         'ember',
         [
@@ -98,7 +98,7 @@ describe('Command | exam | vite', function () {
         { cwd: DIR },
       );
 
-      assert.strictEqual(getNumberOfTests(result.stdout), 8);
+      assert.strictEqual(getNumberOfTests(result.stdout), 6);
       assert.strictEqual(result.stdout.includes('Suite A'), true);
       assert.strictEqual(result.stdout.includes('Suite B'), true);
     });
