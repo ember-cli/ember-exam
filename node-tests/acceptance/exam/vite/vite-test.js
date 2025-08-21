@@ -94,8 +94,6 @@ describe('Command | exam | vite', function () {
           TEST_OUTPUT_DIR,
           '--parallel',
           '2',
-          '--test-port',
-          '0',
         ],
         { cwd: DIR },
       );
