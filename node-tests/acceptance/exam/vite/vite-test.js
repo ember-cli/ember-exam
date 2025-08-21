@@ -5,7 +5,7 @@ const { rimrafSync } = require('rimraf');
 const { ROOT, execa, getNumberOfTests } = require('../../helpers.js');
 
 const DIR = path.resolve(ROOT, 'test-apps/vite-with-compat');
-const TEST_OUTPUT_DIR = 'dist-acceptance';
+const TEST_OUTPUT_DIR = 'dist';
 
 describe('Command | exam | vite', function () {
   this.timeout(300000);
