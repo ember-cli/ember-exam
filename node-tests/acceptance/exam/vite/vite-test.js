@@ -46,6 +46,8 @@ describe('Command | exam | vite', function () {
           'ember',
           [
             'exam',
+            '--test-port',
+            '1337',
             '--split',
             '2',
             '--partition',
@@ -61,6 +63,8 @@ describe('Command | exam | vite', function () {
           'ember',
           [
             'exam',
+            '--test-port',
+            '1338',
             '--split',
             '2',
             '--partition',
@@ -89,6 +93,8 @@ describe('Command | exam | vite', function () {
         'ember',
         [
           'exam',
+          '--test-port',
+          '1339',
           '--load-balance',
           '--path',
           TEST_OUTPUT_DIR,
