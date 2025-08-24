@@ -64,7 +64,7 @@
     "qunit": "2.24.1",
     "qunit-dom": "3.5.0",
     "tracked-built-ins": "3.4.0",
-    "webpack": "5.101.2"
+    "webpack": "5.101.3"
   },
   "dependencies": {
     "ember-exam": "workspace:*"
