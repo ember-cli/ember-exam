@@ -94,7 +94,7 @@ Update your test-helper.js or test-helper.ts, to have add the ember-exam `start`
 + import { start as startEmberExam } from 'ember-exam/test-support';
 
 - export function start() {
-+ export function start({ availableModules }) {
++ export async function start({ availableModules }) {
     setApplication(Application.create(config.APP));
 
     setup(QUnit.assert);
@@ -102,7 +102,7 @@ Update your test-helper.js or test-helper.ts, to have add the ember-exam `start`
 
 -   qunitStart();
 +   // Options passed to `start` will be passed-through to ember-qunit
-+   startEmberExam({ availableModules });
++   await startEmberExam({ availableModules });
   }
 ```
 
@@ -112,9 +112,9 @@ Then, update your tests/index.html to pass availableModules to start:
   import { start } from './test-helper.js';
 
   const availableModules = {
-    ...import.meta.glob('./application/**/*-test.{js,ts,gjs,gts}', { eager: true }),
-    ...import.meta.glob('./rendering/**/*-test.{js,ts,gjs,gts}', { eager: true }),
-    ...import.meta.glob('./unit/**/*-test.{js,ts,gjs,gts}', { eager: true }),
+    ...import.meta.glob('./application/**/*-test.{js,ts,gjs,gts}'),
+    ...import.meta.glob('./rendering/**/*-test.{js,ts,gjs,gts}'),
+    ...import.meta.glob('./unit/**/*-test.{js,ts,gjs,gts}'),
   };
 
 	start({ availableModules });
