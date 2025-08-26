@@ -60,7 +60,7 @@ export default class EmberExamTestLoader extends TestLoader {
    *
    * @method loadModules
    */
-  async loadModules({ availableModules } = {}) {
+  loadModules({ availableModules } = {}) {
     const loadBalance = this._urlParams.get('loadBalance');
     const browserId = this._urlParams.get('browser');
     const modulePath = this._urlParams.get('modulePath');
@@ -119,8 +119,7 @@ export default class EmberExamTestLoader extends TestLoader {
       );
 
       if (this._availableModules) {
-        await this.loadAvailableModules();
-        return;
+        return this.loadAvailableModules();
       }
 
       /**
