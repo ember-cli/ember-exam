@@ -54,6 +54,8 @@ jobs:
           - { name: "Broccoli (v1 Addon)", dir: ".", cmd: "pnpm test:ember" }
           - { name: "Broccoli (v1 App)", dir: './test-apps/broccoli', cmd: 'pnpm test:ember' }
           - { name: "Webpack + Embroider 3 ", dir: './test-apps/embroider3-webpack', cmd: 'pnpm test:ember' }
+          - { name: "Vite + Compat", dir: './test-apps/vite-with-compat', cmd: 'pnpm build:tests && pnpm test:exam' }
+
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
