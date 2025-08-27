@@ -1,6 +1,6 @@
 {
   "name": "ember-exam",
-  "version": "9.1.0",
+  "version": "10.0.0",
   "description": "Run your tests with randomization, splitting, and parallelization for beautiful tests.",
   "keywords": [
     "ember-addon"
@@ -37,7 +37,7 @@
     ]
   },
   "dependencies": {
-    "@babel/core": "^7.23.6",
+    "@babel/core": "^7.28.0",
     "chalk": "^5.3.0",
     "cli-table3": "^0.6.0",
     "debug": "^4.2.0",
@@ -59,20 +59,20 @@
     "@embroider/test-setup": "3.0.3",
     "auto-dist-tag": "2.1.1",
     "codeclimate-test-reporter": "0.5.1",
-    "concurrently": "8.2.2",
+    "concurrently": "9.2.0",
     "ember-cli": "5.12.0",
     "ember-cli-dependency-checker": "3.3.3",
     "ember-cli-htmlbars": "6.3.0",
     "ember-cli-inject-live-reload": "2.1.0",
-    "ember-concurrency": "4.0.4",
+    "ember-concurrency": "4.0.6",
     "ember-eslint": "0.5.0",
     "ember-load-initializers": "2.1.2",
     "ember-qunit": "9.0.3",
     "ember-resolver": "11.0.1",
-    "ember-source": "5.12.0",
+    "ember-source": "6.6.0",
     "ember-source-channel-url": "3.0.0",
     "ember-try": "3.0.0",
-    "eslint": "9.32.0",
+    "eslint": "9.33.0",
     "fixturify": "3.0.0",
     "glob": "11.0.3",
     "globals": "16.3.0",
@@ -82,11 +82,11 @@
     "prettier": "3.6.2",
     "prettier-plugin-ember-template-tag": "2.1.0",
     "qunit": "2.24.1",
-    "release-plan": "0.17.0",
+    "release-plan": "0.17.2",
     "rsvp": "4.8.5",
     "sinon": "21.0.0",
     "typescript": "5.9.2",
-    "webpack": "5.101.0"
+    "webpack": "5.101.3"
   },
   "peerDependencies": {
     "ember-qunit": "*",
@@ -94,11 +94,17 @@
     "qunit": "*"
   },
   "packageManager": "pnpm@10.14.0",
+  "pnpm": {
+    "overrides": {
+      "@glimmer/syntax": "^0.95.0",
+      "ember-exam": "workspace:*"
+    }
+  },
   "engines": {
     "node": ">= 18"
   },
   "volta": {
-    "node": "22.18.0"
+    "node": "18.20.8"
   },
   "publishConfig": {
     "registry": "https://registry.npmjs.org"

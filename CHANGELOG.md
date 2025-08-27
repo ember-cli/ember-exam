@@ -1,5 +1,40 @@
 # Changelog
 
+## Release (2025-08-26)
+
+* ember-exam 10.0.0 (major)
+
+#### :boom: Breaking Change
+* `ember-exam`
+  * [#1430](https://github.com/ember-cli/ember-exam/pull/1430) Support vite ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :bug: Bug Fix
+* `ember-exam`
+  * [#1450](https://github.com/ember-cli/ember-exam/pull/1450) Support cjs testem configs ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* `ember-exam`
+  * [#1347](https://github.com/ember-cli/ember-exam/pull/1347) Update setup example for new qunit requirements ([@elwayman02](https://github.com/elwayman02))
+
+#### :house: Internal
+* `ember-exam`
+  * [#1449](https://github.com/ember-cli/ember-exam/pull/1449) Spit node-tests in to parallel jobs for easier retries (we have a very short testem timeout) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1451](https://github.com/ember-cli/ember-exam/pull/1451) Delete test duplication and use symlinks instead ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1452](https://github.com/ember-cli/ember-exam/pull/1452) Remove extraneous command in CI workflow ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1448](https://github.com/ember-cli/ember-exam/pull/1448) Split out try scenarios in to real apps for easier debugging ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1443](https://github.com/ember-cli/ember-exam/pull/1443) Remove unused deps ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1442](https://github.com/ember-cli/ember-exam/pull/1442) Get rid of custom resolver form an older era of the blueprint ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1439](https://github.com/ember-cli/ember-exam/pull/1439) Update renovate-config (move to weekly) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1441](https://github.com/ember-cli/ember-exam/pull/1441) Set base for pages deployment ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1440](https://github.com/ember-cli/ember-exam/pull/1440) Fix static files path for gh-pages deploy ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1435](https://github.com/ember-cli/ember-exam/pull/1435) Strict dep management settings + re-roll lockfile, remove addon-docs, add vitepress ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1434](https://github.com/ember-cli/ember-exam/pull/1434) Add prettier to lint, don't run lint with tests ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1431](https://github.com/ember-cli/ember-exam/pull/1431) Upgrade eslint / prettier ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- Jordan Hawker ([@elwayman02](https://github.com/elwayman02))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-03-05)
 
 ember-exam 9.1.0 (minor)
