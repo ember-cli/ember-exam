@@ -176,8 +176,8 @@ importers:
         specifier: 5.9.2
         version: 5.9.2
       vite:
-        specifier: 7.1.4
-        version: 7.1.4
+        specifier: 7.1.5
+        version: 7.1.5
       vitepress:
         specifier: 1.6.4
         version: 1.6.4(d1f6c8654b3f37ce4ce740b80110a8b1)
@@ -462,7 +462,7 @@ importers:
         version: 1.18.1
       '@embroider/vite':
         specifier: ^1.1.5
-        version: 1.1.6(@embroider/core@4.1.3)(vite@6.3.5)
+        version: 1.1.6(@embroider/core@4.1.3)(vite@7.1.5)
       '@glimmer/component':
         specifier: ^2.0.0
         version: 2.0.0
@@ -521,8 +521,8 @@ importers:
         specifier: ^3.16.0
         version: 3.16.0
       vite:
-        specifier: ^6.3.5
-        version: 6.3.5
+        specifier: ^7.0.0
+        version: 7.1.5
 
 packages:
 
@@ -8061,6 +8061,10 @@ packages:
     resolution: {integrity: sha512-tX5e7OM1HnYr2+a2C/4V0htOcSQcoSTH9KgJnVvNm5zm/cyEWKJ7j7YutsH9CxMdtOkkLFy2AHrMci9IM8IPZQ==}
     engines: {node: '>=12.0.0'}
 
+  tinyglobby@0.2.15:
+    resolution: {integrity: sha512-j2Zq4NyQYG5XMST4cbs02Ak8iJUdxRM0XI5QyxXuZOzKOINmWurp3smXu3y5wDcJrptwpSjgXHzIQxR0omXljQ==}
+    engines: {node: '>=12.0.0'}
+
   tldts-core@6.1.86:
     resolution: {integrity: sha512-Je6p7pkk+KMzMv2XXKmAE3McmolOQFdxkKw0R8EYNr7sELW46JqnNeTX8ybPiQgvg1ymCoF8LXs5fzFaZvJPTA==}
 
@@ -8458,48 +8462,8 @@ packages:
       terser:
         optional: true
 
-  vite@6.3.5:
-    resolution: {integrity: sha512-cZn6NDFE7wdTpINgs++ZJ4N49W2vRp8LCKrn3Ob1kYNtOo21vfDoaV5GzBfLU4MovSAB8uNRm4jgzVQZ+mBzPQ==}
-    engines: {node: ^18.0.0 || ^20.0.0 || >=22.0.0}
-    hasBin: true
-    peerDependencies:
-      '@types/node': ^18.0.0 || ^20.0.0 || >=22.0.0
-      jiti: '>=1.21.0'
-      less: '*'
-      lightningcss: ^1.21.0
-      sass: '*'
-      sass-embedded: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.16.0
-      tsx: ^4.8.1
-      yaml: ^2.4.2
-    peerDependenciesMeta:
-      '@types/node':
-        optional: true
-      jiti:
-        optional: true
-      less:
-        optional: true
-      lightningcss:
-        optional: true
-      sass:
-        optional: true
-      sass-embedded:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-      tsx:
-        optional: true
-      yaml:
-        optional: true
-
-  vite@7.1.4:
-    resolution: {integrity: sha512-X5QFK4SGynAeeIt+A7ZWnApdUyHYm+pzv/8/A57LqSGcI88U6R6ipOs3uCesdc6yl7nl+zNO0t8LmqAdXcQihw==}
+  vite@7.1.5:
+    resolution: {integrity: sha512-4cKBO9wR75r0BeIWWWId9XK9Lj6La5X846Zw9dFfzMRw38IlTk2iCcUt6hsyiDRcPidc55ZParFYDXi0nXOeLQ==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -10602,7 +10566,7 @@ snapshots:
       lodash: 4.17.21
       resolve: 1.22.10
 
-  '@embroider/vite@1.1.6(@embroider/core@4.1.3)(vite@6.3.5)':
+  '@embroider/vite@1.1.6(@embroider/core@4.1.3)(vite@7.1.5)':
     dependencies:
       '@babel/core': 7.28.3
       '@embroider/core': 4.1.3
@@ -10620,7 +10584,7 @@ snapshots:
       send: 0.18.0
       source-map-url: 0.4.1
       terser: 5.43.1
-      vite: 6.3.5
+      vite: 7.1.5
     transitivePeerDependencies:
       - '@glint/template'
       - bufferutil
@@ -19886,6 +19850,11 @@ snapshots:
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
 
+  tinyglobby@0.2.15:
+    dependencies:
+      fdir: 6.5.0(picomatch@4.0.3)
+      picomatch: 4.0.3
+
   tldts-core@6.1.86: {}
 
   tldts@6.1.86:
@@ -20279,25 +20248,14 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  vite@6.3.5:
+  vite@7.1.5:
     dependencies:
       esbuild: 0.25.8
       fdir: 6.5.0(picomatch@4.0.3)
       picomatch: 4.0.3
       postcss: 8.5.6
       rollup: 4.45.1
-      tinyglobby: 0.2.14
-    optionalDependencies:
-      fsevents: 2.3.3
-
-  vite@7.1.4:
-    dependencies:
-      esbuild: 0.25.8
-      fdir: 6.5.0(picomatch@4.0.3)
-      picomatch: 4.0.3
-      postcss: 8.5.6
-      rollup: 4.45.1
-      tinyglobby: 0.2.14
+      tinyglobby: 0.2.15
     optionalDependencies:
       fsevents: 2.3.3
 
