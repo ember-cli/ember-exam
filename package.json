@@ -93,7 +93,7 @@
     "ember-source": ">= 4.0.0",
     "qunit": "*"
   },
-  "packageManager": "pnpm@10.17.1",
+  "packageManager": "pnpm@10.18.0",
   "pnpm": {
     "overrides": {
       "@glimmer/syntax": "^0.95.0",
