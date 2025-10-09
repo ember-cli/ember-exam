@@ -51,13 +51,13 @@
     "ember-source": "5.12.0",
     "ember-template-lint": "6.1.0",
     "ember-welcome-page": "7.0.2",
-    "eslint": "9.33.0",
+    "eslint": "9.36.0",
     "loader.js": "4.7.0",
     "prettier": "3.6.2",
     "qunit": "2.24.1",
     "qunit-dom": "3.5.0",
     "tracked-built-ins": "3.4.0",
-    "webpack": "5.101.3"
+    "webpack": "5.102.0"
   },
   "dependencies": {
     "ember-exam": "workspace:*"
