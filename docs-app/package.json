@@ -14,8 +14,8 @@
   "devDependencies": {
     "@algolia/client-search": "5.35.0",
     "search-insights": "2.17.3",
-    "typescript": "5.9.2",
-    "vite": "7.1.7",
+    "typescript": "5.9.3",
+    "vite": "7.1.9",
     "vitepress": "1.6.4",
     "vitepress-plugin-llms": "1.7.5",
     "vue": "3.5.22"
