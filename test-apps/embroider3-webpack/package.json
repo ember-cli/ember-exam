@@ -29,7 +29,7 @@
     "@ember/test-helpers": "5.4.1",
     "@embroider/compat": "3.9.1",
     "@embroider/core": "3.5.7",
-    "@embroider/macros": "1.19.4",
+    "@embroider/macros": "1.19.5",
     "@embroider/webpack": "4.1.1",
     "@glimmer/component": "2.0.0",
     "@glimmer/tracking": "1.1.2",
