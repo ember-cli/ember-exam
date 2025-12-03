@@ -507,8 +507,10 @@ If you have a lot of tests you may run into a timeout error, especially in CI en
 Error: Browser timeout exceeded: 10s
 ```
 
-You can work around this by editing your testem.js to increase `browser_disconnect_timeout` accordingly:
+You can work around this by increasing `browser_disconnect_timeout` in testem.js:
 
 ```js
-browser_disconnect_timeout: 30,
+module.exports = {
+  browser_disconnect_timeout: 30,
+};
 ```
