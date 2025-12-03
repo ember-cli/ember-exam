@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-12-03)
+
+* ember-exam 10.0.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-exam`
+  * [#1482](https://github.com/ember-cli/ember-exam/pull/1482) Read configFile From commandOptions ([@jrjohnson](https://github.com/jrjohnson))
+
+#### Committers: 1
+- Jon Johnson ([@jrjohnson](https://github.com/jrjohnson))
+
 ## Release (2025-08-26)
 
 * ember-exam 10.0.0 (major)
