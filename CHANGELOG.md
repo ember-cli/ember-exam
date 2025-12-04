@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2025-12-04)
+
+* ember-exam 10.0.2 (patch)
+
+#### :memo: Documentation
+* `ember-exam`
+  * [#1455](https://github.com/ember-cli/ember-exam/pull/1455) Update README.md with timeout help ([@apellerano-pw](https://github.com/apellerano-pw))
+
+#### Committers: 1
+- Andrew Pellerano ([@apellerano-pw](https://github.com/apellerano-pw))
+
 ## Release (2025-12-03)
 
 * ember-exam 10.0.1 (patch)
