@@ -2,17 +2,17 @@
   "solution": {
     "ember-exam": {
       "impact": "patch",
-      "oldVersion": "10.0.0",
-      "newVersion": "10.0.1",
+      "oldVersion": "10.0.1",
+      "newVersion": "10.0.2",
       "tagName": "latest",
       "constraints": [
         {
           "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
+          "reason": "Appears in changelog section :memo: Documentation"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2025-12-03)\n\n* ember-exam 10.0.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-exam`\n  * [#1482](https://github.com/ember-cli/ember-exam/pull/1482) Read configFile From commandOptions ([@jrjohnson](https://github.com/jrjohnson))\n\n#### Committers: 1\n- Jon Johnson ([@jrjohnson](https://github.com/jrjohnson))\n"
+  "description": "## Release (2025-12-04)\n\n* ember-exam 10.0.2 (patch)\n\n#### :memo: Documentation\n* `ember-exam`\n  * [#1455](https://github.com/ember-cli/ember-exam/pull/1455) Update README.md with timeout help ([@apellerano-pw](https://github.com/apellerano-pw))\n\n#### Committers: 1\n- Andrew Pellerano ([@apellerano-pw](https://github.com/apellerano-pw))\n"
 }
