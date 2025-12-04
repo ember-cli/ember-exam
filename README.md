@@ -27,6 +27,7 @@ The [documentation website](https://ember-cli.github.io/ember-exam/) contains ex
 - [Advanced Configuration](#advanced-configuration)
   * [Ember Try & CI Integration](#ember-try--ci-integration)
   * [Test Suite Segmentation](#test-suite-segmentation)
+  * [Exceeding Browser Timeout](#exceeding-browser-timeout)
 
 ## Compatibility
 
@@ -521,3 +522,19 @@ Some test suites like to segment which tests run based on various facets such as
 ```
 
 You can use this feature in conjunction with Ember Exam's features, which will allow you to segment your test suite but still gain benefits from randomization and splitting.
+
+### Exceeding Browser Timeout
+
+If you have a lot of tests you may run into a timeout error, especially in CI environments with constrained resources.
+
+```
+Error: Browser timeout exceeded: 10s
+```
+
+You can work around this by increasing `browser_disconnect_timeout` in testem.js:
+
+```js
+module.exports = {
+  browser_disconnect_timeout: 30,
+};
+```
