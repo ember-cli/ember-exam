@@ -14,6 +14,7 @@ export default [
       "test-apps/**/*",
       "acceptance-dist/**/*",
       "failure-dist/**/*",
+      "addon-test-support/index.d.ts",
     ],
   },
   {

@@ -85,17 +85,17 @@ start();
 
 All of the above applies, but we need to tell vite to build the app before telling ember/exam to run tests on that output.
 
-Update your test-helper.js or test-helper.ts, to have add the ember-exam `start` function:
+Update your test-helper.js to call the ember-exam `start` function:
 ```diff
   // ...
   import { setApplication } from '@ember/test-helpers';
   import { setup } from 'qunit-dom';
 - import { start as qunitStart, setupEmberOnerrorValidation } from 'ember-qunit';
 + import { setupEmberOnerrorValidation } from 'ember-qunit';
-+ import { start as startEmberExam } from 'ember-exam/test-support';
++ import { start as startEmberExam } from 'ember-exam/addon-test-support';
 
 - export function start() {
-+ export async function start({ availableModules }) {
++ export async function start(options) {
     setApplication(Application.create(config.APP));
 
     setup(QUnit.assert);
@@ -103,7 +103,32 @@ Update your test-helper.js or test-helper.ts, to have add the ember-exam `start`
 
 -   qunitStart();
 +   // Options passed to `start` will be passed-through to ember-qunit
-+   await startEmberExam({ availableModules });
++   await startEmberExam(options);
+  }
+```
+
+or if you have a test-helper.ts:
+```diff
+  // ...
+  import { setApplication } from '@ember/test-helpers';
+  import { setup } from 'qunit-dom';
+- import { start as qunitStart, setupEmberOnerrorValidation } from 'ember-qunit';
++ import { setupEmberOnerrorValidation } from 'ember-qunit';
++ import {
++   start as startEmberExam,
++   type EmberExamStartOptions,
++ } from 'ember-exam/addon-test-support';
+
+- export function start() {
++ export async function start(options: EmberExamStartOptions) {
+    setApplication(Application.create(config.APP));
+
+    setup(QUnit.assert);
+    setupEmberOnerrorValidation();
+
+-   qunitStart();
++   // Options passed to `start` will be passed-through to ember-qunit
++   await startEmberExam(options);
   }
 ```
 
