@@ -1,5 +1,22 @@
 # Changelog
 
+## Release (2025-12-19)
+
+* ember-exam 10.1.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-exam`
+  * [#1489](https://github.com/ember-cli/ember-exam/pull/1489) Better vite support ([@bendemboski](https://github.com/bendemboski))
+
+#### :memo: Documentation
+* `ember-exam`
+  * [#1489](https://github.com/ember-cli/ember-exam/pull/1489) Better vite support ([@bendemboski](https://github.com/bendemboski))
+  * [#1455](https://github.com/ember-cli/ember-exam/pull/1455) Update README.md with timeout help ([@apellerano-pw](https://github.com/apellerano-pw))
+
+#### Committers: 2
+- Andrew Pellerano ([@apellerano-pw](https://github.com/apellerano-pw))
+- Ben Demboski ([@bendemboski](https://github.com/bendemboski))
+
 ## Release (2025-12-03)
 
 * ember-exam 10.0.1 (patch)
