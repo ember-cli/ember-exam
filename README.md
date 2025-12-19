@@ -92,7 +92,7 @@ Update your test-helper.js or test-helper.ts, to have add the ember-exam `start`
   import { setup } from 'qunit-dom';
 - import { start as qunitStart, setupEmberOnerrorValidation } from 'ember-qunit';
 + import { setupEmberOnerrorValidation } from 'ember-qunit';
-+ import { start as startEmberExam } from 'ember-exam/test-support';
++ import { start as startEmberExam } from 'ember-exam/addon-test-support';
 
 - export function start() {
 + export async function start({ availableModules }) {

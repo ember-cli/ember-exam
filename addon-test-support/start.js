@@ -1,4 +1,4 @@
-import loadEmberExam from 'ember-exam/test-support/load';
+import loadEmberExam from './load';
 import { start as qunitStart } from 'ember-qunit';
 
 /**
