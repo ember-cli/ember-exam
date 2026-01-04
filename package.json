@@ -81,12 +81,12 @@
     "nyc": "17.1.0",
     "prettier": "3.7.4",
     "prettier-plugin-ember-template-tag": "2.1.2",
-    "qunit": "2.24.3",
+    "qunit": "2.25.0",
     "release-plan": "0.17.2",
     "rsvp": "4.8.5",
     "sinon": "21.0.0",
     "typescript": "5.9.3",
-    "webpack": "5.103.0"
+    "webpack": "5.104.1"
   },
   "peerDependencies": {
     "ember-qunit": "*",
