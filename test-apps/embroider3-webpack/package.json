@@ -50,17 +50,17 @@
     "ember-page-title": "9.0.3",
     "ember-qunit": "9.0.4",
     "ember-resolver": "13.1.1",
-    "ember-source": "6.9.0",
-    "ember-template-imports": "4.3.0",
+    "ember-source": "6.10.0",
+    "ember-template-imports": "4.4.0",
     "ember-welcome-page": "7.0.2",
     "eslint": "9.39.2",
     "loader.js": "4.7.0",
     "prettier": "3.7.4",
     "prettier-plugin-ember-template-tag": "2.1.2",
-    "qunit": "2.24.3",
+    "qunit": "2.25.0",
     "qunit-dom": "3.5.0",
     "tracked-built-ins": "3.4.0",
-    "webpack": "5.103.0"
+    "webpack": "5.104.1"
   },
   "dependencies": {
     "ember-exam": "workspace:*"
