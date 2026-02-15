@@ -23,8 +23,8 @@
     "test:ember": "ember test"
   },
   "devDependencies": {
-    "@babel/core": "7.28.6",
-    "@babel/plugin-proposal-decorators": "7.28.6",
+    "@babel/core": "7.29.0",
+    "@babel/plugin-proposal-decorators": "7.29.0",
     "@ember/optional-features": "2.3.0",
     "@ember/test-helpers": "5.4.1",
     "@embroider/compat": "3.9.3",
@@ -36,9 +36,9 @@
     "broccoli-asset-rev": "3.0.0",
     "concurrently": "9.2.1",
     "ember-auto-import": "2.12.0",
-    "ember-cli": "6.9.1",
+    "ember-cli": "6.10.2",
     "ember-cli-app-version": "7.0.0",
-    "ember-cli-babel": "8.2.0",
+    "ember-cli-babel": "8.3.1",
     "ember-cli-clean-css": "3.0.0",
     "ember-cli-dependency-checker": "3.3.3",
     "ember-cli-deprecation-workflow": "3.4.0",
@@ -46,7 +46,7 @@
     "ember-cli-inject-live-reload": "2.1.0",
     "ember-eslint": "0.6.1",
     "ember-load-initializers": "3.0.1",
-    "ember-modifier": "4.2.2",
+    "ember-modifier": "4.3.0",
     "ember-page-title": "9.0.3",
     "ember-qunit": "9.0.4",
     "ember-resolver": "13.1.1",
@@ -60,7 +60,7 @@
     "qunit": "2.25.0",
     "qunit-dom": "3.5.0",
     "tracked-built-ins": "3.4.0",
-    "webpack": "5.104.1"
+    "webpack": "5.105.2"
   },
   "dependencies": {
     "ember-exam": "workspace:*"
