@@ -10,7 +10,7 @@
   "keywords": [],
   "author": "",
   "license": "MIT",
-  "packageManager": "pnpm@10.27.0",
+  "packageManager": "pnpm@10.29.3",
   "devDependencies": {
     "@algolia/client-search": "5.46.4",
     "search-insights": "2.17.3",
