@@ -84,7 +84,7 @@
     "qunit": "2.25.0",
     "release-plan": "^0.17.4",
     "rsvp": "4.8.5",
-    "sinon": "21.0.1",
+    "sinon": "21.0.2",
     "typescript": "5.9.3",
     "webpack": "5.104.1"
   },
