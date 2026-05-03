@@ -136,11 +136,11 @@ importers:
         specifier: 17.1.0
         version: 17.1.0
       prettier:
-        specifier: 3.8.1
-        version: 3.8.1
+        specifier: 3.8.3
+        version: 3.8.3
       prettier-plugin-ember-template-tag:
-        specifier: 2.1.3
-        version: 2.1.3(prettier@3.8.1)
+        specifier: 2.1.5
+        version: 2.1.5(prettier@3.8.3)
       qunit:
         specifier: 2.25.0
         version: 2.25.0
@@ -185,8 +185,8 @@ importers:
         specifier: 1.10.0
         version: 1.10.0
       vue:
-        specifier: 3.5.31
-        version: 3.5.31(typescript@5.9.3)
+        specifier: 3.5.33
+        version: 3.5.33(typescript@5.9.3)
 
   test-apps/broccoli:
     dependencies:
@@ -285,14 +285,14 @@ importers:
         specifier: 4.7.0
         version: 4.7.0
       prettier:
-        specifier: 3.8.1
-        version: 3.8.1
+        specifier: 3.8.3
+        version: 3.8.3
       qunit:
         specifier: 2.25.0
         version: 2.25.0
       qunit-dom:
-        specifier: 3.5.0
-        version: 3.5.0
+        specifier: 3.5.1
+        version: 3.5.1
       tracked-built-ins:
         specifier: 3.4.0
         version: 3.4.0(@babel/core@7.28.6)
@@ -319,17 +319,17 @@ importers:
         specifier: 5.4.1
         version: 5.4.1(@babel/core@7.28.6)
       '@embroider/compat':
-        specifier: 3.9.3
-        version: 3.9.3(@embroider/core@3.5.9)
+        specifier: 3.9.4
+        version: 3.9.4(@embroider/core@3.5.10)
       '@embroider/core':
-        specifier: 3.5.9
-        version: 3.5.9
+        specifier: 3.5.10
+        version: 3.5.10
       '@embroider/macros':
         specifier: 1.19.7
         version: 1.19.7(@babel/core@7.28.6)
       '@embroider/webpack':
         specifier: 4.1.2
-        version: 4.1.2(@embroider/core@3.5.9)(webpack@5.104.1)
+        version: 4.1.2(@embroider/core@3.5.10)(webpack@5.104.1)
       '@glimmer/component':
         specifier: 2.0.0
         version: 2.0.0
@@ -403,17 +403,17 @@ importers:
         specifier: 4.7.0
         version: 4.7.0
       prettier:
-        specifier: 3.8.1
-        version: 3.8.1
+        specifier: 3.8.3
+        version: 3.8.3
       prettier-plugin-ember-template-tag:
-        specifier: 2.1.3
-        version: 2.1.3(prettier@3.8.1)
+        specifier: 2.1.5
+        version: 2.1.5(prettier@3.8.3)
       qunit:
         specifier: 2.25.0
         version: 2.25.0
       qunit-dom:
-        specifier: 3.5.0
-        version: 3.5.0
+        specifier: 3.5.1
+        version: 3.5.1
       tracked-built-ins:
         specifier: 3.4.0
         version: 3.4.0(@babel/core@7.28.6)
@@ -476,8 +476,8 @@ importers:
         specifier: 9.2.1
         version: 9.2.1
       decorator-transforms:
-        specifier: 2.3.1
-        version: 2.3.1(@babel/core@7.28.6)
+        specifier: 2.3.2
+        version: 2.3.2(@babel/core@7.28.6)
       ember-auto-import:
         specifier: 2.12.1
         version: 2.12.1
@@ -506,17 +506,17 @@ importers:
         specifier: 9.39.4
         version: 9.39.4
       prettier:
-        specifier: 3.8.1
-        version: 3.8.1
+        specifier: 3.8.3
+        version: 3.8.3
       prettier-plugin-ember-template-tag:
-        specifier: 2.1.3
-        version: 2.1.3(prettier@3.8.1)
+        specifier: 2.1.5
+        version: 2.1.5(prettier@3.8.3)
       qunit:
         specifier: 2.25.0
         version: 2.25.0
       qunit-dom:
-        specifier: 3.5.0
-        version: 3.5.0
+        specifier: 3.5.1
+        version: 3.5.1
       testem:
         specifier: 3.17.0
         version: 3.17.0
@@ -658,10 +658,6 @@ packages:
 
   '@babel/generator@7.28.3':
     resolution: {integrity: sha512-3lSpxGgvnmZznmBkCRnVREPUFJv2wrv9iAoFDvADJc0ypmdOxdUtcLeBgBJ6zE0PMeTKnxeQzyk0xTBq4Ep7zw==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/generator@7.28.5':
-    resolution: {integrity: sha512-3EwLFhZ38J4VyIP6WNtt2kUdW9dokXA9Cr4IVIFHuCpZ3H8/YFOl5JjZHisrn1fATPBmKKqXzDFvh9fUwHz6CQ==}
     engines: {node: '>=6.9.0'}
 
   '@babel/generator@7.28.6':
@@ -808,11 +804,6 @@ packages:
     engines: {node: '>=6.0.0'}
     hasBin: true
 
-  '@babel/parser@7.28.5':
-    resolution: {integrity: sha512-KKBU1VGYR7ORr3At5HAtUQ+TV3SzRCXmA/8OdDZiLDBIZxVyzXuztPjfLd3BV1PRAQGCMWWSHYhL0F8d5uHBDQ==}
-    engines: {node: '>=6.0.0'}
-    hasBin: true
-
   '@babel/parser@7.28.6':
     resolution: {integrity: sha512-TeR9zWR18BvbfPmGbLampPMW+uW1NZnJlRuuHso8i87QZNq2JRF9i6RgxRqtEq+wQGsS19NNTWr2duhnE49mfQ==}
     engines: {node: '>=6.0.0'}
@@ -888,12 +879,6 @@ packages:
     resolution: {integrity: sha512-0QZ8qP/3RLDVBwBFoWAwCtgcDZJVwA5LUJRZU8x2YFfKNuFq161wK3cuGrALu5yiPu+vzwTAg/sMWVNeWeNyaw==}
     engines: {node: '>=6.9.0'}
     deprecated: This proposal has been merged to the ECMAScript standard and thus this plugin is no longer maintained. Please use @babel/plugin-transform-private-property-in-object instead.
-    peerDependencies:
-      '@babel/core': ^7.0.0-0
-
-  '@babel/plugin-syntax-decorators@7.27.1':
-    resolution: {integrity: sha512-YMq8Z87Lhl8EGkmb0MwYkt36QnxC+fzCgrl66ereamPlYToRpIk5nUjKUY3QKLWq8mwUB1BgbeXcTJhZOCDg5A==}
-    engines: {node: '>=6.9.0'}
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
@@ -1290,10 +1275,6 @@ packages:
   '@babel/runtime@7.12.18':
     resolution: {integrity: sha512-BogPQ7ciE6SYAUPtlm9tWbgI9+2AgqSam6QivMgXgAT+fKbgppaj4ZX15MHeLC1PVF5sNk70huBu20XxWOs8Cg==}
 
-  '@babel/runtime@7.27.6':
-    resolution: {integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/runtime@7.28.6':
     resolution: {integrity: sha512-05WQkdpL9COIMz4LjTxGpPNCdlpyimKppYNoJ5Di5EUObifl8t4tuLuUBBZEpoLYOmfvIWrsp9fCl0HoPRVTdA==}
     engines: {node: '>=6.9.0'}
@@ -1310,10 +1291,6 @@ packages:
     resolution: {integrity: sha512-7w4kZYHneL3A6NP2nxzHvT3HCZ7puDZZjFMqDpBPECub79sTtSO5CGXDkKrTQq8ksAwfD/XI2MRFX23njdDaIQ==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/traverse@7.28.5':
-    resolution: {integrity: sha512-TCCj4t55U90khlYkVV/0TfkJkAkUg3jZFA3Neb7unZT8CPok7iiRfaX0F+WnqWqt7OxhOn0uBKXCw4lbL8W0aQ==}
-    engines: {node: '>=6.9.0'}
-
   '@babel/traverse@7.28.6':
     resolution: {integrity: sha512-fgWX62k02qtjqdSNTAGxmKYY/7FSL9WAS1o2Hu5+I5m9T0yxZzr4cnrfXQ/MX0rIifthCSs6FKTlzYbJcPtMNg==}
     engines: {node: '>=6.9.0'}
@@ -1324,10 +1301,6 @@ packages:
 
   '@babel/types@7.28.2':
     resolution: {integrity: sha512-ruv7Ae4J5dUYULmeXw1gmb7rYRz57OWCPM57pHojnLq/3Z1CK2lNSLTCVjxVk1F/TZHwOZZrOWi0ur95BbLxNQ==}
-    engines: {node: '>=6.9.0'}
-
-  '@babel/types@7.28.5':
-    resolution: {integrity: sha512-qQ5m48eI/MFLQ5PxQj4PFaprjyCTLI37ElWMmNs0K8Lk3dVeOdNpB3ks8jc7yM5CDmVC73eMVk/trk3fgmrUpA==}
     engines: {node: '>=6.9.0'}
 
   '@babel/types@7.28.6':
@@ -1460,12 +1433,12 @@ packages:
     peerDependencies:
       '@embroider/core': ^3.5.9
 
-  '@embroider/compat@3.9.3':
-    resolution: {integrity: sha512-Q/LQogLx00RNAobvah8SPqbEvQkZ0aBiyvIpKPE+ljCZOIVubcaIiq7OGtwmoH0GkhS72MsTfRzgYw+aKYYK/w==}
+  '@embroider/compat@3.9.4':
+    resolution: {integrity: sha512-JEXBAiygRZtlU9P09zL2QeFrTiqrnlcXJFH1+kkqc2Y/SJzcGcAZeBjXKlPGCsqiULFYLZZVdt4p9vcMWMigHw==}
     engines: {node: 12.* || 14.* || >= 16}
     hasBin: true
     peerDependencies:
-      '@embroider/core': ^3.5.9
+      '@embroider/core': ^3.5.10
 
   '@embroider/compat@4.1.17':
     resolution: {integrity: sha512-MjjtChtKXMNit2xmjPpxtK+f0kNHW2ao5lDhbkSdKjCcYghMvWYdbe5hdX+3QknyaZxDy4LW2dEHCWm3fhVtlg==}
@@ -1477,8 +1450,8 @@ packages:
     resolution: {integrity: sha512-qznkdjgEGPe6NM94hZNXvOm/WhrJwBh8FtSQZ+nGjh9TOjY42tOiTEevFuM0onNXUn6bpdGzmjwKo2xY2jxQxQ==}
     engines: {node: 12.* || 14.* || >= 16}
 
-  '@embroider/core@3.5.9':
-    resolution: {integrity: sha512-e6ChqCI2I4/UMnnGRS6be2pY3ssJDXfjrF1dtLt2e6l4EM2IIlT1ndtPAYUGSYSO9JB5WxNpO8Wirj88mVh97Q==}
+  '@embroider/core@3.5.10':
+    resolution: {integrity: sha512-N5mZ7bxCMs8qTdeOZvCo4fXP3jX/wROF7ClAC0l/nwQdm/iS44v3DDHn/AKjJhGXWLmS/Aw6pNJaurz4RWt9cg==}
     engines: {node: 12.* || 14.* || >= 16}
 
   '@embroider/core@4.4.7':
@@ -2729,17 +2702,17 @@ packages:
       vite: ^5.0.0 || ^6.0.0
       vue: ^3.2.25
 
-  '@vue/compiler-core@3.5.31':
-    resolution: {integrity: sha512-k/ueL14aNIEy5Onf0OVzR8kiqF/WThgLdFhxwa4e/KF/0qe38IwIdofoSWBTvvxQOesaz6riAFAUaYjoF9fLLQ==}
+  '@vue/compiler-core@3.5.33':
+    resolution: {integrity: sha512-3PZLQwFw4Za3TC8t0FvTy3wI16Kt+pmwcgNZca4Pj9iWL2E72a/gZlpBtAJvEdDMdCxdG/qq0C7PN0bsJuv0Rw==}
 
-  '@vue/compiler-dom@3.5.31':
-    resolution: {integrity: sha512-BMY/ozS/xxjYqRFL+tKdRpATJYDTTgWSo0+AJvJNg4ig+Hgb0dOsHPXvloHQ5hmlivUqw1Yt2pPIqp4e0v1GUw==}
+  '@vue/compiler-dom@3.5.33':
+    resolution: {integrity: sha512-PXq0yrfCLzzL07rbXO4awtXY1Z06LG2eu6Adg3RJFa/j3Cii217XxxLXG22N330gw7GmALCY0Z8RgXEviwgpjA==}
 
-  '@vue/compiler-sfc@3.5.31':
-    resolution: {integrity: sha512-M8wpPgR9UJ8MiRGjppvx9uWJfLV7A/T+/rL8s/y3QG3u0c2/YZgff3d6SuimKRIhcYnWg5fTfDMlz2E6seUW8Q==}
+  '@vue/compiler-sfc@3.5.33':
+    resolution: {integrity: sha512-UTUvRO9cY+rROrx/pvN9P5Z7FgA6QGfokUCfhQE4EnmUj3rVnK+CHI0LsEO1pg+I7//iRYMUfcNcCPe7tg0CoA==}
 
-  '@vue/compiler-ssr@3.5.31':
-    resolution: {integrity: sha512-h0xIMxrt/LHOvJKMri+vdYT92BrK3HFLtDqq9Pr/lVVfE4IyKZKvWf0vJFW10Yr6nX02OR4MkJwI0c1HDa1hog==}
+  '@vue/compiler-ssr@3.5.33':
+    resolution: {integrity: sha512-IErjYdnj1qIupG5xxiVIYiiRvDhGWV4zuh/RCrwfYpuL+HWQzeU6lCk/nF9r7olWMnjKxCAkOctT2qFWFkzb1A==}
 
   '@vue/devtools-api@7.7.7':
     resolution: {integrity: sha512-lwOnNBH2e7x1fIIbVT7yF5D+YWhqELm55/4ZKf45R9T8r9dE2AIOy8HKjfqzGsoTHFbWbr337O4E0A0QADnjBg==}
@@ -2750,25 +2723,25 @@ packages:
   '@vue/devtools-shared@7.7.7':
     resolution: {integrity: sha512-+udSj47aRl5aKb0memBvcUG9koarqnxNM5yjuREvqwK6T3ap4mn3Zqqc17QrBFTqSMjr3HK1cvStEZpMDpfdyw==}
 
-  '@vue/reactivity@3.5.31':
-    resolution: {integrity: sha512-DtKXxk9E/KuVvt8VxWu+6Luc9I9ETNcqR1T1oW1gf02nXaZ1kuAx58oVu7uX9XxJR0iJCro6fqBLw9oSBELo5g==}
+  '@vue/reactivity@3.5.33':
+    resolution: {integrity: sha512-p8UfIqyIhb0rYGlSgSBV+lPhF2iUSBcRy7enhTmPqKWadHy9kcOFYF1AejYBP9P+avnd3OBbD49DU4pLWX/94A==}
 
-  '@vue/runtime-core@3.5.31':
-    resolution: {integrity: sha512-AZPmIHXEAyhpkmN7aWlqjSfYynmkWlluDNPHMCZKFHH+lLtxP/30UJmoVhXmbDoP1Ng0jG0fyY2zCj1PnSSA6Q==}
+  '@vue/runtime-core@3.5.33':
+    resolution: {integrity: sha512-UpFF45RI9//a7rvq7RdOQblb4tup7hHG9QsmIrxkFQLzQ7R8/iNQ5LE15NhLZ1/WcHMU2b47u6P33CPUelHyIQ==}
 
-  '@vue/runtime-dom@3.5.31':
-    resolution: {integrity: sha512-xQJsNRmGPeDCJq/u813tyonNgWBFjzfVkBwDREdEWndBnGdHLHgkwNBQxLtg4zDrzKTEcnikUy1UUNecb3lJ6g==}
+  '@vue/runtime-dom@3.5.33':
+    resolution: {integrity: sha512-IOxMsAOwquhfITgmOgaPYl7/j8gKUxUFoflRc+u4LxyD3+783xne8vNta1PONVCvCV9A0w7hkyEepINDqfO0tw==}
 
-  '@vue/server-renderer@3.5.31':
-    resolution: {integrity: sha512-GJuwRvMcdZX/CriUnyIIOGkx3rMV3H6sOu0JhdKbduaeCji6zb60iOGMY7tFoN24NfsUYoFBhshZtGxGpxO4iA==}
+  '@vue/server-renderer@3.5.33':
+    resolution: {integrity: sha512-0xylq/8/h44lVG0pZFknv1XIdEgymq2E9n59uTWJBG+dIgiT0TMCSsxrN7nO16Z0MU0MPjFcguBbZV8Itk52Hw==}
     peerDependencies:
-      vue: 3.5.31
+      vue: 3.5.33
 
   '@vue/shared@3.5.18':
     resolution: {integrity: sha512-cZy8Dq+uuIXbxCZpuLd2GJdeSO/lIzIspC2WtkqIpje5QyFbvLaI5wZtdUjLHjGZrlVX6GilejatWwVYYRc8tA==}
 
-  '@vue/shared@3.5.31':
-    resolution: {integrity: sha512-nBxuiuS9Lj5bPkPbWogPUnjxxWpkRniX7e5UBQDWl6Fsf4roq9wwV+cR7ezQ4zXswNvPIlsdj1slcLB7XCsRAw==}
+  '@vue/shared@3.5.33':
+    resolution: {integrity: sha512-5vR2QIlmaLG77Ygd4pMP6+SGQ5yox9VhtnbDWTy9DzMzdmeLxZ1QqxrywEZ9sa1AVubfIJyaCG3ytyWU81ufcQ==}
 
   '@vueuse/core@12.8.2':
     resolution: {integrity: sha512-HbvCmZdzAu3VGi/pWYm5Ut+Kd9mn1ZHnn4L5G8kOQTPs/IwIAmJoBrmYk2ckLArgMXZj0AW3n5CAejLUO+PhdQ==}
@@ -3203,10 +3176,6 @@ packages:
   babel-plugin-ember-modules-api-polyfill@3.5.0:
     resolution: {integrity: sha512-pJajN/DkQUnStw0Az8c6khVcMQHgzqWr61lLNtVeu0g61LRW0k9jyK7vaedrHDWGe/Qe8sxG5wpiyW9NsMqFzA==}
     engines: {node: 6.* || 8.* || >= 10.*}
-
-  babel-plugin-ember-template-compilation@2.3.0:
-    resolution: {integrity: sha512-4ZrKVSqdw5PxEKRbqfOpPhrrNBDG3mFPhyT6N1Oyyem81ZIkCvNo7TPKvlTHeFxqb6HtUvCACP/pzFpZ74J4pg==}
-    engines: {node: '>= 12.*'}
 
   babel-plugin-ember-template-compilation@2.4.1:
     resolution: {integrity: sha512-n+ktQ3JeyWrpRutSyPn2PsHeH+A94SVm+iUoogzf9VUqpP47FfWem24gpQXhn+p6+x5/BpuFJXMLXWt7ZoYAKA==}
@@ -4212,8 +4181,8 @@ packages:
   decorator-transforms@2.3.0:
     resolution: {integrity: sha512-jo8c1ss9yFPudHuYYcrJ9jpkDZIoi+lOGvt+Uyp9B+dz32i50icRMx9Bfa8hEt7TnX1FyKWKkjV+cUdT/ep2kA==}
 
-  decorator-transforms@2.3.1:
-    resolution: {integrity: sha512-PDOk74Zqqy0946Lx4ckXxbgG6uhPScOICtrxL/pXmfznxchqNee0TaJISClGJQe6FeT8ohGqsOgdjfahm4FwEw==}
+  decorator-transforms@2.3.2:
+    resolution: {integrity: sha512-XcErcjlmCzG5ODgYjt6ZTXwd6S8fPKln/sJmw15ZXkWG2JpoQNwszis+AwF6XSGlOoG7g8MCEO97g+Yw3fk5OQ==}
 
   deep-extend@0.6.0:
     resolution: {integrity: sha512-LOHxIOaPYdHlJRtCQfDIVZtfw/ufM8+rVj649RIHzcm/vGwQRXFt6OPqIFWsm2XEMrNIEtWR64sY1LEKD2vAOA==}
@@ -7291,6 +7260,10 @@ packages:
   postcss-value-parser@4.2.0:
     resolution: {integrity: sha512-1NNCs6uurfkVbeXG4S8JFT9t19m45ICnif8zWLd5oPSZ50QnwMfK+H3jv408d4jw/7Bttv5axS5IiHoLaVNHeQ==}
 
+  postcss@8.5.13:
+    resolution: {integrity: sha512-qif0+jGGZoLWdHey3UFHHWP0H7Gbmsk8T5VEqyYFbWqPr1XqvLGBbk/sl8V5exGmcYJklJOhOQq1pV9IcsiFag==}
+    engines: {node: ^10 || ^12 || >=14}
+
   postcss@8.5.8:
     resolution: {integrity: sha512-OW/rX8O/jXnm82Ey1k44pObPtdblfiuWnrd8X7GJ7emImCOstunGbXUpp7HdBrFQX6rJzn3sPT397Wp5aCwCHg==}
     engines: {node: ^10 || ^12 || >=14}
@@ -7306,8 +7279,8 @@ packages:
     resolution: {integrity: sha512-ravE6m9Atw9Z/jjttRUZ+clIXogdghyZAuWJ3qEzjT+jI/dL1ifAqhZeC5VHzQp1MSt1+jxKkFNemj/iO7tVUA==}
     engines: {node: '>=4'}
 
-  prettier-plugin-ember-template-tag@2.1.3:
-    resolution: {integrity: sha512-FfAvkU+fqDC3Zs8+qGhBHYuwq1DED+UTPMH33QXxivZxRekkItBNXfi1Y+YkIbhCnu6UeTE2aYdbQSLlkOC2bA==}
+  prettier-plugin-ember-template-tag@2.1.5:
+    resolution: {integrity: sha512-AF8Ld5DagbD5V3cw0tkw8youFD9fxsKAR4nowJ41WzgnaFZHXkyw+PnOAWP2ose1rw+Aff3Z7PXFPkn0/CmA5Q==}
     engines: {node: 18.* || >= 20}
     peerDependencies:
       prettier: '>= 3.0.0'
@@ -7317,8 +7290,8 @@ packages:
     engines: {node: '>=10.13.0'}
     hasBin: true
 
-  prettier@3.8.1:
-    resolution: {integrity: sha512-UOnG6LftzbdaHZcKoPFtOcCKztrQ57WkHDeRD9t/PTQtmT0NHSeWWepj6pS0z/N7+08BHFDQVUrfmfMRcZwbMg==}
+  prettier@3.8.3:
+    resolution: {integrity: sha512-7igPTM53cGHMW8xWuVTydi2KO233VFiTNyF5hLJqpilHfmn8C8gPf+PS7dUT64YcXFbiMGZxS9pCSxL/Dxm/Jw==}
     engines: {node: '>=14'}
     hasBin: true
 
@@ -7426,8 +7399,8 @@ packages:
   quick-temp@0.1.8:
     resolution: {integrity: sha512-YsmIFfD9j2zaFwJkzI6eMG7y0lQP7YeWzgtFgNl38pGWZBSXJooZbOWwkcRot7Vt0Fg9L23pX0tqWU3VvLDsiA==}
 
-  qunit-dom@3.5.0:
-    resolution: {integrity: sha512-eemLM5bflWafzmBnwlYbjf9NrjEkV2j7NO7mTvsMzQBJbEaq2zFvUFDtHV9JaK0TT5mgRZt034LCUewYGmjjjQ==}
+  qunit-dom@3.5.1:
+    resolution: {integrity: sha512-ZnvTADVXASdjLxrUDuS/8NaOzadhxN+fZgafjuQV1EOMFd3dJqLkP0RqsGdAxQBxZ7KzKg57AAJO20dM6/PxkA==}
 
   qunit-theme-ember@1.0.0:
     resolution: {integrity: sha512-vdMVVo6ecdCkWttMTKeyq1ZTLGHcA6zdze2zhguNuc3ritlJMhOXY5RDseqazOwqZVfCg3rtlmL3fMUyIzUyFQ==}
@@ -8665,11 +8638,12 @@ packages:
 
   uuid@3.4.0:
     resolution: {integrity: sha512-HjSDRw6gZE5JMggctHBcjVak08+KEVhSIiDzFnT9S9aegmp85S/bReBVTb4QTFaRNptJ9kuYaNhnbNEOkbKb/A==}
-    deprecated: Please upgrade  to version 7 or higher.  Older versions may use Math.random() in certain circumstances, which is known to be problematic.  See https://v8.dev/blog/math-random for details.
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   uuid@8.3.2:
     resolution: {integrity: sha512-+NYs2QeMWy+GWFOEm9xnn6HCDp0l7QBD7ml8zLUmJ+93Q5NF0NocErnwkTkXVFNiX3/fpC6afS8Dhb/gz7R7eg==}
+    deprecated: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
     hasBin: true
 
   v8-compile-cache@2.4.0:
@@ -8789,8 +8763,8 @@ packages:
       postcss:
         optional: true
 
-  vue@3.5.31:
-    resolution: {integrity: sha512-iV/sU9SzOlmA/0tygSmjkEN6Jbs3nPoIPFhCMLD2STrjgOU8DX7ZtzMhg4ahVwf5Rp9KoFzcXeB1ZrVbLBp5/Q==}
+  vue@3.5.33:
+    resolution: {integrity: sha512-1AgChhx5w3ALgT4oK3acm2Es/7jyZhWSVUfs3rOBlGQC0rjEDkS7G4lWlJJGGNQD+BV3reCwbQrOe1mPNwKHBQ==}
     peerDependencies:
       typescript: '*'
     peerDependenciesMeta:
@@ -9281,23 +9255,15 @@ snapshots:
 
   '@babel/generator@7.28.3':
     dependencies:
-      '@babel/parser': 7.29.0
+      '@babel/parser': 7.29.2
       '@babel/types': 7.28.2
-      '@jridgewell/gen-mapping': 0.3.12
-      '@jridgewell/trace-mapping': 0.3.29
-      jsesc: 3.1.0
-
-  '@babel/generator@7.28.5':
-    dependencies:
-      '@babel/parser': 7.29.0
-      '@babel/types': 7.29.0
       '@jridgewell/gen-mapping': 0.3.12
       '@jridgewell/trace-mapping': 0.3.29
       jsesc: 3.1.0
 
   '@babel/generator@7.28.6':
     dependencies:
-      '@babel/parser': 7.29.0
+      '@babel/parser': 7.29.2
       '@babel/types': 7.28.6
       '@jridgewell/gen-mapping': 0.3.12
       '@jridgewell/trace-mapping': 0.3.29
@@ -9681,10 +9647,6 @@ snapshots:
     dependencies:
       '@babel/types': 7.28.2
 
-  '@babel/parser@7.28.5':
-    dependencies:
-      '@babel/types': 7.28.5
-
   '@babel/parser@7.28.6':
     dependencies:
       '@babel/types': 7.28.6
@@ -9869,11 +9831,6 @@ snapshots:
       '@babel/plugin-syntax-private-property-in-object': 7.14.5(@babel/core@7.28.6)
     transitivePeerDependencies:
       - supports-color
-
-  '@babel/plugin-syntax-decorators@7.27.1(@babel/core@7.28.6)':
-    dependencies:
-      '@babel/core': 7.28.6
-      '@babel/helper-plugin-utils': 7.27.1
 
   '@babel/plugin-syntax-decorators@7.28.6(@babel/core@7.28.3)':
     dependencies:
@@ -11103,20 +11060,18 @@ snapshots:
     dependencies:
       regenerator-runtime: 0.13.11
 
-  '@babel/runtime@7.27.6': {}
-
   '@babel/runtime@7.28.6': {}
 
   '@babel/template@7.27.2':
     dependencies:
       '@babel/code-frame': 7.28.6
-      '@babel/parser': 7.29.0
+      '@babel/parser': 7.29.2
       '@babel/types': 7.28.1
 
   '@babel/template@7.28.6':
     dependencies:
       '@babel/code-frame': 7.28.6
-      '@babel/parser': 7.29.0
+      '@babel/parser': 7.29.2
       '@babel/types': 7.28.6
 
   '@babel/traverse@7.28.3':
@@ -11124,21 +11079,9 @@ snapshots:
       '@babel/code-frame': 7.28.6
       '@babel/generator': 7.28.3
       '@babel/helper-globals': 7.28.0
-      '@babel/parser': 7.29.0
+      '@babel/parser': 7.29.2
       '@babel/template': 7.27.2
       '@babel/types': 7.28.2
-      debug: 4.4.1
-    transitivePeerDependencies:
-      - supports-color
-
-  '@babel/traverse@7.28.5':
-    dependencies:
-      '@babel/code-frame': 7.28.6
-      '@babel/generator': 7.28.5
-      '@babel/helper-globals': 7.28.0
-      '@babel/parser': 7.29.0
-      '@babel/template': 7.27.2
-      '@babel/types': 7.28.5
       debug: 4.4.1
     transitivePeerDependencies:
       - supports-color
@@ -11148,7 +11091,7 @@ snapshots:
       '@babel/code-frame': 7.28.6
       '@babel/generator': 7.28.6
       '@babel/helper-globals': 7.28.0
-      '@babel/parser': 7.29.0
+      '@babel/parser': 7.29.2
       '@babel/template': 7.28.6
       '@babel/types': 7.29.0
       debug: 4.4.1
@@ -11160,7 +11103,7 @@ snapshots:
       '@babel/code-frame': 7.28.6
       '@babel/generator': 7.28.6
       '@babel/helper-globals': 7.28.0
-      '@babel/parser': 7.29.0
+      '@babel/parser': 7.29.2
       '@babel/template': 7.28.6
       '@babel/types': 7.29.0
       debug: 4.4.1(supports-color@8.1.1)
@@ -11176,11 +11119,6 @@ snapshots:
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
-
-  '@babel/types@7.28.5':
-    dependencies:
-      '@babel/helper-string-parser': 7.27.1
-      '@babel/helper-validator-identifier': 7.28.5
 
   '@babel/types@7.28.6':
     dependencies:
@@ -11395,33 +11333,33 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@embroider/babel-loader-9@3.1.3(2944cc2c6a409e97b6cc9ebc40efe895)':
+  '@embroider/babel-loader-9@3.1.3(566df4945fe6e03deb336000557d39c4)':
     dependencies:
       '@babel/core': 7.28.6(supports-color@8.1.1)
-      '@embroider/core': 3.5.9
+      '@embroider/core': 3.5.10
       babel-loader: 9.2.1(@babel/core@7.28.6)(webpack@5.104.1)
     transitivePeerDependencies:
       - supports-color
       - webpack
 
-  '@embroider/compat@3.9.3(@embroider/core@3.5.9)':
+  '@embroider/compat@3.9.4(@embroider/core@3.5.10)':
     dependencies:
-      '@babel/code-frame': 7.27.1
+      '@babel/code-frame': 7.28.6
       '@babel/core': 7.28.6
-      '@babel/plugin-syntax-decorators': 7.27.1(@babel/core@7.28.6)
+      '@babel/plugin-syntax-decorators': 7.28.6(@babel/core@7.28.6)
       '@babel/plugin-syntax-dynamic-import': 7.8.3(@babel/core@7.28.6)
       '@babel/plugin-syntax-typescript': 7.27.1(@babel/core@7.28.6)
       '@babel/plugin-transform-runtime': 7.28.5(@babel/core@7.28.6)
       '@babel/preset-env': 7.28.0(@babel/core@7.28.6)
-      '@babel/runtime': 7.27.6
-      '@babel/traverse': 7.28.5
-      '@embroider/core': 3.5.9
+      '@babel/runtime': 7.28.6
+      '@babel/traverse': 7.28.6
+      '@embroider/core': 3.5.10
       '@embroider/macros': 1.19.7(@babel/core@7.28.6)
       '@types/babel__code-frame': 7.0.6
       '@types/yargs': 17.0.33
       assert-never: 1.4.0
       babel-import-util: 2.1.1
-      babel-plugin-ember-template-compilation: 2.3.0
+      babel-plugin-ember-template-compilation: 2.4.1
       babel-plugin-syntax-dynamic-import: 6.18.0
       babylon: 6.18.0
       bind-decorator: 1.0.11
@@ -11512,15 +11450,15 @@ snapshots:
 
   '@embroider/config-meta-loader@1.0.0': {}
 
-  '@embroider/core@3.5.9':
+  '@embroider/core@3.5.10':
     dependencies:
       '@babel/core': 7.28.6
-      '@babel/parser': 7.28.5
-      '@babel/traverse': 7.28.5
+      '@babel/parser': 7.29.2
+      '@babel/traverse': 7.28.6
       '@embroider/macros': 1.19.7(@babel/core@7.28.6)
       '@embroider/shared-internals': 2.9.2
       assert-never: 1.4.0
-      babel-plugin-ember-template-compilation: 2.3.0
+      babel-plugin-ember-template-compilation: 2.4.1
       broccoli-node-api: 1.7.0
       broccoli-persistent-filter: 3.1.3
       broccoli-plugin: 4.0.7
@@ -11582,9 +11520,9 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@embroider/hbs-loader@3.0.5(@embroider/core@3.5.9)(webpack@5.104.1)':
+  '@embroider/hbs-loader@3.0.5(@embroider/core@3.5.10)(webpack@5.104.1)':
     dependencies:
-      '@embroider/core': 3.5.9
+      '@embroider/core': 3.5.10
       webpack: 5.104.1
 
   '@embroider/macros@1.18.1':
@@ -11672,7 +11610,7 @@ snapshots:
       is-subdir: 1.2.0
       js-string-escape: 1.0.1
       lodash: 4.17.21
-      minimatch: 3.1.2
+      minimatch: 3.1.5
       pkg-entry-points: 1.1.1
       resolve-package-path: 4.0.3
       semver: 7.7.2
@@ -11689,7 +11627,7 @@ snapshots:
       is-subdir: 1.2.0
       js-string-escape: 1.0.1
       lodash: 4.17.21
-      minimatch: 3.1.2
+      minimatch: 3.1.5
       pkg-entry-points: 1.1.1
       resolve-package-path: 4.0.3
       semver: 7.7.2
@@ -11706,7 +11644,7 @@ snapshots:
       is-subdir: 1.2.0
       js-string-escape: 1.0.1
       lodash: 4.17.21
-      minimatch: 3.1.2
+      minimatch: 3.1.5
       pkg-entry-points: 1.1.1
       resolve-package-path: 4.0.3
       resolve.exports: 2.0.3
@@ -11724,7 +11662,7 @@ snapshots:
       is-subdir: 1.2.0
       js-string-escape: 1.0.1
       lodash: 4.17.21
-      minimatch: 3.1.2
+      minimatch: 3.1.5
       pkg-entry-points: 1.1.1
       resolve-package-path: 4.0.3
       resolve.exports: 2.0.3
@@ -11784,13 +11722,13 @@ snapshots:
       - supports-color
       - utf-8-validate
 
-  '@embroider/webpack@4.1.2(@embroider/core@3.5.9)(webpack@5.104.1)':
+  '@embroider/webpack@4.1.2(@embroider/core@3.5.10)(webpack@5.104.1)':
     dependencies:
       '@babel/core': 7.28.6(supports-color@8.1.1)
       '@babel/preset-env': 7.28.0(@babel/core@7.28.6)(supports-color@8.1.1)
-      '@embroider/babel-loader-9': 3.1.3(2944cc2c6a409e97b6cc9ebc40efe895)
-      '@embroider/core': 3.5.9
-      '@embroider/hbs-loader': 3.0.5(@embroider/core@3.5.9)(webpack@5.104.1)
+      '@embroider/babel-loader-9': 3.1.3(566df4945fe6e03deb336000557d39c4)
+      '@embroider/core': 3.5.10
+      '@embroider/hbs-loader': 3.0.5(@embroider/core@3.5.10)(webpack@5.104.1)
       '@embroider/shared-internals': 2.9.2(supports-color@8.1.1)
       '@types/supports-color': 8.1.3
       assert-never: 1.4.0
@@ -13089,40 +13027,40 @@ snapshots:
 
   '@ungap/structured-clone@1.3.0': {}
 
-  '@vitejs/plugin-vue@5.2.4(4a7166a3c791ad7a129d1239aa728e30)':
+  '@vitejs/plugin-vue@5.2.4(f32ae14729d7fe8020ea066845e2871b)':
     dependencies:
       vite: 5.4.19
-      vue: 3.5.31(typescript@5.9.3)
+      vue: 3.5.33(typescript@5.9.3)
 
-  '@vue/compiler-core@3.5.31':
+  '@vue/compiler-core@3.5.33':
     dependencies:
       '@babel/parser': 7.29.2
-      '@vue/shared': 3.5.31
+      '@vue/shared': 3.5.33
       entities: 7.0.1
       estree-walker: 2.0.2
       source-map-js: 1.2.1
 
-  '@vue/compiler-dom@3.5.31':
+  '@vue/compiler-dom@3.5.33':
     dependencies:
-      '@vue/compiler-core': 3.5.31
-      '@vue/shared': 3.5.31
+      '@vue/compiler-core': 3.5.33
+      '@vue/shared': 3.5.33
 
-  '@vue/compiler-sfc@3.5.31':
+  '@vue/compiler-sfc@3.5.33':
     dependencies:
       '@babel/parser': 7.29.2
-      '@vue/compiler-core': 3.5.31
-      '@vue/compiler-dom': 3.5.31
-      '@vue/compiler-ssr': 3.5.31
-      '@vue/shared': 3.5.31
+      '@vue/compiler-core': 3.5.33
+      '@vue/compiler-dom': 3.5.33
+      '@vue/compiler-ssr': 3.5.33
+      '@vue/shared': 3.5.33
       estree-walker: 2.0.2
       magic-string: 0.30.21
-      postcss: 8.5.8
+      postcss: 8.5.13
       source-map-js: 1.2.1
 
-  '@vue/compiler-ssr@3.5.31':
+  '@vue/compiler-ssr@3.5.33':
     dependencies:
-      '@vue/compiler-dom': 3.5.31
-      '@vue/shared': 3.5.31
+      '@vue/compiler-dom': 3.5.33
+      '@vue/shared': 3.5.33
 
   '@vue/devtools-api@7.7.7':
     dependencies:
@@ -13142,38 +13080,38 @@ snapshots:
     dependencies:
       rfdc: 1.4.1
 
-  '@vue/reactivity@3.5.31':
+  '@vue/reactivity@3.5.33':
     dependencies:
-      '@vue/shared': 3.5.31
+      '@vue/shared': 3.5.33
 
-  '@vue/runtime-core@3.5.31':
+  '@vue/runtime-core@3.5.33':
     dependencies:
-      '@vue/reactivity': 3.5.31
-      '@vue/shared': 3.5.31
+      '@vue/reactivity': 3.5.33
+      '@vue/shared': 3.5.33
 
-  '@vue/runtime-dom@3.5.31':
+  '@vue/runtime-dom@3.5.33':
     dependencies:
-      '@vue/reactivity': 3.5.31
-      '@vue/runtime-core': 3.5.31
-      '@vue/shared': 3.5.31
+      '@vue/reactivity': 3.5.33
+      '@vue/runtime-core': 3.5.33
+      '@vue/shared': 3.5.33
       csstype: 3.2.3
 
-  '@vue/server-renderer@3.5.31(vue@3.5.31(typescript@5.9.3))':
+  '@vue/server-renderer@3.5.33(vue@3.5.33(typescript@5.9.3))':
     dependencies:
-      '@vue/compiler-ssr': 3.5.31
-      '@vue/shared': 3.5.31
-      vue: 3.5.31(typescript@5.9.3)
+      '@vue/compiler-ssr': 3.5.33
+      '@vue/shared': 3.5.33
+      vue: 3.5.33(typescript@5.9.3)
 
   '@vue/shared@3.5.18': {}
 
-  '@vue/shared@3.5.31': {}
+  '@vue/shared@3.5.33': {}
 
   '@vueuse/core@12.8.2(typescript@5.9.3)':
     dependencies:
       '@types/web-bluetooth': 0.0.21
       '@vueuse/metadata': 12.8.2
       '@vueuse/shared': 12.8.2(typescript@5.9.3)
-      vue: 3.5.31(typescript@5.9.3)
+      vue: 3.5.33(typescript@5.9.3)
     transitivePeerDependencies:
       - typescript
 
@@ -13181,7 +13119,7 @@ snapshots:
     dependencies:
       '@vueuse/core': 12.8.2(typescript@5.9.3)
       '@vueuse/shared': 12.8.2(typescript@5.9.3)
-      vue: 3.5.31(typescript@5.9.3)
+      vue: 3.5.33(typescript@5.9.3)
     optionalDependencies:
       focus-trap: 7.6.5
     transitivePeerDependencies:
@@ -13191,7 +13129,7 @@ snapshots:
 
   '@vueuse/shared@12.8.2(typescript@5.9.3)':
     dependencies:
-      vue: 3.5.31(typescript@5.9.3)
+      vue: 3.5.33(typescript@5.9.3)
     transitivePeerDependencies:
       - typescript
 
@@ -13618,11 +13556,6 @@ snapshots:
     dependencies:
       ember-rfc176-data: 0.3.18
 
-  babel-plugin-ember-template-compilation@2.3.0:
-    dependencies:
-      '@glimmer/syntax': 0.95.0
-      babel-import-util: 3.0.1
-
   babel-plugin-ember-template-compilation@2.4.1:
     dependencies:
       '@glimmer/syntax': 0.95.0
@@ -14023,7 +13956,7 @@ snapshots:
       fast-ordered-set: 1.0.3
       fs-tree-diff: 0.5.9
       heimdalljs: 0.2.6
-      minimatch: 3.1.2
+      minimatch: 3.1.5
       mkdirp: 0.5.6
       path-posix: 1.0.0
       rimraf: 2.7.1
@@ -14039,7 +13972,7 @@ snapshots:
       debug: 4.4.1
       fs-tree-diff: 2.0.1
       heimdalljs: 0.2.6
-      minimatch: 3.1.2
+      minimatch: 3.1.5
       walk-sync: 2.2.0
     transitivePeerDependencies:
       - supports-color
@@ -14890,9 +14823,9 @@ snapshots:
     transitivePeerDependencies:
       - '@babel/core'
 
-  decorator-transforms@2.3.1(@babel/core@7.28.6):
+  decorator-transforms@2.3.2(@babel/core@7.28.6):
     dependencies:
-      '@babel/plugin-syntax-decorators': 7.27.1(@babel/core@7.28.6)
+      '@babel/plugin-syntax-decorators': 7.28.6(@babel/core@7.28.6)
       babel-import-util: 3.0.1
     transitivePeerDependencies:
       - '@babel/core'
@@ -16193,7 +16126,7 @@ snapshots:
 
   ember-router-generator@2.0.0:
     dependencies:
-      '@babel/parser': 7.29.0
+      '@babel/parser': 7.29.2
       '@babel/traverse': 7.28.6
       recast: 0.18.10
     transitivePeerDependencies:
@@ -17563,7 +17496,7 @@ snapshots:
     dependencies:
       inflight: 1.0.6
       inherits: 2.0.4
-      minimatch: 3.1.2
+      minimatch: 3.1.5
       once: 1.4.0
       path-is-absolute: 1.0.1
 
@@ -18286,7 +18219,7 @@ snapshots:
   istanbul-lib-instrument@6.0.3:
     dependencies:
       '@babel/core': 7.28.6
-      '@babel/parser': 7.29.0
+      '@babel/parser': 7.29.2
       '@istanbuljs/schema': 0.1.3
       istanbul-lib-coverage: 3.2.2
       semver: 7.7.2
@@ -18774,7 +18707,7 @@ snapshots:
 
   matcher-collection@1.1.2:
     dependencies:
-      minimatch: 3.1.2
+      minimatch: 3.1.5
 
   matcher-collection@2.0.1:
     dependencies:
@@ -19780,6 +19713,12 @@ snapshots:
 
   postcss-value-parser@4.2.0: {}
 
+  postcss@8.5.13:
+    dependencies:
+      nanoid: 3.3.11
+      picocolors: 1.1.1
+      source-map-js: 1.2.1
+
   postcss@8.5.8:
     dependencies:
       nanoid: 3.3.11
@@ -19792,17 +19731,17 @@ snapshots:
 
   prepend-http@2.0.0: {}
 
-  prettier-plugin-ember-template-tag@2.1.3(prettier@3.8.1):
+  prettier-plugin-ember-template-tag@2.1.5(prettier@3.8.3):
     dependencies:
       '@babel/traverse': 7.28.6
       content-tag: 4.1.0
-      prettier: 3.8.1
+      prettier: 3.8.3
     transitivePeerDependencies:
       - supports-color
 
   prettier@2.8.8: {}
 
-  prettier@3.8.1: {}
+  prettier@3.8.3: {}
 
   pretty-bytes@7.1.0: {}
 
@@ -19887,7 +19826,7 @@ snapshots:
       rimraf: 2.7.1
       underscore.string: 3.3.6
 
-  qunit-dom@3.5.0:
+  qunit-dom@3.5.1:
     dependencies:
       dom-element-descriptors: 0.5.1
 
@@ -21725,7 +21664,7 @@ snapshots:
       '@shikijs/transformers': 2.5.0
       '@shikijs/types': 2.5.0
       '@types/markdown-it': 14.1.2
-      '@vitejs/plugin-vue': 5.2.4(4a7166a3c791ad7a129d1239aa728e30)
+      '@vitejs/plugin-vue': 5.2.4(f32ae14729d7fe8020ea066845e2871b)
       '@vue/devtools-api': 7.7.7
       '@vue/shared': 3.5.18
       '@vueuse/core': 12.8.2(typescript@5.9.3)
@@ -21735,7 +21674,7 @@ snapshots:
       minisearch: 7.1.2
       shiki: 2.5.0
       vite: 5.4.19
-      vue: 3.5.31(typescript@5.9.3)
+      vue: 3.5.33(typescript@5.9.3)
     transitivePeerDependencies:
       - '@algolia/client-search'
       - '@types/node'
@@ -21763,13 +21702,13 @@ snapshots:
       - typescript
       - universal-cookie
 
-  vue@3.5.31(typescript@5.9.3):
+  vue@3.5.33(typescript@5.9.3):
     dependencies:
-      '@vue/compiler-dom': 3.5.31
-      '@vue/compiler-sfc': 3.5.31
-      '@vue/runtime-dom': 3.5.31
-      '@vue/server-renderer': 3.5.31(vue@3.5.31(typescript@5.9.3))
-      '@vue/shared': 3.5.31
+      '@vue/compiler-dom': 3.5.33
+      '@vue/compiler-sfc': 3.5.33
+      '@vue/runtime-dom': 3.5.33
+      '@vue/server-renderer': 3.5.33(vue@3.5.33(typescript@5.9.3))
+      '@vue/shared': 3.5.33
     optionalDependencies:
       typescript: 5.9.3
 
@@ -21805,7 +21744,7 @@ snapshots:
       '@types/minimatch': 3.0.5
       ensure-posix-path: 1.1.1
       matcher-collection: 2.0.1
-      minimatch: 3.1.2
+      minimatch: 3.1.5
 
   walker@1.0.8:
     dependencies:
