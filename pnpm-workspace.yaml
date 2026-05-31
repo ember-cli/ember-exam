@@ -73,4 +73,4 @@ dedupeInjectedDeps: false
 
 overrides:
   # Ember-try brings in old dependencies that include a bad set of private / unpublished glimmer stuff
-  '@glimmer/syntax': '^0.94.0'
+  '@glimmer/syntax': '^0.95.0'
