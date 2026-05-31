@@ -46,7 +46,7 @@
     "@ember/string": "4.0.1",
     "@ember/test-helpers": "5.4.2",
     "@ember/test-waiters": "4.1.1",
-    "@embroider/compat": "4.1.18",
+    "@embroider/compat": "4.1.19",
     "@embroider/config-meta-loader": "1.0.0",
     "@embroider/core": "4.4.7",
     "@embroider/macros": "1.19.7",
