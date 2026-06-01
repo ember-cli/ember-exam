@@ -152,4 +152,117 @@ describe('ExamCommand', function () {
       });
     });
   });
+
+  describe('browser socket events', function () {
+    function createRunner(launcherId) {
+      return {
+        finished: false,
+        launcher: {
+          id: launcherId,
+          settings: { test_page: `browser=${launcherId}` },
+        },
+        finish() {
+          if (this.finished) return;
+          this.finished = true;
+        },
+      };
+    }
+
+    async function flushMicrotasks() {
+      await Promise.resolve();
+      await Promise.resolve();
+    }
+
+    beforeEach(function () {
+      this.command = createCommand();
+      this.command.commands = new Map([
+        ['loadBalance', false],
+        ['writeExecutionFile', false],
+        ['writeModuleMetadataFile', false],
+      ]);
+      this.events = this.command._setupAndGetBrowserSocketEvents({
+        testPage: ['page=1', 'page=2'],
+      });
+    });
+
+    it('counts a browser once on after-tests-complete', function () {
+      const runner = createRunner(1);
+      this.events['tests-start'].call(runner);
+      this.events['after-tests-complete'].call(runner);
+
+      assert.strictEqual(
+        this.command.testemEvents.stateManager.getCompletedBrowser(),
+        1,
+      );
+    });
+
+    it('does not double-count when finish() runs after after-tests-complete', async function () {
+      const runner = createRunner(1);
+      this.events['tests-start'].call(runner);
+      this.events['after-tests-complete'].call(runner);
+      runner.finish();
+      await flushMicrotasks();
+
+      assert.strictEqual(
+        this.command.testemEvents.stateManager.getCompletedBrowser(),
+        1,
+      );
+    });
+
+    it('counts a browser when finish() fires without after-tests-complete', async function () {
+      const runner = createRunner(1);
+      this.events['tests-start'].call(runner);
+      runner.finish();
+      await flushMicrotasks();
+
+      assert.strictEqual(
+        this.command.testemEvents.stateManager.getCompletedBrowser(),
+        1,
+      );
+    });
+
+    it('counts only once across multiple finish() calls', async function () {
+      const runner = createRunner(1);
+      this.events['tests-start'].call(runner);
+      runner.finish();
+      await flushMicrotasks();
+      runner.finish();
+      await flushMicrotasks();
+
+      assert.strictEqual(
+        this.command.testemEvents.stateManager.getCompletedBrowser(),
+        1,
+      );
+    });
+
+    it('does not re-wrap finish on repeat tests-start', function () {
+      const runner = createRunner(1);
+      this.events['tests-start'].call(runner);
+      const wrapped = runner.finish;
+      this.events['tests-start'].call(runner);
+
+      assert.strictEqual(runner.finish, wrapped);
+    });
+
+    it('registers no disconnect handler', function () {
+      assert.strictEqual(this.events['disconnect'], undefined);
+    });
+
+    it('does not reset the module queue when one of two browsers finishes', async function () {
+      const runner1 = createRunner(1);
+      const runner2 = createRunner(2);
+      this.events['tests-start'].call(runner1);
+      this.events['tests-start'].call(runner2);
+      this.command.testemEvents.stateManager.setTestModuleQueue(['foo', 'bar']);
+
+      this.events['after-tests-complete'].call(runner2);
+      runner2.finish();
+      await flushMicrotasks();
+
+      assert.deepEqual(
+        this.command.testemEvents.stateManager.getTestModuleQueue(),
+        ['foo', 'bar'],
+      );
+    });
+  });
 });
