@@ -53,7 +53,7 @@
     "ember-welcome-page": "7.0.2",
     "eslint": "9.39.4",
     "loader.js": "4.7.0",
-    "prettier": "3.8.3",
+    "prettier": "3.8.4",
     "qunit": "2.25.0",
     "qunit-dom": "3.5.1",
     "tracked-built-ins": "3.4.0",
