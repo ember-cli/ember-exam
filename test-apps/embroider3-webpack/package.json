@@ -23,7 +23,7 @@
     "test:ember": "ember test"
   },
   "devDependencies": {
-    "@babel/core": "7.28.6",
+    "@babel/core": "7.29.6",
     "@babel/plugin-proposal-decorators": "7.28.6",
     "@ember/optional-features": "2.3.0",
     "@ember/test-helpers": "5.4.3",
