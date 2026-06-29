@@ -39,7 +39,7 @@
     "ember-exam": "workspace:*"
   },
   "devDependencies": {
-    "@babel/core": "7.28.6",
+    "@babel/core": "7.29.6",
     "@babel/plugin-transform-runtime": "7.28.5",
     "@babel/runtime": "7.28.6",
     "@ember/optional-features": "2.3.0",
