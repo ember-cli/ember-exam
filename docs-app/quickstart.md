@@ -98,7 +98,7 @@ ember exam --path dist --config-file ./testem.cjs
 > Specifying the `--path` is important because otherwise ember-cli will try to build your vite app, and it will error. 
 
 > [!NOTE]
-> Specifying the `--config-path` is important because ember-cli (what backs ember-exam) doesn't know about cjs files. 
+> Specifying the `--config-file` is important because ember-cli (what backs ember-exam) doesn't know about cjs files. 
 
 
 ### broccoli / ember-cli 
