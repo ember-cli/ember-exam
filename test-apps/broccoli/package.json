@@ -23,7 +23,7 @@
     "test:ember": "ember test"
   },
   "devDependencies": {
-    "@babel/core": "7.29.6",
+    "@babel/core": "7.29.7",
     "@babel/plugin-proposal-decorators": "7.28.6",
     "@ember/optional-features": "2.3.0",
     "@ember/string": "4.0.1",
@@ -53,7 +53,7 @@
     "ember-welcome-page": "7.0.2",
     "eslint": "9.39.4",
     "loader.js": "4.7.0",
-    "prettier": "3.8.4",
+    "prettier": "3.8.5",
     "qunit": "2.25.0",
     "qunit-dom": "3.5.1",
     "tracked-built-ins": "3.4.0",
