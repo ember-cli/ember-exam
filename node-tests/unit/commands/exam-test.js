@@ -1,6 +1,7 @@
 'use strict';
 
 const assert = require('assert');
+const semver = require('semver');
 const MockProject = require('ember-cli/tests/helpers/mock-project');
 const Task = require('ember-cli/lib/models/task');
 const RSVP = require('rsvp');
@@ -34,6 +35,22 @@ describe('ExamCommand', function () {
       },
     });
   }
+
+  describe('emberCliVersion', function () {
+    it('uses the resolved ember-cli version, not the declared dependency range', function () {
+      const command = createCommand();
+      command.project.pkg.devDependencies['ember-cli'] =
+        'catalog:ember-ecosystem';
+      command.init();
+
+      const resolved = require('ember-cli/package.json').version;
+      assert.strictEqual(command.emberCliVersion, resolved);
+      assert.ok(
+        semver.validRange(command.emberCliVersion),
+        `expected a valid semver range, got ${command.emberCliVersion}`,
+      );
+    });
+  });
 
   describe('run', function () {
     let command;
