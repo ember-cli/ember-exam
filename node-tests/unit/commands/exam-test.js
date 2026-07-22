@@ -38,11 +38,28 @@ describe('ExamCommand', function () {
 
   describe('emberCliVersion', function () {
     it('uses the resolved ember-cli version, not the declared dependency range', function () {
-      const command = createCommand();
-      command.project.pkg.devDependencies['ember-cli'] =
-        'catalog:ember-ecosystem';
-      command.init();
+      const tasks = {
+        Build: Task.extend(),
+        Test: Task.extend(),
+      };
 
+      const project = new MockProject();
+      project.isEmberCLIProject = function () {
+        return true;
+      };
+      project.pkg = {
+        devDependencies: {
+          'ember-cli': 'catalog:ember-ecosystem',
+        },
+      };
+
+      const command = new ExamCommand({
+        project: project,
+        tasks: tasks,
+        ui: {
+          writeLine: function () {},
+        },
+      });
       const resolved = require('ember-cli/package.json').version;
       assert.strictEqual(command.emberCliVersion, resolved);
       assert.ok(
