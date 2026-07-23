@@ -1,5 +1,22 @@
 # Changelog
 
+## Release (2026-07-23)
+
+* ember-exam 10.1.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-exam`
+  * [#1526](https://github.com/ember-cli/ember-exam/pull/1526) Resolve ember-cli version from its installed package.json (fixes crash with pnpm catalogs) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+  * [#1515](https://github.com/ember-cli/ember-exam/pull/1515) Handle transient browser disconnections ([@davidtaylorhq](https://github.com/davidtaylorhq))
+
+#### :house: Internal
+* `ember-exam`
+  * [#1529](https://github.com/ember-cli/ember-exam/pull/1529) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 2
+- David Taylor ([@davidtaylorhq](https://github.com/davidtaylorhq))
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2025-12-19)
 
 * ember-exam 10.1.0 (minor)
