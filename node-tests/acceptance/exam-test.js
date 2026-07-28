@@ -607,7 +607,7 @@ describe('Acceptance | Exam Command', function () {
         assertOutput(output, 'Browser Id', ['2']);
         assert.strictEqual(
           getNumberOfTests(output),
-          44,
+          48,
           'ran all of the tests for browser two',
         );
       });
