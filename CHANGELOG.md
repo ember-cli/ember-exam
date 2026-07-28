@@ -1,5 +1,21 @@
 # Changelog
 
+## Release (2026-07-28)
+
+* ember-exam 10.1.2 (patch)
+
+#### :bug: Bug Fix
+* `ember-exam`
+  * [#1535](https://github.com/ember-cli/ember-exam/pull/1535) Update test name on tests-start, guard updateTestName against double-prefixing ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :memo: Documentation
+* `ember-exam`
+  * [#1523](https://github.com/ember-cli/ember-exam/pull/1523) docs: wrong mention of config-path. It should be config-file ([@pomm0](https://github.com/pomm0))
+
+#### Committers: 2
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+- [@pomm0](https://github.com/pomm0)
+
 ## Release (2026-07-23)
 
 * ember-exam 10.1.1 (patch)
