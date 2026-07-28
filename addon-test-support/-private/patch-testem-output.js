@@ -9,6 +9,11 @@
  * @return {string} testName
  */
 export function updateTestName(urlParams, testName) {
+  if (testName.includes('Exam Partition') || testName.includes('Browser Id')) {
+    // The test name was already updated, e.g. by the `tests-start` event
+    return testName;
+  }
+
   const split = urlParams.get('split');
   const loadBalance = urlParams.get('loadBalance');
 
@@ -31,12 +36,18 @@ export function updateTestName(urlParams, testName) {
 }
 
 /**
- * Setup testem test-result event to update the test name when a test completes
+ * Setup testem tests-start and test-result events to update the test name
+ * when a test starts and when it completes
  *
  * @function patchTestemOutput
  * @param {Map} urlParams
  */
 export function patchTestemOutput(urlParams) {
+  Testem.on('tests-start', (test) => {
+    if (test?.name) {
+      test.name = updateTestName(urlParams, test.name);
+    }
+  });
   Testem.on('test-result', (test) => {
     test.name = updateTestName(urlParams, test.name);
   });
