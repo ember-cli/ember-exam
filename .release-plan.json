@@ -2,8 +2,8 @@
   "solution": {
     "ember-exam": {
       "impact": "patch",
-      "oldVersion": "10.1.0",
-      "newVersion": "10.1.1",
+      "oldVersion": "10.1.1",
+      "newVersion": "10.1.2",
       "tagName": "latest",
       "constraints": [
         {
@@ -12,11 +12,11 @@
         },
         {
           "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
+          "reason": "Appears in changelog section :memo: Documentation"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2026-07-23)\n\n* ember-exam 10.1.1 (patch)\n\n#### :bug: Bug Fix\n* `ember-exam`\n  * [#1526](https://github.com/ember-cli/ember-exam/pull/1526) Resolve ember-cli version from its installed package.json (fixes crash with pnpm catalogs) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n  * [#1515](https://github.com/ember-cli/ember-exam/pull/1515) Handle transient browser disconnections ([@davidtaylorhq](https://github.com/davidtaylorhq))\n\n#### :house: Internal\n* `ember-exam`\n  * [#1529](https://github.com/ember-cli/ember-exam/pull/1529) Update release-plan ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 2\n- David Taylor ([@davidtaylorhq](https://github.com/davidtaylorhq))\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "## Release (2026-07-28)\n\n* ember-exam 10.1.2 (patch)\n\n#### :bug: Bug Fix\n* `ember-exam`\n  * [#1535](https://github.com/ember-cli/ember-exam/pull/1535) Update test name on tests-start, guard updateTestName against double-prefixing ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* `ember-exam`\n  * [#1523](https://github.com/ember-cli/ember-exam/pull/1523) docs: wrong mention of config-path. It should be config-file ([@pomm0](https://github.com/pomm0))\n\n#### Committers: 2\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n- [@pomm0](https://github.com/pomm0)\n"
 }
