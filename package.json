@@ -41,7 +41,7 @@
     "chalk": "^5.3.0",
     "cli-table3": "^0.6.0",
     "debug": "^4.2.0",
-    "ember-auto-import": "^2.7.0",
+    "ember-auto-import": "^2.13.1",
     "ember-cli-babel": "^8.2.0",
     "execa": "^8.0.1",
     "fs-extra": "^11.2.0",
