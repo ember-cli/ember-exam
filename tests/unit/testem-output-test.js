@@ -99,5 +99,63 @@ module('Unit | patch-testem-output', function () {
         'Exam Partition 2 - Browser Id 1 - test_module | test_name',
       );
     });
+
+    test('does not add partition number again when the test name already contains it', function (assert) {
+      assert.deepEqual(
+        TestemOutput.updateTestName(
+          new Map().set('split', 2).set('partition', 2),
+          'Exam Partition 2 - test_module | test_name',
+        ),
+        'Exam Partition 2 - test_module | test_name',
+      );
+    });
+
+    test('does not add browser number again when the test name already contains it', function (assert) {
+      assert.deepEqual(
+        TestemOutput.updateTestName(
+          new Map().set('loadBalance', 2).set('browser', 1),
+          'Browser Id 1 - test_module | test_name',
+        ),
+        'Browser Id 1 - test_module | test_name',
+      );
+    });
+  });
+
+  module('patchTestemOutput', function (hooks) {
+    let originalTestem;
+    let handlers;
+
+    hooks.beforeEach(function () {
+      originalTestem = window.Testem;
+      handlers = new Map();
+      window.Testem = {
+        on(event, callback) {
+          handlers.set(event, callback);
+        },
+      };
+    });
+
+    hooks.afterEach(function () {
+      window.Testem = originalTestem;
+    });
+
+    test('updates the test name when a test starts and when it completes', function (assert) {
+      TestemOutput.patchTestemOutput(new Map().set('split', 2));
+
+      const test = { name: 'test_module | test_name' };
+      handlers.get('tests-start')(test);
+      assert.deepEqual(test.name, 'Exam Partition 1 - test_module | test_name');
+
+      handlers.get('test-result')(test);
+      assert.deepEqual(test.name, 'Exam Partition 1 - test_module | test_name');
+    });
+
+    test('handles tests-start events without a test name', function (assert) {
+      TestemOutput.patchTestemOutput(new Map().set('split', 2));
+
+      const test = {};
+      handlers.get('tests-start')(test);
+      assert.deepEqual(test.name, undefined);
+    });
   });
 });
