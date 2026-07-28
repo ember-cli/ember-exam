@@ -16,6 +16,18 @@ const command = [
   .filter(Boolean)
   .join(' ');
 
+// Ember 7+ publishes ember-source as a v2 addon without AMD/vendor bundles,
+// so the release/beta/canary scenarios need newer build tooling than this
+// repo's defaults. See https://deprecations.emberjs.com/id/using-amd-bundles
+const ember7Tooling = {
+  'ember-cli': '^6.11.1',
+  'ember-cli-htmlbars': '^7.0.1',
+  '@ember/test-helpers': '^5.4.3',
+  'ember-resolver': '^13.2.0',
+  'ember-qunit': '^9.1.0',
+  '@glimmer/component': '^2.0.0',
+};
+
 module.exports = async function () {
   return {
     command,
@@ -42,6 +54,7 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': await getChannelURL('release'),
+            ...ember7Tooling,
           },
         },
       },
@@ -50,6 +63,7 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': await getChannelURL('beta'),
+            ...ember7Tooling,
           },
         },
       },
@@ -58,6 +72,7 @@ module.exports = async function () {
         npm: {
           devDependencies: {
             'ember-source': await getChannelURL('canary'),
+            ...ember7Tooling,
           },
         },
       },
