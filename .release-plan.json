@@ -2,8 +2,8 @@
   "solution": {
     "ember-exam": {
       "impact": "patch",
-      "oldVersion": "10.1.1",
-      "newVersion": "10.1.2",
+      "oldVersion": "10.1.2",
+      "newVersion": "10.1.3",
       "tagName": "latest",
       "constraints": [
         {
@@ -12,11 +12,11 @@
         },
         {
           "impact": "patch",
-          "reason": "Appears in changelog section :memo: Documentation"
+          "reason": "Appears in changelog section :house: Internal"
         }
       ],
       "pkgJSONPath": "./package.json"
     }
   },
-  "description": "## Release (2026-07-28)\n\n* ember-exam 10.1.2 (patch)\n\n#### :bug: Bug Fix\n* `ember-exam`\n  * [#1535](https://github.com/ember-cli/ember-exam/pull/1535) Update test name on tests-start, guard updateTestName against double-prefixing ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :memo: Documentation\n* `ember-exam`\n  * [#1523](https://github.com/ember-cli/ember-exam/pull/1523) docs: wrong mention of config-path. It should be config-file ([@pomm0](https://github.com/pomm0))\n\n#### Committers: 2\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n- [@pomm0](https://github.com/pomm0)\n"
+  "description": "## Release (2026-08-17)\n\n* ember-exam 10.1.3 (patch)\n\n#### :bug: Bug Fix\n* `ember-exam`\n  * [#1543](https://github.com/ember-cli/ember-exam/pull/1543) Don't crash a load-balanced run to print a log line ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `ember-exam`\n  * [#1536](https://github.com/ember-cli/ember-exam/pull/1536) Fix CI for ember-release/beta/canary (Ember 7) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
 }

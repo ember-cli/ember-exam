@@ -1,5 +1,20 @@
 # Changelog
 
+## Release (2026-08-17)
+
+* ember-exam 10.1.3 (patch)
+
+#### :bug: Bug Fix
+* `ember-exam`
+  * [#1543](https://github.com/ember-cli/ember-exam/pull/1543) Don't crash a load-balanced run to print a log line ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### :house: Internal
+* `ember-exam`
+  * [#1536](https://github.com/ember-cli/ember-exam/pull/1536) Fix CI for ember-release/beta/canary (Ember 7) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))
+
+#### Committers: 1
+- [@NullVoxPopuli](https://github.com/NullVoxPopuli)
+
 ## Release (2026-07-28)
 
 * ember-exam 10.1.2 (patch)
