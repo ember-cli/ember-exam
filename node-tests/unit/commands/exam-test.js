@@ -282,6 +282,27 @@ describe('ExamCommand', function () {
       assert.strictEqual(this.events['disconnect'], undefined);
     });
 
+    it('does not throw when a browser exits before the module queue is set', function () {
+      // The queue is null until some browser emits testem:set-modules-queue, and
+      // null again once drained. A browser exiting in either window used to hit
+      // `getTestModuleQueue().length` in the log line and take the run down with
+      // a TypeError, pre-empting the explicit 'testModuleQueue is not set.' error
+      // a few lines below it.
+      this.command.commands.set('loadBalance', true);
+
+      const runner = createRunner(1);
+
+      this.events['tests-start'].call(runner);
+
+      assert.strictEqual(
+        this.command.testemEvents.stateManager.getTestModuleQueue(),
+        null,
+      );
+      assert.doesNotThrow(() => {
+        this.events['after-tests-complete'].call(runner);
+      });
+    });
+
     it('does not reset the module queue when one of two browsers finishes', async function () {
       const runner1 = createRunner(1);
       const runner2 = createRunner(2);
