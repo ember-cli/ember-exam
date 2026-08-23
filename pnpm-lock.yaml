@@ -139,8 +139,8 @@ importers:
         specifier: 3.8.5
         version: 3.8.5
       prettier-plugin-ember-template-tag:
-        specifier: 2.1.7
-        version: 2.1.7(prettier@3.8.5)
+        specifier: 2.1.8
+        version: 2.1.8(prettier@3.8.5)
       qunit:
         specifier: 2.25.0
         version: 2.25.0
@@ -406,8 +406,8 @@ importers:
         specifier: 3.8.5
         version: 3.8.5
       prettier-plugin-ember-template-tag:
-        specifier: 2.1.7
-        version: 2.1.7(prettier@3.8.5)
+        specifier: 2.1.8
+        version: 2.1.8(prettier@3.8.5)
       qunit:
         specifier: 2.25.0
         version: 2.25.0
@@ -509,8 +509,8 @@ importers:
         specifier: 3.8.5
         version: 3.8.5
       prettier-plugin-ember-template-tag:
-        specifier: 2.1.7
-        version: 2.1.7(prettier@3.8.5)
+        specifier: 2.1.8
+        version: 2.1.8(prettier@3.8.5)
       qunit:
         specifier: 2.25.0
         version: 2.25.0
@@ -2744,6 +2744,7 @@ packages:
   '@xmldom/xmldom@0.8.14':
     resolution: {integrity: sha512-T4EDRUBVZYRldYApjEJiU0e1stYWaRAX7CuSnKzrpwdZKo53zGV8/pqfzV6FfwNl9YThD2OumQYvqtvjvgG7aQ==}
     engines: {node: '>=10.0.0'}
+    deprecated: this version has critical issues, please update to the latest version
 
   '@xtuc/ieee754@1.2.0':
     resolution: {integrity: sha512-DX8nKgqcGwsc0eJSqYt5lwP4DH5FlHnmuWWBRy7X0NcaGR0ZtuyeESgMwTYVEtxmsNGY+qit4QYT/MIYTOTPeA==}
@@ -4699,6 +4700,7 @@ packages:
   eslint@9.39.5:
     resolution: {integrity: sha512-DgZS62aPLXKlnxILS/AYCoRvHaZeXceIzlXPkkGGzJWSow1aEk0lbTlxUSlyjC8jcaKxAdOnTDz+o1JFSBsyjw==}
     engines: {node: ^18.18.0 || ^20.9.0 || >=21.1.0}
+    deprecated: This version is no longer supported. Please see https://eslint.org/version-support for other options.
     hasBin: true
     peerDependencies:
       jiti: '*'
@@ -7157,8 +7159,8 @@ packages:
     resolution: {integrity: sha512-ravE6m9Atw9Z/jjttRUZ+clIXogdghyZAuWJ3qEzjT+jI/dL1ifAqhZeC5VHzQp1MSt1+jxKkFNemj/iO7tVUA==}
     engines: {node: '>=4'}
 
-  prettier-plugin-ember-template-tag@2.1.7:
-    resolution: {integrity: sha512-NQS/a03LCefDbOJ1o0NeN+4VdfZRJt6NBp6/5yLMXTQ2TNT4fkcbhfXkvcgl7lN9nmssm6GweX51G/CAEvtazg==}
+  prettier-plugin-ember-template-tag@2.1.8:
+    resolution: {integrity: sha512-ioLdBFoZ11kuiuFF9/bGwHgzjiU3vQVOF1rQhcuEqGc1jmKBH+G3i3BL2yHGum2Z2IQOE/7MPstYo5iAU0Uhlw==}
     engines: {node: 18.* || >= 20}
     peerDependencies:
       prettier: '>= 3.0.0'
@@ -18666,7 +18668,7 @@ snapshots:
 
   prepend-http@2.0.0: {}
 
-  prettier-plugin-ember-template-tag@2.1.7(prettier@3.8.5):
+  prettier-plugin-ember-template-tag@2.1.8(prettier@3.8.5):
     dependencies:
       '@babel/traverse': 7.29.8
       content-tag: 4.2.0
