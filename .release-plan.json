@@ -1,22 +1,8 @@
 {
   "solution": {
     "ember-exam": {
-      "impact": "patch",
-      "oldVersion": "10.1.2",
-      "newVersion": "10.1.3",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :bug: Bug Fix"
-        },
-        {
-          "impact": "patch",
-          "reason": "Appears in changelog section :house: Internal"
-        }
-      ],
-      "pkgJSONPath": "./package.json"
+      "oldVersion": "10.1.3"
     }
   },
-  "description": "## Release (2026-08-17)\n\n* ember-exam 10.1.3 (patch)\n\n#### :bug: Bug Fix\n* `ember-exam`\n  * [#1543](https://github.com/ember-cli/ember-exam/pull/1543) Don't crash a load-balanced run to print a log line ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### :house: Internal\n* `ember-exam`\n  * [#1536](https://github.com/ember-cli/ember-exam/pull/1536) Fix CI for ember-release/beta/canary (Ember 7) ([@NullVoxPopuli](https://github.com/NullVoxPopuli))\n\n#### Committers: 1\n- [@NullVoxPopuli](https://github.com/NullVoxPopuli)\n"
+  "description": "\n\n\n\n"
 }
