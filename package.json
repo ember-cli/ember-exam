@@ -93,7 +93,7 @@
     "ember-source": ">= 4.0.0",
     "qunit": "*"
   },
-  "packageManager": "pnpm@10.34.5",
+  "packageManager": "pnpm@12.4.2",
   "engines": {
     "node": ">= 18"
   },
