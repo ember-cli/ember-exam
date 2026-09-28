@@ -23,11 +23,15 @@
 /CHANGELOG.md
 /CONTRIBUTING.md
 /config/
+/docs-app/
 /ember-cli-build.js
 /node-tests/
+/.release-plan.json
 /RELEASE.md
+/test-apps/
 /testem*.js
 /tests/
+/pnpm-workspace.yaml
 /yarn.lock
 /*.tgz
 .gitkeep
