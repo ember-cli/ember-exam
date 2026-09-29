@@ -8,7 +8,8 @@ const semver = require('semver');
 const readTestemConfig = require('../../../lib/utils/config-reader');
 
 const fixturifyDir = 'tmp/fixture';
-const HAS_REQUIRE_ESM = semver.gte(process.version, '22.12.0');
+const HAS_ESM_REQUIRE = semver.gte(process.version, '22.12.0');
+const HAS_STRIP_TYPES = semver.gte(process.version, '23.6.0');
 
 describe('ConfigReader | readTestemConfig', function () {
   beforeEach(function () {
@@ -68,17 +69,12 @@ describe('ConfigReader | readTestemConfig', function () {
     );
   });
 
-  // These tests exercise the extension-routing code added by this change
-  // (potentialConfigFiles + _readFileByType switch). Fixtures deliberately
-  // use pure-JS syntax that is also valid TypeScript: nyc's monkey-patching
-  // of Module._compile interferes with Node's native strip-types transformer,
-  // so a fixture that relied on stripping type annotations would fail under
-  // coverage even though the same file loads cleanly in production. Type
-  // stripping itself is Node's responsibility; what this suite verifies is
-  // that ember-exam routes the new extensions through require and unwraps
-  // ESM default exports correctly.
-  (HAS_REQUIRE_ESM ? describe : describe.skip)(
-    'ESM and TypeScript configs (Node >= 22.12)',
+  // Fixtures use pure-JS syntax that is also valid TypeScript.
+  // nyc's monkey-patching of Module._compile prevents Node from stripping types.
+  // A fixture with real type annotations would fail under coverage even though it loads cleanly outside nyc.
+  // These tests cover extension routing and ESM default unwrap. Type stripping is Node's job.
+  (HAS_ESM_REQUIRE ? describe : describe.skip)(
+    'ESM configs (Node >= 22.12)',
     function () {
       it('reads a specified `.mjs` file and returns the ESM default export', function () {
         fixturify.writeSync(fixturifyDir, {
@@ -90,7 +86,12 @@ describe('ConfigReader | readTestemConfig', function () {
           'bar',
         );
       });
+    },
+  );
 
+  (HAS_STRIP_TYPES ? describe : describe.skip)(
+    'TypeScript configs (Node >= 23.6)',
+    function () {
       it('reads a specified `.ts` file and returns the ESM default export', function () {
         fixturify.writeSync(fixturifyDir, {
           'testem.ts-file.ts': "export default { foo: 'bar' };\n",
