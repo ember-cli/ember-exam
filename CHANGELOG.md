@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2026-09-30)
+
+* ember-exam 10.2.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-exam`
+  * [#1561](https://github.com/ember-cli/ember-exam/pull/1561) Support ESM (.mjs) and TypeScript (.ts) testem config files ([@gbudjeakp](https://github.com/gbudjeakp))
+
+#### Committers: 1
+- Xzebaztian ([@gbudjeakp](https://github.com/gbudjeakp))
+
 ## Release (2026-08-17)
 
 * ember-exam 10.1.3 (patch)
