@@ -1,18 +1,8 @@
 {
   "solution": {
     "ember-exam": {
-      "impact": "minor",
-      "oldVersion": "10.1.3",
-      "newVersion": "10.2.0",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        }
-      ],
-      "pkgJSONPath": "./package.json"
+      "oldVersion": "10.2.0"
     }
   },
-  "description": "## Release (2026-09-30)\n\n* ember-exam 10.2.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-exam`\n  * [#1561](https://github.com/ember-cli/ember-exam/pull/1561) Support ESM (.mjs) and TypeScript (.ts) testem config files ([@gbudjeakp](https://github.com/gbudjeakp))\n\n#### Committers: 1\n- Xzebaztian ([@gbudjeakp](https://github.com/gbudjeakp))\n"
+  "description": "\n\n\n\n"
 }
