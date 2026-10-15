@@ -1,5 +1,18 @@
 # Changelog
 
+## Release (2026-10-15)
+
+* ember-exam 10.2.1 (patch)
+
+#### :bug: Bug Fix
+* `ember-exam`
+  * [#1551](https://github.com/ember-cli/ember-exam/pull/1551) chore: trim npm package to exclude test-apps/, docs-app/, and other dev-only files ([@runspired](https://github.com/runspired))
+  * [#1566](https://github.com/ember-cli/ember-exam/pull/1566) Remove Browser Exit Logging ([@jrjohnson](https://github.com/jrjohnson))
+
+#### Committers: 2
+- Chris Thoburn ([@runspired](https://github.com/runspired))
+- Jon Johnson ([@jrjohnson](https://github.com/jrjohnson))
+
 ## Release (2026-09-30)
 
 * ember-exam 10.2.0 (minor)
