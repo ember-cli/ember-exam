@@ -12,7 +12,7 @@ function assertExpectRejection() {
   assert.ok(false, 'Expected promise to reject, but it fullfilled');
 }
 
-const TOTAL_NUM_TESTS = 71; // Total Number of tests without the global 'Ember.onerror validation tests'
+const TOTAL_NUM_TESTS = 73; // Total Number of tests without the global 'Ember.onerror validation tests'
 
 function getTotalNumberOfTests(output) {
   // In ember-qunit 3.4.0, this new check was added: https://github.com/emberjs/ember-qunit/commit/a7e93c4b4b535dae62fed992b46c00b62bfc83f4
@@ -426,6 +426,92 @@ describe('Acceptance | Exam Command', function () {
       });
     });
 
+    describe('Split Timings', function () {
+      const timingsPath = path.join(process.cwd(), 'split-timings.json');
+
+      function examPartition(partition) {
+        return execa('ember', [
+          'exam',
+          '--path',
+          'acceptance-dist',
+          '--split',
+          '2',
+          '--partition',
+          `${partition}`,
+          '--load-balance',
+          '--parallel',
+          '1',
+          '--split-timings',
+          timingsPath,
+        ]).then((child) => child.stdout);
+      }
+
+      function testNames(output) {
+        return output
+          .split('\n')
+          .filter((line) => /^ok \d+/.test(line))
+          .filter((line) => !line.includes('Ember.onerror validation'));
+      }
+
+      afterEach(() => {
+        fs.removeSync(timingsPath);
+      });
+
+      it('splits by recorded timings so the partitions together run every test once', async function () {
+        const recording = await execa('ember', [
+          'exam',
+          '--path',
+          'acceptance-dist',
+          '--load-balance',
+          '--parallel',
+          '2',
+          '--write-timings-file',
+        ]);
+        const recordedPath = path.join(
+          process.cwd(),
+          recording.stdout.match(/test-timings-([0-9]*).json/g)[0],
+        );
+        unlinkFiles.push(recordedPath);
+
+        const { modules } = fs.readJsonSync(recordedPath);
+        assert.ok(
+          Object.values(modules).every((duration) => duration >= 0),
+          'every module has a duration',
+        );
+
+        modules['dummy/tests/unit/test-loader-test'] = 10000000;
+        fs.writeJsonSync(timingsPath, { modules });
+
+        const first = await examPartition(1);
+        const second = await examPartition(2);
+
+        assert.ok(
+          testNames(first).every((line) => line.includes('Unit | test-loader')),
+          'the slowest module gets a partition of its own',
+        );
+        assert.strictEqual(
+          testNames(first).length + testNames(second).length,
+          TOTAL_NUM_TESTS,
+          'the partitions together ran every test once',
+        );
+      });
+
+      it('splits by file count when the timings file cannot be read', async function () {
+        const first = await examPartition(1);
+        const second = await examPartition(2);
+
+        assert.ok(
+          first.includes('Could not read the split-timings file'),
+          'warns about the missing file',
+        );
+        assert.strictEqual(
+          testNames(first).length + testNames(second).length,
+          TOTAL_NUM_TESTS,
+          'the partitions together ran every test once',
+        );
+      });
+    });
+
     describe('Failure Cases', function () {
       const destPath = path.join(
         __dirname,
@@ -549,7 +635,7 @@ describe('Acceptance | Exam Command', function () {
         assertOutput(output, 'Browser Id', [1]);
         assert.strictEqual(
           getNumberOfTests(output),
-          25,
+          27,
           'ran all of the tests for browser one',
         );
       });
