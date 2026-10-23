@@ -231,4 +231,38 @@ module('Unit | test-loader', function (hooks) {
       'testem:set-modules-queue event was fired',
     );
   });
+
+  test('emits only its own partition to the load-balance queue', async function (assert) {
+    const emitted = [];
+    this.testem.emit = (event, modules) => emitted.push(modules);
+    const testLoader = new EmberExamTestLoader(
+      this.testem,
+      new Map().set('loadBalance', true).set('split', 2).set('partition', 1),
+      this.qunit,
+    );
+
+    await testLoader.loadModules();
+
+    assert.deepEqual(emitted, [['test-1-test', 'test-3-test']]);
+  });
+
+  test('emits all modules to the load-balance queue when it splits by timings', async function (assert) {
+    const emitted = [];
+    this.testem.emit = (event, modules) => emitted.push(modules);
+    const testLoader = new EmberExamTestLoader(
+      this.testem,
+      new Map()
+        .set('loadBalance', true)
+        .set('split', 2)
+        .set('partition', 1)
+        .set('splitTimings', true),
+      this.qunit,
+    );
+
+    await testLoader.loadModules();
+
+    assert.deepEqual(emitted, [
+      ['test-1-test', 'test-2-test', 'test-3-test', 'test-4-test'],
+    ]);
+  });
 });

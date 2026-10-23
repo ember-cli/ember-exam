@@ -54,6 +54,25 @@ describe('TestemEvents', function () {
       );
     });
 
+    it('set TestModuleQueue to the partition split by timings when split timings are set', function () {
+      this.testemEvents.setSplitTimings(
+        { foo: 1, bar: 9, baz: 5, boo: 5 },
+        2,
+        [2],
+      );
+      this.testemEvents.setModuleQueue(
+        1,
+        ['foo', 'bar', 'baz', 'boo'],
+        true,
+        false,
+      );
+
+      assert.deepEqual(this.testemEvents.stateManager.getTestModuleQueue(), [
+        'baz',
+        'boo',
+      ]);
+    });
+
     it('set replayExecutionModuleQueue for replay-execution mode', function () {
       this.testemEvents.setReplayExecutionMap(testExecutionJsonPath, ['1']);
       this.testemEvents.setModuleQueue('1', this.moduleQueue, false, true);
@@ -144,6 +163,40 @@ describe('TestemEvents', function () {
         'No moduleQueue error was thrown',
       );
     });
+
+    it('should record how long each module took when write-timings-file is true', function () {
+      const realNow = Date.now;
+      const times = [1000, 1250, 1600];
+      Date.now = () => times.shift();
+
+      try {
+        this.testemEvents.stateManager.setTestModuleQueue(['foo', 'bar']);
+        this.testemEvents.nextModuleResponse(1, socket, false, true);
+        this.testemEvents.nextModuleResponse(1, socket, false, true);
+        this.testemEvents.nextModuleResponse(1, socket, false, true);
+      } finally {
+        Date.now = realNow;
+      }
+
+      assert.deepEqual(
+        [...this.testemEvents.stateManager.getModuleTimings()],
+        [
+          ['foo', 250],
+          ['bar', 350],
+        ],
+      );
+    });
+
+    it('should not record module timings when write-timings-file is false', function () {
+      this.testemEvents.stateManager.setTestModuleQueue(['foo']);
+      this.testemEvents.nextModuleResponse(1, socket, false, false);
+      this.testemEvents.nextModuleResponse(1, socket, false, false);
+
+      assert.strictEqual(
+        this.testemEvents.stateManager.getModuleTimings().size,
+        0,
+      );
+    });
   });
 
   describe('recordFailedBrowserId', function () {
@@ -225,6 +278,33 @@ describe('TestemEvents', function () {
           1: ['a'],
         },
       });
+    });
+
+    it('should write test-timings file sorted by module name when write-timings-file is true', function () {
+      this.testemEvents.stateManager.recordModuleStart(1, 'b', 0);
+      this.testemEvents.stateManager.recordModuleStart(1, 'a', 30);
+      this.testemEvents.stateManager.recordModuleStart(1, undefined, 50);
+      this.testemEvents.stateManager.addToStartedLaunchers(1010);
+
+      this.testemEvents.completedBrowsersHandler(
+        1,
+        1,
+        mockUi,
+        new Map([
+          ['loadBalance', true],
+          ['writeTimingsFile', true],
+        ]),
+        '0000',
+      );
+
+      const actual = fs.readFileSync(
+        path.join(fixtureDir, 'test-timings-0000.json'),
+      );
+
+      assert.strictEqual(
+        actual.toString(),
+        JSON.stringify({ modules: { a: 20, b: 30 } }, null, 2) + '\n',
+      );
     });
 
     it('should write module-run-details file and cleanup state when completedBrowsers equals browserCount, load-balance is true, and write-execution-file is false', function () {
