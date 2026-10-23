@@ -173,8 +173,8 @@ importers:
         specifier: 5.9.3
         version: 5.9.3
       vite:
-        specifier: 7.3.6
-        version: 7.3.6
+        specifier: 7.3.7
+        version: 7.3.7
       vitepress:
         specifier: 1.6.4
         version: 1.6.4(60caaf6aa9535b521f0a70adf07043b1)
@@ -459,7 +459,7 @@ importers:
         version: 1.19.7(@babel/core@7.29.7)
       '@embroider/vite':
         specifier: 1.5.2
-        version: 1.5.2(@embroider/core@4.4.7)(vite@7.3.6)
+        version: 1.5.2(@embroider/core@4.4.7)(vite@7.3.7)
       '@glimmer/component':
         specifier: 2.0.0
         version: 2.0.0
@@ -518,8 +518,8 @@ importers:
         specifier: 3.17.0
         version: 3.17.0
       vite:
-        specifier: 7.3.6
-        version: 7.3.6
+        specifier: 7.3.7
+        version: 7.3.7
 
 packages:
 
@@ -8605,8 +8605,8 @@ packages:
       terser:
         optional: true
 
-  vite@7.3.6:
-    resolution: {integrity: sha512-4XP60spRGjSZFf1qYH+dJIkK2znL3zQfl9KkOV9MkkRR/3Dls0dxaBsQPTloEc5BLXWPL9vsOxopxyKoMmDueg==}
+  vite@7.3.7:
+    resolution: {integrity: sha512-AHEzTORMbi7/7aXp7w7KZ5+DCUdSeLsJz0grY8xHpc9DHdYb0vQu6DqJfm2tOw3gDExNgPgnJTXxM6syYFHaCA==}
     engines: {node: ^20.19.0 || >=22.12.0}
     hasBin: true
     peerDependencies:
@@ -10751,7 +10751,7 @@ snapshots:
       lodash: 4.18.1
       resolve: 1.22.13
 
-  '@embroider/vite@1.5.2(@embroider/core@4.4.7)(vite@7.3.6)':
+  '@embroider/vite@1.5.2(@embroider/core@4.4.7)(vite@7.3.7)':
     dependencies:
       '@babel/core': 7.29.7
       '@embroider/core': 4.4.7
@@ -10770,7 +10770,7 @@ snapshots:
       send: 0.18.0
       source-map-url: 0.4.1
       terser: 5.51.2
-      vite: 7.3.6
+      vite: 7.3.7
     transitivePeerDependencies:
       - '@glint/template'
       - bufferutil
@@ -20504,7 +20504,7 @@ snapshots:
     optionalDependencies:
       fsevents: 2.3.3
 
-  vite@7.3.6:
+  vite@7.3.7:
     dependencies:
       esbuild: 0.28.2
       fdir: 6.5.0(picomatch@4.0.7)
