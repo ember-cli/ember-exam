@@ -6,6 +6,7 @@ const MockProject = require('ember-cli/tests/helpers/mock-project');
 const Task = require('ember-cli/lib/models/task');
 const RSVP = require('rsvp');
 const sinon = require('sinon');
+const fs = require('fs-extra');
 
 const ExamCommand = require('../../../lib/commands/exam');
 
@@ -183,6 +184,66 @@ describe('ExamCommand', function () {
     it('should set split env var', function () {
       return command.run({ split: 5 }).then(function () {
         assert.strictEqual(process.env.EMBER_EXAM_SPLIT_COUNT, '5');
+      });
+    });
+
+    describe('with `split-timings`', function () {
+      const timingsPath = 'tmp/split-timings/test-timings.json';
+
+      beforeEach(function () {
+        fs.outputJsonSync(timingsPath, { modules: { foo: 10, bar: 5 } });
+      });
+
+      afterEach(function () {
+        fs.removeSync('tmp/split-timings');
+      });
+
+      it('should hand the split over to the load-balance queue', function () {
+        return command
+          .run({
+            split: 2,
+            partition: [2],
+            loadBalance: true,
+            parallel: 1,
+            splitTimings: timingsPath,
+          })
+          .then(function () {
+            assert.strictEqual(
+              called.testRunOptions.query,
+              'split=2&loadBalance&splitTimings',
+            );
+            assert.deepEqual(command.testemEvents.splitTimings, {
+              timings: { foo: 10, bar: 5 },
+              split: 2,
+              partitions: [2],
+            });
+          });
+      });
+
+      it('should leave the split to the browser when the timings file cannot be read', function () {
+        const lines = [];
+        command.ui.writeLine = (line) => lines.push(line);
+
+        return command
+          .run({
+            split: 2,
+            partition: [2],
+            loadBalance: true,
+            parallel: 1,
+            splitTimings: 'tmp/split-timings/missing.json',
+          })
+          .then(function () {
+            assert.strictEqual(
+              called.testRunOptions.query,
+              'split=2&loadBalance',
+            );
+            assert.strictEqual(command.testemEvents.splitTimings, null);
+            assert.ok(
+              lines.some((line) =>
+                line.includes('Could not read the split-timings file'),
+              ),
+            );
+          });
       });
     });
   });

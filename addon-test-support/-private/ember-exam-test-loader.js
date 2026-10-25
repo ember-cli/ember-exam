@@ -100,11 +100,14 @@ export default class EmberExamTestLoader extends TestLoader {
 
     if (loadBalance && this._testem) {
       this.setupLoadBalanceHandlers();
-      this._testModules = splitTestModules(
-        weightTestModules(this._testModules),
-        split,
-        partitions,
-      );
+      // With `--split-timings` the load-balance queue splits all modules by their recorded timings
+      this._testModules = this._urlParams.get('splitTimings')
+        ? weightTestModules(this._testModules)
+        : splitTestModules(
+            weightTestModules(this._testModules),
+            split,
+            partitions,
+          );
 
       this._testem.emit(
         'testem:set-modules-queue',

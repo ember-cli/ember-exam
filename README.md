@@ -23,6 +23,7 @@ The [documentation website](https://ember-cli.github.io/ember-exam/) contains ex
     + [Split Test Parallelization](#split-test-parallelization)
   * [Test Load Balancing](#test-load-balancing)
       - [Test Failure Reproduction](#test-failure-reproduction)
+      - [Splitting By Recorded Timings](#splitting-by-recorded-timings)
   * [Preserve Test Name](#preserve-test-name)
 - [Advanced Configuration](#advanced-configuration)
   * [Ember Try & CI Integration](#ember-try--ci-integration)
@@ -462,6 +463,37 @@ $ ember exam --replay-execution=test-execution-000000.json
 1. You must be using `ember-cli` version 3.2.0 or greater for load-balnce and test failure reproduction features to work properly.
 2. You must be using `ember-qunit` version 4.1.1 or greater for this feature to work properly.
 3. You must be using `qunit` version 2.8.0 or greater for this feature to work properly.
+
+##### Splitting By Recorded Timings
+
+`--split` deals test files out to partitions in turn, so each partition gets about the same number of files, not the same amount of work. When a few slow files land in the same partition, that partition takes much longer than the others.
+
+With `--load-balance`, Ember Exam can record how long each test file took and split the next run by those timings instead:
+
+```bash
+# Records the duration of each test file and writes it to test-timings-<timestamp>.json in the root directory
+$ ember exam --split=<num> --partition=<num> --parallel=<num> --load-balance --write-timings-file
+
+# Splits the test files into partitions of similar total duration
+$ ember exam --split=<num> --partition=<num> --parallel=<num> --load-balance --split-timings=test-timings.json
+```
+
+The timings file maps each test file to its duration in milliseconds:
+
+```json
+{
+  "modules": {
+    "my-app/tests/acceptance/login-test": 5320,
+    "my-app/tests/unit/utils/format-test": 41
+  }
+}
+```
+
+When you run partitions on separate machines, each machine records only its own files. Merge their `modules` objects into one file before the next run, and give every machine the same file: each one computes the split on its own, so they only agree on it when they read the same timings.
+
+A test file missing from the timings, such as a new one, is expected to take the median duration of the recorded files of the same type (acceptance, integration or unit). If the timings file cannot be read, Ember Exam splits by file count as usual, so the first run can record timings with the same command.
+
+Within a partition, the browsers pick up the longest test files first, so no browser is left running one slow file after the others are done.
 
 #### Preserve Test Name
 
