@@ -34,7 +34,7 @@
     "@glimmer/component": "2.0.0",
     "@glimmer/tracking": "1.1.2",
     "broccoli-asset-rev": "3.0.0",
-    "concurrently": "9.2.4",
+    "concurrently": "9.2.5",
     "ember-auto-import": "2.12.1",
     "ember-cli": "6.9.1",
     "ember-cli-app-version": "7.0.0",
