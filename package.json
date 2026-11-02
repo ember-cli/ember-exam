@@ -73,7 +73,7 @@
     "ember-try": "3.0.0",
     "eslint": "9.39.5",
     "fixturify": "3.0.0",
-    "glob": "11.1.0",
+    "glob": "14.0.2",
     "globals": "16.5.0",
     "loader.js": "4.7.0",
     "mocha": "11.7.6",
