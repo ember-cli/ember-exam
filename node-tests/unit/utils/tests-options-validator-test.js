@@ -29,8 +29,6 @@ describe('TestOptionsValidator', function () {
         return validator.validateReplayExecution();
       case 'SplitTimings':
         return validator.validateSplitTimings();
-      case 'WriteTimingsFile':
-        return validator.validateWriteTimingsFile();
       default:
         throw new Error('invalid command passed');
     }
@@ -402,7 +400,7 @@ describe('TestOptionsValidator', function () {
     it('should throw an error if `split-timings` is used without `load-balance`', function () {
       shouldThrow(
         'SplitTimings',
-        { split: 2, splitTimings: 'test-timings.json' },
+        { split: 2, splitTimings: 'test-execution.json' },
         /You must run test suite with the `load-balance` and `split` options in order to use the `split-timings` option./,
       );
     });
@@ -410,7 +408,7 @@ describe('TestOptionsValidator', function () {
     it('should throw an error if `split-timings` is used without `split`', function () {
       shouldThrow(
         'SplitTimings',
-        { loadBalance: true, parallel: 2, splitTimings: 'test-timings.json' },
+        { loadBalance: true, parallel: 2, splitTimings: 'test-execution.json' },
         /You must run test suite with the `load-balance` and `split` options in order to use the `split-timings` option./,
       );
     });
@@ -422,26 +420,8 @@ describe('TestOptionsValidator', function () {
           loadBalance: true,
           parallel: 2,
           split: 2,
-          splitTimings: 'test-timings.json',
+          splitTimings: 'test-execution.json',
         },
-        true,
-      );
-    });
-  });
-
-  describe('shouldWriteTimingsFile', function () {
-    it('should throw an error if `write-timings-file` is used without `load-balance`', function () {
-      shouldThrow(
-        'WriteTimingsFile',
-        { split: 2, partition: 1, writeTimingsFile: true },
-        /You must run test suite with the `load-balance` option in order to use the `write-timings-file` option./,
-      );
-    });
-
-    it('should return true', function () {
-      shouldEqual(
-        'WriteTimingsFile',
-        { loadBalance: true, parallel: 2, writeTimingsFile: true },
         true,
       );
     });

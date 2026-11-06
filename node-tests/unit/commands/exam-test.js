@@ -188,10 +188,10 @@ describe('ExamCommand', function () {
     });
 
     describe('with `split-timings`', function () {
-      const timingsPath = 'tmp/split-timings/test-timings.json';
+      const timingsPath = 'tmp/split-timings/test-execution.json';
 
       beforeEach(function () {
-        fs.outputJsonSync(timingsPath, { modules: { foo: 10, bar: 5 } });
+        fs.outputJsonSync(timingsPath, { moduleTimings: { foo: 10, bar: 5 } });
       });
 
       afterEach(function () {

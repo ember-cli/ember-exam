@@ -164,16 +164,16 @@ describe('TestemEvents', function () {
       );
     });
 
-    it('should record how long each module took when write-timings-file is true', function () {
+    it('should record how long each module took when write-execution-file is true', function () {
       const realNow = Date.now;
       const times = [1000, 1250, 1600];
       Date.now = () => times.shift();
 
       try {
         this.testemEvents.stateManager.setTestModuleQueue(['foo', 'bar']);
-        this.testemEvents.nextModuleResponse(1, socket, false, true);
-        this.testemEvents.nextModuleResponse(1, socket, false, true);
-        this.testemEvents.nextModuleResponse(1, socket, false, true);
+        this.testemEvents.nextModuleResponse(1, socket, true);
+        this.testemEvents.nextModuleResponse(1, socket, true);
+        this.testemEvents.nextModuleResponse(1, socket, true);
       } finally {
         Date.now = realNow;
       }
@@ -187,10 +187,10 @@ describe('TestemEvents', function () {
       );
     });
 
-    it('should not record module timings when write-timings-file is false', function () {
+    it('should not record module timings when write-execution-file is false', function () {
       this.testemEvents.stateManager.setTestModuleQueue(['foo']);
-      this.testemEvents.nextModuleResponse(1, socket, false, false);
-      this.testemEvents.nextModuleResponse(1, socket, false, false);
+      this.testemEvents.nextModuleResponse(1, socket, false);
+      this.testemEvents.nextModuleResponse(1, socket, false);
 
       assert.strictEqual(
         this.testemEvents.stateManager.getModuleTimings().size,
@@ -277,10 +277,11 @@ describe('TestemEvents', function () {
         executionMapping: {
           1: ['a'],
         },
+        moduleTimings: {},
       });
     });
 
-    it('should write test-timings file sorted by module name when write-timings-file is true', function () {
+    it('should write module timings sorted by module name to the test-execution file', function () {
       this.testemEvents.stateManager.recordModuleStart(1, 'b', 0);
       this.testemEvents.stateManager.recordModuleStart(1, 'a', 30);
       this.testemEvents.stateManager.recordModuleStart(1, undefined, 50);
@@ -292,19 +293,19 @@ describe('TestemEvents', function () {
         mockUi,
         new Map([
           ['loadBalance', true],
-          ['writeTimingsFile', true],
+          ['writeExecutionFile', true],
         ]),
         '0000',
       );
 
-      const actual = fs.readFileSync(
-        path.join(fixtureDir, 'test-timings-0000.json'),
+      const actual = JSON.parse(
+        fs.readFileSync(path.join(fixtureDir, 'test-execution-0000.json')),
       );
 
-      assert.strictEqual(
-        actual.toString(),
-        JSON.stringify({ modules: { a: 20, b: 30 } }, null, 2) + '\n',
-      );
+      assert.deepEqual(Object.entries(actual.moduleTimings), [
+        ['a', 20],
+        ['b', 30],
+      ]);
     });
 
     it('should write module-run-details file and cleanup state when completedBrowsers equals browserCount, load-balance is true, and write-execution-file is false', function () {

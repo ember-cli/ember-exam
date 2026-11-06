@@ -465,22 +465,22 @@ describe('Acceptance | Exam Command', function () {
           '--load-balance',
           '--parallel',
           '2',
-          '--write-timings-file',
+          '--write-execution-file',
         ]);
         const recordedPath = path.join(
           process.cwd(),
-          recording.stdout.match(/test-timings-([0-9]*).json/g)[0],
+          recording.stdout.match(/test-execution-([0-9]*).json/g)[0],
         );
         unlinkFiles.push(recordedPath);
 
-        const { modules } = fs.readJsonSync(recordedPath);
+        const { moduleTimings } = fs.readJsonSync(recordedPath);
         assert.ok(
-          Object.values(modules).every((duration) => duration >= 0),
+          Object.values(moduleTimings).every((duration) => duration >= 0),
           'every module has a duration',
         );
 
-        modules['dummy/tests/unit/test-loader-test'] = 10000000;
-        fs.writeJsonSync(timingsPath, { modules });
+        moduleTimings['dummy/tests/unit/test-loader-test'] = 10000000;
+        fs.writeJsonSync(timingsPath, { moduleTimings });
 
         const first = await examPartition(1);
         const second = await examPartition(2);
