@@ -55,6 +55,24 @@ describe('splitByTimings', function () {
     );
   });
 
+  it('spreads modules evenly when no timings were recorded', function () {
+    const modules = [
+      'tests/a-test',
+      'tests/b-test',
+      'tests/c-test',
+      'tests/d-test',
+    ];
+
+    assert.deepEqual(splitByTimings(modules, {}, 2, [1]), [
+      'tests/a-test',
+      'tests/c-test',
+    ]);
+    assert.deepEqual(splitByTimings(modules, {}, 2, [2]), [
+      'tests/b-test',
+      'tests/d-test',
+    ]);
+  });
+
   it('splits modules with equal durations by name', function () {
     const sameTimings = { 'tests/b-test': 5, 'tests/a-test': 5 };
 
