@@ -76,6 +76,11 @@ export default class EmberExamTestLoader extends TestLoader {
       partitions = [partitions];
     }
 
+    if (this._urlParams.get('splitTimings')) {
+      split = 1;
+      partitions = [1];
+    }
+
     if (!availableModules) {
       super.loadModules();
     } else {

@@ -27,6 +27,8 @@ describe('TestOptionsValidator', function () {
         return validator.validateLoadBalance();
       case 'ReplayExecution':
         return validator.validateReplayExecution();
+      case 'SplitTimings':
+        return validator.validateSplitTimings();
       default:
         throw new Error('invalid command passed');
     }
@@ -388,6 +390,37 @@ describe('TestOptionsValidator', function () {
         {
           replayExecution: 'test-execution-0000000.json',
           replayBrowser: [1, 2],
+        },
+        true,
+      );
+    });
+  });
+
+  describe('shouldSplitTimings', function () {
+    it('should throw an error if `split-timings` is used without `load-balance`', function () {
+      shouldThrow(
+        'SplitTimings',
+        { split: 2, splitTimings: 'test-execution.json' },
+        /You must run test suite with the `load-balance` and `split` options in order to use the `split-timings` option./,
+      );
+    });
+
+    it('should throw an error if `split-timings` is used without `split`', function () {
+      shouldThrow(
+        'SplitTimings',
+        { loadBalance: true, parallel: 2, splitTimings: 'test-execution.json' },
+        /You must run test suite with the `load-balance` and `split` options in order to use the `split-timings` option./,
+      );
+    });
+
+    it('should return true', function () {
+      shouldEqual(
+        'SplitTimings',
+        {
+          loadBalance: true,
+          parallel: 2,
+          split: 2,
+          splitTimings: 'test-execution.json',
         },
         true,
       );

@@ -166,4 +166,28 @@ describe('ExecutionStateManager', function () {
       assert.strictEqual(fooModuleMetadata.failedTests.length, 1);
     });
   });
+
+  describe('moduleTimings', function () {
+    it('records the time between a browser starting two modules', function () {
+      this.stateManager.recordModuleStart(1, 'foo', 100);
+      this.stateManager.recordModuleStart(2, 'bar', 120);
+      this.stateManager.recordModuleStart(1, 'baz', 400);
+
+      assert.deepEqual(
+        [...this.stateManager.getModuleTimings()],
+        [['foo', 300]],
+      );
+    });
+
+    it('records the last module once the browser finds the queue empty', function () {
+      this.stateManager.recordModuleStart(1, 'foo', 100);
+      this.stateManager.recordModuleStart(1, undefined, 150);
+      this.stateManager.recordModuleStart(1, undefined, 900);
+
+      assert.deepEqual(
+        [...this.stateManager.getModuleTimings()],
+        [['foo', 50]],
+      );
+    });
+  });
 });
