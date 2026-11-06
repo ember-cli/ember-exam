@@ -1,5 +1,16 @@
 # Changelog
 
+## Release (2026-11-06)
+
+* ember-exam 10.3.0 (minor)
+
+#### :rocket: Enhancement
+* `ember-exam`
+  * [#1570](https://github.com/ember-cli/ember-exam/pull/1570) Split partitions by recorded test file timings ([@tniezurawski](https://github.com/tniezurawski))
+
+#### Committers: 1
+- Tomek Nieżurawski ([@tniezurawski](https://github.com/tniezurawski))
+
 ## Release (2026-10-15)
 
 * ember-exam 10.2.1 (patch)
