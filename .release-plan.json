@@ -1,18 +1,8 @@
 {
   "solution": {
     "ember-exam": {
-      "impact": "minor",
-      "oldVersion": "10.2.1",
-      "newVersion": "10.3.0",
-      "tagName": "latest",
-      "constraints": [
-        {
-          "impact": "minor",
-          "reason": "Appears in changelog section :rocket: Enhancement"
-        }
-      ],
-      "pkgJSONPath": "./package.json"
+      "oldVersion": "10.3.0"
     }
   },
-  "description": "## Release (2026-11-06)\n\n* ember-exam 10.3.0 (minor)\n\n#### :rocket: Enhancement\n* `ember-exam`\n  * [#1570](https://github.com/ember-cli/ember-exam/pull/1570) Split partitions by recorded test file timings ([@tniezurawski](https://github.com/tniezurawski))\n\n#### Committers: 1\n- Tomek Nieżurawski ([@tniezurawski](https://github.com/tniezurawski))\n"
+  "description": "\n\n\n\n"
 }
